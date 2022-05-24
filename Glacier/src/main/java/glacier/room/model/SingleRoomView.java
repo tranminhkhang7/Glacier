@@ -7,6 +7,7 @@ package glacier.room.model;
 import glacier.user.model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +29,8 @@ public class SingleRoomView extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    
     private static final String ERROR = "SingleRoom.jsp";               // change this after adding session
     private static final String SUCCESS = "SingleRoom.jsp";
     private static final int TEST = 10;                                 // test value, delete this when merging
@@ -36,17 +39,20 @@ public class SingleRoomView extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            HttpSession session = request.getSession();
-            Account role = (Account) session.getAttribute("role");
+//            HttpSession session = request.getSession();
+//            Account role = (Account) session.getAttribute("role");
+            String role = "tenant";                                     // this set default access delete this when merging
             if (!role.equals("tenant")){                                // set privillage only tenant can see other room details 
                 url = ERROR;
                 request.setAttribute("ERROR", "WRONG PRIVILLAGE");
             }
             if (role.equals("tenant")) {
-                int id = Integer.parseInt(request.getParameter("id"));  // get room id to view
+//                int id = Integer.parseInt(request.getParameter("id"));  // get room id to view
                 RoomDAO dao = new RoomDAO();
                 Room room = dao.getRoomById(TEST);                      // replace TEST with id when merging
+                ArrayList<String> ImgList = dao.getRoomImgById(TEST);
                 request.setAttribute("room", room);
+                request.setAttribute("ImgList", ImgList);
                 url=SUCCESS;
             }
         }

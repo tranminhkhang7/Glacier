@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -19,7 +20,9 @@ public class RoomDAO {
     private Connection conn = null;
     private PreparedStatement pstm = null;
     private ResultSet rs = null;
-
+    
+    
+    
     public void closeConnection() throws SQLException {
         if (rs != null) {
             rs.close();
@@ -51,7 +54,7 @@ public class RoomDAO {
                     String emailTenant=rs.getString("emailTenant");
                     String emailLandlord = rs.getString("emailLandlord");
                     String status = rs.getString("status");
-                    float price = rs.getFloat("price");
+                    int price = Math.round(rs.getFloat("price"));
                     float deposit = rs.getFloat("deposit");
                     float rating = rs.getFloat("avg_rating");
                     Date date_added = rs.getDate("date_added");
@@ -67,4 +70,37 @@ public class RoomDAO {
             return room;
         }
     }
+    public ArrayList<String> getRoomImgById(int roomID) throws SQLException, Exception{
+        ArrayList<String> ImgList = new ArrayList<>();
+        try{
+            conn = DBUtils.getConnection();
+            String sql = "select image_link\n" +
+            "from ImagesRoom join Room on ImagesRoom.roomID=Room.roomID\n" +
+            "where Room.roomID=?";
+            if (conn != null) {            
+                pstm = conn.prepareStatement(sql);
+                pstm.setInt(1, roomID);
+                rs = pstm.executeQuery();
+                while (rs.next()){
+                   String url = rs.getString("image_link").trim();
+                   ImgList.add(url);
+                }
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        } 
+        finally {
+            closeConnection();
+            return ImgList;
+        }
+    }
+//    public static void main(String[] args) throws SQLException, Exception {
+//        RoomDAO dao = new RoomDAO();
+//        ArrayList<String> l = dao.getRoomImgById(10);
+//        for (String i:l){
+//            System.out.println(i);
+//        }
+//    }
 }
+

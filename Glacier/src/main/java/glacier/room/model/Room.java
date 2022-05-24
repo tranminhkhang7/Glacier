@@ -19,7 +19,7 @@ public class Room {
     private String emailTenant;
     private String emailLandlord;
     private String status;
-    private float price;
+    private int price;
     private float deposit;
     private float avgRating;
     private Date date_added;
@@ -29,7 +29,7 @@ public class Room {
     public Room() {
     }
 
-    public Room(int roomID, String name, String description, String address, String emailTenant, String emailLandlord, String status, float price, float deposit, float avgRating, Date date_added, float area, String detailAddress) {
+    public Room(int roomID, String name, String description, String address, String emailTenant, String emailLandlord, String status, int price, float deposit, float avgRating, Date date_added, float area, String detailAddress) {
         this.roomID = roomID;
         this.name = name;
         this.description = description;
@@ -104,11 +104,11 @@ public class Room {
         this.status = status;
     }
 
-    public float getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
