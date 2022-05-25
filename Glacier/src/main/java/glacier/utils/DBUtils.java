@@ -7,6 +7,7 @@ package glacier.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import javax.servlet.http.HttpSession;
 
 /**
  *

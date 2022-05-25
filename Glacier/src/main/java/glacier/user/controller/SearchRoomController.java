@@ -8,7 +8,6 @@ package glacier.user.controller;
 import glacier.room.dbmanager.RoomManager;
 import glacier.room.model.Room;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -45,7 +44,6 @@ public class SearchRoomController extends HttpServlet {
             int currentPage = Integer.parseInt(indexPage);
 
             String searchText = (String) request.getParameter("keyword");
-            System.out.println(searchText);
             if (searchText == null) {
                 searchText = "";
             }
@@ -74,6 +72,7 @@ public class SearchRoomController extends HttpServlet {
             request.setAttribute("currentPage", currentPage);
 //            request.setAttribute("allTag", allTag);
             request.setAttribute("list", listResult);
+            
             RequestDispatcher rd = request.getRequestDispatcher("/searchpage.jsp");
             rd.forward(request, response);
         } catch (Exception e) {

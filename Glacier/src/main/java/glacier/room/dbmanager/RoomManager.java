@@ -8,7 +8,7 @@ package glacier.room.dbmanager;
 import glacier.room.model.Room;
 import glacier.utils.DBUtils;
 import java.sql.Connection;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class RoomManager {
 
-    // This method is calculating the total number of rooms that matches the keyWord
+    // This method is calculating the total number of rooms that matches the keyword
     public int countMatched(String searchText) { // searchText: the key words user typed; index: page number
         try {
             for (int i = 0; i < searchText.length(); i++) {
@@ -106,19 +106,16 @@ public class RoomManager {
 //            }
             sql += "ORDER BY R.[roomID]\n";
             sql += "OFFSET " + (index - 1) * 16 + " ROWS FETCH NEXT 16 ROWS ONLY";
-          
             
             Connection con = DBUtils.getConnection();
             PreparedStatement st = con.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-
-            
             
             ArrayList<Room> list;
             list = new ArrayList<Room>();
 
             while (rs.next()) {
-                String roomID = rs.getString("roomID");
+                int roomID = rs.getInt("roomID");
                 String nameRoom = rs.getString("nameRoom");
                 String cutDescription = rs.getString("cutDescription");
                 String address = rs.getString("address");

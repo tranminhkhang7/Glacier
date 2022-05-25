@@ -435,7 +435,7 @@
                     <!--============ Page Title =========================================================================-->
                     <div class="page-title">
                         <div class="container">
-                            <h1>Are these what you looking for?</h1>
+                            <h1>Are these what you looking for hello?</h1>
                         </div>
                         <!--end container-->
                     </div>
@@ -500,7 +500,7 @@
                                         <div class="price">${room.price}đ</div>
                                         <div class="meta">
                                             <figure>
-                                                <i class="fa fa-calendar-o"></i>${room.dateAdded}
+                                                <i class="fa fa-calendar-o"></i>${room.date_added}
                                             </figure>
                                             <figure>
                                                 <a href="#">
