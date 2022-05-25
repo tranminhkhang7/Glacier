@@ -5,6 +5,8 @@
  */
 package glacier.room.model;
 
+import java.sql.Date;
+
 /**
  *
  * @author ASUS
@@ -17,14 +19,17 @@ public class Room {
     private String emailTenant;
     private String emailLandlord;
     private String status;
-    private float price;
+    private int price;
     private float deposit;
     private float avgRating;
+    private String detailAddress;
+    private float area;
+    private Date dateAdded;
 
     public Room() {
     }
 
-    public Room(String roomID, String name, String description, String address, String emailTenant, String emailLandlord, String status, float price, float deposit, float avgRating) {
+    public Room(String roomID, String name, String description, String address, String emailTenant, String emailLandlord, String status, int price, float deposit, float avgRating) {
         this.roomID = roomID;
         this.name = name;
         this.description = description;
@@ -37,6 +42,20 @@ public class Room {
         this.avgRating = avgRating;
     }
 
+    //This contruction is for Search function.
+    //The emailLandlord does not contain email, it contains landlord's name instead.
+    public Room(String roomID, String name, String description, String address, String emailLandlord, int price, Date dateAdded) {
+        this.roomID = roomID;
+        this.name = name;
+        this.description = description;
+        this.address = address;
+        this.emailLandlord = emailLandlord;
+        this.price = price;
+        this.dateAdded = dateAdded;
+    }
+
+    
+    
     public String getRoomID() {
         return roomID;
     }
@@ -93,11 +112,11 @@ public class Room {
         this.status = status;
     }
 
-    public float getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -117,6 +136,33 @@ public class Room {
         this.avgRating = avgRating;
     }
 
+    public String getDetailAddress() {
+        return detailAddress;
+    }
+
+    public void setDetailAddress(String detailAddress) {
+        this.detailAddress = detailAddress;
+    }
+
+    public float getArea() {
+        return area;
+    }
+
+    public void setArea(float area) {
+        this.area = area;
+    }
+
+    public Date getDateAdded() {
+        return dateAdded;
+    }
+
+    public void setDateAdded(Date dateAdded) {
+        this.dateAdded = dateAdded;
+    }
+
+    
+    
+    
     @Override
     public String toString() {
         return "Room{" + "roomID=" + roomID + ", name=" + name + ", description=" + description + ", address=" + address + ", emailTenant=" + emailTenant + ", emailLandlord=" + emailLandlord + ", status=" + status + ", price=" + price + ", deposit=" + deposit + ", avgRating=" + avgRating + '}';

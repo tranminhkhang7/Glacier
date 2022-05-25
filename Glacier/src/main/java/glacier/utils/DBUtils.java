@@ -23,9 +23,9 @@ public class DBUtils {
         return DriverManager.getConnection(url, userID, password);
     }
     private final static String serverName = "localhost";
-    private final static String dbName = "A_Corner_Of_Books";
+    private final static String dbName = "Glacier";
     private final static String portNumber = "1433";
     private final static String instance = "";//LEAVE THIS ONE EMPTY IF YOUR SQL IS A SINGLE INSTANCE
     private final static String userID = "sa";
-    private final static String password = "khoa";
+    private final static String password = "khangtm";
 }
