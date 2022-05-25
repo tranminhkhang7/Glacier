@@ -56,7 +56,7 @@ public class RegisterController extends HttpServlet {
             }else{
                 boolean checkInsert = manager.insertAccount(acc);
                 if(checkInsert){
-                    if("Tenant".equals(role)){
+                    if("tenant".equals(role)){
                         Tenant t = new Tenant(email, name,  status, gender, phone);
                         checkInsertUser = manager.insertUser(t, null);
                         if(checkInsertUser){
@@ -64,7 +64,7 @@ public class RegisterController extends HttpServlet {
                             return;
                         }
                     }else{
-                        Landlord l = new Landlord(email, name, status, gender, phone);
+                        Landlord l = new Landlord(email, name, gender, phone);
                         checkInsertUser = manager.insertUser(null, l);
                         if(checkInsertUser){
                             response.sendRedirect("login");
