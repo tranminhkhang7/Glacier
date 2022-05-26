@@ -7,10 +7,7 @@ package glacier.room.model;
 
 import java.util.Date;
 
-/**
- *
- * @author ASUS
- */
+
 public class Room {
     private int roomID;
     private String name;
@@ -29,6 +26,7 @@ public class Room {
     public Room() {
     }
 
+
     public Room(int roomID, String name, String description, String address, String emailTenant, String emailLandlord, String status, int price, float deposit, float avgRating, Date date_added, float area, String detailAddress) {
         this.roomID = roomID;
         this.name = name;
@@ -45,9 +43,18 @@ public class Room {
         this.detailAddress = detailAddress;
     }
 
-    
+    //This contruction is for Search function.
+    //The emailLandlord does not contain email, it contains landlord's name instead.
+    public Room(int roomID, String name, String description, String address, String emailLandlord, int price, Date date_added) {
+        this.roomID = roomID;
+        this.name = name;
+        this.description = description;
+        this.address = address;
+        this.emailLandlord = emailLandlord;
+        this.price = price;
+        this.date_added = date_added;
+    }
 
-    
     public int getRoomID() {
         return roomID;
     }
