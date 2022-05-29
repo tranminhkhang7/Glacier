@@ -1,12 +1,11 @@
 <%-- 
-    Document   : login
-    Created on : May 21, 2022, 3:37:20 PM
+    Document   : register
+    Created on : May 21, 2022, 5:37:15 PM
     Author     : ASUS
 --%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -24,29 +23,12 @@
 
     </head>
     <body>
-        <%
-            try {
-
-                Cookie arr[] = request.getCookies();
-                if (arr.length > 0) {
-                    for (Cookie cookie : arr) {
-                        if (cookie.getName().equals("userid")) {
-                            request.setAttribute("username", cookie.getValue());
-                        }
-                        if (cookie.getName().equals("pass")) {
-                            request.setAttribute("password", cookie.getValue());
-                        }
-                    }
-                }
-            } catch (Exception e) {
-                log(e.getMessage());
-            }
-        %>
         <div class="page sub-page">
             <!--*********************************************************************************************************-->
             <!--************ HERO ***************************************************************************************-->
             <!--*********************************************************************************************************-->
-            <section class="hero">
+            <!--end hero-->
+                        <section class="hero">
                 <div class="hero-wrapper">
                     <!--============ Secondary Navigation ===============================================================-->
 
@@ -300,18 +282,18 @@
                                     <!--Main navigation list-->
                                 </div>
                                 <!--end navbar-collapse-->
-                                <!--                                <a href="#collapseMainSearchForm" class="main-search-form-toggle" data-toggle="collapse"  aria-expanded="false" aria-controls="collapseMainSearchForm">
-                                                                    <i class="fa fa-search"></i>
-                                                                    <i class="fa fa-close"></i>
-                                                                </a>-->
+<!--                                <a href="#collapseMainSearchForm" class="main-search-form-toggle" data-toggle="collapse"  aria-expanded="false" aria-controls="collapseMainSearchForm">
+                                    <i class="fa fa-search"></i>
+                                    <i class="fa fa-close"></i>
+                                </a>-->
                                 <!--end main-search-form-toggle-->
                             </nav>
                             <!--end navbar-->
-                            <!--                            <ol class="breadcrumb">
-                                                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                                            <li class="breadcrumb-item"><a href="#">Library</a></li>
-                                                            <li class="breadcrumb-item active">Data</li>
-                                                        </ol>-->
+<!--                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item"><a href="#">Library</a></li>
+                                <li class="breadcrumb-item active">Data</li>
+                            </ol>-->
                             <!--end breadcrumb-->
                         </div>
                         <!--end container-->
@@ -443,7 +425,7 @@
                     <!--============ Page Title =========================================================================-->
                     <div class="page-title">
                         <div class="container">
-                            <h1>Sign In</h1>
+                            <h1>Personal Information</h1>
                         </div>
                         <!--end container-->
                     </div>
@@ -451,66 +433,68 @@
                     <div class="background">
                         <div class="background-image">
                             <img src="${pageContext.request.contextPath}/assets/img/hero-background-image-02.jpg" alt="">
-                        </div>
                     </div>
-
+                    </div>
+                    
                     <!--end background-->
                 </div>
                 <!--end hero-wrapper-->
             </section>
             <!--end hero-->
-
             <!--*********************************************************************************************************-->
             <!--************ CONTENT ************************************************************************************-->
             <!--*********************************************************************************************************-->
+            
             <section class="content">
                 <section class="block">
-                    <div class="container">
+                    <div class="container">                        
                         <div class="row justify-content-center">
-                            <!--div for wrong password or email when login
-                            <div class="" style="color: red; background-color: rgb(242, 242, 109); height: 50px; line-height: 50px; text-align: center;">!!! Your email or password is not correct</div>
-                            -->
-
-                            <div class="col-md-4">
-                                <c:if test="${not empty requestScope.ERROR_MSG}">
-                                    <div class="" style="color: red; background-color: rgb(242, 242, 109); height: 50px; line-height: 50px; text-align: center;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Your email or password is not correct</div>
-                                </c:if>
-                                <c:if test="${not empty sessionScope.ERROR_MSG}">
-                                    <div class="" style="color: red; background-color: rgb(242, 242, 109); height: 50px; line-height: 50px; text-align: center;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ${sessionScope.ERROR_MSG}</div>
-                                </c:if>
-                                <form class="form clearfix" action="${pageContext.request.contextPath}/login" method="post">
+                            <div class="col-xl-4 col-lg-5 col-md-6 col-sm-8">
+                                <form class="form clearfix" action="${pageContext.request.contextPath}/information" method="post">
                                     <div class="form-group">
-                                        <label for="email" class="col-form-label required">Email</label>
-                                        <input name="email" type="email" class="form-control" id="email" placeholder="Your Email" value="${username}" required style="width: 95%">
+                                        <label for="name" class="col-form-label required">Your Name</label>
+                                        <input name="name" type="text" class="form-control" id="name" placeholder="Your Name" required onkeyup="nameLengthCheck()">
+                                        <span id="name_message" style="text-align: right;"></span>
                                     </div>
                                     <!--end form-group-->
                                     <div class="form-group">
-                                        <label for="password" class="col-form-label required" style="display: block">Password</label>
-                                        <input name="password" type="password" class="form-control" id="password" placeholder="Password" value="${password}" required style="display: inline-block; width: 95%"><i class="fa fa-eye" id="visibilityBtn" style="margin-left: -30px; position: relative; cursor: pointer" onclick="myFunction()"></i>
-                                    </div> 
+                                        <label for="email" class="col-form-label required">Email</label>
+                                        <input name="email" type="email" class="form-control" id="email" value="${sessionScope.GOOGLE_USER.email}" placeholder="Your Email" readonly="" required>
+                                    </div>
+                                    
+                                    <!--end form-group-->
+                                    <div class="form-group">
+                                        <label for="phone" class="col-form-label required">Phone number</label>
+                                        <input name="phone" type="tel" class="form-control" id="phone" placeholder="Phone number" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" required>
+                                        
+                                    </div>
+                                    <!--end form-group-->
+                                    <div class="form-group">
+                                        <label for="hehe" class="col-form-label required">Who do you want to be</label>
+                                        <select id="hehe" name="role">
+                                            <option value="Tenant">Tenant</option>
+                                            <option value="Landlord">Landlord</option>
+                                        </select>
+                                    </div>
+                                    <!--end form-group-->
+                                    <div class="form-group">
+                                        <label for="Gender" class="col-form-label required">Gender</label>
+                                        <div id="Gender"></div>
+                                        <span style="padding-right: 20px;">Male</span><input name="gender" value="male" type="radio" class="form-control" id="Male" checked>
+                                        <span style="padding-right: 20px;">Female</span><input name="gender" value="female" type="radio" class="form-control" id="Female">
+                                    </div>
                                     <!--end form-group-->
                                     <div class="d-flex justify-content-between align-items-baseline">
-                                        <label>
-                                            <input type="checkbox" name="remember" value="1">
-                                            Remember Me
+                                        <label for="log-link">Already has account?
+                                            <br><a id="log-link" href="${pageContext.request.contextPath}/login" class="link"> Sign-in <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
                                         </label>
-                                        <button type="submit" class="btn btn-primary">Sign In</button>
+                                        <button type="submit" class="btn btn-danger">Register</button>
                                     </div>
                                 </form>
                                 <hr>
                                 <p>
-                                    Troubles with signing? <a href="#" class="link">Click here.</a>
+                                    By clicking "Register" button, you agree with our <a href="#" class="link">Terms & Conditions.</a>
                                 </p>
-
-                                <hr>
-                                <p>
-                                    Don't have an account yet? <a href="${pageContext.request.contextPath}/register" class="link">Sign-up</a>
-                                </p>
-                                <hr><p style="font-size:large; text-align: center;">Or Continue With: </p>
-                                <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=http://localhost:8080/Glacier/LoginGoogleHandler&response_type=code&client_id=312274839783-ikrqeojtbm6kq3r83i6hgkbee8uib7co.apps.googleusercontent.com&approval_prompt=force">
-                                    <img style="display: block; margin-left: auto; margin-right: auto;" src="https://salt.tikicdn.com/ts/upload/1c/ac/e8/141c68302262747f5988df2aae7eb161.png" width="50" height="50" /></a>
-
-
                             </div>
                             <!--end col-md-6-->
                         </div>
@@ -525,7 +509,7 @@
             <!--*********************************************************************************************************-->
             <!--************ FOOTER *************************************************************************************-->
             <!--*********************************************************************************************************-->
-            <section class="footer">
+            <footer class="footer">
                 <div class="wrapper">
                     <div class="container">
                         <div class="row">
@@ -612,31 +596,11 @@
                     </div>
                     <!--end background-->
                 </div>
-            </section>
+            </footer>
             <!--end footer-->
         </div>
         <!--end page-->
-        <script>
-            const visibilityBtn = document.getElememtById("visibilityBtn");
-            visibilityBtn.addEventListener("click", toogleVisibility);
-            function myFunction() {
-                const passwordInput = document.getElementById("password");
-                if (passwordInput.type === "password") {
-                    passwordInput.type = "text";
-                    document.getElementById("visibilityBtn").className = "fa fa-eye-slash";
-                } else {
-                    passwordInput.type = "password";
-                    document.getElementById("visibilityBtn").className = "fa fa-eye";
-                }
 
-//                var x = document.getElementById("password");
-//                if (x.type === "password") {
-//                    x.type = "text";
-//                } else {
-//                    x.type = "password";
-//                }
-            }
-        </script>
         <script src="${pageContext.request.contextPath}/assets/js/jquery-3.3.1.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/popper.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/assets/bootstrap/js/bootstrap.min.js"></script>
@@ -646,7 +610,36 @@
         <script src="${pageContext.request.contextPath}/assets/js/icheck.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/jquery.validate.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/custom.js"></script>
-
+        <script>
+            function check() {
+                var length = document.getElementById("repeat_password").value.length;
+                if (document.getElementById("password").value === document.getElementById("repeat_password").value && (length >5 && length <30)) {
+                    document.getElementById("message").innerHTML = "✔ Matched";
+                    document.getElementById("message").style.color = "green";
+                        } else {
+                        document.getElementById("message").innerHTML = "✖ The confirm didn't match";
+                        document.getElementById("message").style.color = "red";
+                        }
+                    }
+            function lengthCheck(){
+                var titleElement = document.getElementById("password").value; 
+                if(titleElement.length < 5 || titleElement.length > 30){
+                    document.getElementById("length_message").innerHTML = "Password should be in 5-30 letters";
+                    document.getElementById("length_message").style.color = "red";
+                }else{
+                    document.getElementById("length_message").innerHTML = "";
+                }
+            }
+            function nameLengthCheck(){
+                var titleElement = document.getElementById("name").value; 
+                if(titleElement.length < 5 || titleElement.length > 30){
+                    document.getElementById("name_message").innerHTML = "Name should be in 5-30 letters";
+                    document.getElementById("name_message").style.color = "red";
+                }else{
+                    document.getElementById("name_message").innerHTML = "";
+                }
+            }
+        </script>
     </body>
 </html>
 

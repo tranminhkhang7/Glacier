@@ -5,9 +5,8 @@
  */
 package glacier.user.controller;
 
-import glacier.user.model.Account;
-import glacier.user.model.Landlord;
-import glacier.user.model.Tenant;
+
+import glacier.user.model.UserSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -16,6 +15,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  *
@@ -45,39 +46,67 @@ public class RegisterController extends HttpServlet {
             String role = request.getParameter("role").toLowerCase();
             String phone = request.getParameter("phone");
             String status = "active";
-            boolean checkInsertUser = false;
+            String id = DigestUtils.md5Hex(email);
+            String key = DigestUtils.md5Hex(password);
+            //boolean checkInsertUser = false;
             //HashMap<String,String> errors = new HashMap<String,String>();
-            Account acc = new Account(email, password, role);
+            HttpSession ss = request.getSession();
+            //Account acc = new Account(email, password, role);
             UserManager manager = new UserManager();
             boolean checkDuplicate = manager.checkDuplicate(email);
-            if(checkDuplicate){
+            if (checkDuplicate) {
                 //errors.put("duplicate", "Email has existed");
                 request.setAttribute("ERROR_REGISTER", "Email has existed");
-            }else{
-                boolean checkInsert = manager.insertAccount(acc);
-                if(checkInsert){
-                    if("tenant".equals(role)){
-                        Tenant t = new Tenant(email, name,  status, gender, phone);
-                        checkInsertUser = manager.insertUser(t, null);
-                        if(checkInsertUser){
-                            response.sendRedirect("login");
-                            return;
-                        }
-                    }else{
-                        Landlord l = new Landlord(email, name, gender, phone);
-                        checkInsertUser = manager.insertUser(null, l);
-                        if(checkInsertUser){
-                            response.sendRedirect("login");
-                            return;
-                        }
-                    }
-                }else{
-                    //errors.put("ERROR_MSG", "Cannot insert");
-                    request.setAttribute("ERROR_REGISTER", "Cannot insert");
+            } else {
+
+                UserSession userSession = new UserSession(email, name, password, role, gender, phone, status, id, key);
+                ss.setAttribute("USER_SESSION", userSession);
+                //create instance object of the SendEmail Class
+                SendEmail sm = new SendEmail();
+                            
+
+                //craete new user using all information
+                //User user = new User(name, email, code);
+                //call the send email method
+                boolean test = sm.sendEmail(id,key,email);
+
+                //check if the email send successfully
+                if (test) {
+                    
+                    //session.setAttribute("authcode", user);
+                    request.setAttribute("IS_VERIFIED", true);
+                    request.getRequestDispatcher("verify.jsp").forward(request, response);
+//                response.sendRedirect("verify.jsp");
+                } else {
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                    //out.println("Failed to send verification email");
                 }
             }
+            //else{
+//                boolean checkInsert = manager.insertAccount(acc);
+//                if(checkInsert){
+//                    if("tenant".equals(role)){
+//                        Tenant t = new Tenant(email, name,  status, gender, phone);
+//                        checkInsertUser = manager.insertUser(t, null);
+//                        if(checkInsertUser){
+//                            response.sendRedirect("login");
+//                            return;
+//                        }
+//                    }else{
+//                        Landlord l = new Landlord(email, name, gender, phone);
+//                        checkInsertUser = manager.insertUser(null, l);
+//                        if(checkInsertUser){
+//                            response.sendRedirect("login");
+//                            return;
+//                        }
+//                    }
+//                }else{
+//                    //errors.put("ERROR_MSG", "Cannot insert");
+//                    request.setAttribute("ERROR_REGISTER", "Cannot insert");
+//                }
+//            }
         } catch (Exception e) {
-            log("Error at RegisterController: "+e.toString());
+            log("Error at RegisterController: " + e.toString());
         }
         request.getRequestDispatcher("access/register.jsp").forward(request, response);
     }

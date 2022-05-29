@@ -19,5 +19,9 @@
         <p>${user.email}</p>
         <p>${user.password}</p>
         <p>${detail.name}</p>
+        <p>${detail.phone}</p>
+        <p>${detail.facebookLink}</p>
+        <p>${detail.instagramLink}</p>
+        <p>${detail.profilePicture}</p>
     </body>
 </html>

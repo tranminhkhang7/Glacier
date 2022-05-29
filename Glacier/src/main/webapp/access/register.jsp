@@ -499,8 +499,7 @@
                                     </div>
                                     <!--end form-group-->
                                     <div class="d-flex justify-content-between align-items-baseline">
-                                        <label>
-                                        </label>
+                                        <p><a href="${pageContext.request.contextPath}/login" id="link" class="link">Already has an account?</a> </p>
                                         <button type="submit" class="btn btn-danger">Register</button>
                                     </div>
                                 </form>

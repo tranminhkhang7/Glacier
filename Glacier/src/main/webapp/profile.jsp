@@ -1,12 +1,13 @@
 <%-- 
-    Document   : login
-    Created on : May 21, 2022, 3:37:20 PM
+    Document   : profile
+    Created on : May 29, 2022, 10:07:01 AM
     Author     : ASUS
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@taglib prefix="c" uri= "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+<!doctype html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -14,42 +15,56 @@
         <meta name="author" content="ThemeStarz">
 
         <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Varela+Round" rel="stylesheet">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/bootstrap/css/bootstrap.css" type="text/css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/fonts/font-awesome.css" type="text/css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/selectize.css" type="text/css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user.css">
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.css" type="text/css">
+        <link rel="stylesheet" href="assets/fonts/font-awesome.css" type="text/css">
+        <link rel="stylesheet" href="assets/css/selectize.css" type="text/css">
+        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="assets/css/user.css">
 
         <title>Craigs - Easy Buy & Sell Listing HTML Template</title>
 
     </head>
     <body>
-        <%
-            try {
-
-                Cookie arr[] = request.getCookies();
-                if (arr.length > 0) {
-                    for (Cookie cookie : arr) {
-                        if (cookie.getName().equals("userid")) {
-                            request.setAttribute("username", cookie.getValue());
-                        }
-                        if (cookie.getName().equals("pass")) {
-                            request.setAttribute("password", cookie.getValue());
-                        }
-                    }
-                }
-            } catch (Exception e) {
-                log(e.getMessage());
-            }
-        %>
+        <c:set var="user" value="${LOGIN_USER}"/>
+        <c:set var="detail" value="${USER_DETAIL}"/>
         <div class="page sub-page">
             <!--*********************************************************************************************************-->
             <!--************ HERO ***************************************************************************************-->
             <!--*********************************************************************************************************-->
-            <section class="hero">
+            <header class="hero">
                 <div class="hero-wrapper">
                     <!--============ Secondary Navigation ===============================================================-->
-
+                    <div class="secondary-navigation">
+                        <div class="container">
+                            <ul class="left">
+                                <li>
+                                    <span>
+                                        <i class="fa fa-phone"></i> +1 123 456 789
+                                    </span>
+                                </li>
+                            </ul>
+                            <!--end left-->
+                            <ul class="right">
+                                <li>
+                                    <a href="my-ads.html">
+                                        <i class="fa fa-heart"></i>My Ads
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="sign-in.html">
+                                        <i class="fa fa-sign-in"></i>Sign In
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="register.html">
+                                        <i class="fa fa-pencil-square-o"></i>Register
+                                    </a>
+                                </li>
+                            </ul>
+                            <!--end right-->
+                        </div>
+                        <!--end container-->
+                    </div>
                     <!--============ End Secondary Navigation ===========================================================-->
                     <!--============ Main Navigation ====================================================================-->
                     <div class="main-navigation">
@@ -300,18 +315,18 @@
                                     <!--Main navigation list-->
                                 </div>
                                 <!--end navbar-collapse-->
-                                <!--                                <a href="#collapseMainSearchForm" class="main-search-form-toggle" data-toggle="collapse"  aria-expanded="false" aria-controls="collapseMainSearchForm">
-                                                                    <i class="fa fa-search"></i>
-                                                                    <i class="fa fa-close"></i>
-                                                                </a>-->
+                                <a href="#collapseMainSearchForm" class="main-search-form-toggle" data-toggle="collapse"  aria-expanded="false" aria-controls="collapseMainSearchForm">
+                                    <i class="fa fa-search"></i>
+                                    <i class="fa fa-close"></i>
+                                </a>
                                 <!--end main-search-form-toggle-->
                             </nav>
                             <!--end navbar-->
-                            <!--                            <ol class="breadcrumb">
-                                                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                                            <li class="breadcrumb-item"><a href="#">Library</a></li>
-                                                            <li class="breadcrumb-item active">Data</li>
-                                                        </ol>-->
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item"><a href="#">Library</a></li>
+                                <li class="breadcrumb-item active">Data</li>
+                            </ol>
                             <!--end breadcrumb-->
                         </div>
                         <!--end container-->
@@ -443,21 +458,16 @@
                     <!--============ Page Title =========================================================================-->
                     <div class="page-title">
                         <div class="container">
-                            <h1>Sign In</h1>
+                            <h1>My Profile</h1>
                         </div>
                         <!--end container-->
                     </div>
                     <!--============ End Page Title =====================================================================-->
-                    <div class="background">
-                        <div class="background-image">
-                            <img src="${pageContext.request.contextPath}/assets/img/hero-background-image-02.jpg" alt="">
-                        </div>
-                    </div>
-
+                    <div class="background"></div>
                     <!--end background-->
                 </div>
                 <!--end hero-wrapper-->
-            </section>
+            </header>
             <!--end hero-->
 
             <!--*********************************************************************************************************-->
@@ -466,55 +476,125 @@
             <section class="content">
                 <section class="block">
                     <div class="container">
-                        <div class="row justify-content-center">
-                            <!--div for wrong password or email when login
-                            <div class="" style="color: red; background-color: rgb(242, 242, 109); height: 50px; line-height: 50px; text-align: center;">!!! Your email or password is not correct</div>
-                            -->
-
-                            <div class="col-md-4">
-                                <c:if test="${not empty requestScope.ERROR_MSG}">
-                                    <div class="" style="color: red; background-color: rgb(242, 242, 109); height: 50px; line-height: 50px; text-align: center;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Your email or password is not correct</div>
-                                </c:if>
-                                <c:if test="${not empty sessionScope.ERROR_MSG}">
-                                    <div class="" style="color: red; background-color: rgb(242, 242, 109); height: 50px; line-height: 50px; text-align: center;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ${sessionScope.ERROR_MSG}</div>
-                                </c:if>
-                                <form class="form clearfix" action="${pageContext.request.contextPath}/login" method="post">
-                                    <div class="form-group">
-                                        <label for="email" class="col-form-label required">Email</label>
-                                        <input name="email" type="email" class="form-control" id="email" placeholder="Your Email" value="${username}" required style="width: 95%">
-                                    </div>
-                                    <!--end form-group-->
-                                    <div class="form-group">
-                                        <label for="password" class="col-form-label required" style="display: block">Password</label>
-                                        <input name="password" type="password" class="form-control" id="password" placeholder="Password" value="${password}" required style="display: inline-block; width: 95%"><i class="fa fa-eye" id="visibilityBtn" style="margin-left: -30px; position: relative; cursor: pointer" onclick="myFunction()"></i>
-                                    </div> 
-                                    <!--end form-group-->
-                                    <div class="d-flex justify-content-between align-items-baseline">
-                                        <label>
-                                            <input type="checkbox" name="remember" value="1">
-                                            Remember Me
-                                        </label>
-                                        <button type="submit" class="btn btn-primary">Sign In</button>
-                                    </div>
-                                </form>
-                                <hr>
-                                <p>
-                                    Troubles with signing? <a href="#" class="link">Click here.</a>
-                                </p>
-
-                                <hr>
-                                <p>
-                                    Don't have an account yet? <a href="${pageContext.request.contextPath}/register" class="link">Sign-up</a>
-                                </p>
-                                <hr><p style="font-size:large; text-align: center;">Or Continue With: </p>
-                                <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=http://localhost:8080/Glacier/LoginGoogleHandler&response_type=code&client_id=312274839783-ikrqeojtbm6kq3r83i6hgkbee8uib7co.apps.googleusercontent.com&approval_prompt=force">
-                                    <img style="display: block; margin-left: auto; margin-right: auto;" src="https://salt.tikicdn.com/ts/upload/1c/ac/e8/141c68302262747f5988df2aae7eb161.png" width="50" height="50" /></a>
-
-
+                        <div class="row">
+                            <div class="col-md-3">
+                                <nav class="nav flex-column side-nav">
+                                    <a class="nav-link active icon" href="my-profile.html">
+                                        <i class="fa fa-user"></i>My Profile
+                                    </a>
+                                    <a class="nav-link icon" href="my-ads.html">
+                                        <i class="fa fa-heart"></i>My Ads Listing
+                                    </a>
+                                    <a class="nav-link icon" href="bookmarks.html">
+                                        <i class="fa fa-star"></i>Bookmarks
+                                    </a>
+                                    <a class="nav-link icon" href="change-password.html">
+                                        <i class="fa fa-recycle"></i>Change Password
+                                    </a>
+                                    <a class="nav-link icon" href="sold-items.html">
+                                        <i class="fa fa-check"></i>Sold Items
+                                    </a>
+                                </nav>
                             </div>
-                            <!--end col-md-6-->
+                            <!--end col-md-3-->
+                            <div class="col-md-9">
+                                <form class="form" method="POST" action="account">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <h2>Personal Information</h2>
+                                            <section>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="title" class="col-form-label">Title</label>
+                                                            <select name="newGender" id="title" data-placeholder="Title">
+                                                                <option value="">Title</option>
+                                                                <option value="1" selected>Mrs</option>
+                                                                <option value="2">Mr</option>
+                                                            </select>
+                                                        </div>
+                                                        <!--end form-group-->
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <label for="name" class="col-form-label required">Your Name</label>
+                                                            <input name="newName" type="text" class="form-control" id="name" placeholder="Your Name" value="${fn:trim(detail.name)}" required>
+                                                        </div>
+                                                        <!--end form-group-->
+                                                    </div>
+                                                    <!--end col-md-8-->
+                                                </div>
+                                                <!--end row-->
+                                                <!-- <div class="form-group">
+                                                    <label for="location" class="col-form-label required">Your Location</label>
+                                                    <input name="location" type="text" class="form-control" id="input-location2" placeholder="Your Location" value="Manhattan, NY" required>
+                                                </div> -->
+                                                <!--end form-group-->
+                                                <!-- <div class="form-group">
+                                                    <label for="about" class="col-form-label">More About You</label>
+                                                    <textarea name="about" id="about" class="form-control" rows="4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec tincidunt arcu, sit amet fermentum sem. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</textarea>
+                                                </div> -->
+                                                <!--end form-group-->
+                                            </section>
+
+                                            <section>
+                                                <h2>Contact</h2>
+                                                <div class="form-group">
+                                                    <label for="phone" class="col-form-label">Phone</label>
+                                                    <input name="newPhone" type="text" class="form-control" id="phone" placeholder="Your Phone" value="${fn:trim(detail.phone)}">
+                                                </div>
+                                                <!--end form-group-->
+                                                <div class="form-group">
+                                                    <label for="email" class="col-form-label">Email</label>
+                                                    <input name="email" type="email" class="form-control" id="email" placeholder="Your Email" value="${fn:trim(detail.email)}">
+                                                </div>
+                                                <!--end form-group-->
+                                            </section>
+
+                                            <section>
+                                                <h2>Social</h2>
+                                                <div class="form-group">
+                                                    <label for="twitter" class="col-form-label">Twitter</label>
+                                                    <input name="newInstagram" type="text" class="form-control" id="twitter" placeholder="http://" value="${fn:trim(detail.instagramLink)}">
+                                                </div>
+                                                <!--end form-group-->
+                                                <div class="form-group">
+                                                    <label for="facebook" class="col-form-label">Facebook</label>
+                                                    <input name="newFacebook" type="text" class="form-control" id="facebook" placeholder="http://" value="${fn:trim(detail.facebookLink)}">
+                                                </div>
+                                                <!--end form-group-->
+                                            </section>
+
+                                            <section class="clearfix">
+                                                <button name="infor" value="submit" type="submit" class="btn btn-primary float-right">Save Changes</button>
+                                            </section>
+                                        </div>
+                                </form>
+
+                                <!--end col-md-8-->
+                                <div class="col-md-4">
+                                    <div class="profile-image">
+                                        <div class="image background-image">
+                                            <img src="assets/img/author-09.jpg" alt="">
+                                        </div>
+                                        <form action="">
+                                            <div class="single-file-input">
+                                                <input type="file" id="user_image" name="user_image">
+                                                <div class="btn btn-framed btn-primary small">Upload a picture</div>
+                                            </div>
+                                            <div class="single-file-input">
+                                                <input type="submit" class="btn btn-primary small" value="Save pics"/>
+                                            </div>
+                                    </div>
+                                    </form>
+                                </div>
+
+                                <!--end col-md-3-->
+                            </div>
+
                         </div>
-                        <!--end row-->
+                    </div>
+                    <!--end row-->
                     </div>
                     <!--end container-->
                 </section>
@@ -525,13 +605,13 @@
             <!--*********************************************************************************************************-->
             <!--************ FOOTER *************************************************************************************-->
             <!--*********************************************************************************************************-->
-            <section class="footer">
+            <footer class="footer">
                 <div class="wrapper">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-5">
                                 <a href="#" class="brand">
-                                    <img src="${pageContext.request.contextPath}/assets/img/logo.png" alt="">
+                                    <img src="assets/img/logo.png" alt="">
                                 </a>
                                 <p>
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec tincidunt arcu, sit amet
@@ -612,40 +692,20 @@
                     </div>
                     <!--end background-->
                 </div>
-            </section>
+            </footer>
             <!--end footer-->
         </div>
         <!--end page-->
-        <script>
-            const visibilityBtn = document.getElememtById("visibilityBtn");
-            visibilityBtn.addEventListener("click", toogleVisibility);
-            function myFunction() {
-                const passwordInput = document.getElementById("password");
-                if (passwordInput.type === "password") {
-                    passwordInput.type = "text";
-                    document.getElementById("visibilityBtn").className = "fa fa-eye-slash";
-                } else {
-                    passwordInput.type = "password";
-                    document.getElementById("visibilityBtn").className = "fa fa-eye";
-                }
 
-//                var x = document.getElementById("password");
-//                if (x.type === "password") {
-//                    x.type = "text";
-//                } else {
-//                    x.type = "password";
-//                }
-            }
-        </script>
-        <script src="${pageContext.request.contextPath}/assets/js/jquery-3.3.1.min.js"></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/popper.min.js"></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/js/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="assets/js/popper.min.js"></script>
+        <script type="text/javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyBEDfNcQRmKQEyulDN8nGWjLYPm8s4YB58&libraries=places"></script>
-        <script src="${pageContext.request.contextPath}/assets/js/selectize.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/js/masonry.pkgd.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/js/icheck.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/js/jquery.validate.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/js/custom.js"></script>
+        <script src="assets/js/selectize.min.js"></script>
+        <script src="assets/js/masonry.pkgd.min.js"></script>
+        <script src="assets/js/icheck.min.js"></script>
+        <script src="assets/js/jquery.validate.min.js"></script>
+        <script src="assets/js/custom.js"></script>
 
     </body>
 </html>

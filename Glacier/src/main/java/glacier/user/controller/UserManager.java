@@ -107,7 +107,7 @@ public class UserManager {
                     l.setEmail(email);
                     l.setName(rs.getString("name"));
                     l.setProfilePicture(rs.getString("profile_picture"));
-                    l.setStatus(rs.getString("status"));
+                    //l.setStatus(rs.getString("status"));
                     l.setGender(rs.getString("gender"));
                     l.setPhone(rs.getString("phone"));
                     l.setFacebookLink(rs.getString("facebook_link"));
@@ -145,6 +145,7 @@ public class UserManager {
         return check;
     }
 
+    //Insert an account into dto.[Account]
     public boolean insertAccount(Account acc) {
         boolean check = false;
         Connection conn = null;
@@ -166,6 +167,7 @@ public class UserManager {
         return check;
     }
 
+    //Insert Tenant or Landlord into dtb
     public boolean insertUser(Tenant t, Landlord l) {
         boolean check = false;
         Connection conn = null;
@@ -176,21 +178,21 @@ public class UserManager {
                 String sql = " INSERT INTO Tenant(email,name,status,gender,phone) "
                         + " VALUES(?,?,?,?,?) ";
                 if (t == null) {
-                     sql = " INSERT INTO Landlord(email,name,gender,phone) "
+                    sql = " INSERT INTO Landlord(email,name,gender,phone) "
                             + " VALUES(?,?,?,?) ";
-                st = conn.prepareStatement(sql);
-                st.setString(1, l.getEmail());
-                st.setString(2, l.getName());
-                //st.setString(3, l.getStatus());
-                st.setString(3, l.getGender());
-                st.setString(4, l.getPhone());
-                }else{
-                st = conn.prepareStatement(sql);
-                st.setString(1, t.getEmail());
-                st.setString(2, t.getName());
-                st.setString(3, t.getStatus());
-                st.setString(4, t.getGender());
-                st.setString(5, t.getPhone());
+                    st = conn.prepareStatement(sql);
+                    st.setString(1, l.getEmail());
+                    st.setString(2, l.getName());
+                    //st.setString(3, l.getStatus());
+                    st.setString(3, l.getGender());
+                    st.setString(4, l.getPhone());
+                } else {
+                    st = conn.prepareStatement(sql);
+                    st.setString(1, t.getEmail());
+                    st.setString(2, t.getName());
+                    st.setString(3, t.getStatus());
+                    st.setString(4, t.getGender());
+                    st.setString(5, t.getPhone());
                 }
                 check = st.executeUpdate() > 0;
             }
@@ -199,9 +201,87 @@ public class UserManager {
         }
         return check;
     }
+
+    //insert google user
+    public boolean insertGoogleAccount(String email, String role) {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement st = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " INSERT INTO Account(email,role) "
+                        + " VALUES(?,?) ";
+                st = conn.prepareStatement(sql);
+                st.setString(1, email);
+                st.setString(2, role);
+                check = st.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return check;
+    }
+
+    public boolean setRole(String email, String role) {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement st = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " UPDATE Account"
+                        + " SET role=? "
+                        + " WHERE role=? " ;
+                st = conn.prepareStatement(sql);
+                st.setString(1, email);
+                st.setString(2, role);
+                check = st.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return check;
+    }
+
+    //function to update a new information of user
+    public boolean updateAccount(String email, String newName, String newGender, String newPhone, String newFacebook, String newInstagram, boolean isTenant ){
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement st = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " UPDATE Landlord "
+                        + " SET [name]=?, [gender]=?, [phone]=?, [facebook_link]=?, [instagram_link]=? "
+                        + " WHERE email=? " ;
+                if(isTenant == true){
+                    sql = " UPDATE Tenant "
+                        + " SET [name]=?, [gender]=?, [phone]=?, [facebook_link]=?, [instagram_link]=? "
+                        + " WHERE email=? " ;
+                }
+                st = conn.prepareStatement(sql);
+                st.setString(1, newName);
+                st.setString(2, newGender);
+                st.setString(3, newPhone);
+                st.setString(4, newFacebook);
+                st.setString(5, newInstagram);
+                st.setString(6, email);
+                check = st.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return check;
+    }
     public static void main(String[] args) {
+      
         UserManager user = new UserManager();
-        Account acc = user.checkLogin("dangvungocan@gmail.com", "123456789");
-        System.out.println(acc);
+        Landlord l = user.getLandlordInfo("hehe@gmail.com");
+        System.out.println(l);
+//        boolean check = user.updateAccount("hehe@gmail.com", "Khoa Bui", "female", "1234567890", "fb.com/khoa.1313", "ig.com/khoa.1313", false );
+//        System.out.println(check);
+//        Account acc = user.checkLogin("dangvungocan@gmail.com", "123456789");
+//        System.out.println(acc);
     }
 }
