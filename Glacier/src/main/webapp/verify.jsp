@@ -15,7 +15,7 @@
 	<title>Craigs - Easy Buy & Sell Listing HTML Template</title>
 
 </head>
-<body onload="myFunction(${requestScope.IS_VERFIED})">
+<body onload="myFunction(${requestScope.IS_VERIFIED})">
     <div class="page sub-page">
         <!--*********************************************************************************************************-->
         <!--************ HERO ***************************************************************************************-->
@@ -65,12 +65,17 @@
                 <!--============ Page Title =========================================================================-->
                 <div class="page-title" >
                     <div class="container">
-                        <h1 style="text-align: center; padding-top:20px">Mail Verification</h1>
+                        <h1 style="color:black;font-size: 300%;text-align: center; padding-top:20px">Mail Verification</h1>
                     </div>
                     <!--end container-->
                 </div>
                 <!--============ End Page Title =====================================================================-->
-                <div class="background" style="background-color: aqua;"></div>
+                <div class="background">
+                    <div class="background-image">
+                        <img src="https://cdn.wallpapersafari.com/67/76/qtpSIw.jpg" alt="">
+                    </div>
+                    <!--end background-image-->
+                </div>
                 <!--end background-->
             </div>
             <!--end hero-wrapper-->

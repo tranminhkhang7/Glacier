@@ -99,7 +99,7 @@ public class UserVerify extends HttpServlet {
             log("Error at UserVerify: " + e.toString());
         }
         request.setAttribute("IS_VERIFIED", false);
-         request.getRequestDispatcher("verify.jsp").forward(request, response);
+        request.getRequestDispatcher("verify.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
