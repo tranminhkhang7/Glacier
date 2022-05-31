@@ -274,10 +274,31 @@ public class UserManager {
         }
         return check;
     }
+    
+    public boolean changeTenantPassword(String email, String newPassword){
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement st = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " UPDATE Account "
+                        + " SET [password]=? "
+                        + " WHERE [email]=? " ;
+                st = conn.prepareStatement(sql);
+                st.setString(1, newPassword);
+                st.setString(2, email);
+                check = st.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return check;
+    }
     public static void main(String[] args) {
       
         UserManager user = new UserManager();
-        Landlord l = user.getLandlordInfo("hehe@gmail.com");
+        Landlord l = user.getLandlordInfo("dangngocduong@gmail.com");
         System.out.println(l);
 //        boolean check = user.updateAccount("hehe@gmail.com", "Khoa Bui", "female", "1234567890", "fb.com/khoa.1313", "ig.com/khoa.1313", false );
 //        System.out.println(check);

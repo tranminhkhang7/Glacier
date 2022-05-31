@@ -19,8 +19,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user.css">
 
-        <title>Craigs - Easy Buy & Sell Listing HTML Template</title>
-
+        <title>Regis for Glacier</title>
     </head>
     <body>
         <div class="page sub-page">

@@ -27,6 +27,10 @@
     <body>
         <c:set var="user" value="${LOGIN_USER}"/>
         <c:set var="detail" value="${USER_DETAIL}"/>
+        <c:if test="${detail.gender.trim() eq 'male'}"><c:set var="male" value="selected"/></c:if>
+        <c:if test="${detail.gender.trim() eq 'female'}"><c:set var="female" value="selected"/></c:if>
+        
+        
         <div class="page sub-page">
             <!--*********************************************************************************************************-->
             <!--************ HERO ***************************************************************************************-->
@@ -483,16 +487,13 @@
                                         <i class="fa fa-user"></i>My Profile
                                     </a>
                                     <a class="nav-link icon" href="my-ads.html">
-                                        <i class="fa fa-heart"></i>My Ads Listing
+                                        <i class="fa fa-heart"></i>My Rooms Listing
                                     </a>
                                     <a class="nav-link icon" href="bookmarks.html">
-                                        <i class="fa fa-star"></i>Bookmarks
+                                        <i class="fa fa-star"></i>Favorites
                                     </a>
-                                    <a class="nav-link icon" href="change-password.html">
+                                    <a class="nav-link icon" href="changepassword">
                                         <i class="fa fa-recycle"></i>Change Password
-                                    </a>
-                                    <a class="nav-link icon" href="sold-items.html">
-                                        <i class="fa fa-check"></i>Sold Items
                                     </a>
                                 </nav>
                             </div>
@@ -507,10 +508,9 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="title" class="col-form-label">Title</label>
-                                                            <select name="newGender" id="title" data-placeholder="Title">
-                                                                <option value="">Title</option>
-                                                                <option value="1" selected>Mrs</option>
-                                                                <option value="2">Mr</option>
+                                                            <select name="newGender" id="title" data-placeholder="Title">                                                              
+                                                                <option value="female" ${female}>Mrs</option>
+                                                                <option value="male" ${male}>Mr</option>
                                                             </select>
                                                         </div>
                                                         <!--end form-group-->
@@ -546,7 +546,7 @@
                                                 <!--end form-group-->
                                                 <div class="form-group">
                                                     <label for="email" class="col-form-label">Email</label>
-                                                    <input name="email" type="email" class="form-control" id="email" placeholder="Your Email" value="${fn:trim(detail.email)}">
+                                                    <input name="email" type="email" class="form-control" id="email" placeholder="Your Email" value="${fn:trim(detail.email)}" readonly="">
                                                 </div>
                                                 <!--end form-group-->
                                             </section>
@@ -554,7 +554,7 @@
                                             <section>
                                                 <h2>Social</h2>
                                                 <div class="form-group">
-                                                    <label for="twitter" class="col-form-label">Twitter</label>
+                                                    <label for="twitter" class="col-form-label">Instagram</label>
                                                     <input name="newInstagram" type="text" class="form-control" id="twitter" placeholder="http://" value="${fn:trim(detail.instagramLink)}">
                                                 </div>
                                                 <!--end form-group-->

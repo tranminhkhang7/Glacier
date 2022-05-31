@@ -20,7 +20,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user.css">
 
-        <title>Craigs - Easy Buy & Sell Listing HTML Template</title>
+        <title>Sign in to Glacier</title>
 
     </head>
     <body>
@@ -499,7 +499,7 @@
                                 </form>
                                 <hr>
                                 <p>
-                                    Troubles with signing? <a href="#" class="link">Click here.</a>
+                                    Forgot your password? <a href="forgot.jsp" class="link">Click here.</a>
                                 </p>
 
                                 <hr>

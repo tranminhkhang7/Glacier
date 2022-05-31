@@ -23,5 +23,6 @@
         <p>${detail.facebookLink}</p>
         <p>${detail.instagramLink}</p>
         <p>${detail.profilePicture}</p>
+        <p>${detail.gender}</p>
     </body>
 </html>

@@ -5,25 +5,23 @@
  */
 package glacier.user.controller;
 
-
-import glacier.user.model.UserSession;
+import glacier.user.model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  *
  * @author ASUS
  */
-@WebServlet(name = "RegisterController", urlPatterns = {"/register"})
-public class RegisterController extends HttpServlet {
+@WebServlet(name = "ChangePasswordController", urlPatterns = {"/changepassword"})
+public class ChangePasswordController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,56 +36,31 @@ public class RegisterController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            String email = request.getParameter("email");
-            String name = request.getParameter("name");
-            String password = request.getParameter("password");
-            String rePass = request.getParameter("repeat_password");
-            String gender = request.getParameter("gender");
-            String role = request.getParameter("role").toLowerCase();
-            String phone = request.getParameter("phone");
-            String status = "active";
-            String id = DigestUtils.md5Hex(email);
-            String key = DigestUtils.md5Hex(password);    
-            //boolean checkInsertUser = false;
-            //HashMap<String,String> errors = new HashMap<String,String>();
             HttpSession ss = request.getSession();
-            //Account acc = new Account(email, password, role);
+            Account user = (Account) ss.getAttribute("LOGIN_USER");
+            String email = user.getEmail();
+            String correctPassword = user.getPassword();
+            String oldPassword = request.getParameter("current_password");
+            String newPassword = request.getParameter("new_current_password");
+            String confirmPassword = request.getParameter("repeat_new_current_password");
             UserManager manager = new UserManager();
-            boolean checkDuplicate = manager.checkDuplicate(email);
-            if (checkDuplicate) {
-                //errors.put("duplicate", "Email has existed");
-                request.setAttribute("ERROR_REGISTER", "Email has existed");
+            if (correctPassword == null || oldPassword == null || newPassword == null || confirmPassword == null) {
+                RequestDispatcher rd = request.getRequestDispatcher("change-password.jsp");
+                rd.forward(request, response);
+            } else if (!correctPassword.equals(oldPassword) || !newPassword.equals(confirmPassword)) {
+                request.setAttribute("error", "Passwords doesn't match. Please try again.");
+                RequestDispatcher rd = request.getRequestDispatcher("change-password.jsp");
+                rd.forward(request, response);
             } else {
-
-                UserSession userSession = new UserSession(email, name, password, role, gender, phone, status, id, key);
-                ss.setAttribute("USER_SESSION", userSession);
-                //create instance object of the SendEmail Class
-                SendEmail sm = new SendEmail();
-                            
-
-                //craete new user using all information
-                //User user = new User(name, email, code);
-                //call the send email method
-                boolean test = sm.sendEmail(id,key,email);
-
-                //check if the email send successfully
-                if (test) {
-                    
-                    //session.setAttribute("authcode", user);
-                    request.setAttribute("IS_VERIFIED", true);
-                    request.getRequestDispatcher("verify.jsp").forward(request, response);
-                    return;
-//                response.sendRedirect("verify.jsp");
-                } else {
-                    request.getRequestDispatcher("error.jsp").forward(request, response);
-                    return;
-                    //out.println("Failed to send verification email");
+                boolean check = manager.changeTenantPassword(email, newPassword);
+                if(check){
+                RequestDispatcher rd = request.getRequestDispatcher("change-password.jsp");
+                rd.forward(request, response);
                 }
             }
         } catch (Exception e) {
-            log("Error at RegisterController: " + e.toString());
+            log("Error at ChangePasswordController: " + e.toString());
         }
-        request.getRequestDispatcher("access/register.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
