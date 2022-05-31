@@ -6,12 +6,14 @@
 package glacier.user.controller;
 
 import glacier.landlord.dbmanager.LandlordManager;
-import glacier.user.model.Account;
+import glacier.room.model.Room;
+import glacier.room.model.RoomDAO;
 import glacier.user.model.Landlord;
-import glacier.user.model.Tenant;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,8 +26,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author KHANG
  */
-@WebServlet(name = "LandlordAddRoom", urlPatterns = {"/addroom"})
-public class LandlordAddRoom extends HttpServlet {
+@WebServlet(name = "LandlordEditRoom", urlPatterns = {"/editroom"})
+public class LandlordEditRoom extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,38 +41,57 @@ public class LandlordAddRoom extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
-            if (request.getParameter("name") != null) {
-                HttpSession session = request.getSession(false);
-                if (session != null) {
-                    String name = request.getParameter("name");
-                    String description = request.getParameter("details");
-                    String city = request.getParameter("city");
-                    String district = request.getParameter("district");
-                    String address = district + ", " + city;
-                    String detailAddress = request.getParameter("location");
-                    String status = "active";
-                    int price = Integer.parseInt(request.getParameter("price"));
-                    int deposit = Integer.parseInt(request.getParameter("deposit"));
-                    float avgRating = 0;
-                    Date dateAdded = new Date();
-                    float area = Float.parseFloat(request.getParameter("area"));
+        try (PrintWriter out = response.getWriter()) {
 
-                    Landlord landlord = (Landlord) session.getAttribute("USER_DETAIL");
-                    String emailLandlord = landlord.getEmail();
+            HttpSession session = request.getSession(false);
 
-                    LandlordManager mng = new LandlordManager();
-                    mng.addRoom(name, description, address, detailAddress, status, price, deposit, avgRating, dateAdded, area, emailLandlord);
-                    RequestDispatcher rd = request.getRequestDispatcher("/success.jsp");
+            if (session == null) {
+                RequestDispatcher rd = request.getRequestDispatcher("/login");
+                rd.forward(request, response);
+            } else {
+                Landlord landlord = (Landlord) session.getAttribute("USER_DETAIL");
+                String emailLandlord = landlord.getEmail();
+
+                int roomID = Integer.parseInt(request.getParameter("id"));
+
+                LandlordManager landlordMng = new LandlordManager();
+                if (landlordMng.checkOwnership(emailLandlord, roomID)) {
+
+                    if (request.getParameter("name") == null) {
+                        RoomDAO mng = new RoomDAO();
+                        Room room = mng.getRoomById(roomID);
+
+                        request.setAttribute("room", room);
+
+                        RequestDispatcher rd = request.getRequestDispatcher("/editroom.jsp");
+                        rd.forward(request, response);
+                    } else {
+
+                        String name = request.getParameter("name");
+                        String description = request.getParameter("details");
+                        String city = request.getParameter("city");
+                        String district = request.getParameter("district");
+                        String address = district + ", " + city;
+                        String detailAddress = request.getParameter("location");
+                        int price = Integer.parseInt(request.getParameter("price"));
+
+                        int deposit = Integer.parseInt(request.getParameter("deposit"));
+                        System.out.println("hi there");
+                        float area = Float.parseFloat(request.getParameter("area"));
+
+                        LandlordManager mng = new LandlordManager();
+                        mng.updateRoom(roomID, name, description, address, detailAddress, price, deposit, area);
+
+                        RequestDispatcher rd = request.getRequestDispatcher("/success.jsp");
+                        rd.forward(request, response);
+                    }
+                } else {
+                    RequestDispatcher rd = request.getRequestDispatcher("/index.html");
                     rd.forward(request, response);
                 }
-            } else {
-                RequestDispatcher rd = request.getRequestDispatcher("/addroom.jsp");
-                rd.forward(request, response);
             }
-
         } catch (Exception e) {
-            log("Error at LandlordAddRoom: " + e.toString());
+            System.out.println("Error at Landlord Edit Room List" + e);
         }
     }
 
