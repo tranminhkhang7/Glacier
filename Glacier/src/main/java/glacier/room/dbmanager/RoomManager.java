@@ -5,7 +5,7 @@
  */
 package glacier.room.dbmanager;
 
-import glacier.room.model.Room;
+import glacier.room.model.Room; 
 import glacier.utils.DBUtils;
 import java.sql.Connection;
 import java.util.Date;
