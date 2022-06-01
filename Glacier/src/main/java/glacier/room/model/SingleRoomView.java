@@ -33,10 +33,11 @@ public class SingleRoomView extends HttpServlet {
     
     private static final String ERROR = "SingleRoom.jsp";               // change this after adding session
     private static final String SUCCESS = "SingleRoom.jsp";
-    private static final int TEST = 10;                                 // test value, delete this when merging
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        int TEST = Integer.parseInt(request.getParameter("id"));
+        
         String url = ERROR;
         try {
 //            HttpSession session = request.getSession();
@@ -51,6 +52,7 @@ public class SingleRoomView extends HttpServlet {
                 RoomDAO dao = new RoomDAO();
                 Room room = dao.getRoomById(TEST);                      // replace TEST with id when merging
                 ArrayList<String> ImgList = dao.getRoomImgById(TEST);
+                
                 request.setAttribute("room", room);
                 request.setAttribute("ImgList", ImgList);
                 url=SUCCESS;
