@@ -7,6 +7,7 @@ package glacier.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -30,3 +31,4 @@ public static Connection getConnection() throws Exception {
         return DriverManager.getConnection(url, userID, password);
     }
 }
+

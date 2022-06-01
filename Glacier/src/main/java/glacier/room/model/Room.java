@@ -5,26 +5,29 @@
  */
 package glacier.room.model;
 
-/**
- *
- * @author ASUS
- */
+import java.util.Date;
+
+
 public class Room {
-    private String roomID;
+    private int roomID;
     private String name;
     private String description;
     private String address;
     private String emailTenant;
     private String emailLandlord;
     private String status;
-    private float price;
+    private int price;
     private float deposit;
     private float avgRating;
+    private Date date_added;
+    private float area;
+    private String detailAddress;
 
     public Room() {
     }
 
-    public Room(String roomID, String name, String description, String address, String emailTenant, String emailLandlord, String status, float price, float deposit, float avgRating) {
+
+    public Room(int roomID, String name, String description, String address, String emailTenant, String emailLandlord, String status, int price, float deposit, float avgRating, Date date_added, float area, String detailAddress) {
         this.roomID = roomID;
         this.name = name;
         this.description = description;
@@ -35,13 +38,43 @@ public class Room {
         this.price = price;
         this.deposit = deposit;
         this.avgRating = avgRating;
+        this.date_added = date_added;
+        this.area = area;
+        this.detailAddress = detailAddress;
     }
 
-    public String getRoomID() {
+    //This contruction is for Search function.
+    //The emailLandlord does not contain email, it contains landlord's name instead.
+    public Room(int roomID, String name, String description, String address, String emailLandlord, int price, Date date_added) {
+        this.roomID = roomID;
+        this.name = name;
+        this.description = description;
+        this.address = address;
+        this.emailLandlord = emailLandlord;
+        this.price = price;
+        this.date_added = date_added;
+    }
+
+    //This constructor is for Displaying Room List in Landlord's views.
+    public Room(int roomID, String name, String description, String address, String status, int price, float avgRating, Date date_added, float area) {
+        this.roomID = roomID;
+        this.name = name;
+        this.description = description;
+        this.address = address;
+        this.status = status;
+        this.price = price;
+        this.avgRating = avgRating;
+        this.date_added = date_added;
+        this.area = area;
+    }
+
+    
+    
+    public int getRoomID() {
         return roomID;
     }
 
-    public void setRoomID(String roomID) {
+    public void setRoomID(int roomID) {
         this.roomID = roomID;
     }
 
@@ -93,11 +126,11 @@ public class Room {
         this.status = status;
     }
 
-    public float getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -117,9 +150,35 @@ public class Room {
         this.avgRating = avgRating;
     }
 
+    public Date getDate_added() {
+        return date_added;
+    }
+
+    public void setDate_added(Date date_added) {
+        this.date_added = date_added;
+    }
+
+    public float getArea() {
+        return area;
+    }
+
+    public void setArea(float area) {
+        this.area = area;
+    }
+
+    public String getDetailAddress() {
+        return detailAddress;
+    }
+
+    public void setDetailAddress(String detailAddress) {
+        this.detailAddress = detailAddress;
+    }
+
     @Override
     public String toString() {
-        return "Room{" + "roomID=" + roomID + ", name=" + name + ", description=" + description + ", address=" + address + ", emailTenant=" + emailTenant + ", emailLandlord=" + emailLandlord + ", status=" + status + ", price=" + price + ", deposit=" + deposit + ", avgRating=" + avgRating + '}';
+        return "Room{" + "roomID=" + roomID + ", name=" + name + ", description=" + description + ", address=" + address + ", emailTenant=" + emailTenant + ", emailLandlord=" + emailLandlord + ", status=" + status + ", price=" + price + ", deposit=" + deposit + ", avgRating=" + avgRating + ", date_added=" + date_added + ", area=" + area + ", detailAddress=" + detailAddress + '}';
     }
+
+    
     
 }

@@ -19,7 +19,7 @@ public class UserSession {
     private String status;
     private String id;
     private String key;
-    
+
     public UserSession() {
     }
 
@@ -34,6 +34,17 @@ public class UserSession {
         this.id = id;
         this.key = key;
     }
+
+
+    public UserSession(String email, String password, String id, String key) {
+        this.email = email;
+        this.password = password;
+        this.id = id;
+        this.key = key;
+    }
+    
+    
+
 
     public String getId() {
         return id;
