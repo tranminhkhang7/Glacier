@@ -103,74 +103,9 @@
             <!--*********************************************************************************************************-->
             <header class="hero">
                 <div class="hero-wrapper">
-                    <!--============ Secondary Navigation ===============================================================-->
-                    <div class="secondary-navigation">
-                        <div class="container">
-                            <ul class="left">
-                                <li>
-                                    <span>
-                                        <i class="fa fa-phone"></i> +1 123 456 789
-                                    </span>
-                                </li>
-                            </ul>
-                            <!--end left-->
-                            <ul class="right">
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/account">
-                                        <i class="fa fa-sign-in"></i>${user.name}
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/logout">
-                                        <i class="fa fa-pencil-square-o"></i>Đăng xuất
-                                    </a>
-                                </li>
-                            </ul>
-                            <!--end right-->
-                        </div>
-                        <!--end container-->
-                    </div>
-                    <!--============ End Secondary Navigation ===========================================================-->
-                    <!--============ Main Navigation ====================================================================-->
-                    <div class="main-navigation">
-                        <div class="container">
-                            <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
-                                <a class="navbar-brand" href="index.html">
-                                    <img src="${pageContext.request.contextPath}/assets/img/logo.png" alt="">
-                                </a>
-                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-                                    <span class="navbar-toggler-icon"></span>
-                                </button>
-                                <div class="collapse navbar-collapse" id="navbar">
-                                    <!--Main navigation list-->
-                                    <ul class="navbar-nav">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="${pageContext.request.contextPath}/home">Trang chủ</a>
-                                        </li> 
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="${pageContext.request.contextPath}/contact">Liên lạc</a>
-                                        </li>
-                                    </ul>
-                                    <!--Main navigation list-->
-                                </div>
-                                <!--end navbar-collapse-->
-                                <!-- <a href="#collapseMainSearchForm" class="main-search-form-toggle" data-toggle="collapse"  aria-expanded="false" aria-controls="collapseMainSearchForm">
-                                    <i class="fa fa-search"></i>
-                                    <i class="fa fa-close"></i>
-                                </a> -->
-                                <!--end main-search-form-toggle-->
-                            </nav>
-                            <!--end navbar-->
-                            <!-- <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item"><a href="#">Library</a></li>
-                                <li class="breadcrumb-item active">Data</li>
-                            </ol> -->
-                            <!--end breadcrumb-->
-                        </div>
-                        <!--end container-->
-                    </div>
-                    <!--============ End Main Navigation ================================================================-->
+                    
+                    <jsp:include page="header/navigation-landlord.jsp" />
+                    
                     <!--============ Page Title =========================================================================-->
                     <div class="page-title">
                         <div class="container">

@@ -29,35 +29,9 @@
             <!--end hero-->
                         <section class="hero">
                 <div class="hero-wrapper">
-                    <!--============ Secondary Navigation ===============================================================-->
-
-                    <!--============ End Secondary Navigation ===========================================================-->
-                    <!--============ Main Navigation ====================================================================-->
-                    <div class="main-navigation">
-                        <div class="container">
-                            <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
-                                <a class="navbar-brand" href="index.html">
-                                    <img src="assets/img/logo.png" alt="">
-                                </a>
-                                
-                                <!--end navbar-collapse-->
-<!--                                <a href="#collapseMainSearchForm" class="main-search-form-toggle" data-toggle="collapse"  aria-expanded="false" aria-controls="collapseMainSearchForm">
-                                    <i class="fa fa-search"></i>
-                                    <i class="fa fa-close"></i>
-                                </a>-->
-                                <!--end main-search-form-toggle-->
-                            </nav>
-                            <!--end navbar-->
-<!--                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item"><a href="#">Library</a></li>
-                                <li class="breadcrumb-item active">Data</li>
-                            </ol>-->
-                            <!--end breadcrumb-->
-                        </div>
-                        <!--end container-->
-                    </div>
-                    <!--============ End Main Navigation ================================================================-->
+                    
+                    <jsp:include page="/header/navigation-access.jsp" />
+                    
                     <!--============ Hero Form ==========================================================================-->
                     <div class="collapse" id="collapseMainSearchForm">
                         <form class="hero-form form">

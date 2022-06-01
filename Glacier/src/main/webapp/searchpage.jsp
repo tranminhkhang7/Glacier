@@ -33,86 +33,8 @@
             <!--*********************************************************************************************************-->
             <header class="hero">
                 <div class="hero-wrapper">
-                    <!--============ Secondary Navigation ===============================================================-->
-                    <div class="secondary-navigation">
-                        <div class="container">
-                            <ul class="left">
-                                <li>
-                                    <span>
-                                        <i class="fa fa-phone"></i> +1 123 456 789
-                                    </span>
-                                </li>
-                            </ul>
-                            <!--end left-->
-                            <ul class="right">
-                                <c:if test="${empty acc}" >
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/login">
-                                            <i class="fa fa-sign-in"></i>Đăng nhập
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/register">
-                                            <i class="fa fa-pencil-square-o"></i>Đăng ký
-                                        </a>
-                                    </li>
-                                </c:if>
-                                <c:if test="${not empty acc}" >
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/account">
-                                            <i class="fa fa-sign-in"></i>${user.name}
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/logout">
-                                            <i class="fa fa-pencil-square-o"></i>Đăng xuất
-                                        </a>
-                                    </li>
-                                </c:if>
-                            </ul>
-                            <!--end right-->
-                        </div>
-                        <!--end container-->
-                    </div>
-                    <!--============ End Secondary Navigation ===========================================================-->
-                    <!--============ Main Navigation ====================================================================-->
-                    <div class="main-navigation">
-                        <div class="container">
-                            <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
-                                <a class="navbar-brand" href="${pageContext.request.contextPath}/home">
-                                    <img src="assets/img/logo.png" alt="">
-                                </a>
-                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-                                    <span class="navbar-toggler-icon"></span>
-                                </button>
-                                <div class="collapse navbar-collapse" id="navbar">
-                                    <!--Main navigation list-->
-                                    <ul class="navbar-nav">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="${pageContext.request.contextPath}/home">Trang chủ</a>
-                                        </li> 
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="${pageContext.request.contextPath}/contact">Liên lạc</a>
-                                        </li>
-                                        <c:if test="${not empty acc}" >
-                                            <li class="nav-item">
-                                                <a href="submit.html" class="btn btn-primary text-caps btn-rounded">QUẢN LÝ PHÒNG THUÊ</a>
-                                            </li>
-                                        </c:if>
-                                    </ul>
-                                    <!--Main navigation list-->
-                                </div>
-                                <!--end navbar-collapse-->
-                                <a href="#collapseMainSearchForm" class="main-search-form-toggle" data-toggle="collapse"  aria-expanded="false" aria-controls="collapseMainSearchForm">
-                                    <i class="fa fa-search"></i>
-                                    <i class="fa fa-close"></i>
-                                </a>
-                            </nav>
-                            <!--end navbar-->
-                        </div>
-                        <!--end container-->
-                    </div>
-                    <!--============ End Main Navigation ================================================================-->
+                    
+                    <jsp:include page="header/navigation.jsp" />
                     
                     <!--============ Hero Form ==========================================================================-->
                     <div class="collapse" id="collapseMainSearchForm">

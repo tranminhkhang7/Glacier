@@ -22,42 +22,9 @@
         <!--*********************************************************************************************************-->
         <section class="hero">
             <div class="hero-wrapper">
-                <!--============ Secondary Navigation ===============================================================-->
-                <div class="secondary-navigation">
-                    <div class="container">
-                        <ul class="left">
-                            <li>
-                            <span>
-                                <i class="fa fa-phone"></i> +1 123 456 789
-                            </span>
-                            </li>
-                        </ul>
-                        <!--end left-->
-                        <ul class="right">
-                            <li>
-                                <a href="my-ads.html">
-                                    <i class="fa fa-heart"></i>My Ads
-                                </a>
-                            </li>
-                            <li>
-                                <a href="sign-in.html">
-                                    <i class="fa fa-sign-in"></i>Sign In
-                                </a>
-                            </li>
-                            <li>
-                                <a href="register.html">
-                                    <i class="fa fa-pencil-square-o"></i>Register
-                                </a>
-                            </li>
-                        </ul>
-                        <!--end right-->
-                    </div>
-                    <!--end container-->
-                </div>
-                <!--============ End Secondary Navigation ===========================================================-->
-                <!--============ Main Navigation ====================================================================-->
-
-                <!--============ End Main Navigation ================================================================-->
+                
+                <jsp:include page="/header/navigation-access.jsp" />
+                
                 <!--============ Hero Form ==========================================================================-->
  
                 <!--end collapse-->
@@ -72,7 +39,7 @@
                 <!--============ End Page Title =====================================================================-->
                 <div class="background">
                     <div class="background-image">
-                        <img src="https://cdn.wallpapersafari.com/67/76/qtpSIw.jpg" alt="">
+                        <img src="${pageContext.request.contextPath}/assets/img/hero-background-image-02.jpg" alt="">
                     </div>
                     <!--end background-image-->
                 </div>
