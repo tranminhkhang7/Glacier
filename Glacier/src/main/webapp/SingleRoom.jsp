@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,9 +22,11 @@
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/user.css">
         <title>Glacier - Easy Find and room booking</title>
-       
+
     </head>
-    <body>
+    <body style="font-family: 'Varela Round', sans-serif;">
+        <c:set var="acc" value="${LOGIN_USER}" />
+        <c:set var="user" value="${USER_DETAIL}" />
         <div class="page sub-page">
             <!--*********************************************************************************************************-->
             <!--************ HERO ***************************************************************************************-->
@@ -42,21 +45,30 @@
                             </ul>
                             <!--end left-->
                             <ul class="right">
-                                <!--                            <li>
-                                                                <a href="my-ads.html">
-                                                                    <i class="fa fa-heart"></i>My Ads
-                                                                </a>
-                                                            </li>-->
-                                <li>
-                                    <a href="sign-in.html">
-                                        <i class="fa fa-sign-in"></i>Sign In
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="register.html">
-                                        <i class="fa fa-pencil-square-o"></i>Register
-                                    </a>
-                                </li>
+                                <c:if test="${empty acc}" >
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/login">
+                                            <i class="fa fa-sign-in"></i>Đăng nhập
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/register">
+                                            <i class="fa fa-pencil-square-o"></i>Đăng ký
+                                        </a>
+                                    </li>
+                                </c:if>
+                                <c:if test="${not empty acc}" >
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/account">
+                                            <i class="fa fa-sign-in"></i>${user.name}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/logout">
+                                            <i class="fa fa-pencil-square-o"></i>Đăng xuất
+                                        </a>
+                                    </li>
+                                </c:if>
                             </ul>
                             <!--end right-->
                         </div>
@@ -76,240 +88,17 @@
                                 <div class="collapse navbar-collapse" id="navbar">
                                     <!--Main navigation list-->
                                     <ul class="navbar-nav">
-                                        <li class="nav-item ">
-                                            <!--active has-child-->
-                                            <a class="nav-link" href="#">Home</a>
-                                            <!--                                        <ul class="child">
-                                                                                        <li class="nav-item">
-                                                                                            <a href="index.html" class="nav-link">Home 1</a>
-                                                                                        </li>
-                                                                                        <li class="nav-item">
-                                                                                            <a href="index-2.html" class="nav-link">Home 2</a>
-                                                                                        </li>
-                                                                                        <li class="nav-item">
-                                                                                            <a href="index-3.html" class="nav-link">Home 3</a>
-                                                                                        </li>
-                                                                                        <li class="nav-item">
-                                                                                            <a href="index-4.html" class="nav-link">Home 4</a>
-                                                                                        </li>
-                                                                                    </ul>-->
-                                        </li>
-                                        <li class="nav-item ">
-                                            <!--has-child-->
-                                            <a class="nav-link" href="#">Profile</a>
-                                            <!-- 1st level -->
-                                            <!--                                        <ul class="child">
-                                                                                        <li class="nav-item has-child">
-                                                                                            <a href="#" class="nav-link">Grid</a>
-                                                                                             2nd level 
-                                                                                            <ul class="child">
-                                                                                                <li class="nav-item">
-                                                                                                    <a href="listing-grid-full-width.html" class="nav-link">Full Width</a>
-                                                                                                </li>
-                                                                                                <li class="nav-item">
-                                                                                                    <a href="listing-grid-sidebar.html" class="nav-link">With Sidebar</a>
-                                                                                                </li>
-                                                                                                <li class="nav-item">
-                                                                                                    <a href="listing-grid-compact-sidebar.html" class="nav-link">Compact With Sidebar</a>
-                                                                                                </li>
-                                                                                                <li class="nav-item">
-                                                                                                    <a href="listing-grid-compact-full-width.html" class="nav-link">Compact Full Width</a>
-                                                                                                </li>
-                                                                                            </ul>
-                                                                                             end 2nd level 
-                                                                                        </li>
-                                                                                        <li class="nav-item has-child">
-                                                                                            <a href="#" class="nav-link">List</a>
-                                                                                             2nd level 
-                                                                                            <ul class="child">
-                                                                                                <li class="nav-item">
-                                                                                                    <a href="listing-list-full-width.html" class="nav-link">Full Width</a>
-                                                                                                </li>
-                                                                                                <li class="nav-item">
-                                                                                                    <a href="listing-list-sidebar.html" class="nav-link">With Sidebar</a>
-                                                                                                </li>
-                                                                                                <li class="nav-item">
-                                                                                                    <a href="listing-list-compact-sidebar.html" class="nav-link">Compact With Sidebar</a>
-                                                                                                </li>
-                                                                                                <li class="nav-item">
-                                                                                                    <a href="listing-list-compact-full-width.html" class="nav-link">Compact Full Width</a>
-                                                                                                </li>
-                                                                                            </ul>
-                                                                                             end 2nd level 
-                                                                                        </li>
-                                                                                        <li class="nav-item has-child">
-                                                                                            <a href="#" class="nav-link">Masonry</a>
-                                                                                             2nd level 
-                                                                                            <ul class="child">
-                                                                                                <li class="nav-item">
-                                                                                                    <a href="listing-masonry-full-width.html" class="nav-link">Full Width</a>
-                                                                                                </li>
-                                                                                                <li class="nav-item">
-                                                                                                    <a href="listing-masonry-sidebar.html" class="nav-link">With Sidebar</a>
-                                                                                                </li>
-                                                                                            </ul>
-                                                                                             end 2nd level 
-                                                                                        </li>
-                                                                                        <li class="nav-item has-child">
-                                                                                            <a href="#" class="nav-link">Single</a>
-                                                                                             2nd level 
-                                                                                            <ul class="child">
-                                                                                                <li class="nav-item">
-                                                                                                    <a href="single-listing-1.html" class="nav-link">Single 1</a>
-                                                                                                </li>
-                                                                                                <li class="nav-item">
-                                                                                                    <a href="single-listing-2.html" class="nav-link">Single 2</a>
-                                                                                                </li>
-                                                                                                <li class="nav-item">
-                                                                                                    <a href="single-listing-3.html" class="nav-link">Single 3</a>
-                                                                                                </li>
-                                                                                            </ul>
-                                                                                             end 2nd level 
-                                                                                        </li>
-                                                                                    </ul>-->
-                                            <!-- end 1st level -->
-                                        </li>
-                                        <!--                                    <li class="nav-item has-child">
-                                                                                <a class="nav-link" href="#">Pages</a>
-                                                                                 2nd level 
-                                                                                <ul class="child">
-                                                                                    <li class="nav-item">
-                                                                                        <a href="sellers.html" class="nav-link">Sellers</a>
-                                                                                    </li>
-                                                                                    <li class="nav-item has-child">
-                                                                                        <a href="#" class="nav-link">Seller Detail</a>
-                                                                                         3rd level 
-                                                                                        <ul class="child">
-                                                                                            <li class="nav-item">
-                                                                                                <a href="seller-detail-1.html" class="nav-link">Seller Detail
-                                                                                                    1</a>
-                                                                                            </li>
-                                                                                            <li class="nav-item">
-                                                                                                <a href="seller-detail-2.html" class="nav-link">Seller Detail
-                                                                                                    2</a>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                         end 3rd level 
-                                                                                    </li>
-                                                                                    <li class="nav-item">
-                                                                                        <a href="blog.html" class="nav-link">Blog</a>
-                                                                                    </li>
-                                                                                    <li class="nav-item">
-                                                                                        <a href="blog-post.html" class="nav-link">Blog Post</a>
-                                                                                    </li>
-                                                                                    <li class="nav-item">
-                                                                                        <a href="submit.html" class="nav-link">Submit Ad</a>
-                                                                                    </li>
-                                                                                    <li class="nav-item">
-                                                                                        <a href="pricing.html" class="nav-link">Pricing</a>
-                                                                                    </li>
-                                                                                    <li class="nav-item">
-                                                                                        <a href="faq.html" class="nav-link">FAQ</a>
-                                                                                    </li>
-                                                                                </ul>
-                                                                                 end 2nd level 
-                                                                            </li>-->
-                                        <!--                                    <li class="nav-item has-child">
-                                                                                <a class="nav-link" href="#">Your room</a>
-                                                                                1st level 
-                                                                                <ul class="child">
-                                                                                    <li class="nav-item has-child">
-                                                                                        <a href="#" class="nav-link">Grid Variants</a>
-                                                                                        <ul class="child">
-                                                                                            <li class="nav-item">
-                                                                                                <a href="listing-grid-4-items.html" class="nav-link">4 Items</a>
-                                                                                            </li>
-                                                                                            <li class="nav-item">
-                                                                                                <a href="listing-grid-3-items.html" class="nav-link">3 Items</a>
-                                                                                            </li>
-                                                                                            <li class="nav-item">
-                                                                                                <a href="listing-grid-2-items.html" class="nav-link">2 Items</a>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                    </li>
-                                                                                    <li class="nav-item has-child">
-                                                                                        <a href="#" class="nav-link">User Panel</a>
-                                                                                        <ul class="child">
-                                                                                            <li class="nav-item">
-                                                                                                <a href="my-profile.html" class="nav-link">My Profile</a>
-                                                                                            </li>
-                                                                                            <li class="nav-item">
-                                                                                                <a href="my-ads.html" class="nav-link">My Ads</a>
-                                                                                            </li>
-                                                                                            <li class="nav-item">
-                                                                                                <a href="change-password.html" class="nav-link">Change
-                                                                                                    Password</a>
-                                                                                            </li>
-                                                                                            <li class="nav-item">
-                                                                                                <a href="sign-in.html" class="nav-link">Sign In</a>
-                                                                                            </li>
-                                                                                            <li class="nav-item">
-                                                                                                <a href="register.html" class="nav-link">Register</a>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                    </li>
-                                                                                    <li class="nav-item">
-                                                                                        <a href="elements.html" class="nav-link">Elements</a>
-                                                                                    </li>
-                                                                                    <li class="nav-item">
-                                                                                        <a href="typography.html" class="nav-link">Typography</a>
-                                                                                    </li>
-                                                                                    <li class="nav-item has-child">
-                                                                                        <a href="#" class="nav-link">Nested Navigation</a>
-                                                                                        2nd level 
-                                                                                        <ul class="child">
-                                                                                            <li class="nav-item">
-                                                                                                <a href="#" class="nav-link">Level 2</a>
-                                                                                            </li>
-                                                                                            <li class="nav-item">
-                                                                                                <a href="#" class="nav-link">Level 2</a>
-                                                                                            </li>
-                                                                                            <li class="nav-item has-child">
-                                                                                                <a href="#" class="nav-link">Level 2</a>
-                                                                                                3rd level 
-                                                                                                <ul class="child">
-                                                                                                    <li class="nav-item has-child">
-                                                                                                        <a href="#" class="nav-link">Level 3</a>
-                                                                                                        4th level 
-                                                                                                        <ul class="child">
-                                                                                                            <li class="nav-item">
-                                                                                                                <a href="#" class="nav-link">Level 4</a>
-                                                                                                            </li>
-                                                                                                            <li class="nav-item">
-                                                                                                                <a href="#" class="nav-link">Level 4</a>
-                                                                                                            </li>
-                                                                                                            <li class="nav-item">
-                                                                                                                <a href="#" class="nav-link">Level 4</a>
-                                                                                                            </li>
-                                                                                                        </ul>
-                                                                                                         end 4th level
-                                                                                                    </li>
-                                                                                                    <li class="nav-item">
-                                                                                                        <a href="#" class="nav-link">Level 3</a>
-                                                                                                    </li>
-                                                                                                    <li class="nav-item">
-                                                                                                        <a href="#" class="nav-link">Level 3</a>
-                                                                                                    </li>
-                                                                                                </ul>
-                                                                                                end 3rd level
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                         end 2nd level 
-                                                                                    </li>
-                                                                                    <li class="nav-item">
-                                                                                        <a href="image-header.html" class="nav-link">Image Header</a>
-                                                                                    </li>
-                                                                                    <li class="nav-item">
-                                                                                        <a href="messaging.html" class="nav-link">Messages</a>
-                                                                                    </li>
-                                                                                </ul>
-                                                                            </li>-->
                                         <li class="nav-item">
-                                            <a class="nav-link" href="contact.html">Contact</a>
-                                        </li>
+                                            <a class="nav-link" href="${pageContext.request.contextPath}/home">Trang chủ</a>
+                                        </li> 
                                         <li class="nav-item">
-                                            <a href="submit.html" class="btn btn-primary text-caps btn-rounded btn-framed">Your room</a>
+                                            <a class="nav-link" href="${pageContext.request.contextPath}/contact">Liên lạc</a>
                                         </li>
+                                        <c:if test="${not empty acc}" >
+                                            <li class="nav-item">
+                                                <a href="submit.html" class="btn btn-primary text-caps btn-rounded">QUẢN LÝ PHÒNG THUÊ</a>
+                                            </li>
+                                        </c:if>
                                     </ul>
                                     <!--Main navigation list-->
                                 </div>
@@ -321,11 +110,11 @@
                                 <!--end main-search-form-toggle-->
                             </nav>
                             <!--end navbar-->
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item"><a href="#">Library</a></li>
-                                <li class="breadcrumb-item active">Data</li>
-                            </ol>
+                            <!--                            <ol class="breadcrumb">
+                                                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                                            <li class="breadcrumb-item"><a href="#">Library</a></li>
+                                                            <li class="breadcrumb-item active">Data</li>
+                                                        </ol>-->
                             <!--end breadcrumb-->
                         </div>
                         <!--end container-->
@@ -479,7 +268,10 @@
                                 </h4>
                             </div>
                             <div class="float-right float-xs-none price">
-                                <div class="number">${room.price} <small>VND</small></div>
+                                <!--                                <div class="number">
+                                <fmt:formatNumber value="${room.price}" type="currency"/><small>VNĐ</small>
+                            </div>-->
+                                <div class="number">${room.price} <small>VNĐ</small></div>
                                 <div class="id opacity-50">
                                     <strong>ID: </strong>${room.roomID}
                                 </div>
@@ -504,51 +296,40 @@
                         <!--Gallery Carousel-->
                         <section>
                             <div class="gallery-carousel owl-carousel">
-                                <c:set var="pic_num" value="${1}"></c:set>
-                                <c:forEach var="i" items="${ImgList}">
-                                    <img src="${i}" alt="alt" data-hash="${pic_num}"/>
-                                    <c:set var="pic_num" value="${pic_num+1}"></c:set>
-                                </c:forEach>
-                                <!--                         <img src="assets/img/image-20.jpg" alt="" data-hash="1">
-                                                            <img src="assets/img/image-01.jpg" alt="" data-hash="2">
-                                                            <img src="assets/img/image-21.jpg" alt="" data-hash="3">
-                                                            <img src="assets/img/image-22.jpg" alt="" data-hash="4">
-                                                            <img src="assets/img/image-23.jpg" alt="" data-hash="5">
-                                                            <img src="assets/img/image-14.jpg" alt="" data-hash="6">-->
+                                <img src="assets/img/image-20.jpg" alt="" data-hash="1">
+                                <img src="assets/img/image-01.jpg" alt="" data-hash="2">
+                                <img src="assets/img/image-21.jpg" alt="" data-hash="3">
+                                <img src="assets/img/image-22.jpg" alt="" data-hash="4">
+                                <img src="assets/img/image-23.jpg" alt="" data-hash="5">
+                                <img src="assets/img/image-14.jpg" alt="" data-hash="6">
                             </div>
                             <div class="gallery-carousel-thumbs owl-carousel">
-                                <c:set var="pic_num" value="${1}"></c:set>
-                                <c:forEach items="${ImgList}" var="i">
-                                    <a href="#${pic_num}" class="owl-thumb <c:if test="${pic_num==1}">${"active-thumb"}</c:if> background-image">
-                                        <img src="${fn:escapeXml(i)}" alt="">
-                                    </a>
-                                    <c:set var="pic_num" value="${pic_num+1}"></c:set>
-                                </c:forEach>
-                                <!--                            <a href="#1" class="owl-thumb active-thumb background-image">
-                                                                <img src="assets/img/image-20.jpg" alt="">
-                                                            </a>
-                                                            <a href="#2" class="owl-thumb background-image">
-                                                                <img src="assets/img/image-01.jpg" alt="">
-                                                            </a>
-                                                            <a href="#3" class="owl-thumb background-image">
-                                                                <img src="assets/img/image-21.jpg" alt="">
-                                                            </a>
-                                                            <a href="#4" class="owl-thumb background-image">
-                                                                <img src="assets/img/image-22.jpg" alt="">
-                                                            </a>
-                                                            <a href="#5" class="owl-thumb background-image">
-                                                                <img src="assets/img/image-23.jpg" alt="">
-                                                            </a>
-                                                            <a href="#6" class="owl-thumb background-image">
-                                                                <img src="assets/img/image-14.jpg" alt="">
-                                                            </a>-->
+                                <a href="#1" class="owl-thumb active-thumb background-image">
+                                    <img src="assets/img/image-20.jpg" alt="">
+                                </a>
+                                <a href="#2" class="owl-thumb background-image">
+                                    <img src="assets/img/image-01.jpg" alt="">
+                                </a>
+                                <a href="#3" class="owl-thumb background-image">
+                                    <img src="assets/img/image-21.jpg" alt="">
+                                </a>
+                                <a href="#4" class="owl-thumb background-image">
+                                    <img src="assets/img/image-22.jpg" alt="">
+                                </a>
+                                <a href="#5" class="owl-thumb background-image">
+                                    <img src="assets/img/image-23.jpg" alt="">
+                                </a>
+                                <a href="#6" class="owl-thumb background-image">
+                                    <img src="assets/img/image-14.jpg" alt="">
+                                </a>
                             </div>
                         </section>
                         <!--end Gallery Carousel-->
                         <div class="row flex-column-reverse flex-md-row">
                             <!--============ Listing Detail =============================================================-->
                             <div class="col-md-8">
-                                <!--Description-->
+                                <!--Description-->d:
+
                                 <section>
                                     <h2>Description</h2>
                                     <p style="white-space: pre-line">
@@ -586,7 +367,15 @@
                                 <!--Location-->
                                 <section>
                                     <h2>Location</h2>
-                                    <div class="map height-300px" id="map-small"></div>
+                                    <div class="map height-300px" id="map-small">
+                                        <iframe width="450"
+                                                height="250"
+                                                style="width: 100%; height: 100%"
+                                                frameborder="0" style="border:0"
+                                                referrerpolicy="no-referrer-when-downgrade"
+                                                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCCYLuixh0QamoPxzrTZTCNGOtd0fwYQoQ&q=${room.detailAddress}" allowfullscreen>
+                                        </iframe>
+                                    </div>
                                 </section>
                                 <!--end Location-->
                                 <!--Features-->
@@ -815,90 +604,71 @@
             <!--************ FOOTER *************************************************************************************-->
             <!--*********************************************************************************************************-->
             <footer class="footer">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <a href="#" class="brand">
-                                <img src="assets/img/logo.png" alt="">
-                            </a>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec tincidunt arcu, sit amet
-                                fermentum sem. Class aptent taciti sociosqu ad litora torquent per conubia nostra.
-                            </p>
-                        </div>
-                        <!--end col-md-5-->
-                        <div class="col-md-3">
-                            <h2>Navigation</h2>
-                            <div class="row">
-                                <div class="col-md-6 col-sm-6">
-                                    <nav>
-                                        <ul class="list-unstyled">
-                                            <li>
-                                                <a href="#">Home</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Listing</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Pages</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Extras</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Contact</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Submit Ad</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                                <div class="col-md-6 col-sm-6">
-                                    <nav>
-                                        <ul class="list-unstyled">
-                                            <li>
-                                                <a href="#">My Ads</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Sign In</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Register</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
+                <div class="wrapper">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <a href="#" class="brand">
+                                    <img src="${pageContext.request.contextPath}/assets/img/logo.png" alt="">
+                                </a>
+                                <p>
+                                    Glacier là nền tảng kết nối người thuê nhà và các chủ trọ. Sẵn sàng sát cánh bến bạn trên mỗi hành trình mà bạn bước đi!
+                                </p>
+                            </div>
+                            <!--end col-md-5-->
+                            <div class="col-md-3">
+                                <h2>Bảng điều hướng</h2>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6">
+                                        <nav>
+                                            <ul class="list-unstyled">
+                                                <li>
+                                                    <a href="${pageContext.request.contextPath}/home">Trang chủ</a>
+                                                </li>
+
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <nav>
+                                            <ul class="list-unstyled">
+                                                <li>
+                                                    <a href="${pageContext.request.contextPath}/contact">Liên lạc</a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
                                 </div>
                             </div>
+                            <!--end col-md-3-->
+                            <div class="col-md-4">
+                                <h2>Liên hệ</h2>
+                                <address>
+                                    <!--                                    <figure>
+                                                                            124 Abia Martin Drive<br>
+                                                                            New York, NY 10011
+                                                                        </figure>-->
+                                    <br>
+                                    <strong>Email:</strong> <a href="#">glacier.hostel@gmail.com</a>
+                                    <br>
+                                    <strong>Phone: </strong>  +1 123 456 789
+                                    <br>
+                                    <br>
+                                    <a href="contact.html" class="btn btn-primary text-caps btn-framed">Contact Us</a>
+                                </address>
+                            </div>
+                            <!--end col-md-4-->
                         </div>
-                        <!--end col-md-3-->
-                        <div class="col-md-4">
-                            <h2>Contact</h2>
-                            <address>
-                                <figure>
-                                    124 Abia Martin Drive<br>
-                                    New York, NY 10011
-                                </figure>
-                                <br>
-                                <strong>Email:</strong> <a href="#">hello@example.com</a>
-                                <br>
-                                <strong>Skype: </strong> Craigs
-                                <br>
-                                <br>
-                                <a href="contact.html" class="btn btn-primary text-caps btn-framed">Contact Us</a>
-                            </address>
+                        <!--end row-->
+                    </div>
+                    <div class="background">
+                        <div class="background-image original-size">
+                            <img src="${pageContext.request.contextPath}/assets/img/footer-background-icons.jpg" alt="">
                         </div>
-                        <!--end col-md-4-->
+                        <!--end background-image-->
                     </div>
-                    <!--end row-->
+                    <!--end background-->
                 </div>
-                <div class="background">
-                    <div class="background-image original-size">
-                        <img src="assets/img/footer-background-icons.jpg" alt="">
-                    </div>
-                    <!--end background-image-->
-                </div>
-                <!--end background-->
             </footer>
             <!--end footer-->
         </div>
@@ -914,14 +684,14 @@
         <script src="assets/js/jquery.validate.min.js"></script>
         <script src="assets/js/custom.js"></script>
 
-        <script>
+<!--        <script>
             var latitude = 51.511971;
             var longitude = -0.137597;
             var markerImage = "assets/img/map-marker.png";
             var mapTheme = "light";
             var mapElement = "map-small";
             simpleMap(latitude, longitude, markerImage, mapTheme, mapElement);
-        </script>
+        </script>-->
 
     </body>
 </html>

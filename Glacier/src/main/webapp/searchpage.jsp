@@ -24,7 +24,9 @@
         <title>Search</title>
 
     </head>
-    <body>
+    <body style="font-family: 'Varela Round', sans-serif;">
+        <c:set var="acc" value="${LOGIN_USER}" />
+        <c:set var="user" value="${USER_DETAIL}" />
         <div class="page sub-page">
             <!--*********************************************************************************************************-->
             <!--************ HERO ***************************************************************************************-->
@@ -43,21 +45,30 @@
                             </ul>
                             <!--end left-->
                             <ul class="right">
-                                <li>
-                                    <a href="my-ads.html">
-                                        <i class="fa fa-heart"></i>My Ads
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="sign-in.html">
-                                        <i class="fa fa-sign-in"></i>Sign In
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="register.html">
-                                        <i class="fa fa-pencil-square-o"></i>Register
-                                    </a>
-                                </li>
+                                <c:if test="${empty acc}" >
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/login">
+                                            <i class="fa fa-sign-in"></i>Đăng nhập
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/register">
+                                            <i class="fa fa-pencil-square-o"></i>Đăng ký
+                                        </a>
+                                    </li>
+                                </c:if>
+                                <c:if test="${not empty acc}" >
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/account">
+                                            <i class="fa fa-sign-in"></i>${user.name}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/logout">
+                                            <i class="fa fa-pencil-square-o"></i>Đăng xuất
+                                        </a>
+                                    </li>
+                                </c:if>
                             </ul>
                             <!--end right-->
                         </div>
@@ -68,7 +79,7 @@
                     <div class="main-navigation">
                         <div class="container">
                             <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
-                                <a class="navbar-brand" href="index.html">
+                                <a class="navbar-brand" href="${pageContext.request.contextPath}/home">
                                     <img src="assets/img/logo.png" alt="">
                                 </a>
                                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,238 +88,17 @@
                                 <div class="collapse navbar-collapse" id="navbar">
                                     <!--Main navigation list-->
                                     <ul class="navbar-nav">
-                                        <li class="nav-item active has-child">
-                                            <a class="nav-link" href="#">Home</a>
-                                            <ul class="child">
-                                                <li class="nav-item">
-                                                    <a href="index.html" class="nav-link">Home 1</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="index-2.html" class="nav-link">Home 2</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="index-3.html" class="nav-link">Home 3</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="index-4.html" class="nav-link">Home 4</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="nav-item has-child">
-                                            <a class="nav-link" href="#">Listing</a>
-                                            <!-- 1st level -->
-                                            <ul class="child">
-                                                <li class="nav-item has-child">
-                                                    <a href="#" class="nav-link">Grid</a>
-                                                    <!-- 2nd level -->
-                                                    <ul class="child">
-                                                        <li class="nav-item">
-                                                            <a href="listing-grid-full-width.html" class="nav-link">Full Width</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="listing-grid-sidebar.html" class="nav-link">With Sidebar</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="listing-grid-compact-sidebar.html" class="nav-link">Compact With Sidebar</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="listing-grid-compact-full-width.html" class="nav-link">Compact Full Width</a>
-                                                        </li>
-                                                    </ul>
-                                                    <!-- end 2nd level -->
-                                                </li>
-                                                <li class="nav-item has-child">
-                                                    <a href="#" class="nav-link">List</a>
-                                                    <!-- 2nd level -->
-                                                    <ul class="child">
-                                                        <li class="nav-item">
-                                                            <a href="listing-list-full-width.html" class="nav-link">Full Width</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="listing-list-sidebar.html" class="nav-link">With Sidebar</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="listing-list-compact-sidebar.html" class="nav-link">Compact With Sidebar</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="listing-list-compact-full-width.html" class="nav-link">Compact Full Width</a>
-                                                        </li>
-                                                    </ul>
-                                                    <!-- end 2nd level -->
-                                                </li>
-                                                <li class="nav-item has-child">
-                                                    <a href="#" class="nav-link">Masonry</a>
-                                                    <!-- 2nd level -->
-                                                    <ul class="child">
-                                                        <li class="nav-item">
-                                                            <a href="listing-masonry-full-width.html" class="nav-link">Full Width</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="listing-masonry-sidebar.html" class="nav-link">With Sidebar</a>
-                                                        </li>
-                                                    </ul>
-                                                    <!-- end 2nd level -->
-                                                </li>
-                                                <li class="nav-item has-child">
-                                                    <a href="#" class="nav-link">Single</a>
-                                                    <!-- 2nd level -->
-                                                    <ul class="child">
-                                                        <li class="nav-item">
-                                                            <a href="single-listing-1.html" class="nav-link">Single 1</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="single-listing-2.html" class="nav-link">Single 2</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="single-listing-3.html" class="nav-link">Single 3</a>
-                                                        </li>
-                                                    </ul>
-                                                    <!-- end 2nd level -->
-                                                </li>
-                                            </ul>
-                                            <!-- end 1st level -->
-                                        </li>
-                                        <li class="nav-item has-child">
-                                            <a class="nav-link" href="#">Pages</a>
-                                            <!-- 2nd level -->
-                                            <ul class="child">
-                                                <li class="nav-item">
-                                                    <a href="sellers.html" class="nav-link">Sellers</a>
-                                                </li>
-                                                <li class="nav-item has-child">
-                                                    <a href="#" class="nav-link">Seller Detail</a>
-                                                    <!-- 3rd level -->
-                                                    <ul class="child">
-                                                        <li class="nav-item">
-                                                            <a href="seller-detail-1.html" class="nav-link">Seller Detail
-                                                                1</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="seller-detail-2.html" class="nav-link">Seller Detail
-                                                                2</a>
-                                                        </li>
-                                                    </ul>
-                                                    <!-- end 3rd level -->
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="blog.html" class="nav-link">Blog</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="blog-post.html" class="nav-link">Blog Post</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="submit.html" class="nav-link">Submit Ad</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="pricing.html" class="nav-link">Pricing</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="faq.html" class="nav-link">FAQ</a>
-                                                </li>
-                                            </ul>
-                                            <!-- end 2nd level -->
-                                        </li>
-                                        <li class="nav-item has-child">
-                                            <a class="nav-link" href="#">Extras</a>
-                                            <!--1st level -->
-                                            <ul class="child">
-                                                <li class="nav-item has-child">
-                                                    <a href="#" class="nav-link">Grid Variants</a>
-                                                    <ul class="child">
-                                                        <li class="nav-item">
-                                                            <a href="listing-grid-4-items.html" class="nav-link">4 Items</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="listing-grid-3-items.html" class="nav-link">3 Items</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="listing-grid-2-items.html" class="nav-link">2 Items</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li class="nav-item has-child">
-                                                    <a href="#" class="nav-link">User Panel</a>
-                                                    <ul class="child">
-                                                        <li class="nav-item">
-                                                            <a href="my-profile.html" class="nav-link">My Profile</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="my-ads.html" class="nav-link">My Ads</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="change-password.html" class="nav-link">Change
-                                                                Password</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="sign-in.html" class="nav-link">Sign In</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="register.html" class="nav-link">Register</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="elements.html" class="nav-link">Elements</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="typography.html" class="nav-link">Typography</a>
-                                                </li>
-                                                <li class="nav-item has-child">
-                                                    <a href="#" class="nav-link">Nested Navigation</a>
-                                                    <!--2nd level -->
-                                                    <ul class="child">
-                                                        <li class="nav-item">
-                                                            <a href="#" class="nav-link">Level 2</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="#" class="nav-link">Level 2</a>
-                                                        </li>
-                                                        <li class="nav-item has-child">
-                                                            <a href="#" class="nav-link">Level 2</a>
-                                                            <!--3rd level -->
-                                                            <ul class="child">
-                                                                <li class="nav-item has-child">
-                                                                    <a href="#" class="nav-link">Level 3</a>
-                                                                    <!--4th level -->
-                                                                    <ul class="child">
-                                                                        <li class="nav-item">
-                                                                            <a href="#" class="nav-link">Level 4</a>
-                                                                        </li>
-                                                                        <li class="nav-item">
-                                                                            <a href="#" class="nav-link">Level 4</a>
-                                                                        </li>
-                                                                        <li class="nav-item">
-                                                                            <a href="#" class="nav-link">Level 4</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                    <!-- end 4th level-->
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <a href="#" class="nav-link">Level 3</a>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <a href="#" class="nav-link">Level 3</a>
-                                                                </li>
-                                                            </ul>
-                                                            <!--end 3rd level-->
-                                                        </li>
-                                                    </ul>
-                                                    <!-- end 2nd level -->
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="image-header.html" class="nav-link">Image Header</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="messaging.html" class="nav-link">Messages</a>
-                                                </li>
-                                            </ul>
-                                        </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="contact.html">Contact</a>
-                                        </li>
+                                            <a class="nav-link" href="${pageContext.request.contextPath}/home">Trang chủ</a>
+                                        </li> 
                                         <li class="nav-item">
-                                            <a href="submit.html" class="btn btn-primary text-caps btn-rounded btn-framed">Submit Ad</a>
+                                            <a class="nav-link" href="${pageContext.request.contextPath}/contact">Liên lạc</a>
                                         </li>
+                                        <c:if test="${not empty acc}" >
+                                            <li class="nav-item">
+                                                <a href="submit.html" class="btn btn-primary text-caps btn-rounded">QUẢN LÝ PHÒNG THUÊ</a>
+                                            </li>
+                                        </c:if>
                                     </ul>
                                     <!--Main navigation list-->
                                 </div>
@@ -317,19 +107,13 @@
                                     <i class="fa fa-search"></i>
                                     <i class="fa fa-close"></i>
                                 </a>
-                                <!--end main-search-form-toggle-->
                             </nav>
                             <!--end navbar-->
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item"><a href="#">Library</a></li>
-                                <li class="breadcrumb-item active">Data</li>
-                            </ol>
-                            <!--end breadcrumb-->
                         </div>
                         <!--end container-->
                     </div>
                     <!--============ End Main Navigation ================================================================-->
+                    
                     <!--============ Hero Form ==========================================================================-->
                     <div class="collapse" id="collapseMainSearchForm">
                         <form class="hero-form form" action="${pageContext.request.contextPath}/search" method="get">
@@ -339,8 +123,8 @@
                                     <div class="form-row">
                                         <div class="col-md-9 col-sm-9">
                                             <div class="form-group">
-                                                <label for="what" class="col-form-label">What?</label>
-                                                <input name="keyword" type="text" class="form-control small" id="what" placeholder="What are you looking for?">
+                                                <label for="what" class="col-form-label">Bạn đang đi đến đâu?</label>
+                                                <input name="keyword" type="text" class="form-control small" id="what" placeholder="Nhập vị trí, mô tả phòng mà bạn muốn đến...">
                                             </div>
                                             <!--end form-group-->
                                         </div>
@@ -348,7 +132,7 @@
 
                                         <!--end col-md-3-->
                                         <div class="col-md-3 col-sm-3">
-                                            <button type="submit" class="btn btn-primary width-100 small">Search</button>
+                                            <button type="submit" class="btn btn-primary width-100 small">Tìm kiếm</button>
                                         </div>
                                         <!--end col-md-3-->
                                     </div>
@@ -358,7 +142,7 @@
                                 <!--end main-search-form-->
                                 <!--Alternative Form-->
                                 <div class="alternative-search-form">
-                                    <a href="#collapseAlternativeSearchForm" class="icon" data-toggle="collapse"  aria-expanded="false" aria-controls="collapseAlternativeSearchForm"><i class="fa fa-plus"></i>More Options</a>
+                                    <a href="#collapseAlternativeSearchForm" class="icon" data-toggle="collapse"  aria-expanded="false" aria-controls="collapseAlternativeSearchForm"><i class="fa fa-plus"></i>Tùy chỉnh</a>
                                     <div class="collapse" id="collapseAlternativeSearchForm">
                                         <div class="wrapper">
                                             <div class="form-row">
@@ -435,7 +219,7 @@
                     <!--============ Page Title =========================================================================-->
                     <div class="page-title">
                         <div class="container">
-                            <h1>Are these what you looking for hello?</h1>
+                            <h1>Kết quả cho tìm của bạn</h1>
                         </div>
                         <!--end container-->
                     </div>
@@ -455,7 +239,7 @@
                     <div class="container">
                         <!--============ Section Title===================================================================-->
                         <div class="section-title clearfix">
-                            <div class="float-left float-xs-none">
+<!--                            <div class="float-left float-xs-none">
                                 <label class="mr-3 align-text-bottom">Sort by: </label>
                                 <select name="sorting" id="sorting" class="small width-200px" data-placeholder="Default Sorting" >
                                     <option value="">Default Sorting</option>
@@ -465,15 +249,16 @@
                                     <option value="4">Highest Price First</option>
                                 </select>
 
-                            </div>
-                            <div class="float-right d-xs-none thumbnail-toggle">
+                            </div>-->
+                            <!--sort chưa làm được nên tạm đóng lại nhe!!! NHỚ LÀM!!!-->
+<!--                            <div class="float-right d-xs-none thumbnail-toggle">
                                 <a href="#" class="change-class active" data-change-from-class="list" data-change-to-class="grid" data-parent-class="items">
                                     <i class="fa fa-th"></i>
                                 </a>
                                 <a href="#" class="change-class" data-change-from-class="grid" data-change-to-class="list" data-parent-class="items">
                                     <i class="fa fa-th-list"></i>
                                 </a>
-                            </div>
+                            </div>-->
                         </div>
                         <!--============ Items ==========================================================================-->
                         <div class="items grid grid-xl-4-items grid-lg-4-items grid-md-4-items">
@@ -513,7 +298,7 @@
                                             <p>${room.description}</p>
                                         </div>
                                         <!--end description-->
-                                        <a href="single-listing-1.html" class="detail text-caps underline">Detail</a>
+                                        <a href="${pageContext.request.contextPath}/SingleRoomView?id=${room.roomID}" class="detail text-caps underline">CHI TIẾT</a>
                                     </div>
                                 </div>
                                 <!--end item-->
@@ -577,38 +362,23 @@
                         <div class="row">
                             <div class="col-md-5">
                                 <a href="#" class="brand">
-                                    <img src="assets/img/logo.png" alt="">
+                                    <img src="${pageContext.request.contextPath}/assets/img/logo.png" alt="">
                                 </a>
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec tincidunt arcu, sit amet
-                                    fermentum sem. Class aptent taciti sociosqu ad litora torquent per conubia nostra.
+                                    Glacier là nền tảng kết nối người thuê nhà và các chủ trọ. Sẵn sàng sát cánh bến bạn trên mỗi hành trình mà bạn bước đi!
                                 </p>
                             </div>
                             <!--end col-md-5-->
                             <div class="col-md-3">
-                                <h2>Navigation</h2>
+                                <h2>Bảng điều hướng</h2>
                                 <div class="row">
                                     <div class="col-md-6 col-sm-6">
                                         <nav>
                                             <ul class="list-unstyled">
                                                 <li>
-                                                    <a href="#">Home</a>
+                                                    <a href="${pageContext.request.contextPath}/home">Trang chủ</a>
                                                 </li>
-                                                <li>
-                                                    <a href="#">Listing</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Pages</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Extras</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Contact</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Submit Ad</a>
-                                                </li>
+                                                
                                             </ul>
                                         </nav>
                                     </div>
@@ -616,13 +386,7 @@
                                         <nav>
                                             <ul class="list-unstyled">
                                                 <li>
-                                                    <a href="#">My Ads</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Sign In</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Register</a>
+                                                    <a href="${pageContext.request.contextPath}/contact">Liên lạc</a>
                                                 </li>
                                             </ul>
                                         </nav>
@@ -631,16 +395,16 @@
                             </div>
                             <!--end col-md-3-->
                             <div class="col-md-4">
-                                <h2>Contact</h2>
+                                <h2>Liên hệ</h2>
                                 <address>
-                                    <figure>
+<!--                                    <figure>
                                         124 Abia Martin Drive<br>
                                         New York, NY 10011
-                                    </figure>
+                                    </figure>-->
                                     <br>
-                                    <strong>Email:</strong> <a href="#">hello@example.com</a>
+                                    <strong>Email:</strong> <a href="#">glacier.hostel@gmail.com</a>
                                     <br>
-                                    <strong>Skype: </strong> Craigs
+                                    <strong>Phone: </strong>  +1 123 456 789
                                     <br>
                                     <br>
                                     <a href="contact.html" class="btn btn-primary text-caps btn-framed">Contact Us</a>
@@ -652,7 +416,7 @@
                     </div>
                     <div class="background">
                         <div class="background-image original-size">
-                            <img src="assets/img/footer-background-icons.jpg" alt="">
+                            <img src="${pageContext.request.contextPath}/assets/img/footer-background-icons.jpg" alt="">
                         </div>
                         <!--end background-image-->
                     </div>

@@ -60,7 +60,7 @@ public class LoginController extends HttpServlet {
                         if (!"disabled".equals(t.getStatus())) {
                             ss.setAttribute("LOGIN_USER", acc);
                             ss.setAttribute("USER_DETAIL", t);
-                            response.sendRedirect("success.jsp");
+                            response.sendRedirect("index.jsp");
                             return;
                         }
                     }
@@ -70,10 +70,12 @@ public class LoginController extends HttpServlet {
                         if (!"disabled".equals(l.getStatus())) {
                             ss.setAttribute("LOGIN_USER", acc);
                             ss.setAttribute("USER_DETAIL", l);
-                            response.sendRedirect("success.jsp");
+                            response.sendRedirect("./roomlist");
                             return;
                         }
                     }
+                } else if ("admin".equals(role)) {
+                    
                 }
             } else {
                 request.setAttribute("ERROR_MSG", "Invalid email or password");

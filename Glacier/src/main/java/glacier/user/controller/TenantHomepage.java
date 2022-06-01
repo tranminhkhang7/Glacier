@@ -1,24 +1,25 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
-package glacier.room.model;
+package glacier.user.controller;
 
-import glacier.user.model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Admin
+ * @author KHANG
  */
-public class SingleRoomView extends HttpServlet {
+@WebServlet(name = "TenantHomepage", urlPatterns = {"/home"})
+public class TenantHomepage extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,40 +30,12 @@ public class SingleRoomView extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-    
-    private static final String ERROR = "SingleRoom.jsp";               // change this after adding session
-    private static final String SUCCESS = "SingleRoom.jsp";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        int TEST = Integer.parseInt(request.getParameter("id"));
-        
-        String url = ERROR;
-        try {
-//            HttpSession session = request.getSession();
-//            Account role = (Account) session.getAttribute("role");
-            String role = "tenant";                                     // this set default access delete this when merging
-            if (!role.equals("tenant")){                                // set privillage only tenant can see other room details 
-                url = ERROR;
-                request.setAttribute("ERROR", "WRONG PRIVILLAGE");
-            }
-            if (role.equals("tenant")) {
-//                int id = Integer.parseInt(request.getParameter("id"));  // get room id to view
-                RoomDAO dao = new RoomDAO();
-                Room room = dao.getRoomById(TEST);                      // replace TEST with id when merging
-                ArrayList<String> ImgList = dao.getRoomImgById(TEST);
-                
-                request.setAttribute("room", room);
-                request.setAttribute("ImgList", ImgList);
-                url=SUCCESS;
-            }
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-        finally {
-            request.getRequestDispatcher(url).forward(request,response);
+        try (PrintWriter out = response.getWriter()) {
+            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+            rd.forward(request, response);
         }
     }
 
