@@ -14,8 +14,8 @@ import javax.servlet.http.HttpSession;
  * @author ASUS
  */
 public class DBUtils {
-    
-    public static Connection getConnection() throws Exception {
+
+public static Connection getConnection() throws Exception {
         String url = "jdbc:sqlserver://" + serverName + ":" + portNumber + "\\" + instance + ";databaseName=" + dbName;
         if (instance == null || instance.trim().isEmpty()) {
             url = "jdbc:sqlserver://" + serverName + ":" + portNumber + ";databaseName=" + dbName;
