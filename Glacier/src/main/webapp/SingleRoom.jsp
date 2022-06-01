@@ -585,9 +585,17 @@
                                 <!--end Details-->
                                 <!--Location-->
                                 <section>
-                                    <h2>Location</h2>
-                                    <div class="map height-300px" id="map-small"></div>
-                                </section>
+                                <h2>Location</h2>
+                                <div class="map height-300px" id="map-small">
+                                    <iframe width="450"
+                                            height="250"
+                                            style="width: 100%; height: 100%"
+                                            frameborder="0" style="border:0"
+                                            
+                                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCCYLuixh0QamoPxzrTZTCNGOtd0fwYQoQ&q=${room.detailAddress}" allowfullscreen>
+                                    </iframe>
+                                </div>
+                            </section>
                                 <!--end Location-->
                                 <!--Features-->
                                 <!--                            <section>
@@ -914,14 +922,14 @@
         <script src="assets/js/jquery.validate.min.js"></script>
         <script src="assets/js/custom.js"></script>
 
-        <script>
+<!--        <script>
             var latitude = 51.511971;
             var longitude = -0.137597;
             var markerImage = "assets/img/map-marker.png";
             var mapTheme = "light";
             var mapElement = "map-small";
             simpleMap(latitude, longitude, markerImage, mapTheme, mapElement);
-        </script>
+        </script>-->
 
     </body>
 </html>

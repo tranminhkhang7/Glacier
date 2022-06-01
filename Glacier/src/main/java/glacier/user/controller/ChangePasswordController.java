@@ -48,7 +48,7 @@ public class ChangePasswordController extends HttpServlet {
                 RequestDispatcher rd = request.getRequestDispatcher("change-password.jsp");
                 rd.forward(request, response);
             } else if (!correctPassword.equals(oldPassword) || !newPassword.equals(confirmPassword)) {
-                request.setAttribute("error", "Passwords doesn't match. Please try again.");
+                request.setAttribute("CHANGE_PASSWORD_ERROR_MSG", "Passwords doesn't match. Please try again.");
                 RequestDispatcher rd = request.getRequestDispatcher("change-password.jsp");
                 rd.forward(request, response);
             } else {

@@ -497,6 +497,9 @@
                             <form class="form" action="changepassword" method="POST">
                                 <div class="row justify-content-center">
                                     <div class="col-md-6">
+                                <c:if test="${not empty requestScope.CHANGE_PASSWORD_ERROR_MSG}">
+                                    <div class="" style="color: red; background-color: rgb(242, 242, 109); height: 50px; line-height: 50px; text-align: center;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ${CHANGE_PASSWORD_ERROR_MSG}</div>
+                                </c:if>
                                         <div class="form-group">
                                             <label for="current_password" class="col-form-label required">Current Password</label>
                                             <input name="current_password" type="password" class="form-control" id="current_password" placeholder="Current Password" required>

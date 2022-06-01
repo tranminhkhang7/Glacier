@@ -74,7 +74,7 @@ public class LoginController extends HttpServlet {
                             return;
                         }
                     }
-                }
+                } 
             } else {
                 request.setAttribute("ERROR_MSG", "Invalid email or password");
                 request.getRequestDispatcher("access/login.jsp").forward(request, response);
