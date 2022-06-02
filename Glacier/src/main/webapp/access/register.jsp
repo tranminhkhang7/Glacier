@@ -19,9 +19,9 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user.css">
 
-        <title>Regis for Glacier</title>
+        <title>Đăng ký Glacier</title>
     </head>
-    <body>
+    <body style="font-family: 'Varela Round', sans-serif;">
         <div class="page sub-page">
             <!--*********************************************************************************************************-->
             <!--************ HERO ***************************************************************************************-->
@@ -158,7 +158,7 @@
                     <!--============ Page Title =========================================================================-->
                     <div class="page-title">
                         <div class="container">
-                            <h1>Sign Up</h1>
+                            <h1>Đăng ký tài khoản</h1>
                         </div>
                         <!--end container-->
                     </div>
@@ -188,52 +188,52 @@
                                 </c:if>
                                 <form class="form clearfix" action="${pageContext.request.contextPath}/register" method="post">
                                     <div class="form-group">
-                                        <label for="name" class="col-form-label required">Your Name</label>
-                                        <input name="name" type="text" class="form-control" id="name" placeholder="Your Name" required onkeyup="nameLengthCheck()">
+                                        <label for="name" class="col-form-label required">Tên của bạn</label>
+                                        <input name="name" type="text" class="form-control" id="name" placeholder="Nhập tên của bạn" required onkeyup="nameLengthCheck()">
                                         <span id="name_message" style="text-align: right;"></span>
                                     </div>
                                     <!--end form-group-->
                                     <div class="form-group">
                                         <label for="email" class="col-form-label required">Email</label>
-                                        <input name="email" type="email" class="form-control" id="email" placeholder="Your Email" required>
+                                        <input name="email" type="email" class="form-control" id="email" placeholder="Nhập email của bạn" required>
                                     </div>
                                     <!--end form-group-->
                                     <div class="form-group">
-                                        <label for="password" class="col-form-label required">Password</label>
-                                        <input name="password" type="password" class="form-control" id="password" placeholder="Password" required onkeyup="lengthCheck()">
+                                        <label for="password" class="col-form-label required">Mật khẩu</label>
+                                        <input name="password" type="password" class="form-control" id="password" placeholder="Nhập mật khẩu" required onkeyup="lengthCheck()">
                                         <span id="length_message" style="text-align: right;"></span>
                                     </div>
                                     <!--end form-group-->
                                     <div class="form-group">
-                                        <label for="repeat_password" class="col-form-label required">Repeat Password</label>
+                                        <label for="repeat_password" class="col-form-label required">Nhập lại mật khẩu</label>
                                         <input name="repeat_password" type="password" class="form-control" id="repeat_password" placeholder="Repeat Password" required onkeyup="check()"><br>
                                         <span id="message" style="text-align: right;"></span>
                                     </div>
                                     <!--end form-group-->
                                     <div class="form-group">
-                                        <label for="phone" class="col-form-label required">Phone number</label>
+                                        <label for="phone" class="col-form-label required">Số điện thoại</label>
                                         <input name="phone" type="tel" class="form-control" id="phone" placeholder="Phone number" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" required>
                                         
                                     </div>
                                     <!--end form-group-->
                                     <div class="form-group">
-                                        <label for="hehe" class="col-form-label required">Who do you want to be</label>
+                                        <label for="hehe" class="col-form-label required">Bạn đăng ký trở thành</label>
                                         <select id="hehe" name="role">
-                                            <option value="Tenant">Tenant</option>
-                                            <option value="Landlord">Landlord</option>
+                                            <option value="Tenant">Người thuê</option>
+                                            <option value="Landlord">Người cho thuê</option>
                                         </select>
                                     </div>
                                     <!--end form-group-->
                                     <div class="form-group">
-                                        <label for="Gender" class="col-form-label required">Gender</label>
+                                        <label for="Gender" class="col-form-label required">Giới tính</label>
                                         <div id="Gender"></div>
-                                        <span style="padding-right: 20px;">Male</span><input name="gender" value="male" type="radio" class="form-control" id="Male" checked>
-                                        <span style="padding-right: 20px;">Female</span><input name="gender" value="female" type="radio" class="form-control" id="Female">
+                                        <span style="padding-right: 20px;">Nam</span><input name="gender" value="male" type="radio" class="form-control" id="Male" checked>
+                                        <span style="padding-right: 20px;">Nữ</span><input name="gender" value="female" type="radio" class="form-control" id="Female">
                                     </div>
                                     <!--end form-group-->
                                     <div class="d-flex justify-content-between align-items-baseline">
-                                        <p><a href="${pageContext.request.contextPath}/login" id="link" class="link">Already has an account?</a> </p>
-                                        <button type="submit" class="btn btn-danger">Register</button>
+                                        <p><a href="${pageContext.request.contextPath}/login" id="link" class="link">Đăng nhập nếu bạn đã có tài khoản.</a> </p>
+                                        <button type="submit" class="btn btn-primary">Đăng ký</button>
                                     </div>
                                 </form>
                                 <hr>
@@ -254,94 +254,7 @@
             <!--*********************************************************************************************************-->
             <!--************ FOOTER *************************************************************************************-->
             <!--*********************************************************************************************************-->
-            <footer class="footer">
-                <div class="wrapper">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <a href="#" class="brand">
-                                    <img src="${pageContext.request.contextPath}/assets/img/logo.png" alt="">
-                                </a>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec tincidunt arcu, sit amet
-                                    fermentum sem. Class aptent taciti sociosqu ad litora torquent per conubia nostra.
-                                </p>
-                            </div>
-                            <!--end col-md-5-->
-                            <div class="col-md-3">
-                                <h2>Navigation</h2>
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-6">
-                                        <nav>
-                                            <ul class="list-unstyled">
-                                                <li>
-                                                    <a href="#">Home</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Listing</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Pages</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Extras</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Contact</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Submit Ad</a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6">
-                                        <nav>
-                                            <ul class="list-unstyled">
-                                                <li>
-                                                    <a href="#">My Ads</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Sign In</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Register</a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end col-md-3-->
-                            <div class="col-md-4">
-                                <h2>Contact</h2>
-                                <address>
-                                    <figure>
-                                        124 Abia Martin Drive<br>
-                                        New York, NY 10011
-                                    </figure>
-                                    <br>
-                                    <strong>Email:</strong> <a href="#">hello@example.com</a>
-                                    <br>
-                                    <strong>Skype: </strong> Craigs
-                                    <br>
-                                    <br>
-                                    <a href="contact.html" class="btn btn-primary text-caps btn-framed">Contact Us</a>
-                                </address>
-                            </div>
-                            <!--end col-md-4-->
-                        </div>
-                        <!--end row-->
-                    </div>
-                    <div class="background">
-                        <div class="background-image original-size">
-                            <img src="assets/img/footer-background-icons.jpg" alt="">
-                        </div>
-                        <!--end background-image-->
-                    </div>
-                    <!--end background-->
-                </div>
-            </footer>
+            
             <!--end footer-->
         </div>
         <!--end page-->
