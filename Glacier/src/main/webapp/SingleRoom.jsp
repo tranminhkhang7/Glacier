@@ -366,31 +366,16 @@
                                 <!--end Details-->
                                 <!--Location-->
                                 <section>
-<<<<<<< HEAD
                                 <h2>Location</h2>
                                 <div class="map height-300px" id="map-small">
                                     <iframe width="450"
                                             height="250"
                                             style="width: 100%; height: 100%"
-                                            frameborder="0" style="border:0"
-                                            
+                                            frameborder="0" style="border:0"                                         
                                             src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCCYLuixh0QamoPxzrTZTCNGOtd0fwYQoQ&q=${room.detailAddress}" allowfullscreen>
                                     </iframe>
                                 </div>
                             </section>
-=======
-                                    <h2>Location</h2>
-                                    <div class="map height-300px" id="map-small">
-                                        <iframe width="450"
-                                                height="250"
-                                                style="width: 100%; height: 100%"
-                                                frameborder="0" style="border:0"
-                                                referrerpolicy="no-referrer-when-downgrade"
-                                                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCCYLuixh0QamoPxzrTZTCNGOtd0fwYQoQ&q=${room.detailAddress}" allowfullscreen>
-                                        </iframe>
-                                    </div>
-                                </section>
->>>>>>> dc88e9094f7bd57c4d3a69c34569754f0eac11a2
                                 <!--end Location-->
                                 <!--Features-->
                                 <!--                            <section>
