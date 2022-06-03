@@ -20,10 +20,10 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user.css">
 
-        <title>Sign in to Glacier</title>
+        <title>Đăng nhập Glacier</title>
 
     </head>
-    <body>
+    <body style="font-family: 'Varela Round', sans-serif;">
         <%
             try {
 
@@ -48,35 +48,9 @@
             <!--*********************************************************************************************************-->
             <section class="hero">
                 <div class="hero-wrapper">
-                    <!--============ Secondary Navigation ===============================================================-->
-
-                    <!--============ End Secondary Navigation ===========================================================-->
-                    <!--============ Main Navigation ====================================================================-->
-                    <div class="main-navigation">
-                        <div class="container">
-                            <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
-                                <a class="navbar-brand" href="index.html">
-                                    <img src="assets/img/logo.png" alt="">
-                                </a>
-                                
-                                <!--end navbar-collapse-->
-                                <!--                                <a href="#collapseMainSearchForm" class="main-search-form-toggle" data-toggle="collapse"  aria-expanded="false" aria-controls="collapseMainSearchForm">
-                                                                    <i class="fa fa-search"></i>
-                                                                    <i class="fa fa-close"></i>
-                                                                </a>-->
-                                <!--end main-search-form-toggle-->
-                            </nav>
-                            <!--end navbar-->
-                            <!--                            <ol class="breadcrumb">
-                                                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                                            <li class="breadcrumb-item"><a href="#">Library</a></li>
-                                                            <li class="breadcrumb-item active">Data</li>
-                                                        </ol>-->
-                            <!--end breadcrumb-->
-                        </div>
-                        <!--end container-->
-                    </div>
-                    <!--============ End Main Navigation ================================================================-->
+                    
+                    <jsp:include page="/header/navigation-access.jsp" />
+                    
                     <!--============ Hero Form ==========================================================================-->
                     <div class="collapse" id="collapseMainSearchForm">
                         <form class="hero-form form">
@@ -203,7 +177,7 @@
                     <!--============ Page Title =========================================================================-->
                     <div class="page-title">
                         <div class="container">
-                            <h1>Sign In</h1>
+                            <h1>Đăng nhập</h1>
                         </div>
                         <!--end container-->
                     </div>
@@ -245,7 +219,7 @@
                                     </div>
                                     <!--end form-group-->
                                     <div class="form-group">
-                                        <label for="password" class="col-form-label required" style="display: block">Password</label>
+                                        <label for="password" class="col-form-label required" style="display: block">Mật khẩu</label>
                                         <input name="password" type="password" class="form-control" id="password" placeholder="Password" value="${password}" required style="display: inline-block; width: 95%"><i class="fa fa-eye" id="visibilityBtn" style="margin-left: -30px; position: relative; cursor: pointer" onclick="myFunction()"></i>
                                     </div> 
                                     <!--end form-group-->
@@ -254,19 +228,19 @@
                                             <input type="checkbox" name="remember" value="1">
                                             Remember Me
                                         </label>
-                                        <button type="submit" class="btn btn-primary">Sign In</button>
+                                        <button type="submit" class="btn btn-primary">Đăng nhập</button>
                                     </div>
                                 </form>
                                 <hr>
                                 <p>
-                                    Forgot your password? <a href="forgot.jsp" class="link">Click here.</a>
+                                    Bạn quên mật khẩu? Nhấp <a href="forgot.jsp" class="link">vào đây</a>
                                 </p>
 
                                 <hr>
                                 <p>
-                                    Don't have an account yet? <a href="${pageContext.request.contextPath}/register" class="link">Sign-up</a>
+                                    Bạn chưa tài khoản? Đăng ký <a href="${pageContext.request.contextPath}/register" class="link">tại đây.</a>
                                 </p>
-                                <hr><p style="font-size:large; text-align: center;">Or Continue With: </p>
+                                <hr><p style="font-size:large; text-align: center;">Hoặc đăng nhập bằng tài khoản Google: </p>
                                 <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=http://localhost:8080/Glacier/LoginGoogleHandler&response_type=code&client_id=312274839783-ikrqeojtbm6kq3r83i6hgkbee8uib7co.apps.googleusercontent.com&approval_prompt=force">
                                     <img style="display: block; margin-left: auto; margin-right: auto;" src="https://salt.tikicdn.com/ts/upload/1c/ac/e8/141c68302262747f5988df2aae7eb161.png" width="50" height="50" /></a>
 
@@ -285,94 +259,7 @@
             <!--*********************************************************************************************************-->
             <!--************ FOOTER *************************************************************************************-->
             <!--*********************************************************************************************************-->
-            <section class="footer">
-                <div class="wrapper">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <a href="#" class="brand">
-                                    <img src="${pageContext.request.contextPath}/assets/img/logo.png" alt="">
-                                </a>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec tincidunt arcu, sit amet
-                                    fermentum sem. Class aptent taciti sociosqu ad litora torquent per conubia nostra.
-                                </p>
-                            </div>
-                            <!--end col-md-5-->
-                            <div class="col-md-3">
-                                <h2>Navigation</h2>
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-6">
-                                        <nav>
-                                            <ul class="list-unstyled">
-                                                <li>
-                                                    <a href="#">Home</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Listing</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Pages</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Extras</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Contact</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Submit Ad</a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6">
-                                        <nav>
-                                            <ul class="list-unstyled">
-                                                <li>
-                                                    <a href="#">My Ads</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Sign In</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Register</a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end col-md-3-->
-                            <div class="col-md-4">
-                                <h2>Contact</h2>
-                                <address>
-                                    <figure>
-                                        124 Abia Martin Drive<br>
-                                        New York, NY 10011
-                                    </figure>
-                                    <br>
-                                    <strong>Email:</strong> <a href="#">hello@example.com</a>
-                                    <br>
-                                    <strong>Skype: </strong> Craigs
-                                    <br>
-                                    <br>
-                                    <a href="contact.html" class="btn btn-primary text-caps btn-framed">Contact Us</a>
-                                </address>
-                            </div>
-                            <!--end col-md-4-->
-                        </div>
-                        <!--end row-->
-                    </div>
-                    <div class="background">
-                        <div class="background-image original-size">
-                            <img src="assets/img/footer-background-icons.jpg" alt="">
-                        </div>
-                        <!--end background-image-->
-                    </div>
-                    <!--end background-->
-                </div>
-            </section>
+            
             <!--end footer-->
         </div>
         <!--end page-->
