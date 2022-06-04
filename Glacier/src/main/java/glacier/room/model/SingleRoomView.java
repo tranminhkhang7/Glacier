@@ -4,6 +4,7 @@
  */
 package glacier.room.model;
 
+import glacier.room.dbmanager.CommentManager;
 import glacier.user.model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -52,9 +53,11 @@ public class SingleRoomView extends HttpServlet {
                 RoomDAO dao = new RoomDAO();
                 Room room = dao.getRoomById(TEST);                      // replace TEST with id when merging
                 ArrayList<String> ImgList = dao.getRoomImgById(TEST);
-                
+                CommentManager cm = new CommentManager();
+                ArrayList<Comment> Reviews = cm.getAllComment(TEST);
                 request.setAttribute("room", room);
                 request.setAttribute("ImgList", ImgList);
+                request.setAttribute("Reviews", Reviews);
                 url=SUCCESS;
             }
         }
