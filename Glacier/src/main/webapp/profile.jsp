@@ -24,7 +24,7 @@
         <title>Craigs - Easy Buy & Sell Listing HTML Template</title>
 
     </head>
-    <body>
+    <body style="font-family: 'Varela Round', sans-serif;">
         <c:set var="user" value="${LOGIN_USER}"/>
         <c:set var="detail" value="${USER_DETAIL}"/>
         <c:if test="${detail.gender.trim() eq 'male'}"><c:set var="male" value="selected"/></c:if>
@@ -166,7 +166,7 @@
                     <!--============ Page Title =========================================================================-->
                     <div class="page-title">
                         <div class="container">
-                            <h1>My Profile</h1>
+                            <h1>Thông tin cá nhân</h1>
                         </div>
                         <!--end container-->
                     </div>
@@ -188,16 +188,16 @@
                             <div class="col-md-3">
                                 <nav class="nav flex-column side-nav">
                                     <a class="nav-link active icon" href="my-profile.html">
-                                        <i class="fa fa-user"></i>My Profile
+                                        <i class="fa fa-user"></i>Thông tin cá nhận
                                     </a>
-                                    <a class="nav-link icon" href="my-ads.html">
+<!--                                    <a class="nav-link icon" href="my-ads.html">
                                         <i class="fa fa-heart"></i>My Rooms Listing
-                                    </a>
+                                    </a>-->
                                     <a class="nav-link icon" href="bookmarks.html">
-                                        <i class="fa fa-star"></i>Favorites
+                                        <i class="fa fa-star"></i>Phòng yêu thích
                                     </a>
                                     <a class="nav-link icon" href="changepassword">
-                                        <i class="fa fa-recycle"></i>Change Password
+                                        <i class="fa fa-recycle"></i>Thay đổi mật khẩu
                                     </a>
                                 </nav>
                             </div>

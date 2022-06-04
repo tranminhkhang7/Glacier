@@ -18,10 +18,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author ASUS
+ * @author KHANG
  */
-@WebServlet(name = "ChangePasswordController", urlPatterns = {"/changepassword"})
-public class ChangePasswordController extends HttpServlet {
+@WebServlet(name = "AdminHomepage", urlPatterns = {"/manage"})
+public class AdminHomepage extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,36 +35,20 @@ public class ChangePasswordController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
-            HttpSession ss = request.getSession();
-            Account user = (Account) ss.getAttribute("LOGIN_USER");
-            String email = user.getEmail();
-            String correctPassword = user.getPassword();
-            String oldPassword = request.getParameter("current_password");
-            String newPassword = request.getParameter("new_current_password");
-            String confirmPassword = request.getParameter("repeat_new_current_password");
-            UserManager manager = new UserManager();
-            if (correctPassword == null || oldPassword == null || newPassword == null || confirmPassword == null) {
-                RequestDispatcher rd = request.getRequestDispatcher("change-password.jsp");
-                rd.forward(request, response);
-            } else if (!correctPassword.equals(oldPassword) || !newPassword.equals(confirmPassword)) {
-                request.setAttribute("error", "Mật khẩu không đúng. Vui lòng thử lại.");
-                RequestDispatcher rd = request.getRequestDispatcher("change-password.jsp");
-                rd.forward(request, response);
-            } else if (newPassword.trim().length() < 5 || newPassword.trim().length() > 30){
-                request.setAttribute("error", "Sai ràng buộc mật khẩu. Mật khẩu phải có 6-30 ký tự.");
-                RequestDispatcher rd = request.getRequestDispatcher("change-password.jsp");
+        try (PrintWriter out = response.getWriter()) {
+            HttpSession session = request.getSession(false);
+            if (session == null) {
+                RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
                 rd.forward(request, response);
             } else {
-                boolean check = manager.changeTenantPassword(email, newPassword);
-                if(check){
-                    request.setAttribute("success", "Đổi mật khẩu thành công.");
-                    RequestDispatcher rd = request.getRequestDispatcher("change-password.jsp");
+                Account acc = (Account) session.getAttribute("LOGIN_USER");
+                String role = acc.getRole().trim();
+
+                if ("admin".equals(role)) {
+                    RequestDispatcher rd = request.getRequestDispatcher("admin.jsp");
                     rd.forward(request, response);
                 }
             }
-        } catch (Exception e) {
-            log("Error at ChangePasswordController: " + e.toString());
         }
     }
 
