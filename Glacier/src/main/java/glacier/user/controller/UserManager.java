@@ -296,6 +296,28 @@ public class UserManager {
         return check;
     }
     
+    // This method is exacly the same as the changTenentPassword, but splitting them apart makes life way easier, believe me :v
+    public boolean changeLandlordPassword(String email, String newPassword){
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement st = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " UPDATE [Account] "
+                        + " SET [password]=? "
+                        + " WHERE [email]=? " ;
+                st = conn.prepareStatement(sql);
+                st.setString(1, newPassword);
+                st.setString(2, email);
+                check = st.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return check;
+    }
+    
     public static void main(String[] args) {
       
         UserManager user = new UserManager();

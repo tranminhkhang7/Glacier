@@ -70,10 +70,10 @@
                         <li class="nav-item">
                             <a href="submit.html" class="btn btn-primary text-caps btn-rounded">QUẢN LÝ PHÒNG THUÊ</a>
                         </li>
+                        <li class="nav-item">
+                            <a href="#" class="btn btn-primary text-caps btn-rounded"><i class="fa fa-bell"></i></a>
+                        </li>
                     </c:if>
-                    <li class="nav-item">
-                        <a href="#" class="btn btn-primary text-caps btn-rounded"><i class="fa fa-bell"></i></a>
-                    </li>
                 </ul>
                 <!--Main navigation list-->
             </div>

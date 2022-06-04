@@ -38,9 +38,18 @@ public class EditPersonalInformation extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
+            HttpSession ss = request.getSession();
+            Account user = (Account) ss.getAttribute("LOGIN_USER");
+            String role = user.getRole();
+            String email = user.getEmail();
+
             String submit = request.getParameter("infor");
             if (submit == null) {
-                response.sendRedirect("profile.jsp");
+                if ("tenant".equals(role)) {
+                    response.sendRedirect("profile.jsp");
+                } else if ("landlord".equals(role)) {
+                    response.sendRedirect("landlord-profile.jsp");
+                }
             } else {
                 String newGender = request.getParameter("newGender");
                 String newName = request.getParameter("newName");
@@ -48,10 +57,6 @@ public class EditPersonalInformation extends HttpServlet {
                 String newInstagram = request.getParameter("newInstagram");
                 String newFacebook = request.getParameter("newFacebook");
 
-                HttpSession ss = request.getSession();
-                Account user = (Account) ss.getAttribute("LOGIN_USER");
-                String role = user.getRole();
-                String email = user.getEmail();
                 boolean isTenant = false;
                 if ("tenant".equals(role)) {
                     isTenant = true;
@@ -66,7 +71,7 @@ public class EditPersonalInformation extends HttpServlet {
                         t.setPhone(newPhone);
                         t.setInstagramLink(newInstagram);
                         t.setFacebookLink(newFacebook);
-                         response.sendRedirect("profile.jsp");
+                        response.sendRedirect("profile.jsp");
                     } else {
                         Landlord l = (Landlord) ss.getAttribute("USER_DETAIL");
                         l.setGender(newGender);
@@ -74,12 +79,12 @@ public class EditPersonalInformation extends HttpServlet {
                         l.setPhone(newPhone);
                         l.setInstagramLink(newInstagram);
                         l.setFacebookLink(newFacebook);
-                         response.sendRedirect("profile.jsp");
+                        response.sendRedirect("landlord-profile.jsp");
                     }
                 }
             }
         } catch (Exception e) {
-            log("Error at EditPersonal: "+e.toString());
+            log("Error at EditPersonal: " + e.toString());
         }
     }
 
