@@ -32,13 +32,18 @@ public class WriteComment extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private static final String ERROR = "SingleRoomView";               // change this after adding session
+    private static final String SUCCESS = "SingleRoomView";
+    private static final Account TEST= new Account("hehe@gmail.com","12345678","tenant");           // TEST ACCOUNT
+    
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try{
             HttpSession session = request.getSession(false);
             Account a = (Account)session.getAttribute("USER_DATA");
-            a = new Account("hehe@gmail.com","12345678","tenant");
+            a = TEST;                                                                                // Delete this when hook code
             if (a.getRole().equals("tenant")){
                 CommentManager cm = new CommentManager();
                 int commentID = cm.getNextCommentIndex();
@@ -47,9 +52,10 @@ public class WriteComment extends HttpServlet {
                 int roomID = Integer.parseInt(request.getParameter("roomID"));
                 int rating = Integer.parseInt(request.getParameter("rating"));
                 String content = request.getParameter("review");
-                
-                Comment c = new Comment(commentID,a.getEmail(),roomID,content,date);
+                Comment c = new Comment(commentID, roomID, content, rating,a.getEmail(), date);
+                cm.createComment(c);
             }
+        request.getRequestDispatcher(SUCCESS).forward(request, response);
         }
         catch(Exception e){
             e.printStackTrace();
