@@ -32,18 +32,21 @@ public class SingleRoomView extends HttpServlet {
      */
     
     
-    private static final String ERROR = "SingleRoom.jsp";               // change this after adding session
+    private static final String ERROR = "error.jsp";               // change this after adding session
     private static final String SUCCESS = "SingleRoom.jsp";
-    private static final int TEST = 10;
+//    private static final int TEST = 10;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-//        int TEST = Integer.parseInt(request.getParameter("id"));
+        int TEST = Integer.parseInt(request.getParameter("id"));
         String url = ERROR;
         try {
-//            HttpSession session = request.getSession();
-//            Account role = (Account) session.getAttribute("role");
-            String role = "tenant";                                     // this set default access delete this when merging
+            HttpSession session = request.getSession();
+            Account acc = (Account) session.getAttribute("LOGIN_USER");
+
+            String role = (acc == null) ? "tenant" : acc.getRole().trim(); // If no account is logged in, they can view this page as a tenant
+
+//            String role = "tenant";                                     // this set default access delete this when merging
             if (!role.equals("tenant")){                                // set privillage only tenant can see other room details 
                 url = ERROR;
                 request.setAttribute("ERROR", "WRONG PRIVILLAGE");

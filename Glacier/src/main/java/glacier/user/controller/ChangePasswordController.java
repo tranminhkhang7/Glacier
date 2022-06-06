@@ -38,7 +38,9 @@ public class ChangePasswordController extends HttpServlet {
         try {
             HttpSession ss = request.getSession();
             Account user = (Account) ss.getAttribute("LOGIN_USER");
-            String role = user.getRole();
+
+            String role = (user == null) ? "" : user.getRole().trim(); // If no account is logged in, the role is ""
+
             if ("tenant".equals(role.trim())) {
                 String email = user.getEmail();
                 String correctPassword = user.getPassword();
@@ -91,6 +93,9 @@ public class ChangePasswordController extends HttpServlet {
                         rd.forward(request, response);
                     }
                 }
+            } else {
+                RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
+                rd.forward(request, response);
             }
 
         } catch (Exception e) {

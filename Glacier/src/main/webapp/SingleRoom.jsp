@@ -21,12 +21,89 @@
         <link rel="stylesheet" href="assets/css/owl.carousel.min.css" type="text/css">
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/user.css">
-        <title>Glacier - Easy Find and room booking</title>
+
+        <style>
+            .popup{
+                z-index: 20;
+                background-color: #ffffff;
+                width: 750px;
+                padding: 30px 40px;
+                position: fixed;
+                transform: translate(-50%,-50%);
+                left: 50%;
+                top: 50%;
+                border-radius: 8px;
+                display: none; 
+                text-align: center;
+                box-shadow: 10px 10px 50px grey;
+            }
+
+            .popup h2{
+                margin-top: -20px;
+            }
+            .popup p{
+                font-size: 14px;
+                text-align: justify;
+                margin: 20px 0;
+                line-height: 25px;
+            }
+            .popup label{
+                font-size: 16px;
+            }
+
+            .notify{
+                z-index: 19;
+                background-color: rgb(235, 244, 251);
+                box-shadow: 0 .1rem 2rem rgba(0, 0, 0, .15);
+                left: 50%;
+                top: 10%;
+                padding: 15px;
+                border: 1px solid rgb(166, 206, 237);
+                border-radius: .3rem;
+                text-align: center;
+                position: fixed;
+
+                transform: translate(-50%,-50%);
+
+                display: block;
+
+            }
+        </style>
+
+        <title>${room.name}</title>
 
     </head>
     <body style="font-family: 'Varela Round', sans-serif;">
         <c:set var="acc" value="${LOGIN_USER}" />
         <c:set var="user" value="${USER_DETAIL}" />
+
+        <div class="popup" id="reportForm">
+            <h2>Báo cáo cho quản trị viên</h2>
+            <form class="form form-submit" action="./report" method="POST">
+                <input name="id" type="hidden" value="${room.roomID}">
+                <!--                <div class="form-group">
+                                    <label for="title" class="col-form-label required">Tiêu đề</label>
+                                    <input name="title" type="text" class="form-control" id="title" placeholder="Mô tả ngắn gọn vấn đề của bạn" autocomplete="off" required>
+                                </div>-->
+                <div class="form-group">
+                    <label for="title" class="col-form-label required">Nội dung báo cáo</label>
+                    <input name="content" type="text" class="form-control" id="title" placeholder="Nội dung báo cáo chi tiết cho quản trị viên" autocomplete="off" required>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary large icon float-left" style="font-size: 16px; margin: 10px 20px 0px 0px;">Gửi</button>
+                </div>
+            </form>
+
+            <button class="btn btn-secondary large icon float-left" style="font-size: 16px; margin: 10px 20px 0px 0px;" onclick="closeForm()">Hủy</button>
+        </div>
+
+        <c:if test="${notify == 'report'}">
+            <div class="notify" id="notifyBox">
+                Báo cáo cho quản trị viên thành công!
+                &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-close" onclick="closeNotify()"></i>
+            </div>
+        </c:if>
         <div class="page sub-page">
             <!--*********************************************************************************************************-->
             <!--************ HERO ***************************************************************************************-->
@@ -177,18 +254,25 @@
                             <div class="float-left float-xs-none" style="width: 75%">
                                 <h1>
                                     ${room.name}
-                                    <span class="tag">Offer</span>
+                                    <!--                                    <span class="tag">Offer</span>-->
                                 </h1>
                                 <h4 class="location">
                                     <a href="#">${room.address}</a>
                                 </h4>
+                                <c:if test="${not empty acc}" >
+                                    <h1>
+                                        <br>
+                                        <span data-toggle="tooltip" data-placement="bottom" title="Save this room"><i class="fa fa-bookmark"></i></span>&nbsp;&nbsp;
+                                        <a onclick="openForm()">
+                                            <span data-toggle="tooltip" data-placement="bottom" title="Reporting this room"><i class="fa fa-warning"></i></span>
+                                        </a>
+                                    </h1>
+                                </c:if>
                             </div>
                             <div class="float-right float-xs-none price">
-                                
+
                                 <div class="number priceStyle">${room.price}<small>đ</small></div>
-                                <div class="id opacity-50">
-                                    <strong>ID: </strong>${room.roomID}
-                                </div>
+                                <strong>/tháng</strong>
                             </div>
                         </div>
                         <!--end container-->
@@ -689,24 +773,40 @@
         <script src="assets/js/jquery.validate.min.js"></script>
         <script src="assets/js/custom.js"></script>
         <script>
-            for (let i = 0; i < document.getElementsByClassName("priceStyle").length; i++) {
+                                            for (let i = 0; i < document.getElementsByClassName("priceStyle").length; i++) {
 
-                let priceText = document.getElementsByClassName("priceStyle")[i].textContent;
+                                                let priceText = document.getElementsByClassName("priceStyle")[i].textContent;
 
-                let textReverse = priceText.split("").reverse().join("");
+                                                let textReverse = priceText.split("").reverse().join("");
 
-                var j = 1;
-                var count = 0;
-                while (j < textReverse.length) {
-                    count++;
-                    if (count > 3) {
-                        textReverse = textReverse.slice(0, j) + "." + textReverse.slice(j);
-                        count = 0;
-                    }
-                    j++;
-                }
-                let finalPrice = textReverse.split("").reverse().join("");
-                document.getElementsByClassName("priceStyle")[i].innerHTML = finalPrice;
+                                                var j = 1;
+                                                var count = 0;
+                                                while (j < textReverse.length) {
+                                                    count++;
+                                                    if (count > 3) {
+                                                        textReverse = textReverse.slice(0, j) + "." + textReverse.slice(j);
+                                                        count = 0;
+                                                    }
+                                                    j++;
+                                                }
+                                                let finalPrice = textReverse.split("").reverse().join("");
+                                                document.getElementsByClassName("priceStyle")[i].innerHTML = finalPrice;
+                                            }
+        </script>
+
+        <script>
+            function openForm() {
+                document.getElementsByClassName("page")[0].style.filter = "blur(8px)";
+                document.getElementById("reportForm").style.display = "block";
+            }
+
+            function closeForm() {
+                document.getElementsByClassName("page")[0].style.filter = "none";
+                document.getElementById("reportForm").style.display = "none";
+            }
+
+            function closeNotify() {
+                document.getElementById("notifyBox").style.display = "none";
             }
         </script>
         <!--        <script>
