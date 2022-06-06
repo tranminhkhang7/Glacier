@@ -3,23 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package glacier.user.controller;
+package glacier.room.controller;
 
+import glacier.room.model.Room;
+import glacier.room.model.RoomDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author ASUS
  */
-@WebServlet(name = "ResetPasswordController", urlPatterns = {"/reset"})
-public class ResetPasswordController extends HttpServlet {
+@WebServlet(name = "TenantSingleRoomController", urlPatterns = {"/your-rooms"})
+public class TenantSingleRoomController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,27 +35,12 @@ public class ResetPasswordController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
-            String id = request.getParameter("id");
-            String key = request.getParameter("key");
-
-            HttpSession ss = request.getSession();
-
-            String email = (String) ss.getAttribute("RESET_EMAIL");
-            String refId = (String) ss.getAttribute("ID");
-            String refKey = (String) ss.getAttribute("KEY");
-
-            if ((id.equals(refId) && (key.equals(refKey)))) {
-                request.getRequestDispatcher("reset-password.jsp").forward(request, response);
-            } else {
-                request.setAttribute("IS_VERIFIED", false);
-                request.getRequestDispatcher("verify.jsp").forward(request, response);
-            }
-        } catch (Exception e) {
-            log("" + e.toString());
-        }
+        String id = request.getParameter("id");
+        RoomDAO dao = new RoomDAO();
+        Room room = dao.getRoomById(Integer.parseInt(id));
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -66,7 +55,11 @@ public class ResetPasswordController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(TenantSingleRoomController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -80,7 +73,11 @@ public class ResetPasswordController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(TenantSingleRoomController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

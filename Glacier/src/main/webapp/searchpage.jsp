@@ -6,7 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri= "http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <html lang="en">
     <head>
@@ -204,7 +205,10 @@
                                         <h4 class="location">
                                             <a href="#">${room.address}</a>
                                         </h4>
-                                        <div class="price">${room.price}đ</div>
+                                        <div class="price">                                    
+                                            ${room.price}
+                                            <small>VNĐ</small>
+                                        </div>
                                         <div class="meta">
                                             <figure>
                                                 <i class="fa fa-calendar-o"></i>${room.date_added}

@@ -68,6 +68,18 @@ public class Room {
         this.area = area;
     }
 
+    public Room(int roomID, String name, String description, String address, int price) {
+        this.roomID = roomID;
+        this.name = name;
+        this.description = description;
+        this.address = address;
+        this.price = price;
+    }
+
+    
+    
+    
+
     
     
     public int getRoomID() {

@@ -74,11 +74,13 @@ public class LoginController extends HttpServlet {
                             return;
                         }
                     }
+
                 } else if ("admin".equals(role)) {
                     ss.setAttribute("LOGIN_USER", acc);
                     response.sendRedirect("./manage");
                     return;
                 }
+
             } else {
                 request.setAttribute("ERROR_MSG", "Invalid email or password");
                 request.getRequestDispatcher("access/login.jsp").forward(request, response);

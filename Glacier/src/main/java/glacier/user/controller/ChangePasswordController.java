@@ -92,6 +92,7 @@ public class ChangePasswordController extends HttpServlet {
                         RequestDispatcher rd = request.getRequestDispatcher("landlord-change-password.jsp");
                         rd.forward(request, response);
                     }
+
                 }
             } else {
                 RequestDispatcher rd = request.getRequestDispatcher("error.jsp");

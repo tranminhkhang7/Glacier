@@ -1,14 +1,16 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
-package glacier.room.model;
+package glacier.room.controller;
 
-import glacier.room.dbmanager.CommentManager;
-import glacier.user.model.Account;
+import glacier.room.dbmanager.RoomManager;
+import glacier.room.model.Room;
+import glacier.user.model.Tenant;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Timestamp;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,10 +20,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Admin
+ * @author ASUS
  */
-@WebServlet(name = "WriteComment", urlPatterns = {"/WriteComment"})
-public class WriteComment extends HttpServlet {
+@WebServlet(name = "TenantRoomListController", urlPatterns = {"/rooms"})
+public class TenantRoomListController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,33 +34,37 @@ public class WriteComment extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private static final String ERROR = "SingleRoomView";               // change this after adding session
-    private static final String SUCCESS = "SingleRoomView";
-    private static final Account TEST= new Account("hehe@gmail.com","12345678","tenant");           // TEST ACCOUNT
-    
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try{
-            HttpSession session = request.getSession(false);
-            Account a = (Account)session.getAttribute("USER_DATA");
-            a = TEST;                                                                                // Delete this when hook code
-            if (a.getRole().equals("tenant")){
-                CommentManager cm = new CommentManager();
-                int commentID = cm.getNextCommentIndex();
-                long now = System.currentTimeMillis();
-                Timestamp date = new Timestamp(now);
-                int roomID = Integer.parseInt(request.getParameter("roomID"));
-                int rating = Integer.parseInt(request.getParameter("rating"));
-                String content = request.getParameter("review");
-                Comment c = new Comment(commentID, roomID, content, rating,a.getEmail(), date);
-                cm.createComment(c);
-            }
-        request.getRequestDispatcher(SUCCESS).forward(request, response);
+        HttpSession ss = request.getSession();
+        Tenant t = (Tenant) ss.getAttribute("USER_DETAIL");
+        String tenantEmail = t.getEmail();
+        RoomManager manager = new RoomManager();
+
+        String indexPage = request.getParameter("index");
+        if (indexPage == null) {
+            indexPage = "1";
         }
-        catch(Exception e){
-            e.printStackTrace();
+        int currentPage = Integer.parseInt(indexPage);
+        int countTenantRooms = manager.countTenantRooms(tenantEmail);
+
+        int endPage = countTenantRooms / 4;
+        if (countTenantRooms % 4 != 0) {
+            endPage++;
+        }
+
+        List<Room> roomList = manager.getTenantRoomList(tenantEmail, currentPage);
+
+        request.setAttribute("endPage", endPage);
+        request.setAttribute("currentPage", currentPage);
+        request.setAttribute("list", roomList);
+        }catch(Exception e){
+            log("Error at TenantRoomsController: " + e.toString());
+        }
+        finally{
+        request.getRequestDispatcher("tenant-current-rooms.jsp").forward(request, response);
         }
     }
 

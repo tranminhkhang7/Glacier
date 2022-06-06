@@ -17,12 +17,11 @@ import java.util.Date;
  * @author Admin
  */
 public class RoomDAO {
+
     private Connection conn = null;
     private PreparedStatement pstm = null;
     private ResultSet rs = null;
-    
-    
-    
+
     public void closeConnection() throws SQLException {
         if (rs != null) {
             rs.close();
@@ -35,14 +34,14 @@ public class RoomDAO {
         }
     }
 
-    public Room getRoomById(int roomID) throws SQLException { 
+    public Room getRoomById(int roomID) throws SQLException {
         Room room = null;
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "select roomID,name,description,address,emailTenant,emailLandlord,status,price,deposit,avg_rating\n" +
-",date_added,area,detailAddress from Room \n" +
-"where roomID=?";
+                String sql = "select roomID,name,description,address,emailTenant,emailLandlord,status,price,deposit,avg_rating\n"
+                        + ",date_added,area,detailAddress from Room \n"
+                        + "where roomID=?";
                 pstm = conn.prepareStatement(sql);
                 pstm.setInt(1, roomID);
                 rs = pstm.executeQuery();
@@ -51,7 +50,7 @@ public class RoomDAO {
                     String name = rs.getString("name");
                     String description = rs.getString("description");
                     String address = rs.getString("address");
-                    String emailTenant=rs.getString("emailTenant");
+                    String emailTenant = rs.getString("emailTenant");
                     String emailLandlord = rs.getString("emailLandlord");
                     String status = rs.getString("status");
                     int price = Math.round(rs.getFloat("price"));
@@ -70,27 +69,26 @@ public class RoomDAO {
             return room;
         }
     }
-    public ArrayList<String> getRoomImgById(int roomID) throws SQLException, Exception{
+
+    public ArrayList<String> getRoomImgById(int roomID) throws SQLException, Exception {
         ArrayList<String> ImgList = new ArrayList<>();
-        try{
+        try {
             conn = DBUtils.getConnection();
-            String sql = "select image_link\n" +
-            "from ImagesRoom join Room on ImagesRoom.roomID=Room.roomID\n" +
-            "where Room.roomID=?";
-            if (conn != null) {            
+            String sql = "select image_link\n"
+                    + "from ImagesRoom join Room on ImagesRoom.roomID=Room.roomID\n"
+                    + "where Room.roomID=?";
+            if (conn != null) {
                 pstm = conn.prepareStatement(sql);
                 pstm.setInt(1, roomID);
                 rs = pstm.executeQuery();
-                while (rs.next()){
-                   String url = rs.getString("image_link").trim();
-                   ImgList.add(url);
+                while (rs.next()) {
+                    String url = rs.getString("image_link").trim();
+                    ImgList.add(url);
                 }
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        } 
-        finally {
+        } finally {
             closeConnection();
             return ImgList;
         }
@@ -103,4 +101,3 @@ public class RoomDAO {
 //        }
 //    }
 }
-

@@ -271,8 +271,22 @@
                             </div>
                             <div class="float-right float-xs-none price">
 
+<<<<<<< HEAD
                                 <div class="number priceStyle">${room.price}<small>đ</small></div>
                                 <strong>/tháng</strong>
+=======
+                                <!--                                <div class="number">
+                                <small>VNĐ</small>
+                            </div>-->
+                              
+                                
+                                
+                                <div class="number priceStyle">${room.price}<small>đ</small></div>
+
+                                <div class="id opacity-50">
+                                    <strong>ID: </strong>${room.roomID}
+                                </div>
+>>>>>>> db8c3e09bb3863b589978ba4453536b8dcd77fc1
                             </div>
                         </div>
                         <!--end container-->
@@ -363,6 +377,9 @@
                                 </section>
                                 <!--end Details-->
                                 <!--Location-->
+
+
+
                                 <!--end Location-->
                                 <!--Features-->
                                 <!--                            <section>
@@ -585,8 +602,8 @@
                                 <iframe width="450"
                                         height="250"
                                         style="width: 100%; height: 100%"
-                                        frameborder="0" style="border:0"
-                                        referrerpolicy="no-referrer-when-downgrade"
+                                        frameborder="0"; style="border:0;"
+                                        referrerpolicy="no-referrer-when-downgrade;"
                                         src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCCYLuixh0QamoPxzrTZTCNGOtd0fwYQoQ&q=${room.detailAddress}" allowfullscreen>
                                 </iframe>
                             </div>

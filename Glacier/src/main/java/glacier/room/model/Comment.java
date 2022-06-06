@@ -105,6 +105,22 @@ public class Comment {
         this.rating = rating;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Timestamp getDate() {
+        return date;
+    }
+
+    public void setDate(Timestamp date) {
+        this.date = date;
+    }
+    
     @Override
     public String toString() {
         return "Comment{" + "id=" + id + ", name=" + name + ", profile_picture=" + profile_picture + ", roomId=" + roomId + ", content=" + content + ", time=" + time + ", rating=" + rating + '}';

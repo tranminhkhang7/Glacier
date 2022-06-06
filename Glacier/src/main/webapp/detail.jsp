@@ -187,7 +187,7 @@
                                 <form class="form clearfix" action="${pageContext.request.contextPath}/information" method="post">
                                     <div class="form-group">
                                         <label for="name" class="col-form-label required">Your Name</label>
-                                        <input name="name" type="text" class="form-control" id="name" placeholder="Your Name" required onkeyup="nameLengthCheck()">
+                                        <input name="name" type="text" class="form-control" id="name" placeholder="Your Name" value="${sessionScope.GOOGLE_USER.name}" required onkeyup="nameLengthCheck()">
                                         <span id="name_message" style="text-align: right;"></span>
                                     </div>
                                     <!--end form-group-->
@@ -218,12 +218,6 @@
                                         <span style="padding-right: 20px;">Female</span><input name="gender" value="female" type="radio" class="form-control" id="Female">
                                     </div>
                                     <!--end form-group-->
-                                    <div class="d-flex justify-content-between align-items-baseline">
-                                        <label for="log-link">Already has account?
-                                            <br><a id="log-link" href="${pageContext.request.contextPath}/login" class="link"> Sign-in <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
-                                        </label>
-                                        <button type="submit" class="btn btn-danger">Register</button>
-                                    </div>
                                 </form>
                                 <hr>
                                 <p>
