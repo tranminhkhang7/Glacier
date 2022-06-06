@@ -34,9 +34,9 @@
             <!--*********************************************************************************************************-->
             <header class="hero">
                 <div class="hero-wrapper">
-                    
+
                     <jsp:include page="header/navigation.jsp" />
-                    
+
                     <!--============ Hero Form ==========================================================================-->
                     <div class="collapse" id="collapseMainSearchForm">
                         <form class="hero-form form" action="${pageContext.request.contextPath}/search" method="get">
@@ -162,26 +162,26 @@
                     <div class="container">
                         <!--============ Section Title===================================================================-->
                         <div class="section-title clearfix">
-<!--                            <div class="float-left float-xs-none">
-                                <label class="mr-3 align-text-bottom">Sort by: </label>
-                                <select name="sorting" id="sorting" class="small width-200px" data-placeholder="Default Sorting" >
-                                    <option value="">Default Sorting</option>
-                                    <option value="1">Newest First</option>
-                                    <option value="2">Oldest First</option>
-                                    <option value="3">Lowest Price First</option>
-                                    <option value="4">Highest Price First</option>
-                                </select>
-
-                            </div>-->
+                            <!--                            <div class="float-left float-xs-none">
+                                                            <label class="mr-3 align-text-bottom">Sort by: </label>
+                                                            <select name="sorting" id="sorting" class="small width-200px" data-placeholder="Default Sorting" >
+                                                                <option value="">Default Sorting</option>
+                                                                <option value="1">Newest First</option>
+                                                                <option value="2">Oldest First</option>
+                                                                <option value="3">Lowest Price First</option>
+                                                                <option value="4">Highest Price First</option>
+                                                            </select>
+                            
+                                                        </div>-->
                             <!--sort chưa làm được nên tạm đóng lại nhe!!! NHỚ LÀM!!!-->
-<!--                            <div class="float-right d-xs-none thumbnail-toggle">
-                                <a href="#" class="change-class active" data-change-from-class="list" data-change-to-class="grid" data-parent-class="items">
-                                    <i class="fa fa-th"></i>
-                                </a>
-                                <a href="#" class="change-class" data-change-from-class="grid" data-change-to-class="list" data-parent-class="items">
-                                    <i class="fa fa-th-list"></i>
-                                </a>
-                            </div>-->
+                            <!--                            <div class="float-right d-xs-none thumbnail-toggle">
+                                                            <a href="#" class="change-class active" data-change-from-class="list" data-change-to-class="grid" data-parent-class="items">
+                                                                <i class="fa fa-th"></i>
+                                                            </a>
+                                                            <a href="#" class="change-class" data-change-from-class="grid" data-change-to-class="list" data-parent-class="items">
+                                                                <i class="fa fa-th-list"></i>
+                                                            </a>
+                                                        </div>-->
                         </div>
                         <!--============ Items ==========================================================================-->
                         <div class="items grid grid-xl-4-items grid-lg-4-items grid-md-4-items">
@@ -194,7 +194,7 @@
                                         <div class="image">
                                             <h3>
                                                 <!--<a href="#" class="tag category">Home & Decor</a>-->
-                                                <a href="single-listing-1.html" class="title">${room.name}</a>
+                                                <a href="${pageContext.request.contextPath}/SingleRoomView?id=${room.roomID}" class="title">${room.name}</a>
                                                 <!--<span class="tag">Offer</span>-->
                                             </h3>
                                             <a href="single-listing-1.html" class="image-wrapper background-image">
@@ -206,9 +206,9 @@
                                             <a href="#">${room.address}</a>
                                         </h4>
                                         <div class="price">                                    
-                                            <fmt:formatNumber type = "number" pattern="#,###.##" maxFractionDigits = "3" value = "${room.price}" var="pat" />
-                                            ${fn:replace(pat, ",", ".")} 
-                                            <small>VNĐ</small></div>
+                                            ${room.price}
+                                            <small>VNĐ</small>
+                                        </div>
                                         <div class="meta">
                                             <figure>
                                                 <i class="fa fa-calendar-o"></i>${room.date_added}
@@ -239,15 +239,15 @@
                             <nav aria-label="Pagination">
                                 <ul class="pagination">
 
-<!--                                    <li class="page-item active">
-                                        <a class="page-link" href="#">1</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">2</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">3</a>
-                                    </li>-->
+                                    <!--                                    <li class="page-item active">
+                                                                            <a class="page-link" href="#">1</a>
+                                                                        </li>
+                                                                        <li class="page-item">
+                                                                            <a class="page-link" href="#">2</a>
+                                                                        </li>
+                                                                        <li class="page-item">
+                                                                            <a class="page-link" href="#">3</a>
+                                                                        </li>-->
 
                                     <c:forEach begin="1" end="${endPage}" step="1" var="i">
                                         <c:choose>
@@ -264,7 +264,7 @@
                                         </c:choose>
                                     </c:forEach>
 
-                                    
+
 
 
 
@@ -296,7 +296,27 @@
         <script src="assets/js/icheck.min.js"></script>
         <script src="assets/js/jquery.validate.min.js"></script>
         <script src="assets/js/custom.js"></script>
+        <script>
+            for (let i = 0; i < document.getElementsByClassName("price").length; i++) {
 
+                let priceText = document.getElementsByClassName("price")[i].textContent;
+
+                let textReverse = priceText.split("").reverse().join("");
+
+                var j = 1;
+                var count = 0;
+                while (j < textReverse.length) {
+                    count++;
+                    if (count > 3) {
+                        textReverse = textReverse.slice(0, j) + "." + textReverse.slice(j);
+                        count = 0;
+                    }
+                    j++;
+                }
+                let finalPrice = textReverse.split("").reverse().join("");
+                document.getElementsByClassName("price")[i].innerHTML = finalPrice;
+            }
+        </script>
     </body>
 </html>
 

@@ -33,7 +33,7 @@
             <header class="hero">
                 <div class="hero-wrapper">
 
-                    <jsp:include page="header/navigation.jsp" />
+                    <jsp:include page="header/navigation-landlord.jsp" />
 
                     <!--============ Hero Form ==========================================================================-->
                     <div class="collapse" id="collapseMainSearchForm">
@@ -173,22 +173,6 @@
             </header>
             <!--end hero-->
 
-
-        <!--*********************************************************************************************************-->
-        <!--************ CONTENT ************************************************************************************-->
-        <!--*********************************************************************************************************-->
-        <section class="content">
-            <section class="block">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <nav class="nav flex-column side-nav">
-                                    <a class="nav-link icon" href="account">
-                                        <i class="fa fa-user"></i>My Profile
-                                    </a>
-                                    <a class="nav-link icon" href="rooms">
-                                        <i class="fa fa-heart"></i>My Rooms Listing
-
             <!--*********************************************************************************************************-->
             <!--************ CONTENT ************************************************************************************-->
             <!--*********************************************************************************************************-->
@@ -200,7 +184,6 @@
                                 <nav class="nav flex-column side-nav">
                                     <a class="nav-link icon" href="profile.jsp">
                                         <i class="fa fa-user"></i>Thông tin cá nhận
-
                                     </a>
                                     <!--                                    <a class="nav-link icon" href="my-ads.html">
                                                                             <i class="fa fa-heart"></i>My Rooms Listing
@@ -211,20 +194,6 @@
                                     <a class="nav-link active icon" href="changepassword">
                                         <i class="fa fa-recycle"></i>Thay đổi mật khẩu
                                     </a>
-
-                            </nav>
-                        </div>
-                        <!--end col-md-3-->
-                        <div class="col-md-9">
-                            <form class="form" action="changepassword" method="POST">
-                                <div class="row justify-content-center">
-                                    <div class="col-md-6">
-                                <c:if test="${not empty requestScope.CHANGE_PASSWORD_ERROR_MSG}">
-                                    <div class="" style="color: red; background-color: rgb(242, 242, 109); height: 50px; line-height: 50px; text-align: center;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ${CHANGE_PASSWORD_ERROR_MSG}</div>
-                                </c:if>
-                                        <div class="form-group">
-                                            <label for="current_password" class="col-form-label required">Current Password</label>
-                                            <input name="current_password" type="password" class="form-control" id="current_password" placeholder="Current Password" required>
                                 </nav>
                             </div>
                             <!--end col-md-3-->
@@ -260,7 +229,6 @@
                                             </div>
                                             <!--end form-group-->
                                             <button type="submit" class="btn btn-primary float-right">Hoàn tất</button>
->>>>>>> b48d8c4469c0324c49e9a3856db8500e79a1a1a6
                                         </div>
                                         <!--end col-md-6-->
                                     </div>

@@ -184,15 +184,15 @@
                                 </h4>
                             </div>
                             <div class="float-right float-xs-none price">
+
                                 <!--                                <div class="number">
                                 <small>VNĐ</small>
                             </div>-->
-                                <div class="number">
-                                    <fmt:formatNumber type = "number" pattern="#,###.##" maxFractionDigits = "3" value = "${room.price}" var="pat" />
-                                    ${fn:replace(pat, ",", ".")} 
-                                    <small>VNĐ</small>
-                                </div>
+                              
                                 
+                                
+                                <div class="number priceStyle">${room.price}<small>đ</small></div>
+
                                 <div class="id opacity-50">
                                     <strong>ID: </strong>${room.roomID}
                                 </div>
@@ -286,17 +286,9 @@
                                 </section>
                                 <!--end Details-->
                                 <!--Location-->
-                                <section>
-                                <h2>Location</h2>
-                                <div class="map height-300px" id="map-small">
-                                    <iframe width="450"
-                                            height="250"
-                                            style="width: 100%; height: 100%"
-                                            frameborder="0" style="border:0"                                         
-                                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCCYLuixh0QamoPxzrTZTCNGOtd0fwYQoQ&q=${room.detailAddress}" allowfullscreen>
-                                    </iframe>
-                                </div>
-                            </section>
+
+
+
                                 <!--end Location-->
                                 <!--Features-->
                                 <!--                            <section>
@@ -513,6 +505,175 @@
                             </div>
                             <!--============ End Sidebar ================================================================-->
                         </div>
+                        <section>
+                            <h2>Location</h2>
+                            <div class="map height-300px" id="map-small">
+                                <iframe width="450"
+                                        height="250"
+                                        style="width: 100%; height: 100%"
+                                        frameborder="0" style="border:0"
+                                        referrerpolicy="no-referrer-when-downgrade"
+                                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCCYLuixh0QamoPxzrTZTCNGOtd0fwYQoQ&q=${room.detailAddress}" allowfullscreen>
+                                </iframe>
+                            </div>
+                        </section>
+                        <section>
+                            <h2>Write a Review</h2>
+                            <form class="form" action="WriteComment" method="">
+                                <input name="roomID" value="${room.roomID}" type="hidden">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <c:set var="name" value="Tran Quang Khai"></c:set>                           <!-- set value to test only -->
+                                                <label for="username" class="col-form-label">My name</label>
+                                                <div class="box" >${name}</div> 
+                                        </div>
+                                        <!--end form-group-->
+                                    </div>
+                                    <!--end col-md-8-->
+                                    <div class="col-md-7">
+                                        <div class="form-group">
+                                            <label for="rating" class="col-form-label">Rating</label>                                            
+                                            <select name="rating" id="rating" data-placeholder="Select Rating">
+                                                <option value="">Select Rating</option>
+                                                <option value="1" data-option-stars="1">Horrible</option>
+                                                <option value="2" data-option-stars="2">Average</option>
+                                                <option value="3" data-option-stars="3">Good</option>
+                                                <option value="4" data-option-stars="4">Very Good</option>
+                                                <option value="5" data-option-stars="5">Excellent</option>
+                                            </select>
+                                        </div>
+                                        <!--end form-group-->
+                                    </div>
+                                    <!--end col-md-4-->
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="review" class="col-form-label">Your Review</label>
+                                            <textarea name="review" id="review" class="form-control" rows="4" placeholder="Good seller, I am satisfied."></textarea>
+                                        </div>
+                                        <!--end form-group-->
+                                    </div>
+                                    <!--end col-md-12-->
+                                </div>
+                                <button type="submit" class="btn btn-primary icon float-right width-100">Submit<i class="fa fa-chevron-right"></i></button>
+                                <!--end row-->
+                            </form>
+                            <!--end form-->
+                        </section>
+                        <hr style="margin-top: 10rem">
+                        <section>
+                            <h2>Reviews</h2>
+                            <div class="comments">
+                                <c:forEach items="${Reviews}" var="review">
+                                    <div class="comment">
+                                        <div class="author">
+                                            <a href="#" class="author-image">
+                                                <div class="background-image">            
+                                                    <img src="${review.profile_picture}" alt="alt"/>
+                                                </div>
+                                            </a>
+                                            <div class="author-description">
+                                                <h3>${review.name}</h3>
+                                                <div class="meta">
+                                                    <span class="rating" data-rating="${review.rating}"></span>
+                                                    <span>${review.time}</span>
+                                                </div>
+                                                <!--                                                end meta-->
+                                                <p>
+                                                    ${review.content}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                            <!--                                <div class="comments">
+                                                                <div class="comment">
+                                                                    <div class="author">
+                                                                        <a href="#" class="author-image">
+                                                                            <div class="background-image">
+                                                                                <img src="assets/img/author-09.jpg" alt="">
+                                                                            </div>
+                                                                        </a>
+                                                                        <div class="author-description">
+                                                                            <h3>Jane Doe</h3>
+                                                                            <div class="meta">
+                                                                                <span class="rating" data-rating="4"></span>
+                                                                                <span>02.05.2017</span>
+                                                                            </div>
+                                                                            end meta
+                                                                            <p>
+                                                                                Nam pulvinar tortor nec lacinia efficitur. Integer erat tortor, ultricies
+                                                                                ut est vel, euismod imperdiet lacus. Aenean nec turpis condimentum, mollis
+                                                                                mauris id, scelerisque quam.
+                                                                            </p>
+                                                                        </div>
+                                                                        end author-description
+                                                                    </div>
+                                                                    end author
+                                                                </div>
+                                                                end comment
+                            
+                                                                <div class="comment">
+                                                                    <div class="author">
+                                                                        <a href="#" class="author-image">
+                                                                            <div class="background-image">
+                                                                                <img src="assets/img/author-05.jpg" alt="">
+                                                                            </div>
+                                                                        </a>
+                                                                        <div class="author-description">
+                                                                            <h3>Perfect seller. I am satisfied.</h3>
+                                                                            <div class="meta">
+                                                                                <span class="rating" data-rating="5"></span>
+                                                                                <span>02.05.2017</span>
+                                                                                <h5><a href="#">John Doe</a></h5>
+                                                                            </div>
+                                                                            end meta
+                                                                            <p>
+                                                                                Integer erat tortor, ultricies ut est vel, euismod imperdiet lacus.
+                                                                                Aenean nec turpis condimentum, mollis mauris id, scelerisque quam.
+                                                                            </p>
+                                                                        </div>
+                                                                        end author-description
+                                                                    </div>
+                                                                    end author
+                                                                </div>
+                                                                end comment
+                            
+                                                                <div class="comment">
+                                                                    <div class="author">
+                                                                        <a href="#" class="author-image">
+                                                                            <div class="background-image">
+                                                                                <img src="assets/img/author-04.jpg" alt="">
+                                                                            </div>
+                                                                        </a>
+                                                                        <div class="author-description">
+                                                                            <h3>Quick dispatch and good communication</h3>
+                                                                            <div class="meta">
+                                                                                <span class="rating" data-rating="3"></span>
+                                                                                <span>02.05.2017</span>
+                                                                                <h5><a href="#">Susan Jefferson</a></h5>
+                                                                            </div>
+                                                                            end meta
+                                                                            <p>
+                                                                                Cras luctus aliquet fringilla. In eu cursus nunc. Quisque dolor leo,
+                                                                                vehicula a sem ut, aliquam pretium tellus. Morbi ut mi eleifend,
+                                                                                sollicitudin nisl in, elementum nisi. Praesent sed libero euismod,
+                                                                                pellentesque risus sit amet, faucibus lorem. Pellentesque bibendum
+                                                                                libero sed tempor tristique.
+                                                                            </p>
+                                                                        </div>
+                                                                        end author-description
+                                                                    </div>
+                                                                    end author
+                                                                </div>
+                                                                end comment
+                                                            </div>-->
+                            <!--end comment-->
+                            <div class="center">
+                                <a href="#" class="btn btn-primary btn-rounded btn-framed">Load More</a>
+                            </div>
+                        </section>
                     </div>
                     <!--end container-->
                 </section>
@@ -537,7 +698,27 @@
         <script src="assets/js/owl.carousel.min.js"></script>
         <script src="assets/js/jquery.validate.min.js"></script>
         <script src="assets/js/custom.js"></script>
+        <script>
+            for (let i = 0; i < document.getElementsByClassName("priceStyle").length; i++) {
 
+                let priceText = document.getElementsByClassName("priceStyle")[i].textContent;
+
+                let textReverse = priceText.split("").reverse().join("");
+
+                var j = 1;
+                var count = 0;
+                while (j < textReverse.length) {
+                    count++;
+                    if (count > 3) {
+                        textReverse = textReverse.slice(0, j) + "." + textReverse.slice(j);
+                        count = 0;
+                    }
+                    j++;
+                }
+                let finalPrice = textReverse.split("").reverse().join("");
+                document.getElementsByClassName("priceStyle")[i].innerHTML = finalPrice;
+            }
+        </script>
         <!--        <script>
                     var latitude = 51.511971;
                     var longitude = -0.137597;
