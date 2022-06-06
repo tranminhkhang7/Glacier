@@ -780,9 +780,9 @@
         <script>
                                             for (let i = 0; i < document.getElementsByClassName("priceStyle").length; i++) {
 
-                                                let priceText = document.getElementsByClassName("priceStyle")[i].textContent;
+                                                let priceText = document.getElementsByClassName("priceStyle")[i].textContent.trim();
 
-                                                let textReverse = priceText.split("").reverse().join("");
+                                                let textReverse = priceText.split("").reverse().join("").trim();
 
                                                 var j = 1;
                                                 var count = 0;

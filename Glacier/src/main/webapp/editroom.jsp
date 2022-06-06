@@ -22,73 +22,50 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user.css">
 
         <style>
-
-            /* Button used to open the contact form - fixed at the bottom of the page */
-            .open-button {
-                background-color: #555;
-                color: white;
-                padding: 16px 20px;
-                border: none;
-                cursor: pointer;
-                opacity: 0.8;
+            .popup{
+                z-index: 20;
+                background-color: #ffffff;
+                width: 750px;
+                padding: 30px 40px;
                 position: fixed;
-                bottom: 23px;
-                right: 28px;
-                width: 280px;
+                transform: translate(-50%,-50%);
+                left: 50%;
+                top: 50%;
+                border-radius: 8px;
+                display: none; 
+                text-align: center;
+                box-shadow: 10px 10px 50px grey;
             }
 
-            /* The popup form - hidden by default */
-            .form-popup {
-                display: none;
-                position: fixed;
-                bottom: 220px;
-                right: 365px;
-                border: 3px solid #f1f1f1;
-                z-index: 9;
+            .popup h2{
+                margin-top: -20px;
+            }
+            .popup p{
+                font-size: 14px;
+                text-align: justify;
+                margin: 20px 0;
+                line-height: 25px;
+            }
+            .popup label{
+                font-size: 16px;
             }
 
-            /* Add styles to the form container */
-            .form-container {
-                max-width: 600px;
-                padding: 10px;
-                background-color: white;
-            }
-
-            /* Full-width input fields */
-            .form-container input[type=text], .form-container input[type=password] {
-                width: 100%;
+            .notify{
+                z-index: 19;
+                background-color: rgb(235, 244, 251);
+                box-shadow: 0 .1rem 2rem rgba(0, 0, 0, .15);
+                left: 50%;
+                top: 10%;
                 padding: 15px;
-                margin: 5px 0 22px 0;
-                border: none;
-                background: #f1f1f1;
-            }
+                border: 1px solid rgb(166, 206, 237);
+                border-radius: .3rem;
+                text-align: center;
+                position: fixed;
 
-            /* When the inputs get focus, do something */
-            .form-container input[type=text]:focus, .form-container input[type=password]:focus {
-                background-color: #ddd;
-                outline: none;
-            }
+                transform: translate(-50%,-50%);
 
-            /* Set a style for the submit/login button */
-            .form-container .btn {
-                background-color: #04AA6D;
-                color: white;
-                padding: 16px 20px;
-                border: none;
-                cursor: pointer;
-                width: 100%;
-                margin-bottom:10px;
-                opacity: 0.8;
-            }
+                display: block;
 
-            /* Add a red background color to the cancel button */
-            .form-container .cancel {
-                background-color: red;
-            }
-
-            /* Add some hover effects to buttons */
-            .form-container .btn:hover, .open-button:hover {
-                opacity: 1;
             }
         </style>
         <title>Craigs - Easy Buy & Sell Listing HTML Template</title>
@@ -97,15 +74,36 @@
     <body style="font-family: 'Varela Round', sans-serif;">
         <c:set var="acc" value="${LOGIN_USER}" />
         <c:set var="user" value="${USER_DETAIL}" />
+
+        <div class="popup" id="deleteConfirmation">
+            <h2>Cảnh báo</h2>
+            <form class="form form-submit" action="${pageContext.request.contextPath}/deleteroom" method="POST">
+                <input name="id" type="hidden" value="${room.roomID}">
+                <!--                <div class="form-group">
+                                    <label for="title" class="col-form-label required">Tiêu đề</label>
+                                    <input name="title" type="text" class="form-control" id="title" placeholder="Mô tả ngắn gọn vấn đề của bạn" autocomplete="off" required>
+                                </div>-->
+                <p>Thao tác này không thể được hoàn tác. Tất cả các dữ liệu liên quan đến phòng này đều sẽ bị xóa. Bạn có muốn tiếp tục?</p>
+
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary large icon float-left" style="font-size: 16px; margin: 10px 20px 0px 0px;">Xóa</button>
+                </div>
+            </form>
+
+            <button class="btn btn-secondary large icon float-left" style="font-size: 16px; margin: 10px 20px 0px 0px;" onclick="closeForm()">Hủy</button>
+        </div>
+
+
         <div class="page sub-page">
             <!--*********************************************************************************************************-->
             <!--************ HERO ***************************************************************************************-->
             <!--*********************************************************************************************************-->
             <header class="hero">
                 <div class="hero-wrapper">
-                    
+
                     <jsp:include page="header/navigation-landlord.jsp" />
-                    
+
                     <!--============ Page Title =========================================================================-->
                     <div class="page-title">
                         <div class="container">
@@ -279,28 +277,10 @@
                         <div class="form form-submit">
                             <section class="clearfix">
                                 <div class="form-group">
-                                    <button class="btn btn-primary large icon float-right" onclick="openForm()">Xóa phòng</button>
+                                    <button class="btn btn-framed btn-primary large icon float-right" onclick="openForm()">Xóa phòng</button>
                                 </div>
                             </section>
                         </div>  
-
-
-
-
-
-                        <div class="form-popup" id="myForm">
-                            <form action="${pageContext.request.contextPath}/deleteroom" class="form-container">
-                                <h1>Cảnh báo</h1>
-
-                                <b>Thao tác này không thể được hoàn tác. Tất cả các dữ liệu liên quan đến phòng này đều sẽ bị xóa. Bạn có muốn tiếp tục?</b>
-
-                                <br><br>
-                                <input name="id" type="hidden" value="${room.roomID}">
-                                <button type="submit" class="btn">Xóa</button>
-                                <button type="button" class="btn cancel" onclick="closeForm()">Hủy</button>
-                            </form>
-                        </div>
-
                     </div>
                     <!--end container-->
                 </section>
@@ -335,22 +315,25 @@
         <script src="${pageContext.request.contextPath}/assets/js/custom.js"></script>
 
         <script>
-                                    var latitude = 51.511971;
-                                    var longitude = -0.137597;
-                                    var markerImage = "${pageContext.request.contextPath}/assets/img/map-marker.png";
-                                    var mapTheme = "light";
-                                    var mapElement = "map-submit";
-                                    var markerDrag = true;
-                                    simpleMap(latitude, longitude, markerImage, mapTheme, mapElement, markerDrag);
+                                        var latitude = 51.511971;
+                                        var longitude = -0.137597;
+                                        var markerImage = "${pageContext.request.contextPath}/assets/img/map-marker.png";
+                                        var mapTheme = "light";
+                                        var mapElement = "map-submit";
+                                        var markerDrag = true;
+                                        simpleMap(latitude, longitude, markerImage, mapTheme, mapElement, markerDrag);
+        </script>
 
-                                    function openForm() {
-                                        document.getElementById("myForm").style.display = "block";
-                                    }
+        <script>
+            function openForm() {
+                document.getElementsByClassName("page")[0].style.filter = "blur(8px)";
+                document.getElementById("deleteConfirmation").style.display = "block";
+            }
 
-                                    function closeForm() {
-                                        document.getElementById("myForm").style.display = "none";
-                                    }
-
+            function closeForm() {
+                document.getElementsByClassName("page")[0].style.filter = "none";
+                document.getElementById("deleteConfirmation").style.display = "none";
+            }
         </script>
 
 
