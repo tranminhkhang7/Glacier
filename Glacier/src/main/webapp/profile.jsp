@@ -187,10 +187,10 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <nav class="nav flex-column side-nav">
-                                    <a class="nav-link active icon" href="my-profile.html">
+                                    <a class="nav-link active icon" href="account">
                                         <i class="fa fa-user"></i>My Profile
                                     </a>
-                                    <a class="nav-link icon" href="my-ads.html">
+                                    <a class="nav-link icon" href="rooms">
                                         <i class="fa fa-heart"></i>My Rooms Listing
                                     </a>
                                     <a class="nav-link icon" href="bookmarks.html">

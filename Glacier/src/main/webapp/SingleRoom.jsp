@@ -185,9 +185,14 @@
                             </div>
                             <div class="float-right float-xs-none price">
                                 <!--                                <div class="number">
-                                <fmt:formatNumber value="${room.price}" type="currency"/><small>VNĐ</small>
+                                <small>VNĐ</small>
                             </div>-->
-                                <div class="number">${room.price} <small>VNĐ</small></div>
+                                <div class="number">
+                                    <fmt:formatNumber type = "number" pattern="#,###.##" maxFractionDigits = "3" value = "${room.price}" var="pat" />
+                                    ${fn:replace(pat, ",", ".")} 
+                                    <small>VNĐ</small>
+                                </div>
+                                
                                 <div class="id opacity-50">
                                     <strong>ID: </strong>${room.roomID}
                                 </div>
