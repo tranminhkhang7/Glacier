@@ -98,8 +98,18 @@ public class CommentManager {
         conn=DBUtils.getConnection();
         try {
             if (conn!=null){
-            String sql = "";
-            }
+            String sql = "insert into Comment (commentID,email,roomID,content,time,rating)\n" +
+"values (?,?,?,?,?,?)";
+            pstm = conn.prepareStatement(sql);
+            pstm.setInt(1,c.getId());
+            pstm.setString(2,c.getEmail());
+            pstm.setInt(3,c.getRoomId());
+            pstm.setString(4,c.getContent());
+            pstm.setTimestamp(5,c.getDate());
+            pstm.setInt(6,c.getRating());
+            pstm.executeUpdate();
+            check=true;
+            }          
         }
         catch (Exception e) {
             e.printStackTrace();

@@ -511,8 +511,8 @@
                                 <iframe width="450"
                                         height="250"
                                         style="width: 100%; height: 100%"
-                                        frameborder="0" style="border:0"
-                                        referrerpolicy="no-referrer-when-downgrade"
+                                        frameborder="0"; style="border:0;"
+                                        referrerpolicy="no-referrer-when-downgrade;"
                                         src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCCYLuixh0QamoPxzrTZTCNGOtd0fwYQoQ&q=${room.detailAddress}" allowfullscreen>
                                 </iframe>
                             </div>
