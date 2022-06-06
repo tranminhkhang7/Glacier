@@ -206,8 +206,8 @@
                                             <a href="#">${room.address}</a>
                                         </h4>
                                         <div class="price">                                    
-                                            ${room.price}
-                                            <small>VNĐ</small>
+                                            ${room.price}đ
+                                            <!--<small>VNĐ</small>-->
                                         </div>
                                         <div class="meta">
                                             <figure>
@@ -299,9 +299,9 @@
         <script>
             for (let i = 0; i < document.getElementsByClassName("price").length; i++) {
 
-                let priceText = document.getElementsByClassName("price")[i].textContent;
+                let priceText = document.getElementsByClassName("price")[i].textContent.trim();
 
-                let textReverse = priceText.split("").reverse().join("");
+                let textReverse = priceText.split("").reverse().join("").trim();
 
                 var j = 1;
                 var count = 0;
@@ -313,6 +313,7 @@
                     }
                     j++;
                 }
+                
                 let finalPrice = textReverse.split("").reverse().join("");
                 document.getElementsByClassName("price")[i].innerHTML = finalPrice;
             }
