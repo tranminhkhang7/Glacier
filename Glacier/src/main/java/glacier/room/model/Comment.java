@@ -45,10 +45,6 @@ public class Comment {
         this.date = date;
     }
 
-    Comment(int commentID, String email, int roomID, String content, Timestamp date) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
     public int getId() {
         return id;
     }
@@ -120,7 +116,7 @@ public class Comment {
     public void setDate(Timestamp date) {
         this.date = date;
     }
-    
+
     @Override
     public String toString() {
         return "Comment{" + "id=" + id + ", name=" + name + ", profile_picture=" + profile_picture + ", roomId=" + roomId + ", content=" + content + ", time=" + time + ", rating=" + rating + '}';

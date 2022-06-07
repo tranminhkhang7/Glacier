@@ -21,56 +21,7 @@
         <link rel="stylesheet" href="assets/css/owl.carousel.min.css" type="text/css">
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/user.css">
-
-        <style>
-            .popup{
-                z-index: 20;
-                background-color: #ffffff;
-                width: 750px;
-                padding: 30px 40px;
-                position: fixed;
-                transform: translate(-50%,-50%);
-                left: 50%;
-                top: 50%;
-                border-radius: 8px;
-                display: none; 
-                text-align: center;
-                box-shadow: 10px 10px 50px grey;
-            }
-
-            .popup h2{
-                margin-top: -20px;
-            }
-            .popup p{
-                font-size: 14px;
-                text-align: justify;
-                margin: 20px 0;
-                line-height: 25px;
-            }
-            .popup label{
-                font-size: 16px;
-            }
-
-            .notify{
-                z-index: 19;
-                background-color: rgb(235, 244, 251);
-                box-shadow: 0 .1rem 2rem rgba(0, 0, 0, .15);
-                left: 50%;
-                top: 10%;
-                padding: 15px;
-                border: 1px solid rgb(166, 206, 237);
-                border-radius: .3rem;
-                text-align: center;
-                position: fixed;
-
-                transform: translate(-50%,-50%);
-
-                display: block;
-
-            }
-        </style>
-
-        <title>${room.name}</title>
+        <title>Glacier - Easy Find and room booking</title>
 
     </head>
     <body style="font-family: 'Varela Round', sans-serif;">
@@ -104,6 +55,7 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-close" onclick="closeNotify()"></i>
             </div>
         </c:if>
+
         <div class="page sub-page">
             <!--*********************************************************************************************************-->
             <!--************ HERO ***************************************************************************************-->
@@ -254,27 +206,18 @@
                             <div class="float-left float-xs-none" style="width: 75%">
                                 <h1>
                                     ${room.name}
-                                    <!--                                    <span class="tag">Offer</span>-->
+                                    <span class="tag">Offer</span>
                                 </h1>
                                 <h4 class="location">
                                     <a href="#">${room.address}</a>
                                 </h4>
-                                <c:if test="${not empty acc}" >
-                                    <h1>
-                                        <br>
-                                        <span data-toggle="tooltip" data-placement="bottom" title="Save this room"><i class="fa fa-bookmark"></i></span>&nbsp;&nbsp;
-                                        <a onclick="openForm()">
-                                            <span data-toggle="tooltip" data-placement="bottom" title="Reporting this room"><i class="fa fa-warning"></i></span>
-                                        </a>
-                                    </h1>
-                                </c:if>
                             </div>
                             <div class="float-right float-xs-none price">
-
-
+                                
                                 <div class="number priceStyle">${room.price}<small>đ</small></div>
-                                <strong>/tháng</strong>
-
+                                <div class="id opacity-50">
+                                    <strong>ID: </strong>${room.roomID}
+                                </div>
                             </div>
                         </div>
                         <!--end container-->
@@ -328,7 +271,7 @@
                         <div class="row flex-column-reverse flex-md-row">
                             <!--============ Listing Detail =============================================================-->
                             <div class="col-md-8">
-                                <!--Description-->d:
+                                <!--Description-->
 
                                 <section>
                                     <h2>Description</h2>
@@ -365,9 +308,6 @@
                                 </section>
                                 <!--end Details-->
                                 <!--Location-->
-
-
-
                                 <!--end Location-->
                                 <!--Features-->
                                 <!--                            <section>
@@ -590,15 +530,15 @@
                                 <iframe width="450"
                                         height="250"
                                         style="width: 100%; height: 100%"
-                                        frameborder="0"; style="border:0;"
-                                        referrerpolicy="no-referrer-when-downgrade;"
+                                        frameborder="0" style="border:0"
+                                        referrerpolicy="no-referrer-when-downgrade"
                                         src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCCYLuixh0QamoPxzrTZTCNGOtd0fwYQoQ&q=${room.detailAddress}" allowfullscreen>
                                 </iframe>
                             </div>
                         </section>
                         <section>
                             <h2>Write a Review</h2>
-                            <form class="form" action="WriteComment" method="">
+                            <form class="form" action="WriteComment" method="POST">
                                 <input name="roomID" value="${room.roomID}" type="hidden">
                                 <div class="row">
                                     <div class="col-md-5">
@@ -666,6 +606,37 @@
                                     </div>
                                 </c:forEach>
                             </div>
+                            <div class="page-pagination">
+                            <nav aria-label="Pagination">
+                                <ul class="pagination">
+
+                                    <!--                                    <li class="page-item active">
+                                                                            <a class="page-link" href="#">1</a>
+                                                                        </li>
+                                                                        <li class="page-item">
+                                                                            <a class="page-link" href="#">2</a>
+                                                                        </li>
+                                                                        <li class="page-item">
+                                                                            <a class="page-link" href="#">3</a>
+                                                                        </li>-->
+
+                                    <c:forEach begin="1" end="${endPage}" step="1" var="i">
+                                        <c:choose>
+                                            <c:when test="${currentPage == i}">
+                                                <li class="page-item active">
+                                                    <a class="page-link" href="?id=${room.roomID}&index=${i}">${i}</a>
+                                                </li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="?id=${room.roomID}&index=${i}">${i}</a>
+                                                </li>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                </ul>
+                            </nav>
+                        </div>
                             <!--                                <div class="comments">
                                                                 <div class="comment">
                                                                     <div class="author">
@@ -749,9 +720,6 @@
                                                                 end comment
                                                             </div>-->
                             <!--end comment-->
-                            <div class="center">
-                                <a href="#" class="btn btn-primary btn-rounded btn-framed">Load More</a>
-                            </div>
                         </section>
                     </div>
                     <!--end container-->
@@ -778,40 +746,24 @@
         <script src="assets/js/jquery.validate.min.js"></script>
         <script src="assets/js/custom.js"></script>
         <script>
-                                            for (let i = 0; i < document.getElementsByClassName("priceStyle").length; i++) {
+            for (let i = 0; i < document.getElementsByClassName("priceStyle").length; i++) {
 
-                                                let priceText = document.getElementsByClassName("priceStyle")[i].textContent.trim();
+                let priceText = document.getElementsByClassName("priceStyle")[i].textContent;
 
-                                                let textReverse = priceText.split("").reverse().join("").trim();
+                let textReverse = priceText.split("").reverse().join("");
 
-                                                var j = 1;
-                                                var count = 0;
-                                                while (j < textReverse.length) {
-                                                    count++;
-                                                    if (count > 3) {
-                                                        textReverse = textReverse.slice(0, j) + "." + textReverse.slice(j);
-                                                        count = 0;
-                                                    }
-                                                    j++;
-                                                }
-                                                let finalPrice = textReverse.split("").reverse().join("");
-                                                document.getElementsByClassName("priceStyle")[i].innerHTML = finalPrice;
-                                            }
-        </script>
-
-        <script>
-            function openForm() {
-                document.getElementsByClassName("page")[0].style.filter = "blur(8px)";
-                document.getElementById("reportForm").style.display = "block";
-            }
-
-            function closeForm() {
-                document.getElementsByClassName("page")[0].style.filter = "none";
-                document.getElementById("reportForm").style.display = "none";
-            }
-
-            function closeNotify() {
-                document.getElementById("notifyBox").style.display = "none";
+                var j = 1;
+                var count = 0;
+                while (j < textReverse.length) {
+                    count++;
+                    if (count > 3) {
+                        textReverse = textReverse.slice(0, j) + "." + textReverse.slice(j);
+                        count = 0;
+                    }
+                    j++;
+                }
+                let finalPrice = textReverse.split("").reverse().join("");
+                document.getElementsByClassName("priceStyle")[i].innerHTML = finalPrice;
             }
         </script>
         <!--        <script>

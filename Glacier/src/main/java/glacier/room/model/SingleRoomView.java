@@ -32,36 +32,45 @@ public class SingleRoomView extends HttpServlet {
      */
     
     
-    private static final String ERROR = "error.jsp";               // change this after adding session
+    private static final String ERROR = "SingleRoom.jsp";               // change this after adding session
     private static final String SUCCESS = "SingleRoom.jsp";
-//    private static final int TEST = 10;
+    private static final int TEST = 10;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        int TEST = Integer.parseInt(request.getParameter("id"));
+//        int TEST = Integer.parseInt(request.getParameter("id"));      
         String url = ERROR;
         try {
-            HttpSession session = request.getSession();
-            Account acc = (Account) session.getAttribute("LOGIN_USER");
-
-            String role = (acc == null) ? "tenant" : acc.getRole().trim(); // If no account is logged in, they can view this page as a tenant
-
-//            String role = "tenant";                                     // this set default access delete this when merging
-            if (!role.equals("tenant")){                                // set privillage only tenant can see other room details 
+//            HttpSession session = request.getSession();
+//            Account role = (Account) session.getAttribute("role");
+            String role = "tenant";                                         // this set default access delete this when merging
+            if (!role.equals("tenant")){                                    // set privillage only tenant can see other room details 
                 url = ERROR;
                 request.setAttribute("ERROR", "WRONG PRIVILLAGE");
             }
             if (role.equals("tenant")) {
-//                int id = Integer.parseInt(request.getParameter("id"));  // get room id to view
+                String indexPage = request.getParameter("index");
+                if (indexPage == null){
+                    indexPage="1";
+                }
+                int currentPage=Integer.parseInt(indexPage);
+                int id = Integer.parseInt(request.getParameter("id"));      // get room id to view
                 RoomDAO dao = new RoomDAO();
-                Room room = dao.getRoomById(TEST);                      // replace TEST with id when merging
-                ArrayList<String> ImgList = dao.getRoomImgById(TEST);
+                Room room = dao.getRoomById(id);                     
+                ArrayList<String> ImgList = dao.getRoomImgById(id);
                 CommentManager cm = new CommentManager();
-                ArrayList<Comment> Reviews = cm.getAllComment(TEST);
+                ArrayList<Comment> Reviews = cm.getAllComment(id,currentPage);
+                int totalReviews=cm.getNumberOfComment(id);
+                int endPage = totalReviews/5;
+                if (totalReviews % 5!=0){
+                    endPage++;
+                }
+                url=SUCCESS;
                 request.setAttribute("room", room);
                 request.setAttribute("ImgList", ImgList);
                 request.setAttribute("Reviews", Reviews);
-                url=SUCCESS;
+                request.setAttribute("endPage",endPage);
+                request.setAttribute("currentPage",currentPage);
             }
         }
         catch (Exception e){
