@@ -37,18 +37,21 @@ public class CommentManager {
         }
     }
     
-    public ArrayList<Comment> getAllComment(int RoomID) throws SQLException, Exception{
+    public ArrayList<Comment> getAllComment(int RoomID,int indexPage) throws SQLException, Exception{
         // Basic get Comment and add in commentL array
         ArrayList<Comment> commentL = new ArrayList<>();
         conn = DBUtils.getConnection();
         Comment c = new Comment();
         try{
                 if (conn!=null){
-                String sql =    "select c.commentID,t.name,t.profile_picture,c.content,c.time,c.rating \n" +
-                                "from Comment c join Tenant t on (c.email=t.email)\n" +
-                                "where (c.roomID=?)";
+                String sql =    "select c.commentID,t.name,t.profile_picture,c.content,c.time,c.rating\n" +
+"                                from Comment c join Tenant t on (c.email=t.email)\n" +
+"                                where (c.roomID=?)\n" +
+"                                order by c.roomID\n" +
+"                                OFFSET (?-1) * 5 row fetch next 5 rows only ";
                 pstm = conn.prepareStatement(sql);
                 pstm.setInt(1, RoomID);
+                pstm.setInt(2,indexPage);
                 rs= pstm.executeQuery();
                 while (rs.next()){
                     int id = rs.getInt("commentID");
@@ -117,12 +120,34 @@ public class CommentManager {
         return check;
     }
     
-    public static void main(String[] args) throws Exception {
-        ArrayList<Comment> commentL = new ArrayList<>();
-        CommentManager dao = new CommentManager();
-        commentL = dao.getAllComment(10);
-//        for (Comment comment : commentL) {
-//            System.out.println(comment);
-//        }
+//    public static void main(String[] args) throws Exception {
+//        ArrayList<Comment> commentL = new ArrayList<>();
+//        CommentManager dao = new CommentManager();
+//        commentL = dao.getAllComment(10);
+////        for (Comment comment : commentL) {
+////            System.out.println(comment);
+////        }
+//    }
+
+    public int getNumberOfComment(int id) throws Exception {
+        int i=-1;
+        conn=DBUtils.getConnection();
+        try{
+            if (conn!=null){
+                String sql = "select Count(*)\n" +
+                            "from Comment \n" +
+                            "where comment.roomID=?";
+                pstm = conn.prepareStatement(sql);
+                pstm.setInt(1, id);
+                rs=pstm.executeQuery();
+                while (rs.next()){
+                    i=rs.getInt(1);
+                }
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return i;
     }
 }
