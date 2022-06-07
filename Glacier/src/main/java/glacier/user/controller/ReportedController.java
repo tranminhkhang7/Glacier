@@ -6,13 +6,11 @@
 package glacier.user.controller;
 
 import glacier.moderator.dbmanager.ModeratorManager;
-import glacier.user.model.User;
+import glacier.user.model.Reported;
+import glacier.user.model.UserSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,12 +21,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Admin
  */
-@WebServlet(name = "SearchUserController", urlPatterns = {"/SearchUserController"})
-public class SearchUserController extends HttpServlet {
-
-    private static final String ERROR = "error.jsp";
-    private static final String SUCCESS = "user.jsp";
-
+@WebServlet(name = "ReportedController", urlPatterns = {"/ReportedController"})
+public class ReportedController extends HttpServlet {
+    private static final String ERROR = "reported.jsp";
+    private static final String SUCCESS = "reported.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,34 +35,32 @@ public class SearchUserController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String search = request.getParameter("keyword");
             int currentPage = Integer.parseInt(request.getParameter("index"));
-            String role = request.getParameter("role");
+            String type = request.getParameter("type");
             ModeratorManager dao = new ModeratorManager();
-            List<User> listUser = null;
-            int totalMatched = dao.countMatched(search, role);
+            List<Reported> listReported = null;
+            int totalMatched = dao.countMatched2(type);
             int endPage = totalMatched / 10;
             if (totalMatched % 10 != 0) {
                 endPage++;
             }
-            if (role.equals("all")) {
-                listUser = dao.getListUser(search, currentPage);
+            if (type.equals("all")) {
+                listReported = dao.getListReported(currentPage);
             } else {
-                if (role.equals("tenant")) {
-                    listUser = dao.getListTenant(search, currentPage);
+                if (type.equals("room")) {
+                    listReported = dao.getListRPRoom(currentPage);
                 } else {
-                    listUser = dao.getListLandlord(search, currentPage);
+                    listReported = dao.getListRPComment(currentPage);
                 }
             }
             request.setAttribute("END_PAGE", endPage);
             request.setAttribute("CURRENT_PAGE", currentPage);
-            request.setAttribute("LIST_USER", listUser);
+            request.setAttribute("LIST_REPORTED", listReported);
             url = SUCCESS;
-
         } catch (Exception e) {
             log("Error at SearchController: " + e.toString());
         } finally {
@@ -74,7 +68,7 @@ public class SearchUserController extends HttpServlet {
         }
     }
 
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -86,11 +80,7 @@ public class SearchUserController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(SearchUserController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -104,11 +94,7 @@ public class SearchUserController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(SearchUserController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

@@ -3,8 +3,9 @@
     Created on : May 30, 2022, 10:25:08 AM
     Author     : Admin
 --%>
+<%@page import="glacier.user.model.User"%>
 <%@page import="java.util.List"%>
-<%@page import="glacier.user.model.UserSession"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="en">
@@ -67,25 +68,25 @@
                                     <!--Main navigation list-->
                                     <ul class="navbar-nav">
                                         <li class="nav-item active has-child">
-                                            <a class="nav-link" href="SearchUserController?keyword=a">User</a>
+                                            <a class="nav-link" href="SearchUserController?keyword=a&index=1&role=all">User</a>
                                             <ul class="child">
                                                 <li class="nav-item">
-                                                    <a href="SearchUserController?keyword=&role=landlord" class="nav-link">Landlords</a>
+                                                    <a href="SearchUserController?keyword=&role=landlord&index=1" class="nav-link">Landlords</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="SearchUserController?keyword=&role=tenant" class="nav-link">Tenants</a>
+                                                    <a href="SearchUserController?keyword=&role=tenant&index=1" class="nav-link">Tenants</a>
                                                 </li>
                                             </ul>
                                         </li>
                                         <li class="nav-item has-child">
-                                            <a class="nav-link" href="#">Reported</a>
+                                            <a class="nav-link" href="ReportedController?index=1&type=all">Reported</a>
                                             <!-- 1st level -->
                                             <ul class="child">
                                                 <li class="nav-item">
-                                                    <a href="#" class="nav-link">Rooms</a>
+                                                    <a href="ReportedController?index=1&type=room" class="nav-link">Rooms</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="#" class="nav-link">Comments</a>
+                                                    <a href="ReportedController?index=1&type=comment" class="nav-link">Comments</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -135,80 +136,142 @@
                 }
                 String role = request.getParameter("role");
                 if (role == null) {
-                    role = "";
+                    role = "all";
                 }
+
             %>
 
             <section class="content">
                 <section class="block">
                     <div class="container">
+                        <%--thanh Search --%>
                         <section>
                             <h2>Search</h2>
-                            <!--============ Side Bar Search Form ===========================================-->
                             <form class="sidebar-form form" action="SearchUserController" method="GET">
                                 <div class="form-group">
                                     <label for="what" class="col-form-label">Email or user name</label>
-                                    <input name="keyword" type="text" class="form-control" id="what" placeholder="Enter keyword and press enter">
+                                    <input name="keyword" type="text" class="form-control" id="what" placeholder="Enter keyword and press enter">                                 
+                                    <input type="hidden" name="role" value="<%=role%>"/>
+                                    <input type="hidden" name="index" value="1"/>
                                     <input type="submit" style="height: 0px; width: 0px; border: none; padding: 0px;" hidefocus="true" />
                                     <br>
                                     <div class="float-xl-none float-md-none float-sm-none" >
                                     </div>
                                 </div>
                                 <!--end form-group-->
-                            </form>
-                            <!--============ End Side Bar Search Form =======================================-->
+                            </form>         
                         </section>
+                        <%--Bảng thông tin người dùng --%>
                         <div class="center">
-                                <%
-                                    List<UserSession> listUser = (List<UserSession>) request.getAttribute("LIST_USER");
-                                    if (listUser != null) {
+                            <%
+                                List<User> listUser = (List<User>) request.getAttribute("LIST_USER");
+                                if (listUser != null) {
+                                    if (listUser.size() > 0) {
+                            %>
+                            <table border="2"style="text-align: center">
+                                <thead>
+                                    <tr style="background-color:red">
+                                        <th>Num</th>
+                                        <th style="width:30%">Email</th>
+                                        <th>Name</th>
+                                        <th>Gender</th>
+                                        <th>Phone</th>
+                                        <th>Role</th>
+                                        <th>Status</th> 
+                                        <th></th>
 
-                                %>
-                                <table border="2"style="text-align: center">
-                                    <thead>
-                                        <tr style="background-color:red">
-                                            <th>Num</th>
-                                            <th style="width:30%;">Email</th>
-                                            <th>Name</th>
-                                            <th>Gender</th>
-                                            <th>Phone</th>
-                                            <th>Role</th>
-                                            <th>Status</th> 
-                                            
-                                        </tr>
-                                    </thead>
-                                    <%                                                
-                                        int count = 1;
-                                        for (UserSession user : listUser) {
+                                    </tr>
+                                </thead>
+                                
+                                    <%
+                                        int p = 1;
+                                        for (User user : listUser) {
                                     %>
-                                    <tbody>
+                                    <form action="BanUserController" method="GET">
+                                    <tbody>         
                                         <tr>
-                                            <td style="height:10px;padding:5px 10px"><%= count++%></td>
-                                            <td style="height:10px;padding:5px 10px"><%= user.getEmail()%></td>
-                                            <td style="height:10px;padding:5px 10px"><%= user.getName()%></td>
-                                            <td style="height:10px;padding:5px 10px"><%= user.getGender()%></td>
-                                            <td style="height:10px;padding:5px 10px"><%= user.getPhone()%></td>
-                                            <td style="height:10px;padding:5px 10px"><%= user.getRole()%></td>
-                                            <td style="height:10px;padding:5px 10px">Active</td>
-                                            
-                                        </tr>
+                                            <td style="height:10px;padding:5px 10px"><%= p++%></td>
+                                            <td style="height:10px;padding:5px 10px; text-align: left"><%= user.getEmail()%></td>
+                                            <td style="height:10px;padding:5px 10px; text-align: left"><%= user.getName()%></td>
+                                            <td style="height:10px;padding:5px 10px; text-align: left"><%= user.getGender()%></td>
+                                            <td style="height:10px;padding:5px 10px; text-align: right">
+                                                <input name="userPhone" type="hidden" value="<%=user.getPhone()%>"/><%= user.getPhone()%>
+                                            </td>
+                                            <td style="height:10px;padding:5px 10px; text-align: left">
+                                                <input name="userRole" type="hidden" value="<%=user.getRole()%>"/>
+                                                <%= user.getRole()%>
+                                            </td>
+                                            <td style="height:10px;padding:5px 10px"><%=user.getStatus()%></td>
+                                            <td style="height:10px;padding:5px 10px">    
+                                                <input type="submit" value="Ban User"/>
+                                            </td>
+
+                                        </tr> 
                                     </tbody>
+                                    </form>
                                     <%
                                         }
                                     %>
-                                </table>
-                                <%
+                               
+                            </table>
+                            <%
                                     }
-                                %>
+                                }
+                            %>
 
                         </div>
+                    </div>
+                    <%--Mục phân trang --%>
+                    <div class="page-pagination">
+                        <nav aria-label="Pagination">
+                            <ul class="pagination">
+                                <%
+                                    int currentPage = (int) request.getAttribute("CURRENT_PAGE");
+                                    int endPage = (int) request.getAttribute("END_PAGE");
+                                    if (currentPage != 1) {
+                                %>
+                                <a class="page-link" href="?role=<%=role%>&keyword=<%=search%>&index=<%=currentPage - 1%>" aria-label="Previous">
+                                    <span aria-hidden="true">
+                                        <i class="fa fa-chevron-left"></i>
+                                    </span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <%
+                                    }
+                                    for (int i = 1; i <= endPage; i++) {
+                                        if (currentPage == i) {
+                                %>
+                                <li class="page-item active">
+                                    <a class="page-link" href="?role=<%=role%>&keyword=<%=search%>&index=<%=i%>"><%=i%></a>
+                                </li> 
+                                <%
+                                } else {
+                                %>
+                                <li class="page-item">
+                                    <a class="page-link" href="?role=<%=role%>&keyword=<%=search%>&index=<%=i%>"><%=i%></a>
+                                </li> 
+                                <%
+                                        }
+                                    }
+                                    if (currentPage != endPage) {
+                                %>
+                                <a class="page-link" href="?role=<%=role%>&keyword=<%=search%>&index=<%=currentPage + 1%>" aria-label="Next">
+                                    <span aria-hidden="true">
+                                        <i class="fa fa-chevron-right"></i>
+                                    </span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                                <%
+                                    }
+                                %>                                
+                            </ul>
+                        </nav>
                     </div>
                     <!--end container-->
                 </section>
                 <!--end block-->
             </section>
             <!--end content-->
-
             <!--*********************************************************************************************************-->
             <!--************ FOOTER *************************************************************************************-->
             <!--*********************************************************************************************************-->
@@ -236,7 +299,7 @@
                                                     <a href="admin.jsp">Home</a>
                                                 </li>
                                                 <li>
-                                                    <a href="SearchUserController?keyword=a">User</a>
+                                                    <a href="SearchUserController?keyword=&index=1&role=all" >User</a>
                                                 </li>
 
                                             </ul>
@@ -246,7 +309,7 @@
                                         <nav>
                                             <ul class="list-unstyled">
                                                 <li>
-                                                    <a href="reported.jsp">Reported</a>
+                                                    <a href="ReportedController?index=1&type=all">Reported</a>
                                                 </li>
                                                 <li>
                                                     <a href="#">Contact</a>

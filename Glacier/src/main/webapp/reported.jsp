@@ -1,16 +1,12 @@
 <%-- 
-    Document   : reported
-    Created on : May 30, 2022, 1:42:41 PM
-    Author     : Admin
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%-- 
     Document   : user
     Created on : May 30, 2022, 10:25:08 AM
     Author     : Admin
 --%>
+<%@page import="glacier.user.model.Reported"%>
+<%@page import="java.util.List"%>
 
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="en">
     <head>
@@ -25,7 +21,7 @@
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/user.css">
 
-        <title>Craigs - Easy Buy & Sell Listing HTML Template</title>
+        <title>Craigs</title>
 
     </head>
     <body>
@@ -72,25 +68,25 @@
                                     <!--Main navigation list-->
                                     <ul class="navbar-nav">
                                         <li class="nav-item active has-child">
-                                            <a class="nav-link" href="#">User</a>
+                                            <a class="nav-link" href="SearchUserController?keyword=a&index=1&role=all">User</a>
                                             <ul class="child">
                                                 <li class="nav-item">
-                                                    <a href="index.html" class="nav-link">Landlords</a>
+                                                    <a href="SearchUserController?keyword=&role=landlord&index=1" class="nav-link">Landlords</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="index-2.html" class="nav-link">Tenants</a>
+                                                    <a href="SearchUserController?keyword=&role=tenant&index=1" class="nav-link">Tenants</a>
                                                 </li>
                                             </ul>
                                         </li>
                                         <li class="nav-item has-child">
-                                            <a class="nav-link" href="#">Reported</a>
+                                            <a class="nav-link" href="ReportedController?index=1&type=all">Reported</a>
                                             <!-- 1st level -->
                                             <ul class="child">
                                                 <li class="nav-item">
-                                                    <a href="#" class="nav-link">Rooms</a>
+                                                    <a href="ReportedController?index=1&type=room" class="nav-link">Rooms</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="#" class="nav-link">Comments</a>
+                                                    <a href="ReportedController?index=1&type=comment" class="nav-link">Comments</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -117,7 +113,7 @@
                     <div class="page-title">
                         <div class="container">
                             <h1 class="opacity-80 center" style="color: red">
-                                User Data
+                                Reported Data
                             </h1>
                         </div>
                         <!--end container-->
@@ -133,60 +129,113 @@
             <!--*********************************************************************************************************-->
             <!--************ CONTENT ************************************************************************************-->
             <!--*********************************************************************************************************-->
+            <%
+                String type = request.getParameter("type");
+                if (type == null) {
+                    type = "all";
+                }
+            %>
+
             <section class="content">
                 <section class="block">
                     <div class="container">
-                        <div class="row">
-                            <div class="col-md-8">
+                        <%--Bảng thông tin report --%>
+                        <div class="center">
+                            <%
+                                List<Reported> listReported = (List<Reported>) request.getAttribute("LIST_REPORTED");
+                                if (listReported != null) {
+                                    if (listReported.size() > 0) {
+                            %>
+                            <table border="2"style="text-align: center">
+                                <thead>
+                                    <tr style="background-color:red">
+                                        <th style="width:10%">ID</th>
+                                        <th style="width:30%">User Email</th>
+                                        <th style="width:50%">Detail</th>
+                                        <th style="width:20%">Date</th>
+                                        <th style="width:20%">Type</th>                           
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <%
+                                    for (Reported reported : listReported) {
+                                %>
 
-                                <article class="blog-post clearfix">
-                                    <div class="article-title">
+                                <tbody>         
+                                    <tr>
+                                        <td style="height:10px;padding:5px 10px; text-align: right"><%= reported.getId()%></td>
+                                        <td style="height:10px;padding:5px 10px; text-align: left"><%= reported.getUserEmail()%></td>
+                                        <td style="height:10px;padding:5px 10px; text-align: left"><%= reported.getDetail()%></td>
+                                        <td style="height:10px;padding:5px 10px; text-align: right"><%= reported.getDate()%></td>
+                                        <td style="height:10px;padding:5px 10px; text-align: left"><%= reported.getType()%></td>
+                                        <td style="height:10px;padding:5px 10px">    
+                                            <input type="submit" value="Delete"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
 
-                                    </div>
-                                    <div class="meta">
-                                        <p> a </p>
-                                    </div>
-                                </article>
-                            </div>
-                            <!--end col-md-8-->
+                                <%
+                                    }
+                                %>
+                            </table>
+                            <%
+                                    }
+                                }
+                            %>
 
-                            <div class="col-md-4">
-                                <!--============ Side Bar ===============================================================-->
-                                <aside class="sidebar">
-                                    <section>
-                                        <h2>Search</h2>
-                                        <!--============ Side Bar Search Form ===========================================-->
-                                        <form class="sidebar-form form">
-                                            <div class="form-group">
-                                                <label for="what" class="col-form-label">Email or user name</label>
-                                                <input name="keyword" type="text" class="form-control" id="what" placeholder="Enter keyword and press enter">
-                                                <br>
-                                                <div class="float-xl-none float-md-none float-sm-none">    
-                                                    <select name="sorting" id="sorting" class="small width-400px" data-placeholder="Default Sorting" >
-                                                        <option value="">Default Sorting</option>
-                                                        <option value="1">Newest First</option>
-                                                        <option value="2">Oldest First</option>
-                                                        <option value="3">Lowest Price First</option>
-                                                        <option value="4">Highest Price First</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <!--end form-group-->
-                                        </form>
-                                        <!--============ End Side Bar Search Form =======================================-->
-                                    </section>
-                                </aside>
-                                <!--============ End Side Bar ===========================================================-->
-                            </div>
-                            <!--end col-md-3-->
                         </div>
+                    </div>
+                    <%--Mục phân trang --%>
+                    <div class="page-pagination">
+                        <nav aria-label="Pagination">
+                            <ul class="pagination">
+                                <%
+                                    int currentPage = (int) request.getAttribute("CURRENT_PAGE");
+                                    int endPage = (int) request.getAttribute("END_PAGE");
+                                    if (currentPage != 1) {
+                                %>
+                                <a class="page-link" href="?type=<%=type%>&index=<%=currentPage - 1%>" aria-label="Previous">
+                                    <span aria-hidden="true">
+                                        <i class="fa fa-chevron-left"></i>
+                                    </span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <%
+                                    }
+                                    for (int i = 1; i <= endPage; i++) {
+                                        if (currentPage == i) {
+                                %>
+                                <li class="page-item active">
+                                    <a class="page-link" href="?type=<%=type%>&index=<%=i%>"><%=i%></a>
+                                </li> 
+                                <%
+                                } else {
+                                %>
+                                <li class="page-item">
+                                    <a class="page-link" href="?type=<%=type%>index=<%=i%>"><%=i%></a>
+                                </li> 
+                                <%
+                                        }
+                                    }
+                                    if (currentPage != endPage) {
+                                %>
+                                <a class="page-link" href="?type=<%=type%>index=<%=currentPage + 1%>" aria-label="Next">
+                                    <span aria-hidden="true">
+                                        <i class="fa fa-chevron-right"></i>
+                                    </span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                                <%
+                                    }
+                                %>                                
+                            </ul>
+                        </nav>
                     </div>
                     <!--end container-->
                 </section>
                 <!--end block-->
             </section>
             <!--end content-->
-
             <!--*********************************************************************************************************-->
             <!--************ FOOTER *************************************************************************************-->
             <!--*********************************************************************************************************-->
@@ -214,7 +263,7 @@
                                                     <a href="admin.jsp">Home</a>
                                                 </li>
                                                 <li>
-                                                    <a href="user.jsp">User</a>
+                                                    <a href="SearchUserController?keyword=&index=1&role=all" >User</a>
                                                 </li>
 
                                             </ul>
@@ -224,7 +273,7 @@
                                         <nav>
                                             <ul class="list-unstyled">
                                                 <li>
-                                                    <a href="reported.jsp">Reported</a>
+                                                    <a href="ReportedController?index=1&type=all">Reported</a>
                                                 </li>
                                                 <li>
                                                     <a href="#">Contact</a>
@@ -281,5 +330,4 @@
 
     </body>
 </html>
-
 
