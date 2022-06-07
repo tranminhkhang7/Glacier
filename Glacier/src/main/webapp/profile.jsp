@@ -187,19 +187,16 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <nav class="nav flex-column side-nav">
-<<<<<<< HEAD
+
+                                    
+
                                     <a class="nav-link active icon" href="account">
-                                        <i class="fa fa-user"></i>My Profile
-                                    </a>
-                                    <a class="nav-link icon" href="rooms">
-=======
-                                    <a class="nav-link active icon" href="my-profile.html">
                                         <i class="fa fa-user"></i>Thông tin cá nhận
                                     </a>
-<!--                                    <a class="nav-link icon" href="my-ads.html">
->>>>>>> b48d8c4469c0324c49e9a3856db8500e79a1a1a6
-                                        <i class="fa fa-heart"></i>My Rooms Listing
-                                    </a>-->
+                                   <a class="nav-link icon" href="rooms">
+
+                                        <i class="fa fa-heart"></i>Phòng của tôi
+                                    </a>
                                     <a class="nav-link icon" href="bookmarks.html">
                                         <i class="fa fa-star"></i>Phòng yêu thích
                                     </a>

@@ -20,6 +20,7 @@ public class Room {
     private float deposit;
     private float avgRating;
     private Date date_added;
+    private Date rentStartDate;
     private float area;
     private String detailAddress;
 
@@ -68,19 +69,30 @@ public class Room {
         this.area = area;
     }
 
-    public Room(int roomID, String name, String description, String address, int price) {
+    public Room(int roomID, String name, String description, String address, int price, Date rentStartDate) {
         this.roomID = roomID;
         this.name = name;
         this.description = description;
         this.address = address;
         this.price = price;
+        this.rentStartDate = rentStartDate;
+    }   
+    
+    //Single Tenant room display
+    public Room(int roomID, String name, String description, String address, String emailTenant, String emailLandlord, int price, Date date_added, Date rentStartDate, String detailAddress) {
+        this.roomID = roomID;
+        this.name = name;
+        this.description = description;
+        this.address = address;
+        this.emailTenant = emailTenant;
+        this.emailLandlord = emailLandlord;
+        this.price = price;
+        this.date_added = date_added;
+        this.rentStartDate = rentStartDate;
+        this.detailAddress = detailAddress;
     }
-
-    
-    
     
 
-    
     
     public int getRoomID() {
         return roomID;
@@ -186,10 +198,21 @@ public class Room {
         this.detailAddress = detailAddress;
     }
 
+    public Date getRentStartDate() {
+        return rentStartDate;
+    }
+
+    public void setRentStartDate(Date rentStartDate) {
+        this.rentStartDate = rentStartDate;
+    }
+    
+
     @Override
     public String toString() {
-        return "Room{" + "roomID=" + roomID + ", name=" + name + ", description=" + description + ", address=" + address + ", emailTenant=" + emailTenant + ", emailLandlord=" + emailLandlord + ", status=" + status + ", price=" + price + ", deposit=" + deposit + ", avgRating=" + avgRating + ", date_added=" + date_added + ", area=" + area + ", detailAddress=" + detailAddress + '}';
+        return "Room{" + "roomID=" + roomID + ", name=" + name + ", description=" + description + ", address=" + address + ", emailTenant=" + emailTenant + ", emailLandlord=" + emailLandlord + ", status=" + status + ", price=" + price + ", deposit=" + deposit + ", avgRating=" + avgRating + ", date_added=" + date_added + ", rentStartDate=" + rentStartDate + ", area=" + area + ", detailAddress=" + detailAddress + '}';
     }
+
+
 
     
     
