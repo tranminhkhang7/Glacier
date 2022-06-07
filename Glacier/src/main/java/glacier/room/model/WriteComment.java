@@ -1,15 +1,14 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package glacier.user.controller;
+package glacier.room.model;
 
-import glacier.landlord.dbmanager.LandlordManager;
-import glacier.user.model.Landlord;
+import glacier.room.dbmanager.CommentManager;
+import glacier.user.model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.sql.Timestamp;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,10 +18,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author KHANG
+ * @author Admin
  */
-@WebServlet(name = "LandlordDeleteRoom", urlPatterns = {"/deleteroom"})
-public class LandlordDeleteRoom extends HttpServlet {
+@WebServlet(name = "WriteComment", urlPatterns = {"/WriteComment"})
+public class WriteComment extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,33 +32,36 @@ public class LandlordDeleteRoom extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private static final String ERROR = "SingleRoomView";               // change this after adding session
+    private static final String SUCCESS = "SingleRoomView";
+    private static final Account TEST= new Account("dinhxuantung@gmail.com","12345678","tenant");           // TEST ACCOUNT
+    
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            
+        try{
             HttpSession session = request.getSession(false);
-            if (session == null) {
-                RequestDispatcher rd = request.getRequestDispatcher("/login");
-                rd.forward(request, response);
-            } else {
-                Landlord landlord = (Landlord) session.getAttribute("USER_DETAIL");
-                String emailLandlord = landlord.getEmail();
-
-                int roomID = Integer.parseInt(request.getParameter("id"));
-
-                LandlordManager mng = new LandlordManager();
-                if (mng.checkOwnership(emailLandlord, roomID)) {
-                    mng.deleteRoom(roomID);
-                    RequestDispatcher rd = request.getRequestDispatcher("/roomlist");
-                    rd.forward(request, response);
-                } else {
-                    RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
-                    rd.forward(request, response);
+            Account a = (Account)session.getAttribute("USER_DATA");
+            a = TEST;                                                    // THIS IS FOR TESTING                           // Delete this when hook code
+            
+            if (a.getRole().equals("tenant")){
+                CommentManager cm = new CommentManager();
+                int commentID = cm.getNextCommentIndex();
+                long now = System.currentTimeMillis();
+                Timestamp date = new Timestamp(now);
+                int roomID = Integer.parseInt(request.getParameter("roomID"));
+                int rating = Integer.parseInt(request.getParameter("rating"));
+                String content = request.getParameter("review");
+                Comment c = new Comment(commentID, roomID, content, rating,a.getEmail(), date);
+                if(!cm.createComment(c)){
+                    System.err.println("ERROR CREATE COMMENT");
                 }
-            }
-        } catch (Exception e) {
-            log("Error at Landlord Delete Room: " + e.toString());
+                else response.sendRedirect(SUCCESS+"?id="+roomID);
+            }           
+        }
+        catch(Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -89,7 +91,7 @@ public class LandlordDeleteRoom extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        processRequest(request, response); 
     }
 
     /**

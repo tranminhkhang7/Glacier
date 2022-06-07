@@ -5,12 +5,15 @@
  */
 package glacier.room.dbmanager;
 
-import glacier.room.model.Room; 
+import glacier.room.model.Bill;
+import glacier.room.model.Room;
+import glacier.user.model.Notification_TL;
 import glacier.utils.DBUtils;
 import java.sql.Connection;
 import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,10 +37,10 @@ public class RoomManager {
 //                        "FROM [Book]\n" +
 //                        "WHERE [title] LIKE '%" + searchText + "%'";
 
-            String sql = "SELECT COUNT (*)\n" +
-                        "FROM [Room]\n" +
-                        "WHERE ([name] LIKE '%" + searchText + "%') OR ([address] LIKE '%" + searchText + "%')";
-                    
+            String sql = "SELECT COUNT (*)\n"
+                    + "FROM [Room] R\n"
+                    + "WHERE FREETEXT(R.[name], N'" + searchText + "') OR FREETEXT(R.[description], N'" + searchText + "') OR FREETEXT(R.[detailAddress], N'" + searchText + "') OR FREETEXT(R.[address], N'" + searchText + "')";
+
 //            if (rating != null && !rating.equals("all")) {
 //                sql += " AND avgRate >= " + rating + " ";
 //            }
@@ -47,7 +50,6 @@ public class RoomManager {
 //                        + "		FROM [ProductTag]\n"
 //                        + "		WHERE [tagName] = N'" + genres + "')\n";
 //            }
-
             Connection con = DBUtils.getConnection();
             PreparedStatement st = con.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -70,20 +72,16 @@ public class RoomManager {
                     i++;
                 }
             }
-            
+
             //String sql = "SELECT [ISBN], [title], [image], [price] FROM [Book] WHERE [title] LIKE '%" + searchText + "%'"; // Kiem tra truong hop text co dau '
 //            String sql = "SELECT [ISBN], [title], [image], [price]\n" +
 //                        "FROM [Book]\n" +
 //                        "WHERE [title] LIKE '%" + searchText + "%'\n" +
 //                        "ORDER BY [ISBN]\n" +
 //                        "OFFSET " + (index - 1) * 9 + " ROWS FETCH NEXT 9 ROWS ONLY";
-
-            String sql = "SELECT R.[roomID], R.[name] as nameRoom, R.[address], R.[price], R.[date_added], L.[name] as nameLandlord, LEFT(R.[description], 100) as cutDescription\n" +
-                        "FROM [Room] R JOIN [Landlord] L ON R.emailLandlord = L.email\n" +
-                        "WHERE (R.[name] LIKE '%" + searchText + "%') OR (R.[address] LIKE '%" + searchText + "%')\n";
-                    
-            
-            
+            String sql = "SELECT R.[roomID], R.[name] as nameRoom, R.[address], R.[price], R.[date_added], L.[name] as nameLandlord, LEFT(R.[description], 100) as cutDescription\n"
+                    + "FROM [Room] R JOIN [Landlord] L ON R.emailLandlord = L.email\n"
+                    + "WHERE FREETEXT(R.[name], N'" + searchText + "') OR FREETEXT(R.[description], N'" + searchText + "') OR FREETEXT(R.[detailAddress], N'" + searchText + "') OR FREETEXT(R.[address], N'" + searchText + "')";
 //            if (rating != null && !rating.equals("all")) {
 //                sql += " AND avgRate >= " + rating + " ";
 //            }
@@ -106,11 +104,11 @@ public class RoomManager {
 //            }
             sql += "ORDER BY R.[roomID]\n";
             sql += "OFFSET " + (index - 1) * 16 + " ROWS FETCH NEXT 16 ROWS ONLY";
-            
+
             Connection con = DBUtils.getConnection();
             PreparedStatement st = con.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-            
+
             ArrayList<Room> list;
             list = new ArrayList<Room>();
 
@@ -122,7 +120,7 @@ public class RoomManager {
                 String nameLandlord = rs.getString("nameLandlord");
                 int price = rs.getInt("price");
                 Date dateAdded = rs.getDate("date_added");
-                
+
                 Room matchedRoom = new Room(roomID, nameRoom, cutDescription, address, nameLandlord, price, dateAdded);
                 list.add(matchedRoom);
             }
@@ -131,5 +129,181 @@ public class RoomManager {
             System.out.println(ex);
         }
         return null;
+    }
+
+    public List<Room> getTenantRoomList(String email, int index) {
+        List<Room> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT [roomID], [name], [price], [address], [description], [rentStartDate] FROM [Room] "
+                        + " WHERE emailTenant=? "
+                        + " ORDER BY [RoomID] "
+                        + " OFFSET ? ROWS FETCH NEXT 4 ROWS ONLY ";
+                st = conn.prepareStatement(sql);
+                st.setString(1, email);
+                st.setInt(2, (index - 1) * 4);
+                rs = st.executeQuery();
+                while (rs.next()) {
+                    int roomId = rs.getInt("roomID");
+                    String name = rs.getString("name").trim();
+                    int price = rs.getInt("price");
+                    String address = rs.getString("address").trim();
+                    String des = rs.getString("description").trim().substring(0, Math.min(rs.getString("description").length(), 101));
+
+                    Date rentStartDate = rs.getDate("rentStartDate");
+                    list.add(new Room(roomId, name, des, address, price, rentStartDate));
+
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public int countTenantRooms(String emailTenant) { // searchText: the key words user typed; index: page number
+        try {
+            String sql = "SELECT COUNT(*)\n"
+                    + "FROM [Room]\n"
+                    + "WHERE [emailTenant] = ?";
+
+            Connection con = DBUtils.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, emailTenant);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return 0;
+    }
+
+    //Function for tenant to sent notification to landlord
+    public boolean insertNotificationTL(Notification_TL noti) {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement st = null;
+        long now = System.currentTimeMillis();
+        Timestamp date = new Timestamp(now);
+
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                PreparedStatement getID = conn.prepareStatement("SELECT MAX([NotificationID]) as lastID FROM [Notification_TL]");
+                ResultSet rs = getID.executeQuery();
+                rs.next();
+                int newID = Integer.parseInt(rs.getString("lastID")) + 1;
+                String sql = " INSERT INTO Notification_TL(notificationID,emailTenant,emailLandlord,title,content,time) "
+                        + " VALUES(?,?,?,?,?,?) ";
+                st = conn.prepareStatement(sql);
+                st.setInt(1, newID);
+                st.setString(2, noti.getEmailTenant());
+                st.setString(3, noti.getEmailLandlord());
+                st.setString(4, noti.getTitle());
+                st.setString(5, noti.getContent());
+                st.setTimestamp(6, date);
+                check = st.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return check;
+    }
+
+    //Function to get a list of bill for tenant in a specific room
+    public List<Bill> getBillList(int roomId) {
+        List<Bill> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement st = null;
+
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " SELECT [billID], [roomID], [amount], [purpose], [time], [status] "
+                        + " FROM [Bill] "
+                        + " WHERE [roomID]=? ";
+                st = conn.prepareStatement(sql);
+                st.setInt(1, roomId);
+                ResultSet rs = st.executeQuery();
+                while (rs.next()) {
+                    int billId = rs.getInt("billID");
+                    
+                    int amount = rs.getInt("amount");
+                    String purpose = rs.getString("purpose");
+                    Timestamp time = rs.getTimestamp("time");
+                    String status = rs.getString("status");
+                    list.add(new Bill(billId, roomId, amount, purpose, time, status));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public Room getTenantRentedRoom(int id) {
+        Room room = null;
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " SELECT [roomID], [name], [description], [address], [detailAddress], [emailTenant], [emailLandlord], [price], [date_added], [rentStartDate]  "
+                        + " FROM [Room] "
+                        + " WHERE roomID=? ";
+
+                st = conn.prepareStatement(sql);
+                st.setInt(1, id);
+                rs = st.executeQuery();
+                if (rs.next()) {
+                    int roomID = rs.getInt("roomID");
+                    String name = rs.getString("name");
+                    String description = rs.getString("description");
+                    String address = rs.getString("address");
+                    String detailAddress = rs.getString("detailAddress");
+                    String emailTenant = rs.getString("emailTenant");
+                    String emailLandlord = rs.getString("emailLandlord");
+                    int price = rs.getInt("price");
+                    Date date_added = rs.getDate("date_added");
+                    Date rentStartDate = rs.getDate("rentStartDate");
+                    room = new Room(roomID, name, description, address, emailTenant, emailLandlord, price, date_added, rentStartDate, detailAddress);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return room;
+    }
+
+    public static void main(String[] args) {
+        RoomManager manager = new RoomManager();
+
+//        List<Room> list = manager.getTenantRoomList("vuvannga@gmail.com", 1);
+//        for (Room room : list) {
+//            System.out.println(room);
+//        }
+
+        List<Bill> list = manager.getBillList(10);
+        for (Bill bill : list) {
+            System.out.println(bill);
+        }
+//        Room room  = manager.getTenantRentedRoom(10);
+//        System.out.println(room);
+//        int count = manager.countTenantRooms("vuvannga@gmail.com");
+//        System.out.println(count);
+
+//        String newS = s.trim().replaceAll(" ", "");
+//        String shortS = s.substring(0, Math.min(s.length(), 101));
+//        int i = newS.length();
+//        int j = s.length();
+//        System.out.println(shortS);
     }
 }

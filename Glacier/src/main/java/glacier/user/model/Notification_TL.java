@@ -31,6 +31,13 @@ public class Notification_TL {
         this.time = time;
     }
 
+    public Notification_TL(String emailTenant, String emailLandlord, String title, String content) {
+        this.emailTenant = emailTenant;
+        this.emailLandlord = emailLandlord;
+        this.title = title;
+        this.content = content;
+    }
+
     public String getNotificationID() {
         return notificationID;
     }

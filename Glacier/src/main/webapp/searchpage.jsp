@@ -6,7 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri= "http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <html lang="en">
     <head>
@@ -33,87 +34,9 @@
             <!--*********************************************************************************************************-->
             <header class="hero">
                 <div class="hero-wrapper">
-                    <!--============ Secondary Navigation ===============================================================-->
-                    <div class="secondary-navigation">
-                        <div class="container">
-                            <ul class="left">
-                                <li>
-                                    <span>
-                                        <i class="fa fa-phone"></i> +1 123 456 789
-                                    </span>
-                                </li>
-                            </ul>
-                            <!--end left-->
-                            <ul class="right">
-                                <c:if test="${empty acc}" >
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/login">
-                                            <i class="fa fa-sign-in"></i>Đăng nhập
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/register">
-                                            <i class="fa fa-pencil-square-o"></i>Đăng ký
-                                        </a>
-                                    </li>
-                                </c:if>
-                                <c:if test="${not empty acc}" >
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/account">
-                                            <i class="fa fa-sign-in"></i>${user.name}
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/logout">
-                                            <i class="fa fa-pencil-square-o"></i>Đăng xuất
-                                        </a>
-                                    </li>
-                                </c:if>
-                            </ul>
-                            <!--end right-->
-                        </div>
-                        <!--end container-->
-                    </div>
-                    <!--============ End Secondary Navigation ===========================================================-->
-                    <!--============ Main Navigation ====================================================================-->
-                    <div class="main-navigation">
-                        <div class="container">
-                            <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
-                                <a class="navbar-brand" href="${pageContext.request.contextPath}/home">
-                                    <img src="assets/img/logo.png" alt="">
-                                </a>
-                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-                                    <span class="navbar-toggler-icon"></span>
-                                </button>
-                                <div class="collapse navbar-collapse" id="navbar">
-                                    <!--Main navigation list-->
-                                    <ul class="navbar-nav">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="${pageContext.request.contextPath}/home">Trang chủ</a>
-                                        </li> 
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="${pageContext.request.contextPath}/contact">Liên lạc</a>
-                                        </li>
-                                        <c:if test="${not empty acc}" >
-                                            <li class="nav-item">
-                                                <a href="submit.html" class="btn btn-primary text-caps btn-rounded">QUẢN LÝ PHÒNG THUÊ</a>
-                                            </li>
-                                        </c:if>
-                                    </ul>
-                                    <!--Main navigation list-->
-                                </div>
-                                <!--end navbar-collapse-->
-                                <a href="#collapseMainSearchForm" class="main-search-form-toggle" data-toggle="collapse"  aria-expanded="false" aria-controls="collapseMainSearchForm">
-                                    <i class="fa fa-search"></i>
-                                    <i class="fa fa-close"></i>
-                                </a>
-                            </nav>
-                            <!--end navbar-->
-                        </div>
-                        <!--end container-->
-                    </div>
-                    <!--============ End Main Navigation ================================================================-->
-                    
+
+                    <jsp:include page="header/navigation.jsp" />
+
                     <!--============ Hero Form ==========================================================================-->
                     <div class="collapse" id="collapseMainSearchForm">
                         <form class="hero-form form" action="${pageContext.request.contextPath}/search" method="get">
@@ -239,26 +162,26 @@
                     <div class="container">
                         <!--============ Section Title===================================================================-->
                         <div class="section-title clearfix">
-<!--                            <div class="float-left float-xs-none">
-                                <label class="mr-3 align-text-bottom">Sort by: </label>
-                                <select name="sorting" id="sorting" class="small width-200px" data-placeholder="Default Sorting" >
-                                    <option value="">Default Sorting</option>
-                                    <option value="1">Newest First</option>
-                                    <option value="2">Oldest First</option>
-                                    <option value="3">Lowest Price First</option>
-                                    <option value="4">Highest Price First</option>
-                                </select>
-
-                            </div>-->
+                            <!--                            <div class="float-left float-xs-none">
+                                                            <label class="mr-3 align-text-bottom">Sort by: </label>
+                                                            <select name="sorting" id="sorting" class="small width-200px" data-placeholder="Default Sorting" >
+                                                                <option value="">Default Sorting</option>
+                                                                <option value="1">Newest First</option>
+                                                                <option value="2">Oldest First</option>
+                                                                <option value="3">Lowest Price First</option>
+                                                                <option value="4">Highest Price First</option>
+                                                            </select>
+                            
+                                                        </div>-->
                             <!--sort chưa làm được nên tạm đóng lại nhe!!! NHỚ LÀM!!!-->
-<!--                            <div class="float-right d-xs-none thumbnail-toggle">
-                                <a href="#" class="change-class active" data-change-from-class="list" data-change-to-class="grid" data-parent-class="items">
-                                    <i class="fa fa-th"></i>
-                                </a>
-                                <a href="#" class="change-class" data-change-from-class="grid" data-change-to-class="list" data-parent-class="items">
-                                    <i class="fa fa-th-list"></i>
-                                </a>
-                            </div>-->
+                            <!--                            <div class="float-right d-xs-none thumbnail-toggle">
+                                                            <a href="#" class="change-class active" data-change-from-class="list" data-change-to-class="grid" data-parent-class="items">
+                                                                <i class="fa fa-th"></i>
+                                                            </a>
+                                                            <a href="#" class="change-class" data-change-from-class="grid" data-change-to-class="list" data-parent-class="items">
+                                                                <i class="fa fa-th-list"></i>
+                                                            </a>
+                                                        </div>-->
                         </div>
                         <!--============ Items ==========================================================================-->
                         <div class="items grid grid-xl-4-items grid-lg-4-items grid-md-4-items">
@@ -271,7 +194,7 @@
                                         <div class="image">
                                             <h3>
                                                 <!--<a href="#" class="tag category">Home & Decor</a>-->
-                                                <a href="single-listing-1.html" class="title">${room.name}</a>
+                                                <a href="${pageContext.request.contextPath}/SingleRoomView?id=${room.roomID}" class="title">${room.name}</a>
                                                 <!--<span class="tag">Offer</span>-->
                                             </h3>
                                             <a href="single-listing-1.html" class="image-wrapper background-image">
@@ -282,7 +205,10 @@
                                         <h4 class="location">
                                             <a href="#">${room.address}</a>
                                         </h4>
-                                        <div class="price">${room.price}đ</div>
+                                        <div class="price">                                    
+                                            ${room.price}đ
+                                            <!--<small>VNĐ</small>-->
+                                        </div>
                                         <div class="meta">
                                             <figure>
                                                 <i class="fa fa-calendar-o"></i>${room.date_added}
@@ -313,15 +239,15 @@
                             <nav aria-label="Pagination">
                                 <ul class="pagination">
 
-<!--                                    <li class="page-item active">
-                                        <a class="page-link" href="#">1</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">2</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">3</a>
-                                    </li>-->
+                                    <!--                                    <li class="page-item active">
+                                                                            <a class="page-link" href="#">1</a>
+                                                                        </li>
+                                                                        <li class="page-item">
+                                                                            <a class="page-link" href="#">2</a>
+                                                                        </li>
+                                                                        <li class="page-item">
+                                                                            <a class="page-link" href="#">3</a>
+                                                                        </li>-->
 
                                     <c:forEach begin="1" end="${endPage}" step="1" var="i">
                                         <c:choose>
@@ -338,7 +264,7 @@
                                         </c:choose>
                                     </c:forEach>
 
-                                    
+
 
 
 
@@ -356,73 +282,7 @@
             <!--*********************************************************************************************************-->
             <!--************ FOOTER *************************************************************************************-->
             <!--*********************************************************************************************************-->
-            <footer class="footer">
-                <div class="wrapper">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <a href="#" class="brand">
-                                    <img src="${pageContext.request.contextPath}/assets/img/logo.png" alt="">
-                                </a>
-                                <p>
-                                    Glacier là nền tảng kết nối người thuê nhà và các chủ trọ. Sẵn sàng sát cánh bến bạn trên mỗi hành trình mà bạn bước đi!
-                                </p>
-                            </div>
-                            <!--end col-md-5-->
-                            <div class="col-md-3">
-                                <h2>Bảng điều hướng</h2>
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-6">
-                                        <nav>
-                                            <ul class="list-unstyled">
-                                                <li>
-                                                    <a href="${pageContext.request.contextPath}/home">Trang chủ</a>
-                                                </li>
-                                                
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6">
-                                        <nav>
-                                            <ul class="list-unstyled">
-                                                <li>
-                                                    <a href="${pageContext.request.contextPath}/contact">Liên lạc</a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end col-md-3-->
-                            <div class="col-md-4">
-                                <h2>Liên hệ</h2>
-                                <address>
-<!--                                    <figure>
-                                        124 Abia Martin Drive<br>
-                                        New York, NY 10011
-                                    </figure>-->
-                                    <br>
-                                    <strong>Email:</strong> <a href="#">glacier.hostel@gmail.com</a>
-                                    <br>
-                                    <strong>Phone: </strong>  +1 123 456 789
-                                    <br>
-                                    <br>
-                                    <a href="contact.html" class="btn btn-primary text-caps btn-framed">Contact Us</a>
-                                </address>
-                            </div>
-                            <!--end col-md-4-->
-                        </div>
-                        <!--end row-->
-                    </div>
-                    <div class="background">
-                        <div class="background-image original-size">
-                            <img src="${pageContext.request.contextPath}/assets/img/footer-background-icons.jpg" alt="">
-                        </div>
-                        <!--end background-image-->
-                    </div>
-                    <!--end background-->
-                </div>
-            </footer>
+            <jsp:include page="header/footer.jsp" />
             <!--end footer-->
         </div>
         <!--end page-->
@@ -436,7 +296,28 @@
         <script src="assets/js/icheck.min.js"></script>
         <script src="assets/js/jquery.validate.min.js"></script>
         <script src="assets/js/custom.js"></script>
+        <script>
+            for (let i = 0; i < document.getElementsByClassName("price").length; i++) {
 
+                let priceText = document.getElementsByClassName("price")[i].textContent.trim();
+
+                let textReverse = priceText.split("").reverse().join("").trim();
+
+                var j = 1;
+                var count = 0;
+                while (j < textReverse.length) {
+                    count++;
+                    if (count > 3) {
+                        textReverse = textReverse.slice(0, j) + "." + textReverse.slice(j);
+                        count = 0;
+                    }
+                    j++;
+                }
+                
+                let finalPrice = textReverse.split("").reverse().join("");
+                document.getElementsByClassName("price")[i].innerHTML = finalPrice;
+            }
+        </script>
     </body>
 </html>
 

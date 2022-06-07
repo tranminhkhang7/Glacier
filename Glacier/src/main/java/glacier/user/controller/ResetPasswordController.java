@@ -33,21 +33,24 @@ public class ResetPasswordController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try{
-        String id = request.getParameter("id");
-        String key = request.getParameter("key");
-        
-        HttpSession ss = request.getSession();
-        
-        String email = (String) ss.getAttribute("RESET_EMAIL");
-        String refId = (String) ss.getAttribute("ID");
-        String refKey = (String) ss.getAttribute("KEY");
-        
-        if((id.equals(refId)&&(key.equals(refKey)))){
-            request.getRequestDispatcher("reset-password.jsp").forward(request, response);
-        }
-        }catch(Exception e){
-            log(""+ e.toString());
+        try {
+            String id = request.getParameter("id");
+            String key = request.getParameter("key");
+
+            HttpSession ss = request.getSession();
+
+            String email = (String) ss.getAttribute("RESET_EMAIL");
+            String refId = (String) ss.getAttribute("ID");
+            String refKey = (String) ss.getAttribute("KEY");
+
+            if ((id.equals(refId) && (key.equals(refKey)))) {
+                request.getRequestDispatcher("reset-password.jsp").forward(request, response);
+            } else {
+                request.setAttribute("IS_VERIFIED", false);
+                request.getRequestDispatcher("verify.jsp").forward(request, response);
+            }
+        } catch (Exception e) {
+            log("" + e.toString());
         }
     }
 

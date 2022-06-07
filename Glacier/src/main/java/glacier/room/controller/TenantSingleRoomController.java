@@ -3,25 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package glacier.user.controller;
+package glacier.room.controller;
 
 import glacier.room.dbmanager.RoomManager;
+import glacier.room.model.Bill;
 import glacier.room.model.Room;
+import glacier.room.model.RoomDAO;
+import glacier.user.model.Account;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author KHANG
+ * @author ASUS
  */
-@WebServlet(name = "SearchRoomController", urlPatterns = {"/search"})
-public class SearchRoomController extends HttpServlet {
+@WebServlet(name = "TenantSingleRoomController", urlPatterns = {"/your-rooms"})
+public class TenantSingleRoomController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,49 +40,28 @@ public class SearchRoomController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
-            
-            String indexPage = request.getParameter("index");
-            if (indexPage == null) {
-                indexPage = "1";
-            }
-            int currentPage = Integer.parseInt(indexPage);
-
-            String searchText = (String) request.getParameter("keyword");
-            if (searchText == null) {
-                searchText = "";
-            }
-//            String genres = (String) request.getParameter("genres");
-//            String rating = (String) request.getParameter("rating");
-//            String sortBy = (String) request.getParameter("sortBy");
-
-            RoomManager manager = new RoomManager();
-            
-            int totalMatched = manager.countMatched(searchText);
-            int endPage = totalMatched / 16;
-            if (totalMatched % 16 != 0) {
-                endPage++;
-            }
-            
-            if (currentPage > endPage) currentPage = endPage;
-            List<Room> listResult = manager.search(searchText, currentPage);
-
-            request.setAttribute("searchText", searchText);
-//            request.setAttribute("genres", genres);
-//            request.setAttribute("rating", rating);
-//            request.setAttribute("sortBy", sortBy);
-            request.setAttribute("endPage", endPage);
-            request.setAttribute("currentPage", currentPage);
-//            request.setAttribute("allTag", allTag);
-            request.setAttribute("list", listResult);
-            
-            RequestDispatcher rd = request.getRequestDispatcher("/searchpage.jsp");
-            rd.forward(request, response);
-        } catch (Exception e) {
-            log("Error search room " + e.toString());
+        try{
+        String id = request.getParameter("id");
+        HttpSession ss = request.getSession(false);
+        Account acc = (Account) ss.getAttribute("LOGIN_USER");
+        RoomManager manager = new RoomManager();
+        Room room = manager.getTenantRentedRoom(Integer.parseInt(id));
+        if(acc.getEmail().equals(room.getEmailTenant().trim())){
+            List<Bill> listOfBill = manager.getBillList(Integer.parseInt(id));
+            request.setAttribute("BILL_LIST", listOfBill);
+            request.setAttribute("SINGLE_ROOM", room);
+            request.getRequestDispatcher("tenant-single-rented.jsp").forward(request, response);
+            return;
+        }else{
+            response.sendRedirect("error.jsp");
+            return;
         }
+        }catch(Exception e){
+            log("Error at TenantSingleRoomController: "+e.toString());
+        }
+        response.sendRedirect("error.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -90,7 +76,11 @@ public class SearchRoomController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(TenantSingleRoomController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -104,7 +94,11 @@ public class SearchRoomController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(TenantSingleRoomController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

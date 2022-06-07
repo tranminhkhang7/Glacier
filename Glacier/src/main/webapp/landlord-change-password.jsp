@@ -33,7 +33,7 @@
             <header class="hero">
                 <div class="hero-wrapper">
 
-                    <jsp:include page="header/navigation.jsp" />
+                    <jsp:include page="header/navigation-landlord.jsp" />
 
                     <!--============ Hero Form ==========================================================================-->
                     <div class="collapse" id="collapseMainSearchForm">
@@ -173,9 +173,6 @@
             </header>
             <!--end hero-->
 
-
-
-
             <!--*********************************************************************************************************-->
             <!--************ CONTENT ************************************************************************************-->
             <!--*********************************************************************************************************-->
@@ -188,18 +185,17 @@
                                     <a class="nav-link icon" href="profile.jsp">
                                         <i class="fa fa-user"></i>Thông tin cá nhận
                                     </a>
-                                    <a class="nav-link icon" href="rooms">
-                                        <i class="fa fa-heart"></i>Phòng của tôi
-                                    </a>
+                                    <!--                                    <a class="nav-link icon" href="my-ads.html">
+                                                                            <i class="fa fa-heart"></i>My Rooms Listing
+                                                                        </a>-->
                                     <a class="nav-link icon" href="bookmarks.html">
                                         <i class="fa fa-star"></i>Phòng yêu thích
                                     </a>
                                     <a class="nav-link active icon" href="changepassword">
                                         <i class="fa fa-recycle"></i>Thay đổi mật khẩu
                                     </a>
-                            </nav>
-                        </div>
-                        <!--end col-md-3-->
+                                </nav>
+                            </div>
                             <!--end col-md-3-->
                             <div class="col-md-9">
                                 <form class="form" action="changepassword" method="POST">
@@ -233,7 +229,6 @@
                                             </div>
                                             <!--end form-group-->
                                             <button type="submit" class="btn btn-primary float-right">Hoàn tất</button>
-
                                         </div>
                                         <!--end col-md-6-->
                                     </div>

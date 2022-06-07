@@ -1,6 +1,6 @@
 <%-- 
-    Document   : change-password
-    Created on : May 31, 2022, 7:46:06 PM
+    Document   : profile
+    Created on : May 29, 2022, 10:07:01 AM
     Author     : ASUS
 --%>
 
@@ -15,26 +15,31 @@
         <meta name="author" content="ThemeStarz">
 
         <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Varela+Round" rel="stylesheet">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/bootstrap/css/bootstrap.css" type="text/css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/fonts/font-awesome.css" type="text/css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/selectize.css" type="text/css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user.css">
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.css" type="text/css">
+        <link rel="stylesheet" href="assets/fonts/font-awesome.css" type="text/css">
+        <link rel="stylesheet" href="assets/css/selectize.css" type="text/css">
+        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="assets/css/user.css">
 
         <title>Craigs - Easy Buy & Sell Listing HTML Template</title>
 
     </head>
     <body style="font-family: 'Varela Round', sans-serif;">
-
+        <c:set var="user" value="${LOGIN_USER}"/>
+        <c:set var="detail" value="${USER_DETAIL}"/>
+        <c:if test="${detail.gender.trim() eq 'male'}"><c:set var="male" value="selected"/></c:if>
+        <c:if test="${detail.gender.trim() eq 'female'}"><c:set var="female" value="selected"/></c:if>
+        
+        
         <div class="page sub-page">
             <!--*********************************************************************************************************-->
             <!--************ HERO ***************************************************************************************-->
             <!--*********************************************************************************************************-->
             <header class="hero">
                 <div class="hero-wrapper">
-
-                    <jsp:include page="header/navigation.jsp" />
-
+                    
+                    <jsp:include page="header/navigation-landlord.jsp" />
+                    
                     <!--============ Hero Form ==========================================================================-->
                     <div class="collapse" id="collapseMainSearchForm">
                         <form class="hero-form form">
@@ -161,7 +166,7 @@
                     <!--============ Page Title =========================================================================-->
                     <div class="page-title">
                         <div class="container">
-                            <h1>Thay đổi mật khẩu</h1>
+                            <h1>Thông tin cá nhân</h1>
                         </div>
                         <!--end container-->
                     </div>
@@ -173,9 +178,6 @@
             </header>
             <!--end hero-->
 
-
-
-
             <!--*********************************************************************************************************-->
             <!--************ CONTENT ************************************************************************************-->
             <!--*********************************************************************************************************-->
@@ -185,63 +187,118 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <nav class="nav flex-column side-nav">
-                                    <a class="nav-link icon" href="profile.jsp">
+                                    <a class="nav-link active icon" href="my-profile.html">
                                         <i class="fa fa-user"></i>Thông tin cá nhận
                                     </a>
-                                    <a class="nav-link icon" href="rooms">
-                                        <i class="fa fa-heart"></i>Phòng của tôi
-                                    </a>
+<!--                                    <a class="nav-link icon" href="my-ads.html">
+                                        <i class="fa fa-heart"></i>My Rooms Listing
+                                    </a>-->
                                     <a class="nav-link icon" href="bookmarks.html">
                                         <i class="fa fa-star"></i>Phòng yêu thích
                                     </a>
-                                    <a class="nav-link active icon" href="changepassword">
+                                    <a class="nav-link icon" href="changepassword">
                                         <i class="fa fa-recycle"></i>Thay đổi mật khẩu
                                     </a>
-                            </nav>
-                        </div>
-                        <!--end col-md-3-->
+                                </nav>
+                            </div>
                             <!--end col-md-3-->
                             <div class="col-md-9">
-                                <form class="form" action="changepassword" method="POST">
-                                    <div class="row justify-content-center">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <c:if test="${not empty error}">
-                                                    <b><span style="text-align: right; color: red">${error}</span></b>
-                                                    <br>
-                                                    <br>
-                                                </c:if>
-                                                <c:if test="${not empty success}">
-                                                    <b><span style="text-align: right; color: green">${success}</span></b>
-                                                    <br>
-                                                    <br>
-                                                </c:if>
-                                                <label for="current_password" class="col-form-label required">Mật khẩu hiện tại</label>
-                                                <input name="current_password" type="password" class="form-control" id="current_password" placeholder="Nhập mật khẩu hiện tại cùa bạn" required>
-                                            </div>
-                                            <!--end form-group-->
-                                            <div class="form-group">
-                                                <label for="new_current_password" class="col-form-label required">Mật khẩu mới</label>
-                                                <input name="new_current_password" type="password" class="form-control" id="new_current_password" placeholder="Nhập mật khẩu mới" required>
-                                            </div>
-                                            <!--end form-group-->
-                                            <div class="form-group">
-                                                <label for="repeat_new_current_password" class="col-form-label required">Nhập lại mật khẩu mới</label>
-                                                <input name="repeat_new_current_password" type="password" class="form-control" id="repeat_new_current_password" placeholder="Nhập lại mật khẩu mới" required onkeyup="check()">
-                                                <br>
-                                                <b><span id="message" style="text-align: right;"></span></b>
-                                            </div>
-                                            <!--end form-group-->
-                                            <button type="submit" class="btn btn-primary float-right">Hoàn tất</button>
+                                <form class="form" method="POST" action="account">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <h2>Personal Information</h2>
+                                            <section>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="title" class="col-form-label">Title</label>
+                                                            <select name="newGender" id="title" data-placeholder="Title">                                                              
+                                                                <option value="female" ${female}>Mrs</option>
+                                                                <option value="male" ${male}>Mr</option>
+                                                            </select>
+                                                        </div>
+                                                        <!--end form-group-->
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <label for="name" class="col-form-label required">Your Name</label>
+                                                            <input name="newName" type="text" class="form-control" id="name" placeholder="Your Name" value="${fn:trim(detail.name)}" required>
+                                                        </div>
+                                                        <!--end form-group-->
+                                                    </div>
+                                                    <!--end col-md-8-->
+                                                </div>
+                                                <!--end row-->
+                                                <!-- <div class="form-group">
+                                                    <label for="location" class="col-form-label required">Your Location</label>
+                                                    <input name="location" type="text" class="form-control" id="input-location2" placeholder="Your Location" value="Manhattan, NY" required>
+                                                </div> -->
+                                                <!--end form-group-->
+                                                <!-- <div class="form-group">
+                                                    <label for="about" class="col-form-label">More About You</label>
+                                                    <textarea name="about" id="about" class="form-control" rows="4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec tincidunt arcu, sit amet fermentum sem. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</textarea>
+                                                </div> -->
+                                                <!--end form-group-->
+                                            </section>
 
+                                            <section>
+                                                <h2>Contact</h2>
+                                                <div class="form-group">
+                                                    <label for="phone" class="col-form-label">Phone</label>
+                                                    <input name="newPhone" type="text" class="form-control" id="phone" placeholder="Your Phone" value="${fn:trim(detail.phone)}">
+                                                </div>
+                                                <!--end form-group-->
+                                                <div class="form-group">
+                                                    <label for="email" class="col-form-label">Email</label>
+                                                    <input name="email" type="email" class="form-control" id="email" placeholder="Your Email" value="${fn:trim(detail.email)}" readonly="">
+                                                </div>
+                                                <!--end form-group-->
+                                            </section>
+
+                                            <section>
+                                                <h2>Social</h2>
+                                                <div class="form-group">
+                                                    <label for="twitter" class="col-form-label">Instagram</label>
+                                                    <input name="newInstagram" type="text" class="form-control" id="twitter" placeholder="http://" value="${fn:trim(detail.instagramLink)}">
+                                                </div>
+                                                <!--end form-group-->
+                                                <div class="form-group">
+                                                    <label for="facebook" class="col-form-label">Facebook</label>
+                                                    <input name="newFacebook" type="text" class="form-control" id="facebook" placeholder="http://" value="${fn:trim(detail.facebookLink)}">
+                                                </div>
+                                                <!--end form-group-->
+                                            </section>
+
+                                            <section class="clearfix">
+                                                <button name="infor" value="submit" type="submit" class="btn btn-primary float-right">Save Changes</button>
+                                            </section>
                                         </div>
-                                        <!--end col-md-6-->
-                                    </div>
                                 </form>
+
+                                <!--end col-md-8-->
+                                <div class="col-md-4">
+                                    <div class="profile-image">
+                                        <div class="image background-image">
+                                            <img src="assets/img/author-09.jpg" alt="">
+                                        </div>
+                                        <form action="">
+                                            <div class="single-file-input">
+                                                <input type="file" id="user_image" name="user_image">
+                                                <div class="btn btn-framed btn-primary small">Upload a picture</div>
+                                            </div>
+                                            <div class="single-file-input">
+                                                <input type="submit" class="btn btn-primary small" value="Save pics"/>
+                                            </div>
+                                    </div>
+                                    </form>
+                                </div>
+
+                                <!--end col-md-3-->
                             </div>
-                            <!--end col-md-9-->
+
                         </div>
-                        <!--end row-->
+                    </div>
+                    <!--end row-->
                     </div>
                     <!--end container-->
                 </section>
@@ -252,37 +309,21 @@
             <!--*********************************************************************************************************-->
             <!--************ FOOTER *************************************************************************************-->
             <!--*********************************************************************************************************-->
-            <jsp:include page="header/footer.jsp" />F
+            <jsp:include page="header/footer.jsp" />
             <!--end footer-->
         </div>
         <!--end page-->
 
-        <script src="${pageContext.request.contextPath}/assets/js/jquery-3.3.1.min.js"></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/popper.min.js"></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/js/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="assets/js/popper.min.js"></script>
+        <script type="text/javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyBEDfNcQRmKQEyulDN8nGWjLYPm8s4YB58&libraries=places"></script>
-        <script src="${pageContext.request.contextPath}/assets/js/selectize.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/js/masonry.pkgd.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/js/icheck.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/js/jquery.validate.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/js/custom.js"></script>
-        <script>
-                                                    function check() {
-                                                        var length = document.getElementById("repeat_new_current_password").value.length;
-                                                        if (length < 5 || length > 30) {
-                                                            document.getElementById("message").innerHTML = "Mật khẩu phải có 6-30 kí tự";
-                                                            document.getElementById("message").style.color = "red";
-                                                        } else {
-                                                            if (document.getElementById("new_current_password").value === document.getElementById("repeat_new_current_password").value) {
-                                                                document.getElementById("message").innerHTML = "✔ Mật khẩu trùng khớp";
-                                                                document.getElementById("message").style.color = "green";
-                                                            } else {
-                                                                document.getElementById("message").innerHTML = "✖ Mật khẩu không trùng khớp";
-                                                                document.getElementById("message").style.color = "red";
-                                                            }
-                                                        }
-                                                    }
-        </script>
+        <script src="assets/js/selectize.min.js"></script>
+        <script src="assets/js/masonry.pkgd.min.js"></script>
+        <script src="assets/js/icheck.min.js"></script>
+        <script src="assets/js/jquery.validate.min.js"></script>
+        <script src="assets/js/custom.js"></script>
+
     </body>
 </html>
 

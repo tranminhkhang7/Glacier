@@ -27,99 +27,44 @@
     <body style="font-family: 'Varela Round', sans-serif;">
         <c:set var="acc" value="${LOGIN_USER}" />
         <c:set var="user" value="${USER_DETAIL}" />
+
+        <div class="popup" id="reportForm">
+            <h2>Báo cáo cho quản trị viên</h2>
+            <form class="form form-submit" action="./report">
+                <input name="id" type="hidden" value="${room.roomID}">
+                <!--                <div class="form-group">
+                                    <label for="title" class="col-form-label required">Tiêu đề</label>
+                                    <input name="title" type="text" class="form-control" id="title" placeholder="Mô tả ngắn gọn vấn đề của bạn" autocomplete="off" required>
+                                </div>-->
+                <div class="form-group">
+                    <label for="title" class="col-form-label required">Nội dung báo cáo</label>
+                    <input name="content" type="text" class="form-control" id="title" placeholder="Nội dung báo cáo chi tiết cho quản trị viên" autocomplete="off" required>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary large icon float-left" style="font-size: 16px; margin: 10px 20px 0px 0px;">Gửi</button>
+                </div>
+            </form>
+
+            <button class="btn btn-secondary large icon float-left" style="font-size: 16px; margin: 10px 20px 0px 0px;" onclick="closeForm()">Hủy</button>
+        </div>
+
+        <c:if test="${notify == 'report'}">
+            <div class="notify" id="notifyBox">
+                Báo cáo cho quản trị viên thành công!
+                &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-close" onclick="closeNotify()"></i>
+            </div>
+        </c:if>
+
         <div class="page sub-page">
             <!--*********************************************************************************************************-->
             <!--************ HERO ***************************************************************************************-->
             <!--*********************************************************************************************************-->
             <header class="hero">
                 <div class="hero-wrapper">
-                    <!--============ Secondary Navigation ===============================================================-->
-                    <div class="secondary-navigation">
-                        <div class="container">
-                            <ul class="left">
-                                <li>
-                                    <span>
-                                        <i class="fa fa-phone"></i> 
-                                    </span>
-                                </li>
-                            </ul>
-                            <!--end left-->
-                            <ul class="right">
-                                <c:if test="${empty acc}" >
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/login">
-                                            <i class="fa fa-sign-in"></i>Đăng nhập
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/register">
-                                            <i class="fa fa-pencil-square-o"></i>Đăng ký
-                                        </a>
-                                    </li>
-                                </c:if>
-                                <c:if test="${not empty acc}" >
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/account">
-                                            <i class="fa fa-sign-in"></i>${user.name}
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/logout">
-                                            <i class="fa fa-pencil-square-o"></i>Đăng xuất
-                                        </a>
-                                    </li>
-                                </c:if>
-                            </ul>
-                            <!--end right-->
-                        </div>
-                        <!--end container-->
-                    </div>
-                    <!--============ End Secondary Navigation ===========================================================-->
-                    <!--============ Main Navigation ====================================================================-->
-                    <div class="main-navigation">
-                        <div class="container">
-                            <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
-                                <a class="navbar-brand" href="index.html">
-                                    <img src="assets/img/logo.png" alt="">
-                                </a>
-                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-                                    <span class="navbar-toggler-icon"></span>
-                                </button>
-                                <div class="collapse navbar-collapse" id="navbar">
-                                    <!--Main navigation list-->
-                                    <ul class="navbar-nav">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="${pageContext.request.contextPath}/home">Trang chủ</a>
-                                        </li> 
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="${pageContext.request.contextPath}/contact">Liên lạc</a>
-                                        </li>
-                                        <c:if test="${not empty acc}" >
-                                            <li class="nav-item">
-                                                <a href="submit.html" class="btn btn-primary text-caps btn-rounded">QUẢN LÝ PHÒNG THUÊ</a>
-                                            </li>
-                                        </c:if>
-                                    </ul>
-                                    <!--Main navigation list-->
-                                </div>
-                                <!--end navbar-collapse-->
-                                <a href="#collapseMainSearchForm" class="main-search-form-toggle" data-toggle="collapse"  aria-expanded="false" aria-controls="collapseMainSearchForm">
-                                    <i class="fa fa-search"></i>
-                                    <i class="fa fa-close"></i>
-                                </a>
-                                <!--end main-search-form-toggle-->
-                            </nav>
-                            <!--end navbar-->
-                            <!--                            <ol class="breadcrumb">
-                                                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                                            <li class="breadcrumb-item"><a href="#">Library</a></li>
-                                                            <li class="breadcrumb-item active">Data</li>
-                                                        </ol>-->
-                            <!--end breadcrumb-->
-                        </div>
-                        <!--end container-->
-                    </div>
-                    <!--============ End Main Navigation ================================================================-->
+
+                    <jsp:include page="header/navigation.jsp" />
+
                     <!--============ Hero Form ==========================================================================-->
                     <div class="collapse" id="collapseMainSearchForm">
                         <form class="hero-form form">
@@ -268,10 +213,8 @@
                                 </h4>
                             </div>
                             <div class="float-right float-xs-none price">
-                                <!--                                <div class="number">
-                                <fmt:formatNumber value="${room.price}" type="currency"/><small>VNĐ</small>
-                            </div>-->
-                                <div class="number">${room.price} <small>VNĐ</small></div>
+                                
+                                <div class="number priceStyle">${room.price}<small>đ</small></div>
                                 <div class="id opacity-50">
                                     <strong>ID: </strong>${room.roomID}
                                 </div>
@@ -328,7 +271,7 @@
                         <div class="row flex-column-reverse flex-md-row">
                             <!--============ Listing Detail =============================================================-->
                             <div class="col-md-8">
-                                <!--Description-->d:
+                                <!--Description-->
 
                                 <section>
                                     <h2>Description</h2>
@@ -365,18 +308,6 @@
                                 </section>
                                 <!--end Details-->
                                 <!--Location-->
-                                <section>
-                                    <h2>Location</h2>
-                                    <div class="map height-300px" id="map-small">
-                                        <iframe width="450"
-                                                height="250"
-                                                style="width: 100%; height: 100%"
-                                                frameborder="0" style="border:0"
-                                                referrerpolicy="no-referrer-when-downgrade"
-                                                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCCYLuixh0QamoPxzrTZTCNGOtd0fwYQoQ&q=${room.detailAddress}" allowfullscreen>
-                                        </iframe>
-                                    </div>
-                                </section>
                                 <!--end Location-->
                                 <!--Features-->
                                 <!--                            <section>
@@ -593,6 +524,203 @@
                             </div>
                             <!--============ End Sidebar ================================================================-->
                         </div>
+                        <section>
+                            <h2>Location</h2>
+                            <div class="map height-300px" id="map-small">
+                                <iframe width="450"
+                                        height="250"
+                                        style="width: 100%; height: 100%"
+                                        frameborder="0" style="border:0"
+                                        referrerpolicy="no-referrer-when-downgrade"
+                                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCCYLuixh0QamoPxzrTZTCNGOtd0fwYQoQ&q=${room.detailAddress}" allowfullscreen>
+                                </iframe>
+                            </div>
+                        </section>
+                        <section>
+                            <h2>Write a Review</h2>
+                            <form class="form" action="WriteComment" method="POST">
+                                <input name="roomID" value="${room.roomID}" type="hidden">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <c:set var="name" value="Tran Quang Khai"></c:set>                           <!-- set value to test only -->
+                                                <label for="username" class="col-form-label">My name</label>
+                                                <div class="box" >${name}</div> 
+                                        </div>
+                                        <!--end form-group-->
+                                    </div>
+                                    <!--end col-md-8-->
+                                    <div class="col-md-7">
+                                        <div class="form-group">
+                                            <label for="rating" class="col-form-label">Rating</label>                                            
+                                            <select name="rating" id="rating" data-placeholder="Select Rating">
+                                                <option value="">Select Rating</option>
+                                                <option value="1" data-option-stars="1">Horrible</option>
+                                                <option value="2" data-option-stars="2">Average</option>
+                                                <option value="3" data-option-stars="3">Good</option>
+                                                <option value="4" data-option-stars="4">Very Good</option>
+                                                <option value="5" data-option-stars="5">Excellent</option>
+                                            </select>
+                                        </div>
+                                        <!--end form-group-->
+                                    </div>
+                                    <!--end col-md-4-->
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="review" class="col-form-label">Your Review</label>
+                                            <textarea name="review" id="review" class="form-control" rows="4" placeholder="Good seller, I am satisfied."></textarea>
+                                        </div>
+                                        <!--end form-group-->
+                                    </div>
+                                    <!--end col-md-12-->
+                                </div>
+                                <button type="submit" class="btn btn-primary icon float-right width-100">Submit<i class="fa fa-chevron-right"></i></button>
+                                <!--end row-->
+                            </form>
+                            <!--end form-->
+                        </section>
+                        <hr style="margin-top: 10rem">
+                        <section>
+                            <h2>Reviews</h2>
+                            <div class="comments">
+                                <c:forEach items="${Reviews}" var="review">
+                                    <div class="comment">
+                                        <div class="author">
+                                            <a href="#" class="author-image">
+                                                <div class="background-image">            
+                                                    <img src="${review.profile_picture}" alt="alt"/>
+                                                </div>
+                                            </a>
+                                            <div class="author-description">
+                                                <h3>${review.name}</h3>
+                                                <div class="meta">
+                                                    <span class="rating" data-rating="${review.rating}"></span>
+                                                    <span>${review.time}</span>
+                                                </div>
+                                                <!--                                                end meta-->
+                                                <p>
+                                                    ${review.content}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                            <div class="page-pagination">
+                            <nav aria-label="Pagination">
+                                <ul class="pagination">
+
+                                    <!--                                    <li class="page-item active">
+                                                                            <a class="page-link" href="#">1</a>
+                                                                        </li>
+                                                                        <li class="page-item">
+                                                                            <a class="page-link" href="#">2</a>
+                                                                        </li>
+                                                                        <li class="page-item">
+                                                                            <a class="page-link" href="#">3</a>
+                                                                        </li>-->
+
+                                    <c:forEach begin="1" end="${endPage}" step="1" var="i">
+                                        <c:choose>
+                                            <c:when test="${currentPage == i}">
+                                                <li class="page-item active">
+                                                    <a class="page-link" href="?id=${room.roomID}&index=${i}">${i}</a>
+                                                </li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="?id=${room.roomID}&index=${i}">${i}</a>
+                                                </li>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                </ul>
+                            </nav>
+                        </div>
+                            <!--                                <div class="comments">
+                                                                <div class="comment">
+                                                                    <div class="author">
+                                                                        <a href="#" class="author-image">
+                                                                            <div class="background-image">
+                                                                                <img src="assets/img/author-09.jpg" alt="">
+                                                                            </div>
+                                                                        </a>
+                                                                        <div class="author-description">
+                                                                            <h3>Jane Doe</h3>
+                                                                            <div class="meta">
+                                                                                <span class="rating" data-rating="4"></span>
+                                                                                <span>02.05.2017</span>
+                                                                            </div>
+                                                                            end meta
+                                                                            <p>
+                                                                                Nam pulvinar tortor nec lacinia efficitur. Integer erat tortor, ultricies
+                                                                                ut est vel, euismod imperdiet lacus. Aenean nec turpis condimentum, mollis
+                                                                                mauris id, scelerisque quam.
+                                                                            </p>
+                                                                        </div>
+                                                                        end author-description
+                                                                    </div>
+                                                                    end author
+                                                                </div>
+                                                                end comment
+                            
+                                                                <div class="comment">
+                                                                    <div class="author">
+                                                                        <a href="#" class="author-image">
+                                                                            <div class="background-image">
+                                                                                <img src="assets/img/author-05.jpg" alt="">
+                                                                            </div>
+                                                                        </a>
+                                                                        <div class="author-description">
+                                                                            <h3>Perfect seller. I am satisfied.</h3>
+                                                                            <div class="meta">
+                                                                                <span class="rating" data-rating="5"></span>
+                                                                                <span>02.05.2017</span>
+                                                                                <h5><a href="#">John Doe</a></h5>
+                                                                            </div>
+                                                                            end meta
+                                                                            <p>
+                                                                                Integer erat tortor, ultricies ut est vel, euismod imperdiet lacus.
+                                                                                Aenean nec turpis condimentum, mollis mauris id, scelerisque quam.
+                                                                            </p>
+                                                                        </div>
+                                                                        end author-description
+                                                                    </div>
+                                                                    end author
+                                                                </div>
+                                                                end comment
+                            
+                                                                <div class="comment">
+                                                                    <div class="author">
+                                                                        <a href="#" class="author-image">
+                                                                            <div class="background-image">
+                                                                                <img src="assets/img/author-04.jpg" alt="">
+                                                                            </div>
+                                                                        </a>
+                                                                        <div class="author-description">
+                                                                            <h3>Quick dispatch and good communication</h3>
+                                                                            <div class="meta">
+                                                                                <span class="rating" data-rating="3"></span>
+                                                                                <span>02.05.2017</span>
+                                                                                <h5><a href="#">Susan Jefferson</a></h5>
+                                                                            </div>
+                                                                            end meta
+                                                                            <p>
+                                                                                Cras luctus aliquet fringilla. In eu cursus nunc. Quisque dolor leo,
+                                                                                vehicula a sem ut, aliquam pretium tellus. Morbi ut mi eleifend,
+                                                                                sollicitudin nisl in, elementum nisi. Praesent sed libero euismod,
+                                                                                pellentesque risus sit amet, faucibus lorem. Pellentesque bibendum
+                                                                                libero sed tempor tristique.
+                                                                            </p>
+                                                                        </div>
+                                                                        end author-description
+                                                                    </div>
+                                                                    end author
+                                                                </div>
+                                                                end comment
+                                                            </div>-->
+                            <!--end comment-->
+                        </section>
                     </div>
                     <!--end container-->
                 </section>
@@ -603,73 +731,7 @@
             <!--*********************************************************************************************************-->
             <!--************ FOOTER *************************************************************************************-->
             <!--*********************************************************************************************************-->
-            <footer class="footer">
-                <div class="wrapper">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <a href="#" class="brand">
-                                    <img src="${pageContext.request.contextPath}/assets/img/logo.png" alt="">
-                                </a>
-                                <p>
-                                    Glacier là nền tảng kết nối người thuê nhà và các chủ trọ. Sẵn sàng sát cánh bến bạn trên mỗi hành trình mà bạn bước đi!
-                                </p>
-                            </div>
-                            <!--end col-md-5-->
-                            <div class="col-md-3">
-                                <h2>Bảng điều hướng</h2>
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-6">
-                                        <nav>
-                                            <ul class="list-unstyled">
-                                                <li>
-                                                    <a href="${pageContext.request.contextPath}/home">Trang chủ</a>
-                                                </li>
-
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6">
-                                        <nav>
-                                            <ul class="list-unstyled">
-                                                <li>
-                                                    <a href="${pageContext.request.contextPath}/contact">Liên lạc</a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end col-md-3-->
-                            <div class="col-md-4">
-                                <h2>Liên hệ</h2>
-                                <address>
-                                    <!--                                    <figure>
-                                                                            124 Abia Martin Drive<br>
-                                                                            New York, NY 10011
-                                                                        </figure>-->
-                                    <br>
-                                    <strong>Email:</strong> <a href="#">glacier.hostel@gmail.com</a>
-                                    <br>
-                                    <strong>Phone: </strong>  +1 123 456 789
-                                    <br>
-                                    <br>
-                                    <a href="contact.html" class="btn btn-primary text-caps btn-framed">Contact Us</a>
-                                </address>
-                            </div>
-                            <!--end col-md-4-->
-                        </div>
-                        <!--end row-->
-                    </div>
-                    <div class="background">
-                        <div class="background-image original-size">
-                            <img src="${pageContext.request.contextPath}/assets/img/footer-background-icons.jpg" alt="">
-                        </div>
-                        <!--end background-image-->
-                    </div>
-                    <!--end background-->
-                </div>
-            </footer>
+            <jsp:include page="header/footer.jsp" />
             <!--end footer-->
         </div>
         <!--end page-->
@@ -683,15 +745,35 @@
         <script src="assets/js/owl.carousel.min.js"></script>
         <script src="assets/js/jquery.validate.min.js"></script>
         <script src="assets/js/custom.js"></script>
+        <script>
+            for (let i = 0; i < document.getElementsByClassName("priceStyle").length; i++) {
 
-<!--        <script>
-            var latitude = 51.511971;
-            var longitude = -0.137597;
-            var markerImage = "assets/img/map-marker.png";
-            var mapTheme = "light";
-            var mapElement = "map-small";
-            simpleMap(latitude, longitude, markerImage, mapTheme, mapElement);
-        </script>-->
+                let priceText = document.getElementsByClassName("priceStyle")[i].textContent;
+
+                let textReverse = priceText.split("").reverse().join("");
+
+                var j = 1;
+                var count = 0;
+                while (j < textReverse.length) {
+                    count++;
+                    if (count > 3) {
+                        textReverse = textReverse.slice(0, j) + "." + textReverse.slice(j);
+                        count = 0;
+                    }
+                    j++;
+                }
+                let finalPrice = textReverse.split("").reverse().join("");
+                document.getElementsByClassName("priceStyle")[i].innerHTML = finalPrice;
+            }
+        </script>
+        <!--        <script>
+                    var latitude = 51.511971;
+                    var longitude = -0.137597;
+                    var markerImage = "assets/img/map-marker.png";
+                    var mapTheme = "light";
+                    var mapElement = "map-small";
+                    simpleMap(latitude, longitude, markerImage, mapTheme, mapElement);
+                </script>-->
 
     </body>
 </html>

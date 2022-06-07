@@ -21,6 +21,8 @@
         <h1>FAULT!!</h1>
 
         <h1>Something went wrong!!!</h1>
+        
+        <a href="./home"> BACK TO HOME! </a>
 
     </body>
 </html>

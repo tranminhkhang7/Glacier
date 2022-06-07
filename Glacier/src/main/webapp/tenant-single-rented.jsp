@@ -1,20 +1,37 @@
+<%-- 
+    Document   : tenant-single-rented
+    Created on : Jun 6, 2022, 7:45:28 PM
+    Author     : ASUS
+--%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="author" content="ThemeStarz">
+    <meta name="author" content="ThemeStarz">
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Varela+Round" rel="stylesheet">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.css" type="text/css">
     <link rel="stylesheet" href="assets/fonts/font-awesome.css" type="text/css">
     <link rel="stylesheet" href="assets/css/selectize.css" type="text/css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/user.css">
 
-	<title>Craigs - Easy Buy & Sell Listing HTML Template</title>
-
+    <title>Craigs - Easy Buy & Sell Listing HTML Template</title>
+    <style>
+        a:hover{
+            color: black;
+        }
+    </style>
 </head>
+
 <body>
     <div class="page sub-page">
         <!--*********************************************************************************************************-->
@@ -27,9 +44,9 @@
                     <div class="container">
                         <ul class="left">
                             <li>
-                            <span>
-                                <i class="fa fa-phone"></i> +1 123 456 789
-                            </span>
+                                <span>
+                                    <i class="fa fa-phone"></i> +1 123 456 789
+                                </span>
                             </li>
                         </ul>
                         <!--end left-->
@@ -62,7 +79,8 @@
                             <a class="navbar-brand" href="index.html">
                                 <img src="assets/img/logo.png" alt="">
                             </a>
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar"
+                                aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
                             <div class="collapse navbar-collapse" id="navbar">
@@ -94,16 +112,20 @@
                                                 <!-- 2nd level -->
                                                 <ul class="child">
                                                     <li class="nav-item">
-                                                        <a href="listing-grid-full-width.html" class="nav-link">Full Width</a>
+                                                        <a href="listing-grid-full-width.html" class="nav-link">Full
+                                                            Width</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a href="listing-grid-sidebar.html" class="nav-link">With Sidebar</a>
+                                                        <a href="listing-grid-sidebar.html" class="nav-link">With
+                                                            Sidebar</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a href="listing-grid-compact-sidebar.html" class="nav-link">Compact With Sidebar</a>
+                                                        <a href="listing-grid-compact-sidebar.html"
+                                                            class="nav-link">Compact With Sidebar</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a href="listing-grid-compact-full-width.html" class="nav-link">Compact Full Width</a>
+                                                        <a href="listing-grid-compact-full-width.html"
+                                                            class="nav-link">Compact Full Width</a>
                                                     </li>
                                                 </ul>
                                                 <!-- end 2nd level -->
@@ -113,16 +135,20 @@
                                                 <!-- 2nd level -->
                                                 <ul class="child">
                                                     <li class="nav-item">
-                                                        <a href="listing-list-full-width.html" class="nav-link">Full Width</a>
+                                                        <a href="listing-list-full-width.html" class="nav-link">Full
+                                                            Width</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a href="listing-list-sidebar.html" class="nav-link">With Sidebar</a>
+                                                        <a href="listing-list-sidebar.html" class="nav-link">With
+                                                            Sidebar</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a href="listing-list-compact-sidebar.html" class="nav-link">Compact With Sidebar</a>
+                                                        <a href="listing-list-compact-sidebar.html"
+                                                            class="nav-link">Compact With Sidebar</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a href="listing-list-compact-full-width.html" class="nav-link">Compact Full Width</a>
+                                                        <a href="listing-list-compact-full-width.html"
+                                                            class="nav-link">Compact Full Width</a>
                                                     </li>
                                                 </ul>
                                                 <!-- end 2nd level -->
@@ -132,10 +158,12 @@
                                                 <!-- 2nd level -->
                                                 <ul class="child">
                                                     <li class="nav-item">
-                                                        <a href="listing-masonry-full-width.html" class="nav-link">Full Width</a>
+                                                        <a href="listing-masonry-full-width.html" class="nav-link">Full
+                                                            Width</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a href="listing-masonry-sidebar.html" class="nav-link">With Sidebar</a>
+                                                        <a href="listing-masonry-sidebar.html" class="nav-link">With
+                                                            Sidebar</a>
                                                     </li>
                                                 </ul>
                                                 <!-- end 2nd level -->
@@ -298,13 +326,15 @@
                                         <a class="nav-link" href="contact.html">Contact</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="submit.html" class="btn btn-primary text-caps btn-rounded btn-framed">Submit Ad</a>
+                                        <a href="submit.html"
+                                            class="btn btn-primary text-caps btn-rounded btn-framed">Submit Ad</a>
                                     </li>
                                 </ul>
                                 <!--Main navigation list-->
                             </div>
                             <!--end navbar-collapse-->
-                            <a href="#collapseMainSearchForm" class="main-search-form-toggle" data-toggle="collapse"  aria-expanded="false" aria-controls="collapseMainSearchForm">
+                            <a href="#collapseMainSearchForm" class="main-search-form-toggle" data-toggle="collapse"
+                                aria-expanded="false" aria-controls="collapseMainSearchForm">
                                 <i class="fa fa-search"></i>
                                 <i class="fa fa-close"></i>
                             </a>
@@ -331,7 +361,8 @@
                                     <div class="col-md-3 col-sm-3">
                                         <div class="form-group">
                                             <label for="what" class="col-form-label">What?</label>
-                                            <input name="keyword" type="text" class="form-control small" id="what" placeholder="What are you looking for?">
+                                            <input name="keyword" type="text" class="form-control small" id="what"
+                                                placeholder="What are you looking for?">
                                         </div>
                                         <!--end form-group-->
                                     </div>
@@ -339,8 +370,11 @@
                                     <div class="col-md-3 col-sm-3">
                                         <div class="form-group">
                                             <label for="input-location" class="col-form-label">Where?</label>
-                                            <input name="location" type="text" class="form-control small" id="input-location" placeholder="Enter Location">
-                                            <span class="geo-location input-group-addon" data-toggle="tooltip" data-placement="top" title="Find My Position"><i class="fa fa-map-marker"></i></span>
+                                            <input name="location" type="text" class="form-control small"
+                                                id="input-location" placeholder="Enter Location">
+                                            <span class="geo-location input-group-addon" data-toggle="tooltip"
+                                                data-placement="top" title="Find My Position"><i
+                                                    class="fa fa-map-marker"></i></span>
                                         </div>
                                         <!--end form-group-->
                                     </div>
@@ -348,7 +382,8 @@
                                     <div class="col-md-3 col-sm-3">
                                         <div class="form-group">
                                             <label for="category" class="col-form-label">Category?</label>
-                                            <select name="category" id="category" class="small" data-placeholder="Select Category">
+                                            <select name="category" id="category" class="small"
+                                                data-placeholder="Select Category">
                                                 <option value="">Select Category</option>
                                                 <option value="1">Computers</option>
                                                 <option value="2">Real Estate</option>
@@ -370,34 +405,52 @@
                             <!--end main-search-form-->
                             <!--Alternative Form-->
                             <div class="alternative-search-form">
-                                <a href="#collapseAlternativeSearchForm" class="icon" data-toggle="collapse"  aria-expanded="false" aria-controls="collapseAlternativeSearchForm"><i class="fa fa-plus"></i>More Options</a>
+                                <a href="#collapseAlternativeSearchForm" class="icon" data-toggle="collapse"
+                                    aria-expanded="false" aria-controls="collapseAlternativeSearchForm"><i
+                                        class="fa fa-plus"></i>More Options</a>
                                 <div class="collapse" id="collapseAlternativeSearchForm">
                                     <div class="wrapper">
                                         <div class="form-row">
-                                            <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 d-xs-grid d-flex align-items-center justify-content-between">
-                                                <label>
-                                                    <input type="checkbox" name="new">
-                                                    New
-                                                </label>
-                                                <label>
-                                                    <input type="checkbox" name="used">
-                                                    Used
-                                                </label>
-                                                <label>
-                                                    <input type="checkbox" name="with_photo">
-                                                    With Photo
-                                                </label>
-                                                <label>
-                                                    <input type="checkbox" name="featured">
-                                                    Featured
-                                                </label>
+                                            <div class="col-xl-6 col-lg-5 col-md-12 col-sm-12">
+                                                <div class="form-row">
+                                                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                                                        <label>
+                                                            <input type="checkbox" name="new">
+                                                            New
+                                                        </label>
+                                                    </div>
+                                                    <!--end col-md-3-->
+                                                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                                                        <label>
+                                                            <input type="checkbox" name="used">
+                                                            Used
+                                                        </label>
+                                                    </div>
+                                                    <!--end col-md-3-->
+                                                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                                                        <label>
+                                                            <input type="checkbox" name="with_photo">
+                                                            With Photo
+                                                        </label>
+                                                    </div>
+                                                    <!--end col-md-3-->
+                                                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                                                        <label>
+                                                            <input type="checkbox" name="featured">
+                                                            Featured
+                                                        </label>
+                                                    </div>
+                                                    <!--end col-md-3-->
+                                                </div>
                                             </div>
-                                            <!--end col-xl-6-->
-                                            <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
+                                            <!--end col-md-6-->
+                                            <div class="col-xl-6 col-lg-7 col-md-12 col-sm-12">
                                                 <div class="form-row">
                                                     <div class="col-md-4 col-sm-4">
                                                         <div class="form-group">
-                                                            <input name="min_price" type="text" class="form-control small" id="min-price" placeholder="Minimal Price">
+                                                            <input name="min_price" type="text"
+                                                                class="form-control small" id="min-price"
+                                                                placeholder="Minimal Price">
                                                             <span class="input-group-addon small">$</span>
                                                         </div>
                                                         <!--end form-group-->
@@ -405,7 +458,9 @@
                                                     <!--end col-md-4-->
                                                     <div class="col-md-4 col-sm-4">
                                                         <div class="form-group">
-                                                            <input name="max_price" type="text" class="form-control small" id="max-price" placeholder="Maximal Price">
+                                                            <input name="max_price" type="text"
+                                                                class="form-control small" id="max-price"
+                                                                placeholder="Maximal Price">
                                                             <span class="input-group-addon small">$</span>
                                                         </div>
                                                         <!--end form-group-->
@@ -413,7 +468,8 @@
                                                     <!--end col-md-4-->
                                                     <div class="col-md-4 col-sm-4">
                                                         <div class="form-group">
-                                                            <select name="distance" id="distance" class="small" data-placeholder="Distance" >
+                                                            <select name="distance" id="distance" class="small"
+                                                                data-placeholder="Distance">
                                                                 <option value="">Distance</option>
                                                                 <option value="1">1km</option>
                                                                 <option value="2">5km</option>
@@ -426,9 +482,7 @@
                                                     </div>
                                                     <!--end col-md-3-->
                                                 </div>
-                                                <!--end form-row-->
                                             </div>
-                                            <!--end col-xl-6-->
                                         </div>
                                         <!--end row-->
                                     </div>
@@ -445,12 +499,7 @@
                 <!--end collapse-->
                 <!--============ End Hero Form ======================================================================-->
                 <!--============ Page Title =========================================================================-->
-                <div class="page-title">
-                    <div class="container">
-                        <h1>My Profile</h1>
-                    </div>
-                    <!--end container-->
-                </div>
+
                 <!--============ End Page Title =====================================================================-->
                 <div class="background"></div>
                 <!--end background-->
@@ -465,125 +514,233 @@
         <section class="content">
             <section class="block">
                 <div class="container">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <nav class="nav flex-column side-nav">
-                                <a class="nav-link active icon" href="my-profile.html">
-                                    <i class="fa fa-user"></i>My Profile
-                                </a>
-                                <a class="nav-link icon" href="my-ads.html">
-                                    <i class="fa fa-heart"></i>My Ads Listing
-                                </a>
-                                <a class="nav-link icon" href="bookmarks.html">
-                                    <i class="fa fa-star"></i>Bookmarks
-                                </a>
-                                <a class="nav-link icon" href="change-password.html">
-                                    <i class="fa fa-recycle"></i>Change Password
-                                </a>
-                                <a class="nav-link icon" href="sold-items.html">
-                                    <i class="fa fa-check"></i>Sold Items
-                                </a>
-                            </nav>
+                    <!--Gallery Carousel-->
+                    <section>
+                        <div class="gallery-carousel owl-carousel">
+                            <img src="assets/img/image-20.jpg" alt="" data-hash="1">
+                            <img src="assets/img/image-01.jpg" alt="" data-hash="2">
+                            <img src="assets/img/image-21.jpg" alt="" data-hash="3">
+                            <img src="assets/img/image-22.jpg" alt="" data-hash="4">
+                            <img src="assets/img/image-23.jpg" alt="" data-hash="5">
+                            <img src="assets/img/image-14.jpg" alt="" data-hash="6">
                         </div>
-                        <!--end col-md-3-->
-                        <div class="col-md-9">
-                            <form class="form">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <h2>Personal Information</h2>
-                                        <section>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="title" class="col-form-label">Title</label>
-                                                        <select name="title" id="title" data-placeholder="Title">
-                                                            <option value="">Title</option>
-                                                            <option value="1" selected>Mrs</option>
-                                                            <option value="2">Mr</option>
-                                                        </select>
-                                                    </div>
-                                                    <!--end form-group-->
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <div class="form-group">
-                                                        <label for="name" class="col-form-label required">Your Name</label>
-                                                        <input name="name" type="text" class="form-control" id="name" placeholder="Your Name" value="Jane Doe" required>
-                                                    </div>
-                                                    <!--end form-group-->
-                                                </div>
-                                                <!--end col-md-8-->
-                                            </div>
-                                            <!--end row-->
-                                            <!-- <div class="form-group">
-                                                <label for="location" class="col-form-label required">Your Location</label>
-                                                <input name="location" type="text" class="form-control" id="input-location2" placeholder="Your Location" value="Manhattan, NY" required>
-                                            </div> -->
-                                            <!--end form-group-->
-                                            <!-- <div class="form-group">
-                                                <label for="about" class="col-form-label">More About You</label>
-                                                <textarea name="about" id="about" class="form-control" rows="4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec tincidunt arcu, sit amet fermentum sem. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</textarea>
-                                            </div> -->
-                                            <!--end form-group-->
-                                        </section>
+                        <h2 style="text-align: center;">${SINGLE_ROOM.name}</h2>
+                        <h3 style="text-align: center;color: #D3D3D3;">${SINGLE_ROOM.address}</h3>
+                        <hr>
+                    </section>
+                    <!--end Gallery Carousel-->
+                    <div class="row flex-column-reverse flex-md-row">
 
-                                        <section>
-                                            <h2>Contact</h2>
-                                            <div class="form-group">
-                                                <label for="phone" class="col-form-label">Phone</label>
-                                                <input name="phone" type="text" class="form-control" id="phone" placeholder="Your Phone" value="312-238-3329">
-                                            </div>
-                                            <!--end form-group-->
-                                            <div class="form-group">
-                                                <label for="email" class="col-form-label">Email</label>
-                                                <input name="email" type="email" class="form-control" id="email" placeholder="Your Email" value="jane.doe@example.com">
-                                            </div>
-                                            <!--end form-group-->
-                                        </section>
+                        <!--============ Listing Detail =============================================================-->
+                        <div class="col-md-8">
 
-                                        <section>
-                                            <h2>Social</h2>
-                                            <div class="form-group">
-                                                <label for="twitter" class="col-form-label">Twitter</label>
-                                                <input name="twitter" type="text" class="form-control" id="twitter" placeholder="http://" value="http://www.twitter.com/jane.doe">
+                            <!--Description-->
+                            <section style="margin-bottom: 0;">
+                                <h2>Description</h2>
+                                <p style="white-space: pre-line;">
+                                    ${SINGLE_ROOM.description}                         
+                                </p>
+                                 <hr>
+                            </section>
+                            <!--end Description-->
+                            <!--Details-->
+                            <!-- <section>
+                                <h2>Details</h2>
+                                <dl class="columns-3">
+                                    <dt>Date Added</dt>
+                                    <dd>05.04.2017</dd>
+                                    <dt>Type</dt>
+                                    <dd>Offer</dd>
+                                    <dt>Status</dt>
+                                    <dd>Used</dd>
+                                    <dt>First Owner</dt>
+                                    <dd>Yes</dd>
+                                    <dt>Material</dt>
+                                    <dd>Wood, Leather</dd>
+                                    <dt>Color</dt>
+                                    <dd>White, Grey</dd>
+                                    <dt>Height</dt>
+                                    <dd>47cm</dd>
+                                    <dt>Width</dt>
+                                    <dd>203cm</dd>
+                                    <dt>Length</dt>
+                                    <dd>54cm</dd>
+                                </dl>
+                            </section> -->
+                            <!--end Details-->
+                            <!--Location-->
+                            <section style=" margin-bottom: 40px;">
+                                <h2>Billing</h2>
+                                <c:forEach items="${requestScope.BILL_LIST}" var="bill">
+                                    <c:set value="${bill.time}" var="dateString" />
+                                    <fmt:parseDate value="${dateString}" var="dateObject"
+                                                                            pattern="yyyy-MM-dd HH:mm:ss" />
+                                <a href="#" class="">
+                                    <div
+                                        style="display: flex; max-height: 50px; border: 1px solid #D3D3D3;border-radius: 8px; margin-bottom: 20px;">
+                                        <div
+                                            style="margin-left: -1px;margin-top: -1px;line-height: 50px;text-align: center;margin-right: 20px; opacity:0.8 ; background-color: #28A745; min-width: 15%; height: 50px; border-radius: 8px 0 0 8px; border: 1px solid #D3D3D3;">
+                                            ${fn:toUpperCase(bill.status)}
+                                        </div>
+                                        <div style="min-width: 70%;">
+                                            <div style="margin-right: 50px;">
+                                                <p style="display: inline-block;padding-right: 20%; min-width: 219px;">
+                                                    Invoice ID: ${bill.id}</p>
+                                                <p style="display: inline-block; min-width: 219px;">Start Date:
+                                                    <fmt:formatDate value="${dateObject }" pattern="dd/MM/yyyy"/></p>
                                             </div>
-                                            <!--end form-group-->
-                                            <div class="form-group">
-                                                <label for="facebook" class="col-form-label">Facebook</label>
-                                                <input name="facebook" type="text" class="form-control" id="facebook" placeholder="http://" value="http://www.facebook.com/jane.doe">
-                                            </div>
-                                            <!--end form-group-->
-                                        </section>
-
-                                        <section class="clearfix">
-                                            <button type="submit" class="btn btn-primary float-right">Save Changes</button>
-                                        </section>
-                                    </div>
-                                    </form>
-                                    
-                                    <!--end col-md-8-->
-                                <div class="col-md-4">
-                                        <div class="profile-image">
-                                            <div class="image background-image">
-                                                <img src="assets/img/author-09.jpg" alt="">
-                                            </div>
-                                            <form action="">
-                                            <div class="single-file-input">
-                                                <input type="file" id="user_image" name="user_image">
-                                                <div class="btn btn-framed btn-primary small">Upload a picture</div>
-                                            </div>
-                                            <div class="single-file-input">
-                                                <input type="submit" class="btn btn-primary small" value="Save pics"/>
+                                            <div>
+                                                <p style="display: inline-block; min-width: 219px; max-width: 220px;">
+                                                    Purpose: ${bill.purpose}</p>
+                                                <p style="display: inline-block; min-width: 219px;">Due Date: 01/01/2003
+                                                </p>
                                             </div>
                                         </div>
-                                    </form>
-                                </div>
-                                
-                                    <!--end col-md-3-->
-                           </div>
-                            
+                                        <div
+                                            style="text-align: center; line-height: 50px; min-width: 5%; margin-left: -10px;">
+                                            <fmt:formatNumber type = "number" pattern="#,###.##" maxFractionDigits = "3" value = "${bill.amount}" var="pat" />
+                                            ${fn:replace(pat, ",", ".")} 
+                                        </div>
+                                    </div>
+                                </a>
+                                </c:forEach>
+<!--                                <a href="#">
+                                    <div
+                                        style="display: flex; max-height: 55px; border: 1px solid #D3D3D3;border-radius: 8px; margin-bottom: 20px;">
+                                        <div
+                                            style="margin-left: -1px;margin-top: -1px;line-height: 55px;text-align: center;margin-right: 50px; background-color: #DC3545; min-width: 15%; height: 55px; border-radius: 8px 0 0 8px; border: 1px solid #D3D3D3;">
+                                            NOT PAID
+                                        </div>
+                                        <div style="min-width: 70%;">
+                                            <div style="margin-right: 50px;">
+                                                <p style="display: inline-block;padding-right: 20%; min-width: 219px;">
+                                                    Invoice ID: 123456</p>
+                                                <p style="display: inline-block; min-width: 219px;">Start Date:
+                                                    12/12/2002</p>
+                                            </div>
+                                            <div>
+                                                <p style="display: inline-block; padding-right: 20%; min-width: 219px;">
+                                                    Purpose: Tiền thu</p>
+                                                <p style="display: inline-block; min-width: 219px;">Due Date: 01/01/2003
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div
+                                            style="text-align: center; line-height: 50px; min-width: 5%; margin-left: -10px;">
+                                            3.000.000
+                                        </div>
+                                    </div>
+                                </a>-->
+
+                                <!-- <dl class="columns-1">
+                                    <dt>Date Added</dt>
+                                    <dd>05.04.2017</dd>
+                                    <dt>Type</dt>
+                                    <dd>Offer</dd>
+                                    <dt>Status</dt>
+                                    <dd>Used</dd>
+                                    <dt>First Owner</dt>
+                                    <dd>Yes</dd>
+                                    <dt>Material</dt>
+                                    <dd>Wood, Leather</dd>
+                                    <dt>Color</dt>
+                                    <dd>White, Grey</dd>
+                                </dl> -->
+                                <!-- <a href="#" class="bill-link">
+                                    <div class="row"
+                                        style="border: 1px solid #D3D3D3; height:50px; width: 60%; border-radius: 10px; border-left: none;">
+                                        <div class="column-1" style="background-color: #28A745">
+                                            <h2>PAID</h2>
+                                        </div>
+                                        <div class="column-2">
+                                            <p>InvoiceID: 123456</p>
+                                            <p>Start date: 27/06/2022</p>
+                                            <p>Purpose: banana</p>
+                                            <p>Due date: 27/06/2023</p>
+                                        </div>
+                                        <div class="column-3">
+                                            <p>3.000.000VND</p>
+                                        </div>
+                                    </div>
+                                </a> -->
+                            </section>
+                            <!--end Features-->
+
+                            <hr>
+
+                            <!--Similar Ads-->
+                            <section>
+                                <h2>Send your request</h2>
+                                <form action="tenantnotify" method="POST" class="form">
+                                    <input type="hidden" id="emailTenantForm" name="emailTenant" value="${SINGLE_ROOM.emailTenant}"/>
+                                    <input type="hidden" id="emailLandlordForm" name="emailLandlord" value="${SINGLE_ROOM.emailLandlord}"/>
+                                    <input type="hidden" id="roomIDForm" name="roomID" value="${SINGLE_ROOM.roomID}"/>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="subject" class="col-form-label">Subject</label>
+                                                <input name="subject" type="text" class="form-control" id="subject"
+                                                       placeholder="Did you like a deal?">
+                                            </div>
+                                            <!--end form-group-->
+                                        </div>
+                                        <!--end col-md-8-->
+
+                                        <!--end col-md-4-->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="review" class="col-form-label">Your Request</label>
+                                                <textarea name="content" id="review" class="form-control" rows="6"
+                                                    placeholder="Good seller, I am satisfied."></textarea>
+                                            </div>
+                                            <!--end form-group-->
+                                        </div>
+                                        <!--end col-md-12-->
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-baseline">
+                                        <label>
+
+                                        </label>
+                                        <button id="btn_submit" type="submit" class="btn btn-danger">Send request</button>
+                                    </div>
+                                    <!--end row-->
+                                </form>
+                                <!--end items.list.compact-->
+                            </section>
+                            <!--end Similar Ads-->
                         </div>
+
+                        <!--============ End Listing Detail =========================================================-->
+                        <!--============ Sidebar ====================================================================-->
+                        <div class="col-md-4">
+                            <aside class="sidebar">
+                                <!--Author-->
+                                <section>
+                                    <h2>Details</h2>
+                                    <dl class="columns-1">
+                                        <dt>Date Added</dt>
+                                        <dd>${SINGLE_ROOM.date_added}</dd>
+                                        <dt>Type</dt>
+                                        <dd>Offer</dd>
+                                        <dt>Status</dt>
+                                        <dd>Used</dd>
+                                        <dt>First Owner</dt>
+                                        <dd>Yes</dd>
+                                        <dt>Material</dt>
+                                        <dd>Wood, Leather</dd>
+                                        <dt>Color</dt>
+                                        <dd>White, Grey</dd>
+                                    </dl>
+                                    <!--end box-->
+                                </section>
+                                <!--End Author-->
+                            </aside>
+
+                        </div>
+
+                        <!--============ End Sidebar ================================================================-->
                     </div>
-                    <!--end row-->
+
                 </div>
                 <!--end container-->
             </section>
@@ -594,20 +751,132 @@
         <!--*********************************************************************************************************-->
         <!--************ FOOTER *************************************************************************************-->
         <!--*********************************************************************************************************-->
-        <jsp:include page="header/footer.jsp" />
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-5">
+                        <a href="#" class="brand">
+                            <img src="assets/img/logo.png" alt="">
+                        </a>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec tincidunt arcu, sit amet
+                            fermentum sem. Class aptent taciti sociosqu ad litora torquent per conubia nostra.
+                        </p>
+                    </div>
+                    <!--end col-md-5-->
+                    <div class="col-md-3">
+                        <h2>Navigation</h2>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <nav>
+                                    <ul class="list-unstyled">
+                                        <li>
+                                            <a href="#">Home</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Listing</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Pages</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Extras</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Contact</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Submit Ad</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <nav>
+                                    <ul class="list-unstyled">
+                                        <li>
+                                            <a href="#">My Ads</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Sign In</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Register</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end col-md-3-->
+                    <div class="col-md-4">
+                        <h2>Contact</h2>
+                        <address>
+                            <figure>
+                                124 Abia Martin Drive<br>
+                                New York, NY 10011
+                            </figure>
+                            <br>
+                            <strong>Email:</strong> <a href="#">hello@example.com</a>
+                            <br>
+                            <strong>Skype: </strong> Craigs
+                            <br>
+                            <br>
+                            <a href="contact.html" class="btn btn-primary text-caps btn-framed">Contact Us</a>
+                        </address>
+                    </div>
+                    <!--end col-md-4-->
+                </div>
+                <!--end row-->
+            </div>
+            <div class="background">
+                <div class="background-image original-size">
+                    <img src="assets/img/footer-background-icons.jpg" alt="">
+                </div>
+                <!--end background-image-->
+            </div>
+            <!--end background-->
+        </footer>
         <!--end footer-->
     </div>
     <!--end page-->
 
-	<script src="assets/js/jquery-3.3.1.min.js"></script>
+    <script src="assets/js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="assets/js/popper.min.js"></script>
-	<script type="text/javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyBEDfNcQRmKQEyulDN8nGWjLYPm8s4YB58&libraries=places"></script>
-	<script src="assets/js/selectize.min.js"></script>
-	<script src="assets/js/masonry.pkgd.min.js"></script>
-	<script src="assets/js/icheck.min.js"></script>
-	<script src="assets/js/jquery.validate.min.js"></script>
-	<script src="assets/js/custom.js"></script>
-
+    <script type="text/javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript"
+        src="http://maps.google.com/maps/api/js?key=AIzaSyBEDfNcQRmKQEyulDN8nGWjLYPm8s4YB58&libraries=places"></script>
+    <script src="assets/js/selectize.min.js"></script>
+    <script src="assets/js/icheck.min.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="assets/js/jquery.validate.min.js"></script>
+    <script src="assets/js/custom.js"></script>
+        <script type="text/javascript">
+//            $(document).ready(function () {
+//                $('#btn_submit').click(function () {
+//
+//                    var emailTenant = $('#emailTenantForm').val();
+//                    var emailLandlord = $('#emailLandlordForm').val();
+//                    var roomID = $('#roomID').val();
+//                    var subject = $('#subject').val();
+//                    var review = $('#review').val();
+//
+//                        $.ajax({
+//                            url: 'tenantnotify',
+//                            type: 'POST',
+//                            data: {emailTenant: emailTenant, emailLandlord: emailLandlord,
+//                                roomID: roomID, subject: subject, review: review},
+//                            success: function (response)
+//                            {
+//                                alert("success");
+//                                $('#formID')[0].reset();
+//                            }
+//                        });
+//                    
+//
+//                });
+//            });
+        </script>
 </body>
+
 </html>

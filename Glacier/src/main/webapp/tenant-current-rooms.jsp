@@ -1,3 +1,13 @@
+<%-- 
+    Document   : tenant-current-rooms
+    Created on : Jun 5, 2022, 11:28:40 AM
+    Author     : ASUS
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri= "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -447,7 +457,7 @@
                 <!--============ Page Title =========================================================================-->
                 <div class="page-title">
                     <div class="container">
-                        <h1>My Profile</h1>
+                        <h1>My Ads</h1>
                     </div>
                     <!--end container-->
                 </div>
@@ -467,123 +477,136 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-3">
-                            <nav class="nav flex-column side-nav">
-                                <a class="nav-link active icon" href="my-profile.html">
-                                    <i class="fa fa-user"></i>My Profile
-                                </a>
-                                <a class="nav-link icon" href="my-ads.html">
-                                    <i class="fa fa-heart"></i>My Ads Listing
-                                </a>
-                                <a class="nav-link icon" href="bookmarks.html">
-                                    <i class="fa fa-star"></i>Bookmarks
-                                </a>
-                                <a class="nav-link icon" href="change-password.html">
-                                    <i class="fa fa-recycle"></i>Change Password
-                                </a>
-                                <a class="nav-link icon" href="sold-items.html">
-                                    <i class="fa fa-check"></i>Sold Items
-                                </a>
+                           <nav class="nav flex-column side-nav">
+                                    <a class="nav-link icon" href="profile.jsp">
+                                        <i class="fa fa-user"></i>Thông tin cá nhận
+                                    </a>
+                                    <a class="nav-link active icon" href="rooms">
+                                        <i class="fa fa-heart"></i>Phòng của tôi
+                                    </a>
+                                    <a class="nav-link icon" href="bookmarks.html">
+                                        <i class="fa fa-star"></i>Phòng yêu thích
+                                    </a>
+                                    <a class="nav-link icon" href="changepassword">
+                                        <i class="fa fa-recycle"></i>Thay đổi mật khẩu
+                                    </a>
                             </nav>
                         </div>
                         <!--end col-md-3-->
                         <div class="col-md-9">
-                            <form class="form">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <h2>Personal Information</h2>
-                                        <section>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="title" class="col-form-label">Title</label>
-                                                        <select name="title" id="title" data-placeholder="Title">
-                                                            <option value="">Title</option>
-                                                            <option value="1" selected>Mrs</option>
-                                                            <option value="2">Mr</option>
-                                                        </select>
-                                                    </div>
-                                                    <!--end form-group-->
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <div class="form-group">
-                                                        <label for="name" class="col-form-label required">Your Name</label>
-                                                        <input name="name" type="text" class="form-control" id="name" placeholder="Your Name" value="Jane Doe" required>
-                                                    </div>
-                                                    <!--end form-group-->
-                                                </div>
-                                                <!--end col-md-8-->
-                                            </div>
-                                            <!--end row-->
-                                            <!-- <div class="form-group">
-                                                <label for="location" class="col-form-label required">Your Location</label>
-                                                <input name="location" type="text" class="form-control" id="input-location2" placeholder="Your Location" value="Manhattan, NY" required>
-                                            </div> -->
-                                            <!--end form-group-->
-                                            <!-- <div class="form-group">
-                                                <label for="about" class="col-form-label">More About You</label>
-                                                <textarea name="about" id="about" class="form-control" rows="4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec tincidunt arcu, sit amet fermentum sem. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</textarea>
-                                            </div> -->
-                                            <!--end form-group-->
-                                        </section>
+                            <!--============ Section Title===================================================================-->
+                            <div class="section-title clearfix">
+                                <div class="float-left float-xs-none">
+                                    <label class="mr-3 align-text-bottom">Sort by: </label>
+                                    <select name="sorting" id="sorting" class="small width-200px" data-placeholder="Default Sorting" >
+                                        <option value="">Default Sorting</option>
+                                        <option value="1">Newest First</option>
+                                        <option value="2">Oldest First</option>
+                                        <option value="3">Lowest Price First</option>
+                                        <option value="4">Highest Price First</option>
+                                    </select>
 
-                                        <section>
-                                            <h2>Contact</h2>
-                                            <div class="form-group">
-                                                <label for="phone" class="col-form-label">Phone</label>
-                                                <input name="phone" type="text" class="form-control" id="phone" placeholder="Your Phone" value="312-238-3329">
-                                            </div>
-                                            <!--end form-group-->
-                                            <div class="form-group">
-                                                <label for="email" class="col-form-label">Email</label>
-                                                <input name="email" type="email" class="form-control" id="email" placeholder="Your Email" value="jane.doe@example.com">
-                                            </div>
-                                            <!--end form-group-->
-                                        </section>
-
-                                        <section>
-                                            <h2>Social</h2>
-                                            <div class="form-group">
-                                                <label for="twitter" class="col-form-label">Twitter</label>
-                                                <input name="twitter" type="text" class="form-control" id="twitter" placeholder="http://" value="http://www.twitter.com/jane.doe">
-                                            </div>
-                                            <!--end form-group-->
-                                            <div class="form-group">
-                                                <label for="facebook" class="col-form-label">Facebook</label>
-                                                <input name="facebook" type="text" class="form-control" id="facebook" placeholder="http://" value="http://www.facebook.com/jane.doe">
-                                            </div>
-                                            <!--end form-group-->
-                                        </section>
-
-                                        <section class="clearfix">
-                                            <button type="submit" class="btn btn-primary float-right">Save Changes</button>
-                                        </section>
-                                    </div>
-                                    </form>
-                                    
-                                    <!--end col-md-8-->
-                                <div class="col-md-4">
-                                        <div class="profile-image">
-                                            <div class="image background-image">
-                                                <img src="assets/img/author-09.jpg" alt="">
-                                            </div>
-                                            <form action="">
-                                            <div class="single-file-input">
-                                                <input type="file" id="user_image" name="user_image">
-                                                <div class="btn btn-framed btn-primary small">Upload a picture</div>
-                                            </div>
-                                            <div class="single-file-input">
-                                                <input type="submit" class="btn btn-primary small" value="Save pics"/>
-                                            </div>
-                                        </div>
-                                    </form>
                                 </div>
-                                
-                                    <!--end col-md-3-->
-                           </div>
-                            
+                                <div class="float-right d-xs-none thumbnail-toggle">
+                                    <a href="#" class="change-class" data-change-from-class="list" data-change-to-class="grid" data-parent-class="items">
+                                        <i class="fa fa-th"></i>
+                                    </a>
+                                    <a href="#" class="change-class active" data-change-from-class="grid" data-change-to-class="list" data-parent-class="items">
+                                        <i class="fa fa-th-list"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <!--============ Items ==========================================================================-->
+                            <div class="items list compact grid-xl-3-items grid-lg-2-items grid-md-2-items">
+                                <c:forEach items="${requestScope.list}" var="room">
+                             <div class="item">
+                                    <div class="wrapper">
+                                        <div class="image">
+                                            <h3>
+                                                <a href="#" class="tag category">Education</a>
+                                                <a href="single-listing-1.html" class="title">${room.name}</a>
+                                                
+                                            </h3>
+                                            <a href="single-listing-1.html" class="image-wrapper background-image">
+                                                <img src="assets/img/image-02.jpg" alt="">
+                                            </a>
+                                        </div>
+                                        <!--end image-->
+                                        <h4 class="location">
+                                            <a href="#">${room.address}</a>
+                                        </h4>
+                                        <div class="price">                                    
+                                            <fmt:formatNumber type = "number" pattern="#,###.##" maxFractionDigits = "3" value = "${room.price}" var="pat" />
+                                            ${fn:replace(pat, ",", ".")} 
+                                            <small>VNĐ</small></div>
+                                        <div class="admin-controls">
+                                            <a href="edit-ad.html">
+                                                <i class="fa fa-pencil"></i>Edit
+                                            </a>
+                                            <a href="#" class="ad-hide">
+                                                <i class="fa fa-eye-slash"></i>Hide
+                                            </a>
+                                            <a href="#" class="ad-remove">
+                                                <i class="fa fa-trash"></i>Remove
+                                            </a>
+                                        </div>
+                                        <!--end admin-controls-->
+                                        <div class="description">
+                                            <p>${room.description}...</p>
+                                        </div>
+                                        <!--end description-->
+                                        <div class="additional-info">
+                                            <ul>
+                                                <li>
+                                                    
+                                                    <figure>Start Date</figure>
+                                                    <aside>${room.rentStartDate}</aside>
+                                                </li>
+                                                <li>
+                                                    <figure>Length</figure>
+                                                    <aside>2 months</aside>
+                                                </li>
+                                                <li>
+                                                    <figure>Bedrooms</figure>
+                                                    <aside>3</aside>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!--end addition-info-->
+                                        <a href="your-rooms?id=${room.roomID}" class="detail text-caps underline">Detail</a>
+                                    </div>
+                                </div>
+                                <!--end item-->
+                                </c:forEach>
+                            </div>
+                            <!--end items-->
+                                                <div class="page-pagination">
+                            <nav aria-label="Pagination">
+                                <ul class="pagination">
+                                    <c:forEach begin="1" end="${endPage}" step="1" var="i">
+                                        <c:choose>
+                                            <c:when test="${currentPage == i}">
+                                                <li class="page-item active">
+                                                    <a class="page-link" href="?index=${i}">${i}</a>
+                                                </li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="?index=${i}">${i}</a>
+                                                </li>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+
+
+                                </ul>
+                            </nav>
                         </div>
+                        </div>
+                        <!--end col-md-9-->
                     </div>
                     <!--end row-->
+
                 </div>
                 <!--end container-->
             </section>
@@ -594,7 +617,94 @@
         <!--*********************************************************************************************************-->
         <!--************ FOOTER *************************************************************************************-->
         <!--*********************************************************************************************************-->
-        <jsp:include page="header/footer.jsp" />
+        <footer class="footer">
+            <div class="wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <a href="#" class="brand">
+                                <img src="assets/img/logo.png" alt="">
+                            </a>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec tincidunt arcu, sit amet
+                                fermentum sem. Class aptent taciti sociosqu ad litora torquent per conubia nostra.
+                            </p>
+                        </div>
+                        <!--end col-md-5-->
+                        <div class="col-md-3">
+                            <h2>Navigation</h2>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6">
+                                    <nav>
+                                        <ul class="list-unstyled">
+                                            <li>
+                                                <a href="#">Home</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Listing</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Pages</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Extras</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Contact</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Submit Ad</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <nav>
+                                        <ul class="list-unstyled">
+                                            <li>
+                                                <a href="#">My Ads</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Sign In</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Register</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end col-md-3-->
+                        <div class="col-md-4">
+                            <h2>Contact</h2>
+                            <address>
+                                <figure>
+                                    124 Abia Martin Drive<br>
+                                    New York, NY 10011
+                                </figure>
+                                <br>
+                                <strong>Email:</strong> <a href="#">hello@example.com</a>
+                                <br>
+                                <strong>Skype: </strong> Craigs
+                                <br>
+                                <br>
+                                <a href="contact.html" class="btn btn-primary text-caps btn-framed">Contact Us</a>
+                            </address>
+                        </div>
+                        <!--end col-md-4-->
+                    </div>
+                    <!--end row-->
+                </div>
+                <div class="background">
+                    <div class="background-image original-size">
+                        <img src="assets/img/footer-background-icons.jpg" alt="">
+                    </div>
+                    <!--end background-image-->
+                </div>
+                <!--end background-->
+            </div>
+        </footer>
         <!--end footer-->
     </div>
     <!--end page-->
@@ -611,3 +721,4 @@
 
 </body>
 </html>
+

@@ -5,7 +5,6 @@
 --%>
 <%@page import="glacier.user.model.User"%>
 <%@page import="java.util.List"%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="en">
@@ -275,80 +274,8 @@
             <!--*********************************************************************************************************-->
             <!--************ FOOTER *************************************************************************************-->
             <!--*********************************************************************************************************-->
-            <footer class="footer">
-                <div class="wrapper">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <a href="#" class="brand">
-                                    <img src="assets/img/logo.png" alt="">
-                                </a>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec tincidunt arcu, sit amet
-                                    fermentum sem. Class aptent taciti sociosqu ad litora torquent per conubia nostra.
-                                </p>
-                            </div>
-                            <!--end col-md-5-->
-                            <div class="col-md-3">
-                                <h2>Navigation</h2>
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-6">
-                                        <nav>
-                                            <ul class="list-unstyled">
-                                                <li>
-                                                    <a href="admin.jsp">Home</a>
-                                                </li>
-                                                <li>
-                                                    <a href="SearchUserController?keyword=&index=1&role=all" >User</a>
-                                                </li>
 
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6">
-                                        <nav>
-                                            <ul class="list-unstyled">
-                                                <li>
-                                                    <a href="ReportedController?index=1&type=all">Reported</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Contact</a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end col-md-3-->
-                            <div class="col-md-4">
-                                <h2>Contact</h2>
-                                <address>
-                                    <figure>
-                                        D1 Street,Long Thanh My<br> 
-                                        Thu Duc city, Ho Chi Minh city
-                                    </figure>
-                                    <br>
-                                    <strong>Email:</strong> <a href="#">hello@example.com</a>
-                                    <br>
-                                    <strong>Skype: </strong> Glacier
-                                    <br>
-                                    <br>
-                                    <a href="contact.html" class="btn btn-primary text-caps btn-framed">Contact Us</a>
-                                </address>
-                            </div>
-                            <!--end col-md-4-->
-                        </div>
-                        <!--end row-->
-                    </div>
-                    <div class="background">
-                        <div class="background-image original-size">
-                            <img src="assets/img/footer-background-icons.jpg" alt="">
-                        </div>
-                        <!--end background-image-->
-                    </div>
-                    <!--end background-->
-                </div>
-            </footer>
+            <jsp:include page="header/footer.jsp" />
             <!--end footer-->
         </div>
         <!--end page-->
