@@ -79,7 +79,7 @@
 
         <div class="popup" id="reportForm">
             <h2>Thông báo cho người thuê</h2>
-            <form class="form form-submit" action="./report">
+            <form class="form form-submit" action="./landlordnotify">
                 <input name="id" type="hidden" value="${room.roomID}">
                 <!--                <div class="form-group">
                                     <label for="title" class="col-form-label required">Tiêu đề</label>
@@ -113,7 +113,7 @@
                     <!--============ Page Title =========================================================================-->
                     <div class="page-title">
                         <div class="container">
-                            <h1>Frequently Asked Questions</h1>
+                            <h1>Lịch sử thông báo</h1>
                         </div>
                         <!--end container-->
                     </div>
