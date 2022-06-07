@@ -79,7 +79,7 @@
 
         <div class="popup" id="reportForm">
             <h2>Báo cáo cho quản trị viên</h2>
-            <form class="form form-submit" action="./report" method="POST">
+            <form class="form form-submit" action="./report">
                 <input name="id" type="hidden" value="${room.roomID}">
                 <!--                <div class="form-group">
                                     <label for="title" class="col-form-label required">Tiêu đề</label>

@@ -34,10 +34,10 @@ public class RoomManager {
 //                        "FROM [Book]\n" +
 //                        "WHERE [title] LIKE '%" + searchText + "%'";
 
-            String sql = "SELECT COUNT (*)\n" +
-                        "FROM [Room] R\n" +
-                        "WHERE FREETEXT(R.[name], N'" + searchText + "') OR FREETEXT(R.[description], N'" + searchText + "') OR FREETEXT(R.[detailAddress], N'" + searchText + "') OR FREETEXT(R.[address], N'" + searchText + "')";
-            
+            String sql = "SELECT COUNT (*)\n"
+                    + "FROM [Room] R\n"
+                    + "WHERE FREETEXT(R.[name], N'" + searchText + "') OR FREETEXT(R.[description], N'" + searchText + "') OR FREETEXT(R.[detailAddress], N'" + searchText + "') OR FREETEXT(R.[address], N'" + searchText + "')";
+
 //            if (rating != null && !rating.equals("all")) {
 //                sql += " AND avgRate >= " + rating + " ";
 //            }
@@ -150,7 +150,7 @@ public class RoomManager {
                     int price = rs.getInt("price");
                     String address = rs.getString("address").trim();
                     String des = rs.getString("description").trim().substring(0, Math.min(rs.getString("description").length(), 101));
-                    
+
                     list.add(new Room(roomId, name, des, address, price));
                 }
             }
@@ -159,13 +159,13 @@ public class RoomManager {
         }
         return list;
     }
-    
-        public int countTenantRooms(String emailTenant) { // searchText: the key words user typed; index: page number
+
+    public int countTenantRooms(String emailTenant) { // searchText: the key words user typed; index: page number
         try {
-            String sql = "SELECT COUNT(*)\n" +
-                        "FROM [Room]\n" +
-                        "WHERE [emailTenant] = ?";   
-          
+            String sql = "SELECT COUNT(*)\n"
+                    + "FROM [Room]\n"
+                    + "WHERE [emailTenant] = ?";
+
             Connection con = DBUtils.getConnection();
             PreparedStatement st = con.prepareStatement(sql);
             st.setString(1, emailTenant);
@@ -182,11 +182,11 @@ public class RoomManager {
 
     public static void main(String[] args) {
         RoomManager manager = new RoomManager();
-        List<Room> list = manager.getTenantRoomList("vuvannga@gmail.com",1);
+        List<Room> list = manager.getTenantRoomList("vuvannga@gmail.com", 1);
         for (Room room : list) {
             System.out.println(room);
         }
-        
+
         int count = manager.countTenantRooms("vuvannga@gmail.com");
         System.out.println(count);
 //        String newS = s.trim().replaceAll(" ", "");
