@@ -62,7 +62,7 @@ public class CommentManager {
                     int rating = rs.getInt("rating");
                     c = new Comment(id, name, profile_picture, RoomID, content, time, rating);
                     //create a comment with name and profile picture of commenter                    
-                    System.out.println(c); // THIS JUST FOR TEST
+//                    System.out.println(c); // THIS JUST FOR TEST
                     commentL.add(c);
                 }
 //                System.out.println(commentL.size());

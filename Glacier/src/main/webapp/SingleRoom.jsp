@@ -247,10 +247,13 @@
                     <div class="page-title">
                         <div class="container clearfix" >
                             <div class="float-left float-xs-none" style="width: 75%">
-                                <h1>
+                                <div>
+                                    <h1>
                                     ${room.name}
                                     <!--                                    <span class="tag">Offer</span>-->
-                                </h1>
+                                    </h1>
+                                </div>
+                                
                                 <h4 class="location">
                                     <a href="#">${room.address}</a>
                                 </h4>
@@ -265,11 +268,17 @@
                                 </c:if>
                             </div>
                             <div class="float-right float-xs-none price">
-
-
                                 <div class="number priceStyle">${room.price}<small>đ</small></div>
                                 <strong>/tháng</strong>
-
+                                <hr>
+                                <c:set var="email" value="dinhxuantung@gmail.com"></c:set>
+                                <c:if test="${FStatus==true}">
+                                    <a href="AddFavouriteController?id=${room.roomID}&email=${email}" class="btn btn-primary btn-framed" style="width: 100%">Add to favourite <i class="fa fa-heart-o"></i></a>
+                                </c:if>
+                                <c:if test="${FStatus==false}">
+                                    <a href="RemoveFavouriteController?id=${room.roomID}&email=${email}" class="btn btn-primary btn-framed" style="width: 100%">Remove from favourite <i class="fa fa-heart-o"></i></a>
+                                </c:if>
+                                
                             </div>
                         </div>
                         <!--end container-->
@@ -574,8 +583,11 @@
                                         </div>
                                         <!--end box-->
                                     </section>
+                                    
                                     <!--End Author-->
+                                    
                                 </aside>
+                                
                             </div>
                             <!--============ End Sidebar ================================================================-->
                         </div>
@@ -775,9 +787,6 @@
                                                                 end comment
                                                             </div>-->
                             <!--end comment-->
-                            <div class="center">
-                                <a href="#" class="btn btn-primary btn-rounded btn-framed">Load More</a>
-                            </div>
                         </section>
                     </div>
                     <!--end container-->
