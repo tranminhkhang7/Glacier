@@ -5,11 +5,7 @@
  */
 package glacier.user.controller;
 
-import glacier.landlord.dbmanager.LandlordManager;
-import glacier.user.model.Landlord;
 import java.io.IOException;
-import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,8 +17,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author KHANG
  */
-@WebServlet(name = "LandlordDeleteRoom", urlPatterns = {"/deleteroom"})
-public class LandlordDeleteRoom extends HttpServlet {
+@WebServlet(name = "LogoutController", urlPatterns = {"/logout"})
+public class LogoutController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,33 +29,22 @@ public class LandlordDeleteRoom extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private static final String ERROR = "error.jsp";
+    private static final String SUCCESS = "home";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            
+        String url = ERROR;
+        try {
             HttpSession session = request.getSession(false);
-            if (session == null) {
-                RequestDispatcher rd = request.getRequestDispatcher("/login");
-                rd.forward(request, response);
-            } else {
-                Landlord landlord = (Landlord) session.getAttribute("USER_DETAIL");
-                String emailLandlord = landlord.getEmail();
-
-                int roomID = Integer.parseInt(request.getParameter("id"));
-
-                LandlordManager mng = new LandlordManager();
-                if (mng.checkOwnership(emailLandlord, roomID)) {
-                    mng.deleteRoom(roomID);
-                    RequestDispatcher rd = request.getRequestDispatcher("/roomlist");
-                    rd.forward(request, response);
-                } else {
-                    RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
-                    rd.forward(request, response);
-                }
+            if(session != null){
+                session.invalidate();
+                url = SUCCESS;
             }
         } catch (Exception e) {
-            log("Error at Landlord Delete Room: " + e.toString());
+            log("Error at LogoutController: " + e.toString());
+        }finally{
+            response.sendRedirect(url);
         }
     }
 

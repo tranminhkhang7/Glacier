@@ -34,7 +34,7 @@ public class WriteComment extends HttpServlet {
      */
     private static final String ERROR = "SingleRoomView";               // change this after adding session
     private static final String SUCCESS = "SingleRoomView";
-    private static final Account TEST= new Account("hehe@gmail.com","12345678","tenant");           // TEST ACCOUNT
+    private static final Account TEST= new Account("dinhxuantung@gmail.com","12345678","tenant");           // TEST ACCOUNT
     
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -43,7 +43,8 @@ public class WriteComment extends HttpServlet {
         try{
             HttpSession session = request.getSession(false);
             Account a = (Account)session.getAttribute("USER_DATA");
-            a = TEST;                                                                                // Delete this when hook code
+            a = TEST;                                                    // THIS IS FOR TESTING                           // Delete this when hook code
+            
             if (a.getRole().equals("tenant")){
                 CommentManager cm = new CommentManager();
                 int commentID = cm.getNextCommentIndex();
@@ -53,9 +54,11 @@ public class WriteComment extends HttpServlet {
                 int rating = Integer.parseInt(request.getParameter("rating"));
                 String content = request.getParameter("review");
                 Comment c = new Comment(commentID, roomID, content, rating,a.getEmail(), date);
-                cm.createComment(c);
-            }
-        request.getRequestDispatcher(SUCCESS).forward(request, response);
+                if(!cm.createComment(c)){
+                    System.err.println("ERROR CREATE COMMENT");
+                }
+                else response.sendRedirect(SUCCESS+"?id="+roomID);
+            }           
         }
         catch(Exception e){
             e.printStackTrace();
@@ -88,7 +91,7 @@ public class WriteComment extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        processRequest(request, response); 
     }
 
     /**

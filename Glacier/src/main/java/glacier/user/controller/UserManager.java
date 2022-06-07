@@ -10,8 +10,10 @@ import glacier.user.model.Landlord;
 import glacier.user.model.Tenant;
 import glacier.utils.DBUtils;
 import java.sql.Connection;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -232,7 +234,7 @@ public class UserManager {
             if (conn != null) {
                 String sql = " UPDATE Account"
                         + " SET role=? "
-                        + " WHERE role=? " ;
+                        + " WHERE role=? ";
                 st = conn.prepareStatement(sql);
                 st.setString(1, email);
                 st.setString(2, role);
@@ -245,7 +247,7 @@ public class UserManager {
     }
 
     //function to update a new information of user
-    public boolean updateAccount(String email, String newName, String newGender, String newPhone, String newFacebook, String newInstagram, boolean isTenant ){
+    public boolean updateAccount(String email, String newName, String newGender, String newPhone, String newFacebook, String newInstagram, boolean isTenant) {
         boolean check = false;
         Connection conn = null;
         PreparedStatement st = null;
@@ -254,11 +256,11 @@ public class UserManager {
             if (conn != null) {
                 String sql = " UPDATE Landlord "
                         + " SET [name]=?, [gender]=?, [phone]=?, [facebook_link]=?, [instagram_link]=? "
-                        + " WHERE email=? " ;
-                if(isTenant == true){
+                        + " WHERE email=? ";
+                if (isTenant == true) {
                     sql = " UPDATE Tenant "
-                        + " SET [name]=?, [gender]=?, [phone]=?, [facebook_link]=?, [instagram_link]=? "
-                        + " WHERE email=? " ;
+                            + " SET [name]=?, [gender]=?, [phone]=?, [facebook_link]=?, [instagram_link]=? "
+                            + " WHERE email=? ";
                 }
                 st = conn.prepareStatement(sql);
                 st.setString(1, newName);
@@ -274,8 +276,8 @@ public class UserManager {
         }
         return check;
     }
-    
-    public boolean changeTenantPassword(String email, String newPassword){
+
+    public boolean changeTenantPassword(String email, String newPassword) {
         boolean check = false;
         Connection conn = null;
         PreparedStatement st = null;
@@ -284,7 +286,7 @@ public class UserManager {
             if (conn != null) {
                 String sql = " UPDATE Account "
                         + " SET [password]=? "
-                        + " WHERE [email]=? " ;
+                        + " WHERE [email]=? ";
                 st = conn.prepareStatement(sql);
                 st.setString(1, newPassword);
                 st.setString(2, email);
@@ -295,9 +297,9 @@ public class UserManager {
         }
         return check;
     }
-    
+
     // This method is exacly the same as the changTenentPassword, but splitting them apart makes life way easier, believe me :v
-    public boolean changeLandlordPassword(String email, String newPassword){
+    public boolean changeLandlordPassword(String email, String newPassword) {
         boolean check = false;
         Connection conn = null;
         PreparedStatement st = null;
@@ -306,7 +308,7 @@ public class UserManager {
             if (conn != null) {
                 String sql = " UPDATE [Account] "
                         + " SET [password]=? "
-                        + " WHERE [email]=? " ;
+                        + " WHERE [email]=? ";
                 st = conn.prepareStatement(sql);
                 st.setString(1, newPassword);
                 st.setString(2, email);
@@ -317,12 +319,28 @@ public class UserManager {
         }
         return check;
     }
-    
+
+    // This method is processed when a tenant (with email) report a room (with id) a content. 
+    public void reportRoom(int id, String email, String content) {
+        try {
+            Date date = new Date();
+            String dateString = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS").format(date);
+            String sql = "INSERT INTO [ReportRoom] ([roomID], [email], [content], [time])\n"
+                    + "VALUES (" + id + ", N'" + email + "', N'" + content + "', N'" + dateString + "')";
+
+            Connection con = DBUtils.getConnection();
+            PreparedStatement getID = con.prepareStatement(sql);
+            getID.executeUpdate();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }
+
     public static void main(String[] args) {
-      
-        UserManager user = new UserManager();
-        Landlord l = user.getLandlordInfo("dangngocduong@gmail.com");
-        System.out.println(l);
+
+//        UserManager user = new UserManager();
+//        Landlord l = user.getLandlordInfo("dangngocduong@gmail.com");
+//        System.out.println(l);
 //        boolean check = user.updateAccount("hehe@gmail.com", "Khoa Bui", "female", "1234567890", "fb.com/khoa.1313", "ig.com/khoa.1313", false );
 //        System.out.println(check);
 //        Account acc = user.checkLogin("dangvungocan@gmail.com", "123456789");

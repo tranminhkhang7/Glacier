@@ -5,8 +5,7 @@
  */
 package glacier.user.controller;
 
-import glacier.landlord.dbmanager.LandlordManager;
-import glacier.user.model.Landlord;
+import glacier.user.model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -21,8 +20,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author KHANG
  */
-@WebServlet(name = "LandlordDeleteRoom", urlPatterns = {"/deleteroom"})
-public class LandlordDeleteRoom extends HttpServlet {
+@WebServlet(name = "TenantReportRoom", urlPatterns = {"/report"})
+public class TenantReportRoom extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,29 +36,28 @@ public class LandlordDeleteRoom extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
-            HttpSession session = request.getSession(false);
-            if (session == null) {
-                RequestDispatcher rd = request.getRequestDispatcher("/login");
+            HttpSession ss = request.getSession();
+            Account user = (Account) ss.getAttribute("LOGIN_USER");
+
+            String role = (user == null) ? "" : user.getRole().trim();
+
+            if (!"tenant".equals(role)) {
+                RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
                 rd.forward(request, response);
             } else {
-                Landlord landlord = (Landlord) session.getAttribute("USER_DETAIL");
-                String emailLandlord = landlord.getEmail();
+                int id = Integer.parseInt(request.getParameter("id"));
+                String content = request.getParameter("content");
 
-                int roomID = Integer.parseInt(request.getParameter("id"));
+                String email = user.getEmail();
 
-                LandlordManager mng = new LandlordManager();
-                if (mng.checkOwnership(emailLandlord, roomID)) {
-                    mng.deleteRoom(roomID);
-                    RequestDispatcher rd = request.getRequestDispatcher("/roomlist");
-                    rd.forward(request, response);
-                } else {
-                    RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
-                    rd.forward(request, response);
-                }
+                UserManager mng = new UserManager();
+                mng.reportRoom(id, email, content);
+                
+                request.setAttribute("notify", "report");
+                RequestDispatcher rd = request.getRequestDispatcher("/SingleRoomView?id=" + id);
+                rd.forward(request, response);
             }
-        } catch (Exception e) {
-            log("Error at Landlord Delete Room: " + e.toString());
+
         }
     }
 

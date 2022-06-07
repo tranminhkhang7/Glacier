@@ -37,10 +37,10 @@ public class RoomManager {
 //                        "FROM [Book]\n" +
 //                        "WHERE [title] LIKE '%" + searchText + "%'";
 
-            String sql = "SELECT COUNT (*)\n"
-                    + "FROM [Room]\n"
-                    + "WHERE ([name] LIKE '%" + searchText + "%') OR ([address] LIKE '%" + searchText + "%')";
-
+            String sql = "SELECT COUNT (*)\n" +
+                        "FROM [Room] R\n" +
+                        "WHERE FREETEXT(R.[name], N'" + searchText + "') OR FREETEXT(R.[description], N'" + searchText + "') OR FREETEXT(R.[detailAddress], N'" + searchText + "') OR FREETEXT(R.[address], N'" + searchText + "')";
+            
 //            if (rating != null && !rating.equals("all")) {
 //                sql += " AND avgRate >= " + rating + " ";
 //            }
@@ -81,8 +81,7 @@ public class RoomManager {
 //                        "OFFSET " + (index - 1) * 9 + " ROWS FETCH NEXT 9 ROWS ONLY";
             String sql = "SELECT R.[roomID], R.[name] as nameRoom, R.[address], R.[price], R.[date_added], L.[name] as nameLandlord, LEFT(R.[description], 100) as cutDescription\n"
                     + "FROM [Room] R JOIN [Landlord] L ON R.emailLandlord = L.email\n"
-                    + "WHERE (R.[name] LIKE '%" + searchText + "%') OR (R.[address] LIKE '%" + searchText + "%')\n";
-
+                    + "WHERE FREETEXT(R.[name], N'" + searchText + "') OR FREETEXT(R.[description], N'" + searchText + "') OR FREETEXT(R.[detailAddress], N'" + searchText + "') OR FREETEXT(R.[address], N'" + searchText + "')";
 //            if (rating != null && !rating.equals("all")) {
 //                sql += " AND avgRate >= " + rating + " ";
 //            }

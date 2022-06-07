@@ -86,7 +86,7 @@ public class LandlordEditRoom extends HttpServlet {
                         rd.forward(request, response);
                     }
                 } else {
-                    RequestDispatcher rd = request.getRequestDispatcher("/index.html");
+                    RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
                     rd.forward(request, response);
                 }
             }

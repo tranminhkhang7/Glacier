@@ -32,9 +32,9 @@
             <!--*********************************************************************************************************-->
             <header class="hero">
                 <div class="hero-wrapper">
-                    
+
                     <jsp:include page="header/navigation-landlord.jsp" />
-                    
+
                     <!--============ Hero Form ==========================================================================-->
                     <div class="collapse" id="collapseMainSearchForm">
                         <form class="hero-form form">
@@ -238,7 +238,7 @@
                                         <h4 class="location">
                                             <a href="#">${room.address}</a>
                                         </h4>
-                                        <div class="price">${room.price} VNĐ</div>
+                                        <div class="price priceStyle">${room.price}đ</div>
                                         <div class="meta">
                                             <figure>
                                                 <i class="fa fa-calendar-o"></i>${room.date_added}
@@ -330,6 +330,27 @@
         <script src="${pageContext.request.contextPath}/assets/js/icheck.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/jquery.validate.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/custom.js"></script>
+        <script>
+            for (let i = 0; i < document.getElementsByClassName("priceStyle").length; i++) {
+
+                let priceText = document.getElementsByClassName("priceStyle")[i].textContent.trim();
+
+                let textReverse = priceText.split("").reverse().join("").trim();
+
+                var j = 1;
+                var count = 0;
+                while (j < textReverse.length) {
+                    count++;
+                    if (count > 3) {
+                        textReverse = textReverse.slice(0, j) + "." + textReverse.slice(j);
+                        count = 0;
+                    }
+                    j++;
+                }
+                let finalPrice = textReverse.split("").reverse().join("");
+                document.getElementsByClassName("priceStyle")[i].innerHTML = finalPrice;
+            }
+        </script>
 
     </body>
 </html>
