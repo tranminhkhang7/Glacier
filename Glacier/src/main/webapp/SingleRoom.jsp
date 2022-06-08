@@ -564,10 +564,16 @@
                                             </a>
                                             <div class="author-description">
                                                 <h3>${review.name}</h3>
-                                                <div class="meta">
-                                                    <span class="rating" data-rating="${review.rating}"></span>
+                                                <div style="display: inline-block; margin-right: 808px" class="meta">
+                                                    <span class="rating" data-rating="${review.rating}">
                                                     <span>${review.time}</span>
                                                 </div>
+                                                <form style="display: inline-block" method="POST" action="reportcomment">
+                                                    <input type="hidden" value="${room.roomID}" name="roomID" />
+                                                    <input type="hidden" value="${review.email}" name="email" />
+                                                    <input type="hidden" value="${review.content}" name="content" />
+                                                    <input type="submit" name="report" value="Report"> 
+                                                </form>
                                                 <!--                                                end meta-->
                                                 <p>
                                                     ${review.content}
