@@ -6,7 +6,7 @@
 package glacier.user.controller;
 
 import glacier.moderator.dbmanager.ModeratorManager;
-import glacier.user.model.UserSession;
+import glacier.user.model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -44,24 +44,29 @@ public class SearchUserController extends HttpServlet {
         String url = ERROR;
         try {
             String search = request.getParameter("keyword");
+            int currentPage = Integer.parseInt(request.getParameter("index"));
             String role = request.getParameter("role");
             ModeratorManager dao = new ModeratorManager();
-            List<UserSession> listUser;
-            if (role != null) {
-                if (role.equals("tenant")) {
-                    listUser = dao.getListTenant(search);
-                } else {
-                    listUser = dao.getListLandlord(search);
-                }
-
+            List<User> listUser = null;
+            int totalMatched = dao.countMatched(search, role);
+            int endPage = totalMatched / 10;
+            if (totalMatched % 10 != 0) {
+                endPage++;
+            }
+            if (role.equals("all")) {
+                listUser = dao.getListUser(search, currentPage);
             } else {
-                listUser = dao.getListUser(search);
+                if (role.equals("tenant")) {
+                    listUser = dao.getListTenant(search, currentPage);
+                } else {
+                    listUser = dao.getListLandlord(search, currentPage);
+                }
             }
+            request.setAttribute("END_PAGE", endPage);
+            request.setAttribute("CURRENT_PAGE", currentPage);
+            request.setAttribute("LIST_USER", listUser);
+            url = SUCCESS;
 
-            if (listUser.size() > 0) {
-                request.setAttribute("LIST_USER", listUser);
-                url = SUCCESS;
-            }
         } catch (Exception e) {
             log("Error at SearchController: " + e.toString());
         } finally {

@@ -5,11 +5,9 @@
  */
 package glacier.user.controller;
 
-import glacier.room.dbmanager.RoomManager;
-import glacier.room.model.Room;
+import glacier.moderator.dbmanager.ModeratorManager;
 import java.io.IOException;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,11 +16,14 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author KHANG
+ * @author Admin
  */
-@WebServlet(name = "SearchRoomController", urlPatterns = {"/search"})
-public class SearchRoomController extends HttpServlet {
-
+@WebServlet(name = "BanUserController", urlPatterns = {"/BanUserController"})
+public class BanUserController extends HttpServlet {
+    
+    private static final String ERROR = "user.jsp";
+    private static final String SUCCESS = "SearchUserController?keyword=&role=all&index=1";
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -35,46 +36,19 @@ public class SearchRoomController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String url = ERROR;
         try {
-            
-            String indexPage = request.getParameter("index");
-            if (indexPage == null) {
-                indexPage = "1";
+            String userPhone = request.getParameter("userPhone");
+            String userRole = request.getParameter("userRole");
+            ModeratorManager dao = new ModeratorManager();
+            boolean check = dao.banUser(userPhone, userRole);
+            if(check){
+                url = SUCCESS;
             }
-            int currentPage = Integer.parseInt(indexPage);
-
-            String searchText = (String) request.getParameter("keyword");
-            if (searchText == null) {
-                searchText = "";
-            }
-//            String genres = (String) request.getParameter("genres");
-//            String rating = (String) request.getParameter("rating");
-//            String sortBy = (String) request.getParameter("sortBy");
-
-            RoomManager manager = new RoomManager();
-            
-            int totalMatched = manager.countMatched(searchText);
-            int endPage = totalMatched / 16;
-            if (totalMatched % 16 != 0) {
-                endPage++;
-            }
-            
-            if (currentPage > endPage) currentPage = endPage;
-            List<Room> listResult = manager.search(searchText, currentPage);
-
-            request.setAttribute("searchText", searchText);
-//            request.setAttribute("genres", genres);
-//            request.setAttribute("rating", rating);
-//            request.setAttribute("sortBy", sortBy);
-            request.setAttribute("endPage", endPage);
-            request.setAttribute("currentPage", currentPage);
-//            request.setAttribute("allTag", allTag);
-            request.setAttribute("list", listResult);
-            
-            RequestDispatcher rd = request.getRequestDispatcher("/searchpage.jsp");
-            rd.forward(request, response);
         } catch (Exception e) {
-            log("Error search room " + e.toString());
+            log("Error at SearchController: " + e.toString());
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

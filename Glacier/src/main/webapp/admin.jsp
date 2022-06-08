@@ -72,25 +72,25 @@
                                     <!--Main navigation list-->
                                     <ul class="navbar-nav">
                                         <li class="nav-item active has-child">
-                                            <a class="nav-link" href="SearchUserController?keyword=">User</a>
+                                            <a class="nav-link" href="SearchUserController?keyword=&index=1&role=all">User</a>
                                             <ul class="child">
                                                 <li class="nav-item" >
-                                                    <a href="SearchUserController?keyword=&role=landlord" class="nav-link" >Landlords</a>
+                                                    <a href="SearchUserController?keyword=&role=landlord&index=1" class="nav-link" >Landlords</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="SearchUserController?keyword=&role=tenant" class="nav-link">Tenants</a>
+                                                    <a href="SearchUserController?keyword=&role=tenant&index=1" class="nav-link">Tenants</a>
                                                 </li>
                                             </ul>
                                         </li>
                                         <li class="nav-item has-child">
-                                            <a class="nav-link" href="reported.jsp">Reported</a>
+                                            <a class="nav-link" href="ReportedController?index=1&type=all">Reported</a>
                                             <!-- 1st level -->
                                             <ul class="child">
                                                 <li class="nav-item">
-                                                    <a href="#" class="nav-link">Rooms</a>
+                                                    <a href="ReportedController?index=1&type=room" class="nav-link">Rooms</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="#" class="nav-link">Comments</a>
+                                                    <a href="ReportedController?index=1&type=comment" class="nav-link">Comments</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -133,6 +133,7 @@
             <!--*********************************************************************************************************-->
             <!--************ CONTENT ************************************************************************************-->
             <!--*********************************************************************************************************-->
+            
             <section class="content">
                 <section class="block">
                     <div class="container" >
@@ -140,24 +141,24 @@
                         <div class="items grid grid-xl-2-items grid-lg-2-items grid-md-2-items">
                             <div class="item">                       
                                 <div class="wrapper" style="text-align: center">
-                                    <a href="SearchUserController?keyword=" style="color: black; font-size-adjust: 0.5"><h1 style="margin: 20px">User</h1></a>
+                                    <a href="SearchUserController?keyword=&index=1&role=all" style="color: black; font-size-adjust: 0.5"><h1 style="margin: 20px">User</h1></a>
                                     
                                     <div class="picback" style="background-image: url(assets/images/Landlord.jpg)">
-                                        <a href="SearchUserController?keyword=&role=landlord" class="btn" style="margin: 60px; font-size-adjust: 1">Landlords</a><br>
+                                        <a href="SearchUserController?keyword=&role=landlord&index=1" class="btn" style="margin: 60px; font-size-adjust: 1">Landlords</a><br>
                                     </div>
                                     <div class="picback" style="background-image: url(assets/images/Tenant.jpg)">
-                                        <a href="SearchUserController?keyword=&role=tenant" class="btn" style="margin: 60px; font-size-adjust: 1">Tenants</a>
+                                        <a href="SearchUserController?keyword=&role=tenant&index=1" class="btn" style="margin: 60px; font-size-adjust: 1">Tenants</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="item">                           
                                 <div class="wrapper" style="text-align: center">
-                                    <a href="reported.jsp" style="color: black; font-size-adjust: 0.5"><h1 style="margin: 20px">Reported</h1></a>   
+                                    <a href="ReportedController?index=1&type=all" style="color: black; font-size-adjust: 0.5"><h1 style="margin: 20px">Reported</h1></a>   
                                     <div class="picback" style="background-image: url(assets/images/Rooms.jpg)">
-                                    <a href="blog-post.html" class="btn" style="margin: 60px; font-size-adjust: 1">Rooms</a><br>
+                                    <a href="ReportedController?index=1&type=room" class="btn" style="margin: 60px; font-size-adjust: 1">Rooms</a><br>
                                     </div>
                                     <div class="picback" style="background-image: url(assets/images/Comments.jpg)">
-                                    <a href="blog-post.html" class="btn" style="margin: 60px; font-size-adjust: 1">Comments</a>
+                                    <a href="ReportedController?index=1&type=comment" class="btn" style="margin: 60px; font-size-adjust: 1">Comments</a>
                                 </div>
 
                             </div>
@@ -204,7 +205,7 @@
                                                     <a href="admin.jsp">Home</a>
                                                 </li>
                                                 <li>
-                                                    <a href="SearchUserController?keyword=">User</a>
+                                                    <a href="SearchUserController?keyword=&index=1&role=all">User</a>
                                                 </li>
 
                                             </ul>
@@ -214,7 +215,7 @@
                                         <nav>
                                             <ul class="list-unstyled">
                                                 <li>
-                                                    <a href="reported.jsp">Reported</a>
+                                                    <a href="ReportedController?index=1&type=all">Reported</a>
                                                 </li>
                                                 <li>
                                                     <a href="#">Contact</a>

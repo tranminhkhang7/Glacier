@@ -37,10 +37,10 @@ public class RoomManager {
 //                        "FROM [Book]\n" +
 //                        "WHERE [title] LIKE '%" + searchText + "%'";
 
-            String sql = "SELECT COUNT (*)\n" +
-                        "FROM [Room] R\n" +
-                        "WHERE FREETEXT(R.[name], N'" + searchText + "') OR FREETEXT(R.[description], N'" + searchText + "') OR FREETEXT(R.[detailAddress], N'" + searchText + "') OR FREETEXT(R.[address], N'" + searchText + "')";
-            
+            String sql = "SELECT COUNT (*)\n"
+                    + "FROM [Room] R\n"
+                    + "WHERE FREETEXT(R.[name], N'" + searchText + "') OR FREETEXT(R.[description], N'" + searchText + "') OR FREETEXT(R.[detailAddress], N'" + searchText + "') OR FREETEXT(R.[address], N'" + searchText + "')";
+
 //            if (rating != null && !rating.equals("all")) {
 //                sql += " AND avgRate >= " + rating + " ";
 //            }
@@ -153,8 +153,10 @@ public class RoomManager {
                     int price = rs.getInt("price");
                     String address = rs.getString("address").trim();
                     String des = rs.getString("description").trim().substring(0, Math.min(rs.getString("description").length(), 101));
+
                     Date rentStartDate = rs.getDate("rentStartDate");
                     list.add(new Room(roomId, name, des, address, price, rentStartDate));
+
                 }
             }
         } catch (Exception e) {
@@ -283,6 +285,7 @@ public class RoomManager {
 
     public static void main(String[] args) {
         RoomManager manager = new RoomManager();
+
 //        List<Room> list = manager.getTenantRoomList("vuvannga@gmail.com", 1);
 //        for (Room room : list) {
 //            System.out.println(room);
@@ -296,6 +299,7 @@ public class RoomManager {
 //        System.out.println(room);
 //        int count = manager.countTenantRooms("vuvannga@gmail.com");
 //        System.out.println(count);
+
 //        String newS = s.trim().replaceAll(" ", "");
 //        String shortS = s.substring(0, Math.min(s.length(), 101));
 //        int i = newS.length();

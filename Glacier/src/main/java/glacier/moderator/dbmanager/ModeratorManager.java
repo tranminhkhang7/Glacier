@@ -5,7 +5,9 @@
  */
 package glacier.moderator.dbmanager;
 
-import glacier.user.model.UserSession;
+import glacier.user.model.Reported;
+import glacier.user.model.User;
+
 import glacier.utils.DBUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,26 +22,24 @@ import java.util.List;
  */
 public class ModeratorManager {
 
-    private static final String GET_TENANT = "SELECT [email], [name], [gender], [phone] FROM Tenant WHERE [email] LIKE ? OR [name] LIKE ?";
-    private static final String GET_LANDLORD = "SELECT [email], [name], [gender], [phone] FROM Landlord WHERE [email] LIKE ? OR [name] LIKE ?";
-
-    public List<UserSession> getListUser(String search) throws SQLException {
-        List<UserSession> listUser = new ArrayList<>();
+    public List<User> getListUser(String search, int index) throws SQLException {
+        List<User> listUser = new ArrayList<>();
         ModeratorManager dao = new ModeratorManager();
         try {
-            listUser = dao.getListTenant(search);
-            listUser.addAll(dao.getListLandlord(search));
+            listUser = dao.getListLandlord(search, index);
+            listUser.addAll(dao.getListTenant(search, index));
         } catch (Exception e) {
             e.printStackTrace();
         }
-       return listUser;
+        return listUser;
     }
 
-    public List<UserSession> getListTenant(String search) throws SQLException {
-        List<UserSession> listUser = new ArrayList<>();
+    public List<User> getListTenant(String search, int index) throws SQLException {
+        List<User> listUser = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
+        String GET_TENANT = "SELECT [email], [name], [gender], [phone], [status] FROM Tenant WHERE ([email] LIKE ? OR [name] LIKE ?) ORDER BY [name] OFFSET " + (index - 1) * 10 + " ROWS FETCH NEXT 10 ROWS ONLY";
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
@@ -52,7 +52,8 @@ public class ModeratorManager {
                     String name = rs.getString("name");
                     String gender = rs.getString("gender");
                     String phone = rs.getString("phone");
-                    listUser.add(new UserSession(email, name, "", "tenant", gender, phone, "", "", ""));
+                    String status = rs.getString("status");
+                    listUser.add(new User(email, name, "tenant", gender, phone, status));
                 }
             }
         } catch (Exception e) {
@@ -70,11 +71,12 @@ public class ModeratorManager {
         return listUser;
     }
 
-    public List<UserSession> getListLandlord(String search) throws SQLException {
-        List<UserSession> listUser = new ArrayList<>();
+    public List<User> getListLandlord(String search, int index) throws SQLException {
+        List<User> listUser = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
+        String GET_LANDLORD = "SELECT [email], [name], [gender], [phone], [status] FROM Landlord WHERE ([email] LIKE ? OR [name] LIKE ?) ORDER BY [name] OFFSET " + (index - 1) * 10 + " ROWS FETCH NEXT 10 ROWS ONLY";
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
@@ -87,7 +89,8 @@ public class ModeratorManager {
                     String name = rs.getString("name");
                     String gender = rs.getString("gender");
                     String phone = rs.getString("phone");
-                    listUser.add(new UserSession(email, name, "", "landlord", gender, phone, "", "", ""));
+                    String status = rs.getString("status");
+                    listUser.add(new User(email, name, "landlord", gender, phone, status));
                 }
             }
         } catch (Exception e) {
@@ -105,12 +108,181 @@ public class ModeratorManager {
         return listUser;
     }
 
-//    public static void main(String[] args) throws SQLException {
-//        ModeratorManager dao = new ModeratorManager();
-//        List<UserSession> list = dao.getListUser("a");
-//        for (UserSession user : list) {
-//            System.out.println(user);
-//        }
-//
-//    }
+    public int countMatched(String search, String role) { // search: the key words user typed; index: page number
+        try {
+
+            String sql1 = "SELECT COUNT (*) FROM [Tenant] WHERE ([name] LIKE '%" + search + "%') OR ([email] LIKE '%" + search + "%')";
+            String sql2 = "SELECT COUNT (*) FROM [Landlord] WHERE ([name] LIKE '%" + search + "%') OR ([email] LIKE '%" + search + "%') ";
+            String sql3 = "Select COUNT (*) FROM (SELECT [email], [name] FROM [Tenant] UNION SELECT [email], [name] FROM [Landlord]) as total WHERE ([email] LIKE '%" + search + "%' OR [name] LIKE '%" + search + "%')";
+            String sql = null;
+            if (role.equals("all")) {
+                sql = sql3;
+            }
+            if (role.equals("tenant")) {
+                sql = sql1;
+            }
+            if (role.equals("landlord")) {
+                sql = sql2;
+            }
+            Connection con = DBUtils.getConnection();
+
+            PreparedStatement st = con.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+
+        return 0;
+    }
+
+    public boolean banUser(String userPhone, String role) { // search: the key words user typed; index: page number
+        boolean check = false;
+        try {
+            String sql1 = "UPDATE Tenant SET status = 'disabled' WHERE phone = ? ";
+            String sql2 = "UPDATE Landlord SET status = 'disabled' WHERE phone = ? ";
+            String sql = null;
+            if (role.equals("tenant")) {
+                sql = sql1;
+            }
+            if (role.equals("landlord")) {
+                sql = sql2;
+            }
+            Connection con = DBUtils.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, userPhone);
+            int temp = st.executeUpdate();
+            if (temp == 1) {
+                check = true;
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return check;
+    }
+    
+    public List<Reported> getListRPRoom(int index) throws SQLException {
+        List<Reported> listReported = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        String GET_REPORTROOM = "SELECT [roomID], [email], [content], [time] FROM ReportRoom ORDER BY [roomID] OFFSET " + (index - 1) * 10 + " ROWS FETCH NEXT 10 ROWS ONLY";
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_REPORTROOM);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String id = rs.getString("roomID");
+                    String userEmail = rs.getString("email");
+                    String detail = rs.getString("content");
+                    String date = rs.getString("time");
+                    listReported.add(new Reported(id, userEmail, detail, date, "room"));
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return listReported;
+    }
+    
+    public List<Reported> getListRPComment(int index) throws SQLException {
+        List<Reported> listReported = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        String GET_REPORTCOMMENT = "SELECT [commentID], [email], [content], [time] FROM ReportComment ORDER BY [commentID] OFFSET " + (index - 1) * 10 + " ROWS FETCH NEXT 10 ROWS ONLY";
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_REPORTCOMMENT);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String id = rs.getString("commentID");
+                    String userEmail = rs.getString("email");
+                    String detail = rs.getString("content");
+                    String date = rs.getString("time");
+                    listReported.add(new Reported(id, userEmail, detail, date, "comment"));
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return listReported;
+    }
+    
+    public List<Reported> getListReported(int index) throws SQLException {
+        List<Reported> listReported = new ArrayList<>();
+        ModeratorManager dao = new ModeratorManager();
+        try {
+            listReported = dao.getListRPRoom(index);
+            listReported.addAll(dao.getListRPComment(index));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listReported;
+    }
+    
+    public int countMatched2(String type) { // search: the key words user typed; index: page number
+        try {
+
+            String sql1 = "SELECT COUNT (*) FROM [ReportRoom] ";
+            String sql2 = "SELECT COUNT (*) FROM [ReportComment] ";
+            String sql3 = "SELECT COUNT (*) FROM (SELECT * FROM ReportComment UNION SELECT * FROM ReportRoom) as new ";
+            String sql = null;
+            if (type.equals("all")) {
+                sql = sql3;
+            }
+            if (type.equals("room")) {
+                sql = sql1;
+            }
+            if (type.equals("comment")) {
+                sql = sql2;
+            }
+            Connection con = DBUtils.getConnection();
+
+            PreparedStatement st = con.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+
+        return 0;
+    }
+
+    public static void main(String[] args) throws SQLException {
+        ModeratorManager dao = new ModeratorManager();
+        int count = dao.countMatched2("all");
+        System.out.println(count);
+        List<Reported> list = dao.getListReported(1);
+        for (Reported user : list) {
+            System.out.println(user);
+        }
+
+    }
 }
