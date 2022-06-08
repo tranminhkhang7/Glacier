@@ -70,4 +70,8 @@ public class NotificationDAO {
         }
         return null;
     }
+    
+//    public void landlordNotify(int id, String ema) {
+//        
+//    }
 }

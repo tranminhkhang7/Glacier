@@ -45,7 +45,11 @@ public class LandlordSendNotificationController extends HttpServlet {
                 RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
                 rd.forward(request, response);
             } else {
-                
+                int id = Integer.parseInt(request.getParameter("id"));
+                String title = request.getParameter("title");
+                String content = request.getParameter("content");
+
+                String email = user.getEmail();
             }
         }
     }

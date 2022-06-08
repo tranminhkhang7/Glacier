@@ -585,15 +585,15 @@
                                 <iframe width="450"
                                         height="250"
                                         style="width: 100%; height: 100%"
-                                        frameborder="0"; style="border:0;"
-                                        referrerpolicy="no-referrer-when-downgrade;"
+                                        frameborder="0" style="border:0"
+                                        referrerpolicy="no-referrer-when-downgrade"
                                         src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCCYLuixh0QamoPxzrTZTCNGOtd0fwYQoQ&q=${room.detailAddress}" allowfullscreen>
                                 </iframe>
                             </div>
                         </section>
                         <section>
                             <h2>Write a Review</h2>
-                            <form class="form" action="WriteComment" method="">
+                            <form class="form" action="WriteComment" method="POST">
                                 <input name="roomID" value="${room.roomID}" type="hidden">
                                 <div class="row">
                                     <div class="col-md-5">
@@ -661,6 +661,37 @@
                                     </div>
                                 </c:forEach>
                             </div>
+                            <div class="page-pagination">
+                            <nav aria-label="Pagination">
+                                <ul class="pagination">
+
+                                    <!--                                    <li class="page-item active">
+                                                                            <a class="page-link" href="#">1</a>
+                                                                        </li>
+                                                                        <li class="page-item">
+                                                                            <a class="page-link" href="#">2</a>
+                                                                        </li>
+                                                                        <li class="page-item">
+                                                                            <a class="page-link" href="#">3</a>
+                                                                        </li>-->
+
+                                    <c:forEach begin="1" end="${endPage}" step="1" var="i">
+                                        <c:choose>
+                                            <c:when test="${currentPage == i}">
+                                                <li class="page-item active">
+                                                    <a class="page-link" href="?id=${room.roomID}&index=${i}">${i}</a>
+                                                </li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="?id=${room.roomID}&index=${i}">${i}</a>
+                                                </li>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                </ul>
+                            </nav>
+                        </div>
                             <!--                                <div class="comments">
                                                                 <div class="comment">
                                                                     <div class="author">
