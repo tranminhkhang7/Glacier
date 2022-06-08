@@ -247,10 +247,13 @@
                     <div class="page-title">
                         <div class="container clearfix" >
                             <div class="float-left float-xs-none" style="width: 75%">
-                                <h1>
-                                    ${room.name}
-                                    <!--                                    <span class="tag">Offer</span>-->
-                                </h1>
+                                <div>
+                                    <h1>
+                                        ${room.name}
+                                        <!--                                    <span class="tag">Offer</span>-->
+                                    </h1>
+                                </div>
+
                                 <h4 class="location">
                                     <a href="#">${room.address}</a>
                                 </h4>
@@ -265,10 +268,16 @@
                                 </c:if>
                             </div>
                             <div class="float-right float-xs-none price">
-
-
                                 <div class="number priceStyle">${room.price}<small>đ</small></div>
                                 <strong>/tháng</strong>
+                                <hr>
+                                <c:set var="email" value="dinhxuantung@gmail.com"></c:set>
+                                <c:if test="${FStatus==true}">
+                                    <a href="AddFavouriteController?id=${room.roomID}&email=${email}" class="btn btn-primary btn-framed" style="width: 100%">Add to favourite <i class="fa fa-heart-o"></i></a>
+                                    </c:if>
+                                    <c:if test="${FStatus==false}">
+                                    <a href="RemoveFavouriteController?id=${room.roomID}&email=${email}" class="btn btn-primary btn-framed" style="width: 100%">Remove from favourite <i class="fa fa-heart-o"></i></a>
+                                    </c:if>
 
                             </div>
                         </div>
@@ -323,7 +332,7 @@
                         <div class="row flex-column-reverse flex-md-row">
                             <!--============ Listing Detail =============================================================-->
                             <div class="col-md-8">
-                                <!--Description-->d:
+                                <!--Description-->
 
                                 <section>
                                     <h2>Description</h2>
@@ -574,8 +583,11 @@
                                         </div>
                                         <!--end box-->
                                     </section>
+
                                     <!--End Author-->
+
                                 </aside>
+
                             </div>
                             <!--============ End Sidebar ================================================================-->
                         </div>
@@ -661,37 +673,39 @@
                                     </div>
                                 </c:forEach>
                             </div>
+
                             <div class="page-pagination">
-                            <nav aria-label="Pagination">
-                                <ul class="pagination">
 
-                                    <!--                                    <li class="page-item active">
-                                                                            <a class="page-link" href="#">1</a>
-                                                                        </li>
-                                                                        <li class="page-item">
-                                                                            <a class="page-link" href="#">2</a>
-                                                                        </li>
-                                                                        <li class="page-item">
-                                                                            <a class="page-link" href="#">3</a>
-                                                                        </li>-->
+                                <nav aria-label="Pagination">
+                                    <ul class="pagination">
 
-                                    <c:forEach begin="1" end="${endPage}" step="1" var="i">
-                                        <c:choose>
-                                            <c:when test="${currentPage == i}">
-                                                <li class="page-item active">
-                                                    <a class="page-link" href="?id=${room.roomID}&index=${i}">${i}</a>
-                                                </li>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <li class="page-item">
-                                                    <a class="page-link" href="?id=${room.roomID}&index=${i}">${i}</a>
-                                                </li>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </c:forEach>
-                                </ul>
-                            </nav>
-                        </div>
+                                        <!--                                    <li class="page-item active">
+                                                                                <a class="page-link" href="#">1</a>
+                                                                            </li>
+                                                                            <li class="page-item">
+                                                                                <a class="page-link" href="#">2</a>
+                                                                            </li>
+                                                                            <li class="page-item">
+                                                                                <a class="page-link" href="#">3</a>
+                                                                            </li>-->
+
+                                        <c:forEach begin="1" end="${endPage}" step="1" var="i">
+                                            <c:choose>
+                                                <c:when test="${currentPage == i}">
+                                                    <li class="page-item active">
+                                                        <a class="page-link" href="?id=${room.roomID}&index=${i}">${i}</a>
+                                                    </li>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="?id=${room.roomID}&index=${i}">${i}</a>
+                                                    </li>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </ul>
+                                </nav>
+                            </div>
                             <!--                                <div class="comments">
                                                                 <div class="comment">
                                                                     <div class="author">
@@ -775,9 +789,6 @@
                                                                 end comment
                                                             </div>-->
                             <!--end comment-->
-                            <div class="center">
-                                <a href="#" class="btn btn-primary btn-rounded btn-framed">Load More</a>
-                            </div>
                         </section>
                     </div>
                     <!--end container-->
