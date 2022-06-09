@@ -155,7 +155,7 @@
                                         </div>
                                         <!--end answer-->
                                     </c:forEach>
-                                    <button type="submit" class="btn btn-primary width-100" onclick="openForm()">Bấm vô đây :v</button>
+                                    <button type="submit" class="btn btn-primary width-100" onclick="openForm()">Submit</button>
 
 
 

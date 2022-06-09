@@ -5,6 +5,7 @@
  */
 package glacier.user.controller;
 
+import glacier.notification.model.NotificationDAO;
 import glacier.user.model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -50,6 +51,19 @@ public class LandlordSendNotificationController extends HttpServlet {
                 String content = request.getParameter("content");
 
                 String email = user.getEmail();
+
+                if (title == null || content == null) { 
+                    RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
+                    rd.forward(request, response);
+                } else { 
+                    NotificationDAO mng = new NotificationDAO();
+                    mng.landlordNotify(id, email, title, content);
+
+                    request.setAttribute("notify", "notify success");
+                    RequestDispatcher rd = request.getRequestDispatcher("/roomlist/room?id=" + id);
+                    rd.forward(request, response);
+                }
+
             }
         }
     }
