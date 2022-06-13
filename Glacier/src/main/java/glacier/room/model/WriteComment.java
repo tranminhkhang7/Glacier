@@ -32,7 +32,7 @@ public class WriteComment extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private static final String ERROR = "SingleRoomView";               // change this after adding session
+    private static final String ERROR = "error.jsp";               // change this after adding session
     private static final String SUCCESS = "SingleRoomView";
     private static final Account TEST= new Account("dinhxuantung@gmail.com","12345678","tenant");           // TEST ACCOUNT
     
@@ -42,10 +42,13 @@ public class WriteComment extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try{
             HttpSession session = request.getSession(false);
-            Account a = (Account)session.getAttribute("USER_DATA");
-            a = TEST;                                                    // THIS IS FOR TESTING                           // Delete this when hook code
-            
-            if (a.getRole().equals("tenant")){
+            Account a = (Account)session.getAttribute("LOGIN_USER");
+            //a = TEST;                                                    // THIS IS FOR TESTING                           // Delete this when hook code
+            if (a==null){
+                request.setAttribute("errCode",null);
+                request.getRequestDispatcher(ERROR).forward(request, response);
+            }
+            else if (a.getRole().equals("tenant")){
                 CommentManager cm = new CommentManager();
                 int commentID = cm.getNextCommentIndex();
                 long now = System.currentTimeMillis();
@@ -57,8 +60,20 @@ public class WriteComment extends HttpServlet {
                 if(!cm.createComment(c)){
                     System.err.println("ERROR CREATE COMMENT");
                 }
-                else response.sendRedirect(SUCCESS+"?id="+roomID);
-            }           
+                else {
+                    response.sendRedirect(SUCCESS+"?id="+roomID);
+                }
+            }
+                else 
+                    if (a.getRole().trim().equals("landlord")){
+                    request.setAttribute("errCode",1);
+                    request.getRequestDispatcher(ERROR).forward(request, response);
+                    }
+                else 
+                    if (a.getRole().trim().equals("admin")){
+                    request.setAttribute("errCode",2);
+                    request.getRequestDispatcher(ERROR).forward(request, response);
+                    }
         }
         catch(Exception e){
             e.printStackTrace();
