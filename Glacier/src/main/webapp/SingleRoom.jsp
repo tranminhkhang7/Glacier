@@ -344,7 +344,7 @@
                                 <!--Description-->
 
                                 <section>
-                                    <h2>Description</h2>
+                                    <h2>Mô tả</h2>
                                     <p style="white-space: pre-line">
                                         ${room.description}
                                     </p>
@@ -352,19 +352,19 @@
                                 <!--end Description-->
                                 <!--Details-->
                                 <section>
-                                    <h2>Details</h2>
+                                    <h2>Chi tiết</h2>
                                     <dl class="columns-2">
-                                        <dt>Date Added</dt>
+                                        <dt>Ngày thêm</dt>
                                         <dd>${room.date_added}</dd>
-                                        <dt>Type</dt>
+                                        <dt>Loại</dt>
                                         <dd>Offer</dd>
-                                        <dt>Status</dt>
+                                        <dt>Trạng thái</dt>
                                         <dd>${room.status}</dd>
                                         <!--                                    <dt>First Owner</dt>
                                                                             <dd>Yes</dd>-->
-                                        <dt style="margin-right: 1rem">Detail address</dt>
+                                        <dt style="margin-right: 1rem">Địa chỉ</dt>
                                         <dd>${room.detailAddress}</dd>
-                                        <dt>Rent</dt>
+                                        <dt>Tiền thuê tháng</dt>
                                         <dd>${room.price} <small>VND</small></dd>
                                         <!--                                    <dt>Color</dt>
                                                                             <dd>White, Grey</dd>
@@ -545,7 +545,7 @@
                                 <aside class="sidebar">
                                     <!--Author-->
                                     <section>
-                                        <h2>Author</h2>
+                                        <h2>Người cho thuê</h2>
                                         <div class="box">
                                             <div class="author">
                                                 <div class="author-image">
@@ -571,28 +571,33 @@
                                                 <dd>hijane@example.com</dd>
                                             </dl>
                                             <!--end author-->
-                                            <form class="form email">
+<!--                                            <form class="form email">
                                                 <div class="form-group">
                                                     <label for="name" class="col-form-label">Name</label>
                                                     <input name="name" type="text" class="form-control" id="name" placeholder="Your Name">
                                                 </div>
-                                                <!--end form-group-->
+                                                end form-group
                                                 <div class="form-group">
                                                     <label for="email" class="col-form-label">Email</label>
                                                     <input name="email" type="email" class="form-control" id="email" placeholder="Your Email">
                                                 </div>
-                                                <!--end form-group-->
+                                                end form-group
                                                 <div class="form-group">
                                                     <label for="message" class="col-form-label">Message</label>
                                                     <textarea name="message" id="message" class="form-control" rows="4" placeholder="Hi there! I am interested in your offer ID 53951. Please give me more details."></textarea>
                                                 </div>
-                                                <!--end form-group-->
+                                                end form-group
                                                 <button type="submit" class="btn btn-primary">Send</button>
-                                            </form>
+                                            </form>-->
                                         </div>
                                         <!--end box-->
                                     </section>
-
+                                    <section>
+                                        <h2>Thanh toán</h2>
+                                        <div class="box">
+                                            
+                                        </div>
+                                    </section>
                                     <!--End Author-->
 
                                 </aside>
@@ -601,7 +606,7 @@
                             <!--============ End Sidebar ================================================================-->
                         </div>
                         <section>
-                            <h2>Location</h2>
+                            <h2>Bản đồ</h2>
                             <div class="map height-300px" id="map-small">
                                 <iframe width="450"
                                         height="250"
@@ -613,10 +618,10 @@
                             </div>
                         </section>
                         <section>
-                            <h2>Write a Review</h2>
+                            <h2>Viết đánh giá</h2>
                             <c:if test="${user==null}">
                                 <div class="box" style="width: 100%">
-                                    <a href="./login" style="width: 100%">You must login to write a comment</a>
+                                    <a href="./login" style="width: 100%">Bạn phải đăng nhập trước khi đánh giá</a>
                                 </div>                                                                 
                             </c:if>
                             <c:if test="${user!=null}">
@@ -625,22 +630,22 @@
                                 <div class="row">
                                     <div class="col-md-5">
                                         <div class="form-group">
-                                                <label for="username" class="col-form-label">My name</label>
-                                                <div class="box" style="padding: 1.75rem">${user.name}&#8203;</div> 
+                                                <label for="username" class="col-form-label">Tên người dùng</label>
+                                                <div class="box" style="padding: 1.75rem">${user.name}</div> 
                                         </div>
                                         <!--end form-group-->
                                     </div>
                                     <!--end col-md-8-->
                                     <div class="col-md-7">
                                         <div class="form-group">
-                                            <label for="rating" class="col-form-label">Rating</label>                                            
-                                            <select name="rating" id="rating" data-placeholder="Select Rating">
-                                                <option value="">Select Rating</option>
-                                                <option value="1" data-option-stars="1">Horrible</option>
-                                                <option value="2" data-option-stars="2">Average</option>
-                                                <option value="3" data-option-stars="3">Good</option>
-                                                <option value="4" data-option-stars="4">Very Good</option>
-                                                <option value="5" data-option-stars="5">Excellent</option>
+                                            <label for="rating" class="col-form-label">Chất lượng</label>                                            
+                                            <select required="" name="rating" id="rating" data-placeholder="Select Rating">
+                                                <option value="">Lựa chọn của bạn</option>
+                                                <option value="1" data-option-stars="1">Kinh khủng</option>
+                                                <option value="2" data-option-stars="2">Trung bình</option>
+                                                <option value="3" data-option-stars="3">Ổn</option>
+                                                <option value="4" data-option-stars="4">Rất tốt</option>
+                                                <option value="5" data-option-stars="5">Tuyệt vời</option>
                                             </select>
                                         </div>
                                         <!--end form-group-->
@@ -648,8 +653,8 @@
                                     <!--end col-md-4-->
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="review" class="col-form-label">Your Review</label>
-                                            <textarea name="review" id="review" class="form-control" rows="4" placeholder="Good seller, I am satisfied." required></textarea>
+                                            <label for="review" class="col-form-label">Đánh giá chi tiết cua bạn</label>
+                                            <textarea name="review" id="review" class="form-control" rows="4" placeholder="Căn phòng tuyệt nhất tôi từng ở"></textarea>
                                         </div>
                                         <!--end form-group-->
                                     </div>
@@ -690,7 +695,6 @@
                             </div>
 
                             <div class="page-pagination">
-
                                 <nav aria-label="Pagination">
                                     <ul class="pagination">
 
