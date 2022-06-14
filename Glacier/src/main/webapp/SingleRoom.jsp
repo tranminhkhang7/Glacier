@@ -249,11 +249,11 @@
                             <div class="float-left float-xs-none" style="width: 75%">
                                 <div>
                                     <h1>
-                                    ${room.name}
-                                    <!--                                    <span class="tag">Offer</span>-->
+                                        ${room.name}
+                                        <!--                                    <span class="tag">Offer</span>-->
                                     </h1>
                                 </div>
-                                
+
                                 <h4 class="location">
                                     <a href="#">${room.address}</a>
                                 </h4>
@@ -274,11 +274,11 @@
                                 <c:set var="email" value="dinhxuantung@gmail.com"></c:set>
                                 <c:if test="${FStatus==true}">
                                     <a href="AddFavouriteController?id=${room.roomID}&email=${email}" class="btn btn-primary btn-framed" style="width: 100%">Add to favourite <i class="fa fa-heart-o"></i></a>
-                                </c:if>
-                                <c:if test="${FStatus==false}">
+                                    </c:if>
+                                    <c:if test="${FStatus==false}">
                                     <a href="RemoveFavouriteController?id=${room.roomID}&email=${email}" class="btn btn-primary btn-framed" style="width: 100%">Remove from favourite <i class="fa fa-heart-o"></i></a>
-                                </c:if>
-                                
+                                    </c:if>
+
                             </div>
                         </div>
                         <!--end container-->
@@ -583,11 +583,11 @@
                                         </div>
                                         <!--end box-->
                                     </section>
-                                    
+
                                     <!--End Author-->
-                                    
+
                                 </aside>
-                                
+
                             </div>
                             <!--============ End Sidebar ================================================================-->
                         </div>
@@ -661,15 +661,38 @@
                                             <div class="author-description">
                                                 <h3>${review.name}</h3>
                                                 <div style="display: inline-block; margin-right: 808px" class="meta">
-                                                    <span class="rating" data-rating="${review.rating}">
+                                                    <span class="rating" data-rating="${review.rating}"/>
                                                     <span>${review.time}</span>
                                                 </div>
-                                                <form style="display: inline-block" method="POST" action="reportcomment">
-                                                    <input type="hidden" value="${room.roomID}" name="roomID" />
-                                                    <input type="hidden" value="${review.email}" name="email" />
-                                                    <input type="hidden" value="${review.content}" name="content" />
-                                                    <input type="submit" name="report" value="Report"> 
-                                                </form>
+
+                                                <div class="popup" id="reportCommentForm">
+                                                    <h2>Báo cáo cho quản trị viên</h2>
+                                                    <form class="form form-submit" action="./reportcomment">
+                                                        <input type="hidden" value="${review.id}" name="commentId" />
+                                                        <input type="hidden" value="${room.roomID}" name="roomID" />
+                                                        <input type="hidden" value="${review.email}" name="email" />
+<!--                                                        <input type="hidden" value="${review.content}" name="content" />-->
+                                                        <!--                <div class="form-group">
+                                                                            <label for="title" class="col-form-label required">Tiêu đề</label>
+                                                                            <input name="title" type="text" class="form-control" id="title" placeholder="Mô tả ngắn gọn vấn đề của bạn" autocomplete="off" required>
+                                                                        </div>-->
+                                                        <div class="form-group">
+                                                            <label for="title" class="col-form-label required">Nội dung báo cáo</label>
+                                                            <input name="content" type="text" class="form-control" id="title" placeholder="Nội dung báo cáo chi tiết cho quản trị viên" autocomplete="off" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <button type="submit" class="btn btn-primary large icon float-left" style="font-size: 16px; margin: 10px 20px 0px 0px;">Gửi</button>
+                                                        </div>
+                                                    </form>
+
+                                                    <button class="btn btn-secondary large icon float-left" style="font-size: 16px; margin: 10px 20px 0px 0px;" onclick="closeCommentForm()">Hủy</button>
+                                                </div>
+                                                <c:if test="${not empty acc}" >                                                      
+                                                    <a style="cursor:pointer" onclick="openCommentForm()">
+                                                        <span data-toggle="tooltip" data-placement="bottom" title="Reporting this comment"><i class="fa fa-2x fa-warning"></i></span>
+                                                    </a>
+                                                </c:if>
                                                 <!--                                                end meta-->
                                                 <p>
                                                     ${review.content}
@@ -679,37 +702,37 @@
                                     </div>
                                 </c:forEach>
                             </div>
-                                                        <div class="page-pagination">
-                            <nav aria-label="Pagination">
-                                <ul class="pagination">
+                            <div class="page-pagination">
+                                <nav aria-label="Pagination">
+                                    <ul class="pagination">
 
-                                    <!--                                    <li class="page-item active">
-                                                                            <a class="page-link" href="#">1</a>
-                                                                        </li>
-                                                                        <li class="page-item">
-                                                                            <a class="page-link" href="#">2</a>
-                                                                        </li>
-                                                                        <li class="page-item">
-                                                                            <a class="page-link" href="#">3</a>
-                                                                        </li>-->
+                                        <!--                                    <li class="page-item active">
+                                                                                <a class="page-link" href="#">1</a>
+                                                                            </li>
+                                                                            <li class="page-item">
+                                                                                <a class="page-link" href="#">2</a>
+                                                                            </li>
+                                                                            <li class="page-item">
+                                                                                <a class="page-link" href="#">3</a>
+                                                                            </li>-->
 
-                                    <c:forEach begin="1" end="${endPage}" step="1" var="i">
-                                        <c:choose>
-                                            <c:when test="${currentPage == i}">
-                                                <li class="page-item active">
-                                                    <a class="page-link" href="?id=${room.roomID}&index=${i}">${i}</a>
-                                                </li>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <li class="page-item">
-                                                    <a class="page-link" href="?id=${room.roomID}&index=${i}">${i}</a>
-                                                </li>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </c:forEach>
-                                </ul>
-                            </nav>
-                        </div>
+                                        <c:forEach begin="1" end="${endPage}" step="1" var="i">
+                                            <c:choose>
+                                                <c:when test="${currentPage == i}">
+                                                    <li class="page-item active">
+                                                        <a class="page-link" href="?id=${room.roomID}&index=${i}">${i}</a>
+                                                    </li>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="?id=${room.roomID}&index=${i}">${i}</a>
+                                                    </li>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </ul>
+                                </nav>
+                            </div>
                             <!--                                <div class="comments">
                                                                 <div class="comment">
                                                                     <div class="author">
@@ -819,22 +842,22 @@
         <script src="assets/js/jquery.validate.min.js"></script>
         <script src="assets/js/custom.js"></script>
         <script>
-                                            for (let i = 0; i < document.getElementsByClassName("priceStyle").length; i++) {
-                                                let priceText = document.getElementsByClassName("priceStyle")[i].textContent.trim();
-                                                let textReverse = priceText.split("").reverse().join("").trim();
-                                                var j = 1;
-                                                var count = 0;
-                                                while (j < textReverse.length) {
-                                                    count++;
-                                                    if (count > 3) {
-                                                        textReverse = textReverse.slice(0, j) + "." + textReverse.slice(j);
-                                                        count = 0;
-                                                    }
-                                                    j++;
-                                                }
-                                                let finalPrice = textReverse.split("").reverse().join("");
-                                                document.getElementsByClassName("priceStyle")[i].innerHTML = finalPrice;
-                                            }
+                                                        for (let i = 0; i < document.getElementsByClassName("priceStyle").length; i++) {
+                                                            let priceText = document.getElementsByClassName("priceStyle")[i].textContent.trim();
+                                                            let textReverse = priceText.split("").reverse().join("").trim();
+                                                            var j = 1;
+                                                            var count = 0;
+                                                            while (j < textReverse.length) {
+                                                                count++;
+                                                                if (count > 3) {
+                                                                    textReverse = textReverse.slice(0, j) + "." + textReverse.slice(j);
+                                                                    count = 0;
+                                                                }
+                                                                j++;
+                                                            }
+                                                            let finalPrice = textReverse.split("").reverse().join("");
+                                                            document.getElementsByClassName("priceStyle")[i].innerHTML = finalPrice;
+                                                        }
         </script>
 
         <script>
@@ -845,6 +868,14 @@
             function closeForm() {
                 document.getElementsByClassName("page")[0].style.filter = "none";
                 document.getElementById("reportForm").style.display = "none";
+            }
+            function openCommentForm() {
+//                document.getElementsByClassName("page")[0].style.filter = "blur(8px)";
+                document.getElementById("reportCommentForm").style.display = "block";
+            }
+            function closeCommentForm() {
+//                document.getElementsByClassName("page")[0].style.filter = "none";
+                document.getElementById("reportCommentForm").style.display = "none";
             }
             function closeNotify() {
                 document.getElementById("notifyBox").style.display = "none";

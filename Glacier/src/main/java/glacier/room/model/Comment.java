@@ -45,8 +45,9 @@ public class Comment {
         this.date = date;
     }
     
-    //Constructor for insert report comment, don't need id
-    public Comment(String content, String email, Timestamp date) {
+    //Constructor for insert report comment
+    public Comment(int id, String content, String email, Timestamp date) {
+        this.id = id;
         this.content = content;
         this.email = email;
         this.date = date;

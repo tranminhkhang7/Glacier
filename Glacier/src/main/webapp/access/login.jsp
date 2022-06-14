@@ -215,12 +215,12 @@
                                 <form class="form clearfix" action="${pageContext.request.contextPath}/login" method="post">
                                     <div class="form-group">
                                         <label for="email" class="col-form-label required">Email</label>
-                                        <input name="email" type="email" class="form-control" id="email" placeholder="Your Email" value="${username}" required style="width: 95%">
+                                        <input name="email" type="email" class="form-control" id="email" placeholder="Your Email" value="${username}" required style="width: 100%">
                                     </div>
                                     <!--end form-group-->
                                     <div class="form-group">
                                         <label for="password" class="col-form-label required" style="display: block">Mật khẩu</label>
-                                        <input name="password" type="password" class="form-control" id="password" placeholder="Password" value="${password}" required style="display: inline-block; width: 95%"><i class="fa fa-eye" id="visibilityBtn" style="margin-left: -30px; position: relative; cursor: pointer" onclick="myFunction()"></i>
+                                        <input name="password" type="password" class="form-control" id="password" placeholder="Password" value="${password}" required style="display: inline-block; width: 100%"><i class="fa fa-eye" id="visibilityBtn" style="margin-left: -30px; position: relative; cursor: pointer" onclick="myFunction()"></i>
                                     </div> 
                                     <!--end form-group-->
                                     <div class="d-flex justify-content-between align-items-baseline">

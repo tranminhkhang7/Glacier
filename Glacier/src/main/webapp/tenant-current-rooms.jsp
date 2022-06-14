@@ -523,8 +523,8 @@
                                     <div class="wrapper">
                                         <div class="image">
                                             <h3>
-                                                <a href="#" class="tag category">Education</a>
-                                                <a href="single-listing-1.html" class="title">${room.name}</a>
+                                                
+                                                <a href="your-rooms?id=${room.roomID}" class="title">${room.name}</a>
                                                 
                                             </h3>
                                             <a href="single-listing-1.html" class="image-wrapper background-image">
@@ -533,23 +533,12 @@
                                         </div>
                                         <!--end image-->
                                         <h4 class="location">
-                                            <a href="#">${room.address}</a>
+                                            <a href="#" style="cursor: default">${room.address}</a>
                                         </h4>
                                         <div class="price">                                    
                                             <fmt:formatNumber type = "number" pattern="#,###.##" maxFractionDigits = "3" value = "${room.price}" var="pat" />
                                             ${fn:replace(pat, ",", ".")} 
                                             <small>VNĐ</small></div>
-                                        <div class="admin-controls">
-                                            <a href="edit-ad.html">
-                                                <i class="fa fa-pencil"></i>Edit
-                                            </a>
-                                            <a href="#" class="ad-hide">
-                                                <i class="fa fa-eye-slash"></i>Hide
-                                            </a>
-                                            <a href="#" class="ad-remove">
-                                                <i class="fa fa-trash"></i>Remove
-                                            </a>
-                                        </div>
                                         <!--end admin-controls-->
                                         <div class="description">
                                             <p>${room.description}...</p>
@@ -562,18 +551,10 @@
                                                     <figure>Start Date</figure>
                                                     <aside>${room.rentStartDate}</aside>
                                                 </li>
-                                                <li>
-                                                    <figure>Length</figure>
-                                                    <aside>2 months</aside>
-                                                </li>
-                                                <li>
-                                                    <figure>Bedrooms</figure>
-                                                    <aside>3</aside>
-                                                </li>
                                             </ul>
                                         </div>
                                         <!--end addition-info-->
-                                        <a href="your-rooms?id=${room.roomID}" class="detail text-caps underline">Detail</a>
+                                        <a href="your-rooms?id=${room.roomID}" class="detail text-caps underline large" style="font-size: 20px">Detail</a>
                                     </div>
                                 </div>
                                 <!--end item-->

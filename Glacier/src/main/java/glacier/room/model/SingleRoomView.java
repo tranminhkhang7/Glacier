@@ -44,7 +44,7 @@ public class SingleRoomView extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");   
         String url = ERROR;
-        try {
+        try {   
             HttpSession session = request.getSession();
             Account acc = (Account) session.getAttribute("acc");
             acc = TESTACC;                                                              // this set default access delete this when merging

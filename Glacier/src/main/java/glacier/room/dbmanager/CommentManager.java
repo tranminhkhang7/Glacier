@@ -156,14 +156,12 @@ public class CommentManager {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                PreparedStatement getID = conn.prepareStatement("SELECT MAX([commentID]) as lastID FROM [ReportComment]");
-                ResultSet rs = getID.executeQuery();
-                rs.next();
-                int newID = Integer.parseInt(rs.getString("lastID")) + 1;
+                
+                
                 String sql = " INSERT INTO ReportComment(commentID,email,content,time) "
                         + " VALUES(?,?,?,?) ";
                 st = conn.prepareStatement(sql);
-                st.setInt(1, newID);
+                st.setInt(1, c.getId());
                 st.setString(2, c.getEmail());
                 st.setString(3, c.getContent());
                 st.setTimestamp(4, c.getDate());
@@ -177,7 +175,7 @@ public class CommentManager {
     
     public static void main(String[] args) {
         CommentManager manager = new CommentManager();
-        boolean check = manager.reportComment(new Comment("huhu", "vuvannga@gmail.com", new Timestamp(System.currentTimeMillis())));
+        boolean check = manager.reportComment(new Comment(2,"huhu", "vuvannga@gmail.com", new Timestamp(System.currentTimeMillis())));
         System.out.println(check);
     }
 }
