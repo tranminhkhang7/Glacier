@@ -216,8 +216,13 @@
                                         <div id="Gender"></div>
                                         <span style="padding-right: 20px;">Male</span><input name="gender" value="male" type="radio" class="form-control" id="Male" checked>
                                         <span style="padding-right: 20px;">Female</span><input name="gender" value="female" type="radio" class="form-control" id="Female">
+            
                                     </div>
+<<<<<<< HEAD
                                     <button type="submit" class="btn btn-primary float-right">Đăng ký</button>
+=======
+                                     <button type="submit" class="btn btn-primary">Đăng ký</button>
+>>>>>>> 4e21dbdf36150cfc837cc9307c5318c320f7789e
                                     <!--end form-group-->
                                 </form>
                                 <hr>

@@ -36,7 +36,7 @@ public class AddFavouriteController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     
-    private static final String ERROR = "SingleRoomView";               // change this after adding session
+    private static final String ERROR = "error.jsp";               // change this after adding session
     private static final String SUCCESS = "SingleRoomView";
     private static final int TEST = 10;
     private static final Account TESTACC = new Account("dinhxuantung@gmail.com","", "tenant");  // THIS DEFAULT ACCOUNT EMAIL NEED TO BE SYNC WITH DEFAULT EMAIL IN SINGLEROOM.JSP
@@ -46,12 +46,16 @@ public class AddFavouriteController extends HttpServlet {
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        Account acc = (Account) session.getAttribute("acc");
-        acc = TESTACC;
-        int roomID =  Integer.parseInt(request.getParameter("id"));
+        Account acc = (Account) session.getAttribute("LOGIN_USER");
+//        acc = TESTACC;
         try{
-                if (acc.getRole().trim().equals("tenant")){
-                    String email = request.getParameter("email");
+            if (acc==null){
+            request.setAttribute("errCode",null);
+            request.getRequestDispatcher(ERROR).forward(request, response);
+            }
+            else if (acc.getRole().trim().equals("tenant")){
+                    String email = (String) request.getParameter("email");
+                    int roomID =  Integer.parseInt(request.getParameter("id"));
                     long now = System.currentTimeMillis();
                     Timestamp date = new Timestamp(now);
                     FavouriteRoom fr = new FavouriteRoom(email, roomID, date);
@@ -59,10 +63,20 @@ public class AddFavouriteController extends HttpServlet {
                     FM.addToFavourite(fr);
                     response.sendRedirect(SUCCESS+"?id="+roomID);
                 }
+                else 
+                    if (acc.getRole().trim().equals("landlord")){
+                    request.setAttribute("errCode",1);
+                    request.getRequestDispatcher(ERROR).forward(request, response);
+                    }
+                else 
+                    if (acc.getRole().trim().equals("admin")){
+                    request.setAttribute("errCode",2);
+                    request.getRequestDispatcher(ERROR).forward(request, response);
+                    }
         }
         catch(Exception e){
             e.printStackTrace();
-            response.sendRedirect(SUCCESS+"?id="+roomID);
+            response.sendRedirect(ERROR);
         }                                                                                  // DELETE THIS AFTER ADDING SESSION - CREATE DEFAULT ACCOUNT IN SESSION
     }
 

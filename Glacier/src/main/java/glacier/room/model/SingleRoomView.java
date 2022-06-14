@@ -33,17 +33,16 @@ public class SingleRoomView extends HttpServlet {
      */
     
     
-    private static final String ERROR = "SingleRoom.jsp";               // change this after adding session
+    private static final String ERROR = "error.jsp";               // change this after adding session
     private static final String SUCCESS = "SingleRoom.jsp";
     private static final int TEST = 10;
-    private static final Account TESTACC = new Account("dinhxuantung@gmail.com","", "tenant");
-    
-    
-    
+    private static final Account TESTACC = new Account("dinhxuantung@gmail.com","","tenant");
+    private static final Account GUEST=new Account("","","tenant");
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");   
         String url = ERROR;
+<<<<<<< HEAD
         try {   
             HttpSession session = request.getSession();
             Account acc = (Account) session.getAttribute("acc");
@@ -53,6 +52,14 @@ public class SingleRoomView extends HttpServlet {
 //                request.setAttribute("ERROR", "WRONG PRIVILLAGE");
 //            }
 //            if (acc.getRole().equals("tenant")) {
+=======
+        try {
+            HttpSession session = request.getSession(false);
+        Account acc = (Account) session.getAttribute("LOGIN_USER");
+//            acc = TESTACC;                                                            // this set default access delete this when merging
+            if (acc==null) acc=GUEST;
+            if ((acc.getRole().equals("tenant"))) {
+>>>>>>> 4e21dbdf36150cfc837cc9307c5318c320f7789e
                     String indexPage = request.getParameter("index");
                     if (indexPage == null){
                         indexPage="1";
@@ -85,7 +92,16 @@ public class SingleRoomView extends HttpServlet {
                     request.setAttribute("Reviews", Reviews);
                     request.setAttribute("endPage",endPage);
                     request.setAttribute("currentPage",currentPage);
-//            }
+            }
+            else if ((acc.getRole().trim().equals("landlord"))){                                    // set privillage only tenant can see other room details 
+                url = ERROR;
+                request.setAttribute("errCode",1);
+                request.setAttribute("ERROR", "WRONG PRIVILLAGE");
+            } else if ((acc.getRole().trim().equals("admin"))){
+                url = ERROR;
+                request.setAttribute("errCode",2);
+                request.setAttribute("ERROR", "WRONG PRIVILLAGE");
+            }
         }
         catch (Exception e){
             e.printStackTrace();

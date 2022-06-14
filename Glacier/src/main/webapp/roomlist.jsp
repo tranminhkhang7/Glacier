@@ -264,7 +264,7 @@
                                         </div>
                                         <!--end addition-info-->
                                         <c:if test="${room.status.trim() eq 'unavailable'}">
-                                            <a href="single-listing-1.html" class="detail text-caps underline">Quản lý</a>
+                                            <a href="${pageContext.request.contextPath}/roomlist/room?id=${room.roomID}" class="detail text-caps underline">Quản lý</a>
                                         </c:if>
                                         <c:if test="${room.status.trim() eq 'available'}">
                                             <a href="${pageContext.request.contextPath}/editroom?id=${room.roomID}" class="detail text-caps underline">Chỉnh sửa</a>

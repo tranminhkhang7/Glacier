@@ -23,91 +23,16 @@
         <title>Craigs - Easy Buy & Sell Listing HTML Template</title>
 
     </head>
-    <body>
+    <body style="font-family: 'Varela Round', sans-serif;">
         <div class="page sub-page">
             <!--*********************************************************************************************************-->
             <!--************ HERO ***************************************************************************************-->
             <!--*********************************************************************************************************-->
             <header class="hero">
                 <div class="hero-wrapper">
-                    <!--============ Secondary Navigation ===============================================================-->
-                    <div class="secondary-navigation">
-                        <div class="container">
-                            <ul class="left">
-                                <li>
-                                    <span>
-                                        <i class="fa fa-phone"></i> +1 123 456 789
-                                    </span>
-                                </li>
-                            </ul>
-                            <!--end left-->
-                            <ul class="right">
-                                <li>
-                                    <a href="sign-in.html">
-                                        <i class="fa fa-sign-out"></i>Sign Out
-                                    </a>
-                                </li>
-                            </ul>
-                            <!--end right-->
-                        </div>
-                        <!--end container-->
-                    </div>
-                    <!--============ End Secondary Navigation ===========================================================-->
-                    <!--============ Main Navigation ====================================================================-->
-                    <div class="main-navigation">
-                        <div class="container">
-                            <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
-                                <a class="navbar-brand" href="index.html">
-
-                                </a>
-                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-                                    <span class="navbar-toggler-icon"></span>
-                                </button>
-                                <div class="collapse navbar-collapse" id="navbar">
-                                    <!--Main navigation list-->
-                                    <ul class="navbar-nav">
-                                        <li class="nav-item active has-child">
-                                            <a class="nav-link" href="SearchUserController?keyword=a&index=1&role=all">User</a>
-                                            <ul class="child">
-                                                <li class="nav-item">
-                                                    <a href="SearchUserController?keyword=&role=landlord&index=1" class="nav-link">Landlords</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="SearchUserController?keyword=&role=tenant&index=1" class="nav-link">Tenants</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="nav-item has-child">
-                                            <a class="nav-link" href="ReportedController?index=1&type=all">Reported</a>
-                                            <!-- 1st level -->
-                                            <ul class="child">
-                                                <li class="nav-item">
-                                                    <a href="ReportedController?index=1&type=room" class="nav-link">Rooms</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="ReportedController?index=1&type=comment" class="nav-link">Comments</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="contact.html">Contact</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="admin.jsp" class="btn btn-primary text-caps btn-rounded btn-framed">Home</a>
-                                        </li>
-                                    </ul>
-                                    <!--Main navigation list-->
-                                </div>
-                                <!--end navbar-collapse-->
-                                <!--end main-search-form-toggle-->
-                            </nav>
-                            <!--end navbar-->
-
-                            <!--end breadcrumb-->
-                        </div>
-                        <!--end container-->
-                    </div>
-                    <!--============ End Main Navigation ================================================================-->
+                    
+                    <jsp:include page="header/navigation-admin.jsp" />
+                    
                     <!--============ Page Title =========================================================================-->
                     <div class="page-title">
                         <div class="container">

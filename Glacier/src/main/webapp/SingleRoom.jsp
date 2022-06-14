@@ -260,17 +260,18 @@
                                 <c:if test="${not empty acc}" >
                                     <h1>
                                         <br>
-                                        <span data-toggle="tooltip" data-placement="bottom" title="Save this room"><i class="fa fa-bookmark"></i></span>&nbsp;&nbsp;
+<!--                                        <span data-toggle="tooltip" data-placement="bottom" title="Save this room"><i class="fa fa-bookmark"></i></span>&nbsp;&nbsp;-->
                                         <a onclick="openForm()">
                                             <span data-toggle="tooltip" data-placement="bottom" title="Reporting this room"><i class="fa fa-warning"></i></span>
                                         </a>
                                     </h1>
                                 </c:if>
                             </div>
-                            <div class="float-right float-xs-none price">
+                                <div class="float-right float-xs-none price" style="width: 25%">
                                 <div class="number priceStyle">${room.price}<small>đ</small></div>
                                 <strong>/tháng</strong>
                                 <hr>
+<<<<<<< HEAD
                                 <c:set var="email" value="dinhxuantung@gmail.com"></c:set>
                                 <c:if test="${FStatus==true}">
                                     <a href="AddFavouriteController?id=${room.roomID}&email=${email}" class="btn btn-primary btn-framed" style="width: 100%">Add to favourite <i class="fa fa-heart-o"></i></a>
@@ -279,6 +280,25 @@
                                     <a href="RemoveFavouriteController?id=${room.roomID}&email=${email}" class="btn btn-primary btn-framed" style="width: 100%">Remove from favourite <i class="fa fa-heart-o"></i></a>
                                     </c:if>
 
+=======
+                                <c:if test="${not empty acc}">
+                                   
+                                    <c:if test="${FStatus==true}">
+                                        <form action="AddFavouriteController">    
+                                            <input name="id" value="${room.roomID}" type="hidden">
+                                            <input name="email" value="${acc.email}" type="hidden">
+                                            <button class="btn btn-primary btn-framed" style="width: 100%" type="submit">Add to favourite <i class="fa fa-heart-o"></i></button>
+                                        </form>
+                                    </c:if>               
+                                    <c:if test="${FStatus==false}">
+                                        <form action="RemoveFavouriteController">    
+                                            <input name="id" value="${room.roomID}" type="hidden">
+                                            <input name="email" value="${acc.email}" type="hidden">
+                                            <button class="btn btn-primary btn-framed" style="width: 100%" type="submit">Remove from favourite <i class="fa fa-heart-o"></i></button>
+                                        </form>
+                                    </c:if>
+                                </c:if>
+>>>>>>> 4e21dbdf36150cfc837cc9307c5318c320f7789e
                             </div>
                         </div>
                         <!--end container-->
@@ -597,22 +617,27 @@
                                 <iframe width="450"
                                         height="250"
                                         style="width: 100%; height: 100%"
-                                        frameborder="0"; style="border:0;"
-                                        referrerpolicy="no-referrer-when-downgrade;"
+                                        frameborder="0" style="border:0"
+                                        referrerpolicy="no-referrer-when-downgrade"
                                         src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCCYLuixh0QamoPxzrTZTCNGOtd0fwYQoQ&q=${room.detailAddress}" allowfullscreen>
                                 </iframe>
                             </div>
                         </section>
                         <section>
                             <h2>Write a Review</h2>
-                            <form class="form" action="WriteComment" method="">
+                            <c:if test="${user==null}">
+                                <div class="box" style="width: 100%">
+                                    <a href="./login" style="width: 100%">You must login to write a comment</a>
+                                </div>                                                                 
+                            </c:if>
+                            <c:if test="${user!=null}">
+                            <form class="form" action="WriteComment">
                                 <input name="roomID" value="${room.roomID}" type="hidden">
                                 <div class="row">
                                     <div class="col-md-5">
                                         <div class="form-group">
-                                            <c:set var="name" value="Tran Quang Khai"></c:set>                           <!-- set value to test only -->
                                                 <label for="username" class="col-form-label">My name</label>
-                                                <div class="box" >${name}</div> 
+                                                <div class="box" style="padding: 1.75rem">${user.name}&#8203;</div> 
                                         </div>
                                         <!--end form-group-->
                                     </div>
@@ -635,15 +660,16 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="review" class="col-form-label">Your Review</label>
-                                            <textarea name="review" id="review" class="form-control" rows="4" placeholder="Good seller, I am satisfied."></textarea>
+                                            <textarea name="review" id="review" class="form-control" rows="4" placeholder="Good seller, I am satisfied." required></textarea>
                                         </div>
                                         <!--end form-group-->
                                     </div>
                                     <!--end col-md-12-->
                                 </div>
-                                <button type="submit" class="btn btn-primary icon float-right width-100">Submit<i class="fa fa-chevron-right"></i></button>
+                                <button type="submit" class="btn btn-primary icon float-right width-20">Submit<i class="fa fa-chevron-right"></i></button>
                                 <!--end row-->
-                            </form>
+                            </form>                               
+                            </c:if>
                             <!--end form-->
                         </section>
                         <hr style="margin-top: 10rem">
@@ -702,6 +728,7 @@
                                     </div>
                                 </c:forEach>
                             </div>
+<<<<<<< HEAD
                             <div class="page-pagination">
                                 <nav aria-label="Pagination">
                                     <ul class="pagination">
@@ -716,6 +743,24 @@
                                                                                 <a class="page-link" href="#">3</a>
                                                                             </li>-->
 
+=======
+
+                            <div class="page-pagination">
+
+                                <nav aria-label="Pagination">
+                                    <ul class="pagination">
+
+                                        <!--                                    <li class="page-item active">
+                                                                                <a class="page-link" href="#">1</a>
+                                                                            </li>
+                                                                            <li class="page-item">
+                                                                                <a class="page-link" href="#">2</a>
+                                                                            </li>
+                                                                            <li class="page-item">
+                                                                                <a class="page-link" href="#">3</a>
+                                                                            </li>-->
+
+>>>>>>> 4e21dbdf36150cfc837cc9307c5318c320f7789e
                                         <c:forEach begin="1" end="${endPage}" step="1" var="i">
                                             <c:choose>
                                                 <c:when test="${currentPage == i}">

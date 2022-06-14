@@ -49,7 +49,7 @@ public class LandlordAddRoom extends HttpServlet {
                     String district = request.getParameter("district");
                     String address = district + ", " + city;
                     String detailAddress = request.getParameter("location");
-                    String status = "active";
+                    String status = "available";
                     int price = Integer.parseInt(request.getParameter("price"));
                     int deposit = Integer.parseInt(request.getParameter("deposit"));
                     float avgRating = 0;
