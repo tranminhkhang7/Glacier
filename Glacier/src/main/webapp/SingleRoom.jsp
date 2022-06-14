@@ -272,7 +272,6 @@
                                 <strong>/tháng</strong>
                                 <hr>
                                 <c:if test="${not empty acc}">
-                                   
                                     <c:if test="${FStatus==true}">
                                         <form action="AddFavouriteController">    
                                             <input name="id" value="${room.roomID}" type="hidden">
@@ -345,7 +344,7 @@
 
                                 <section>
                                     <h2>Mô tả</h2>
-                                    <p style="white-space: pre-line">
+                                    <p style="">
                                         ${room.description}
                                     </p>
                                 </section>
@@ -365,7 +364,7 @@
                                         <dt style="margin-right: 1rem">Địa chỉ</dt>
                                         <dd>${room.detailAddress}</dd>
                                         <dt>Tiền thuê tháng</dt>
-                                        <dd>${room.price} <small>VND</small></dd>
+                                        <dd>${room.price}<small>VND</small></dd>
                                         <!--                                    <dt>Color</dt>
                                                                             <dd>White, Grey</dd>
                                                                             <dt>Height</dt>
@@ -395,7 +394,6 @@
                                                             </section>-->
                                 <!--end Features-->
 
-                                <hr>
 
                                 <!--Similar Ads-->
                                 <!--                            <section>
@@ -593,9 +591,9 @@
                                         <!--end box-->
                                     </section>
                                     <section>
-                                        <h2>Thanh toán</h2>
+                                        <h2>Đặt phòng</h2>
                                         <div class="box">
-                                            
+                                            <a class="btn btn-framed btn-primary" href="Deposit.jsp">Tiến hành đặt cọc</a>
                                         </div>
                                     </section>
                                     <!--End Author-->
@@ -605,6 +603,7 @@
                             </div>
                             <!--============ End Sidebar ================================================================-->
                         </div>
+                        <hr>
                         <section>
                             <h2>Bản đồ</h2>
                             <div class="map height-300px" id="map-small">
