@@ -2,13 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package glacier.room.model;
+package glacier.room.controller;
 
-import glacier.room.dbmanager.CommentManager;
+import glacier.room.dbmanager.FavouriteManager;
+import glacier.room.model.FavouriteRoom;
 import glacier.user.model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,8 +23,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Admin
  */
-@WebServlet(name = "WriteComment", urlPatterns = {"/WriteComment"})
-public class WriteComment extends HttpServlet {
+@WebServlet(name = "AddFavouriteController", urlPatterns = {"/AddFavouriteController"})
+public class AddFavouriteController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,52 +35,49 @@ public class WriteComment extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private static final String ERROR = "error.jsp";               
-    private static final String SUCCESS = "SingleRoomView";
-    private static final Account TEST= new Account("dinhxuantung@gmail.com","12345678","tenant");           // TEST ACCOUNT
     
+    private static final String ERROR = "error.jsp";               // change this after adding session
+    private static final String SUCCESS = "SingleRoomView";
+    private static final int TEST = 10;
+    private static final Account TESTACC = new Account("dinhxuantung@gmail.com","", "tenant");  // THIS DEFAULT ACCOUNT EMAIL NEED TO BE SYNC WITH DEFAULT EMAIL IN SINGLEROOM.JSP
+        
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        Account acc = (Account) session.getAttribute("LOGIN_USER");
+//        acc = TESTACC;
         try{
-            HttpSession session = request.getSession(false);
-            Account a = (Account)session.getAttribute("LOGIN_USER");
-            //a = TEST;                                                    // THIS IS FOR TESTING                           // Delete this when hook code
-            if (a==null){
-                request.setAttribute("errCode",null);
-                request.getRequestDispatcher(ERROR).forward(request, response);
+            if (acc==null){
+            request.setAttribute("errCode",null);
+            request.getRequestDispatcher(ERROR).forward(request, response);
             }
-            else if (a.getRole().equals("tenant")){
-                CommentManager cm = new CommentManager();
-                int commentID = cm.getNextCommentIndex();
-                long now = System.currentTimeMillis();
-                Timestamp date = new Timestamp(now);
-                int roomID = Integer.parseInt(request.getParameter("roomID"));
-                int rating = Integer.parseInt(request.getParameter("rating"));
-                String content = request.getParameter("review");
-                Comment c = new Comment(commentID, roomID, content, rating,a.getEmail(), date);
-                if(!cm.createComment(c)){
-                    System.err.println("ERROR CREATE COMMENT");
-                }
-                else {
+            else if (acc.getRole().trim().equals("tenant")){
+                    String email = (String) request.getParameter("email");
+                    int roomID =  Integer.parseInt(request.getParameter("id"));
+                    long now = System.currentTimeMillis();
+                    Timestamp date = new Timestamp(now);
+                    FavouriteRoom fr = new FavouriteRoom(email, roomID, date);
+                    FavouriteManager FM = new FavouriteManager();
+                    FM.addToFavourite(fr);
                     response.sendRedirect(SUCCESS+"?id="+roomID);
                 }
-            }
                 else 
-                    if (a.getRole().trim().equals("landlord")){
+                    if (acc.getRole().trim().equals("landlord")){
                     request.setAttribute("errCode",1);
                     request.getRequestDispatcher(ERROR).forward(request, response);
                     }
                 else 
-                    if (a.getRole().trim().equals("admin")){
+                    if (acc.getRole().trim().equals("admin")){
                     request.setAttribute("errCode",2);
                     request.getRequestDispatcher(ERROR).forward(request, response);
                     }
         }
         catch(Exception e){
             e.printStackTrace();
-        }
+            response.sendRedirect(ERROR);
+        }                                                                                  // DELETE THIS AFTER ADDING SESSION - CREATE DEFAULT ACCOUNT IN SESSION
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -92,7 +92,11 @@ public class WriteComment extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(AddFavouriteController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -106,7 +110,11 @@ public class WriteComment extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response); 
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(AddFavouriteController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

@@ -6,11 +6,9 @@
 package glacier.user.controller;
 
 import glacier.notification.model.NotificationDAO;
-import glacier.notification.model.NotificationDTO;
 import glacier.user.model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,8 +21,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author KHANG
  */
-@WebServlet(name = "LandlordViewNotification", urlPatterns = {"/landlordnotification"})
-public class LandlordViewNotification extends HttpServlet {
+@WebServlet(name = "LandlordSendNotificationController", urlPatterns = {"/landlordnotify"})
+public class LandlordSendNotificationController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,30 +46,24 @@ public class LandlordViewNotification extends HttpServlet {
                 RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
                 rd.forward(request, response);
             } else {
-                String emailLandlord = user.getEmail().trim();
+                int id = Integer.parseInt(request.getParameter("id"));
+                String title = request.getParameter("title");
+                String content = request.getParameter("content");
 
-                NotificationDAO mng = new NotificationDAO();
-                
-                String indexPage = request.getParameter("index");
-                if (indexPage == null) {
-                    indexPage = "1";
-                }
-                int currentPage = Integer.parseInt(indexPage);
+                String email = user.getEmail();
 
-                int totalMatched = mng.countMatched(emailLandlord);
-                int endPage = totalMatched / 10;
-                if (totalMatched % 10 != 0) {
-                    endPage++;
+                if (title == null || content == null) { 
+                    RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
+                    rd.forward(request, response);
+                } else { 
+                    NotificationDAO mng = new NotificationDAO();
+                    mng.landlordNotify(id, email, title, content);
+
+                    request.setAttribute("notify", "notify success");
+                    RequestDispatcher rd = request.getRequestDispatcher("/roomlist/room?id=" + id);
+                    rd.forward(request, response);
                 }
-                
-                if (currentPage > endPage) currentPage = endPage;
-                List<NotificationDTO> listResult = mng.view(emailLandlord, currentPage);
-                
-                request.setAttribute("endPage", endPage);
-                request.setAttribute("currentPage", currentPage);
-                request.setAttribute("list", listResult);
-                RequestDispatcher rd = request.getRequestDispatcher("/landlord-notification.jsp");
-                rd.forward(request, response);
+
             }
         }
     }

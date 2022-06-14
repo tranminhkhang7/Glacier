@@ -47,7 +47,7 @@ public class CommentManager {
                 String sql =    "select c.commentID,t.name,t.profile_picture,c.content,c.time,c.rating\n" +
 "                                from Comment c join Tenant t on (c.email=t.email)\n" +
 "                                where (c.roomID=?)\n" +
-"                                order by c.roomID\n" +
+"                                order by commentID DESC\n" +
 "                                OFFSET (?-1) * 5 row fetch next 5 rows only ";
                 pstm = conn.prepareStatement(sql);
                 pstm.setInt(1, RoomID);
@@ -62,7 +62,7 @@ public class CommentManager {
                     int rating = rs.getInt("rating");
                     c = new Comment(id, name, profile_picture, RoomID, content, time, rating);
                     //create a comment with name and profile picture of commenter                    
-                    System.out.println(c); // THIS JUST FOR TEST
+//                    System.out.println(c); // THIS JUST FOR TEST
                     commentL.add(c);
                 }
 //                System.out.println(commentL.size());

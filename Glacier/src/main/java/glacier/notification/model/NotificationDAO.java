@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -69,5 +70,36 @@ public class NotificationDAO {
             System.out.println(ex);
         }
         return null;
+    }
+    
+    // This method adds notification from landlords to tenants. Notice: this id is the id of the room (that the tenant is living in), not the notification's ID
+    public void landlordNotify(int id, String landlordEmail, String title, String content) {
+        try {
+            Connection con = DBUtils.getConnection();
+            PreparedStatement getID = con.prepareStatement("SELECT MAX([notificationID]) as lastID FROM [Notification_LT]");
+            ResultSet rs = getID.executeQuery();
+            rs.next();
+            int newID = Integer.parseInt(rs.getString("lastID")) + 1;
+            
+            String sql = "SELECT [emailTenant]\n" +
+                        "FROM [Room]\n" +
+                        "WHERE [roomID] = " + id;
+            PreparedStatement getTenantEmail = con.prepareStatement(sql);
+            rs = getTenantEmail.executeQuery();
+            rs.next();
+            String tenantEmail = rs.getString("emailTenant").trim();
+            
+            
+            Date date = new Date();
+            String dateString = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS").format(date);
+            sql = "INSERT INTO [Notification_LT] ([notificationID], [emailLandlord], [emailTenant], [title], [content], [time])\n" +
+                  "VALUES (" + newID + ", N'" + landlordEmail + "', N'" + tenantEmail + "', N'" + title + "', N'" + content + "', N'" + dateString + "')";
+            System.out.println(sql);
+            PreparedStatement st = con.prepareStatement(sql);
+            st.executeUpdate();
+            
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
     }
 }

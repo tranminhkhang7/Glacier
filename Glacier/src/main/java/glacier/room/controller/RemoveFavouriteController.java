@@ -1,17 +1,15 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package glacier.user.controller;
+package glacier.room.controller;
 
-import glacier.notification.model.NotificationDAO;
-import glacier.notification.model.NotificationDTO;
+import glacier.room.dbmanager.FavouriteManager;
+import glacier.room.model.FavouriteRoom;
 import glacier.user.model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
+import java.sql.Timestamp;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,10 +19,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author KHANG
+ * @author Admin
  */
-@WebServlet(name = "LandlordViewNotification", urlPatterns = {"/landlordnotification"})
-public class LandlordViewNotification extends HttpServlet {
+@WebServlet(name = "RemoveFavouriteController", urlPatterns = {"/RemoveFavouriteController"})
+public class RemoveFavouriteController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,44 +33,32 @@ public class LandlordViewNotification extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private static final String ERROR = "SingleRoomView";               // change this after adding session
+    private static final String SUCCESS = "SingleRoomView";
+    private static final int TEST = 10;
+    private static final Account TESTACC = new Account("dinhxuantung@gmail.com","", "tenant");  // THIS DEFAULT ACCOUNT EMAIL NEED TO BE SYNC WITH DEFAULT EMAIL IN SINGLEROOM.JSP
+        
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            HttpSession ss = request.getSession();
-            Account user = (Account) ss.getAttribute("LOGIN_USER");
-
-            String role = (user == null) ? "" : user.getRole().trim();
-
-            if (!"landlord".equals(role)) {
-                RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
-                rd.forward(request, response);
-            } else {
-                String emailLandlord = user.getEmail().trim();
-
-                NotificationDAO mng = new NotificationDAO();
-                
-                String indexPage = request.getParameter("index");
-                if (indexPage == null) {
-                    indexPage = "1";
+        HttpSession session = request.getSession();
+        Account acc = (Account) session.getAttribute("acc");
+        acc = TESTACC;
+        int roomID =  Integer.parseInt(request.getParameter("id"));
+        try{
+                if (acc.getRole().trim().equals("tenant")){
+                    String email = request.getParameter("email");
+                    FavouriteRoom fr = new FavouriteRoom(email, roomID);
+                    FavouriteManager FM = new FavouriteManager();
+                    if (FM.removeFromFavourite(fr)){
+                        response.sendRedirect(SUCCESS+"?id="+roomID);
+                    }
                 }
-                int currentPage = Integer.parseInt(indexPage);
-
-                int totalMatched = mng.countMatched(emailLandlord);
-                int endPage = totalMatched / 10;
-                if (totalMatched % 10 != 0) {
-                    endPage++;
-                }
-                
-                if (currentPage > endPage) currentPage = endPage;
-                List<NotificationDTO> listResult = mng.view(emailLandlord, currentPage);
-                
-                request.setAttribute("endPage", endPage);
-                request.setAttribute("currentPage", currentPage);
-                request.setAttribute("list", listResult);
-                RequestDispatcher rd = request.getRequestDispatcher("/landlord-notification.jsp");
-                rd.forward(request, response);
-            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            response.sendRedirect(SUCCESS+"?id="+roomID);
         }
     }
 

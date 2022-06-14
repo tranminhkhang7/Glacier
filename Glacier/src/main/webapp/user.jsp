@@ -23,13 +23,14 @@
         <title>Craigs - Easy Buy & Sell Listing HTML Template</title>
 
     </head>
-    <body>
+    <body style="font-family: 'Varela Round', sans-serif;">
         <div class="page sub-page">
             <!--*********************************************************************************************************-->
             <!--************ HERO ***************************************************************************************-->
             <!--*********************************************************************************************************-->
             <header class="hero">
                 <div class="hero-wrapper">
+
                     <!--============ Secondary Navigation ===============================================================-->
                     <div class="secondary-navigation">
                         <div class="container">
@@ -108,6 +109,11 @@
                         <!--end container-->
                     </div>
                     <!--============ End Main Navigation ================================================================-->
+
+                    
+                    <jsp:include page="header/navigation-admin.jsp" />
+                    
+
                     <!--============ Page Title =========================================================================-->
                     <div class="page-title">
                         <div class="container">

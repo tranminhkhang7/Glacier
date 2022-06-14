@@ -1,12 +1,21 @@
+<%-- 
+    Document   : footer-admin
+    Created on : Jun 8, 2022, 8:57:25 PM
+    Author     : KHANG
+--%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri= "http://java.sun.com/jsp/jstl/core" %>
+
+<c:set var="acc" value="${LOGIN_USER}" />
+<c:set var="user" value="${USER_DETAIL}" />
 <footer class="footer">
     <div class="wrapper">
         <div class="container">
             <div class="row">
                 <div class="col-md-5">
                     <a href="#" class="brand">
-                        <img src="${pageContext.request.contextPath}/assets/img/logo.png" alt="">
+                        <img src="assets/img/logo.png" alt="">
                     </a>
                     <p>
                         Glacier là nền tảng kết nối người thuê nhà và các chủ trọ. Sẵn sàng sát cánh bến bạn trên mỗi hành trình mà bạn bước đi!
@@ -20,7 +29,10 @@
                             <nav>
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="${pageContext.request.contextPath}/home">Trang chủ</a>
+                                        <a href="admin.jsp">Home</a>
+                                    </li>
+                                    <li>
+                                        <a href="SearchUserController?keyword=&index=1&role=all">User</a>
                                     </li>
 
                                 </ul>
@@ -30,7 +42,10 @@
                             <nav>
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="${pageContext.request.contextPath}/contact">Liên lạc</a>
+                                        <a href="ReportedController?index=1&type=all">Reported</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Contact</a>
                                     </li>
                                 </ul>
                             </nav>
@@ -41,14 +56,14 @@
                 <div class="col-md-4">
                     <h2>Liên hệ</h2>
                     <address>
-                        <!--                                    <figure>
-                                                                124 Abia Martin Drive<br>
-                                                                New York, NY 10011
-                                                            </figure>-->
+<!--                        <figure>
+                            D1 Street,Long Thanh My<br> 
+                            Thu Duc city, Ho Chi Minh city
+                        </figure>-->
                         <br>
                         <strong>Email:</strong> <a href="#">glacier.hostel@gmail.com</a>
                         <br>
-                        <strong>Phone: </strong>  +1 123 456 789
+                        <strong>Phone: </strong> +1 123 456 789
                         <br>
                         <br>
                         <a href="contact.html" class="btn btn-primary text-caps btn-framed">LIÊN HỆ</a>
@@ -60,7 +75,7 @@
         </div>
         <div class="background">
             <div class="background-image original-size">
-                <img src="${pageContext.request.contextPath}/assets/img/footer-background-icons.jpg" alt="">
+                <img src="assets/img/footer-background-icons.jpg" alt="">
             </div>
             <!--end background-image-->
         </div>

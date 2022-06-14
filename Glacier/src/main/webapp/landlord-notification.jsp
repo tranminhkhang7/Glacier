@@ -79,7 +79,7 @@
 
         <div class="popup" id="reportForm">
             <h2>Thông báo cho người thuê</h2>
-            <form class="form form-submit" action="./report">
+            <form class="form form-submit" action="./landlordnotify">
                 <input name="id" type="hidden" value="${room.roomID}">
                 <!--                <div class="form-group">
                                     <label for="title" class="col-form-label required">Tiêu đề</label>
@@ -87,11 +87,11 @@
                                 </div>-->
                 <div class="form-group">
                     <label for="title" class="col-form-label required">Tiêu đề</label>
-                    <input name="content" type="text" class="form-control" id="title" placeholder="Nội dung báo cáo chi tiết cho quản trị viên" autocomplete="off" required>
+                    <input name="title" type="text" class="form-control" id="title" placeholder="Tiêu đề thông báo" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="title" class="col-form-label required">Nội dung thông báo</label>
-                    <textarea name="content" type="text" class="form-control" id="title" placeholder="Nội dung báo cáo chi tiết cho quản trị viên" autocomplete="off" required></textarea>
+                    <label for="content" class="col-form-label required">Nội dung thông báo</label>
+                    <textarea name="content" type="text" class="form-control" id="content" placeholder="Nội dung thông báo chi tiết" autocomplete="off" required></textarea>
                 </div>
 
                 <div class="form-group">
@@ -113,7 +113,7 @@
                     <!--============ Page Title =========================================================================-->
                     <div class="page-title">
                         <div class="container">
-                            <h1>Frequently Asked Questions</h1>
+                            <h1>Lịch sử thông báo</h1>
                         </div>
                         <!--end container-->
                     </div>
@@ -155,7 +155,7 @@
                                         </div>
                                         <!--end answer-->
                                     </c:forEach>
-                                    <button type="submit" class="btn btn-primary width-100" onclick="openForm()">Bấm vô đây :v</button>
+                                    <!--<button type="submit" class="btn btn-primary width-100" onclick="openForm()">Submit</button>-->
 
 
 
