@@ -25,6 +25,8 @@
                 height: 180px;
                 background-origin:content-box;
                 background-size:cover;
+                opacity: 0.9;
+                
             }
         </style>
     </head>
@@ -49,7 +51,7 @@
                             <ul class="right">
                                 <li>
                                     <a href="sign-in.html">
-                                        <i class="fa fa-sign-out"></i>Sign Out
+                                        <i class="fa fa-sign-out"></i>Đăng xuất
                                     </a>
                                 </li>
                             </ul>
@@ -72,33 +74,33 @@
                                     <!--Main navigation list-->
                                     <ul class="navbar-nav">
                                         <li class="nav-item active has-child">
-                                            <a class="nav-link" href="SearchUserController?keyword=&index=1&role=all">User</a>
+                                            <a class="nav-link" href="SearchUserController?keyword=&index=1&role=all">Người dùng</a>
                                             <ul class="child">
                                                 <li class="nav-item" >
-                                                    <a href="SearchUserController?keyword=&role=landlord&index=1" class="nav-link" >Landlords</a>
+                                                    <a href="SearchUserController?keyword=&role=landlord&index=1" class="nav-link" >Người cho thuê</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="SearchUserController?keyword=&role=tenant&index=1" class="nav-link">Tenants</a>
+                                                    <a href="SearchUserController?keyword=&role=tenant&index=1" class="nav-link">Người thuê</a>
                                                 </li>
                                             </ul>
                                         </li>
                                         <li class="nav-item has-child">
-                                            <a class="nav-link" href="ReportedController?index=1&type=all">Reported</a>
+                                            <a class="nav-link" href="ReportedController?index=1&type=all">Bị tố cáo</a>
                                             <!-- 1st level -->
                                             <ul class="child">
                                                 <li class="nav-item">
-                                                    <a href="ReportedController?index=1&type=room" class="nav-link">Rooms</a>
+                                                    <a href="ReportedController?index=1&type=room" class="nav-link">Phòng</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="ReportedController?index=1&type=comment" class="nav-link">Comments</a>
+                                                    <a href="ReportedController?index=1&type=comment" class="nav-link">Bình luận</a>
                                                 </li>
                                             </ul>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="contact.html">Contact</a>
+                                            <a class="nav-link" href="contact.html">Liên hệ</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="admin.jsp" class="btn btn-primary text-caps btn-rounded btn-framed">Home</a>
+                                            <a href="admin.jsp" class="btn btn-primary text-caps btn-rounded btn-framed">Trang chủ</a>
                                         </li>
                                     </ul>
                                     <!--Main navigation list-->
@@ -117,7 +119,7 @@
                     <div class="page-title">
                         <div class="container">
                             <h1 class="opacity-80 center" style="color: red">
-                                Welcome Moderator
+                                Xin chào quản trị viên
                             </h1>
                         </div>
                         <!--end container-->
@@ -141,24 +143,24 @@
                         <div class="items grid grid-xl-2-items grid-lg-2-items grid-md-2-items">
                             <div class="item">                       
                                 <div class="wrapper" style="text-align: center">
-                                    <a href="SearchUserController?keyword=&index=1&role=all" style="color: black; font-size-adjust: 0.5"><h1 style="margin: 20px">User</h1></a>
+                                    <a href="SearchUserController?keyword=&index=1&role=all" style="color: black; font-size-adjust: 0.5"><h1 style="margin: 20px">Người dùng</h1></a>
                                     
                                     <div class="picback" style="background-image: url(assets/images/Landlord.jpg)">
-                                        <a href="SearchUserController?keyword=&role=landlord&index=1" class="btn" style="margin: 60px; font-size-adjust: 1">Landlords</a><br>
+                                        <a href="SearchUserController?keyword=&role=landlord&index=1" class="btn" style="margin: 50px"><h2>Người cho thuê</h2></a><br>
                                     </div>
                                     <div class="picback" style="background-image: url(assets/images/Tenant.jpg)">
-                                        <a href="SearchUserController?keyword=&role=tenant&index=1" class="btn" style="margin: 60px; font-size-adjust: 1">Tenants</a>
+                                        <a href="SearchUserController?keyword=&role=tenant&index=1" class="btn" style="margin: 50px"><h2>Người thuê</h2></a>
                                     </div>
                                 </div>
                             </div>
                             <div class="item">                           
                                 <div class="wrapper" style="text-align: center">
-                                    <a href="ReportedController?index=1&type=all" style="color: black; font-size-adjust: 0.5"><h1 style="margin: 20px">Reported</h1></a>   
+                                    <a href="ReportedController?index=1&type=all" style="color: black; font-size-adjust: 0.5"><h1 style="margin: 20px">Bị tố cáo</h1></a>   
                                     <div class="picback" style="background-image: url(assets/images/Rooms.jpg)">
-                                    <a href="ReportedController?index=1&type=room" class="btn" style="margin: 60px; font-size-adjust: 1">Rooms</a><br>
+                                        <a href="ReportedController?index=1&type=room" class="btn" style="margin: 50px"><h2>Phòng</h2></a><br>
                                     </div>
                                     <div class="picback" style="background-image: url(assets/images/Comments.jpg)">
-                                    <a href="ReportedController?index=1&type=comment" class="btn" style="margin: 60px; font-size-adjust: 1">Comments</a>
+                                        <a href="ReportedController?index=1&type=comment" class="btn" style="margin: 50px"><h2>Bình luận</h2></a>
                                 </div>
 
                             </div>
