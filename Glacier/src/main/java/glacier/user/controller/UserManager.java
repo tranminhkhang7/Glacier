@@ -432,15 +432,19 @@ public class UserManager {
         boolean check = false;
         Connection conn = null;
         PreparedStatement st = null;
+        long now = System.currentTimeMillis();
+        Timestamp date = new Timestamp(now);
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 String sql = " UPDATE [Room] "
                         + " SET status='unavailable', [rentStartDate]=?  "
                         + " WHERE [roomId]=? ";
-                        
+
                 st = conn.prepareStatement(sql);
-                st.setInt(1, roomId);
+                st.setTimestamp(1, date);
+                st.setInt(2, roomId);
+                
                 check = st.executeUpdate() > 0;
             }
         } catch (Exception e) {

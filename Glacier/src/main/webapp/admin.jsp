@@ -25,6 +25,8 @@
                 height: 180px;
                 background-origin:content-box;
                 background-size:cover;
+                opacity: 0.9;
+                
             }
         </style>
     </head>
@@ -35,14 +37,95 @@
             <!--*********************************************************************************************************-->
             <header class="hero">
                 <div class="hero-wrapper">
+
+                    <!--============ Secondary Navigation ===============================================================-->
+                    <div class="secondary-navigation">
+                        <div class="container">
+                            <ul class="left">
+                                <li>
+                                    <span>
+                                        <i class="fa fa-phone"></i> +1 123 456 789
+                                    </span>
+                                </li>
+                            </ul>
+                            <!--end left-->
+                            <ul class="right">
+                                <li>
+                                    <a href="sign-in.html">
+                                        <i class="fa fa-sign-out"></i>Đăng xuất
+                                    </a>
+                                </li>
+                            </ul>
+                            <!--end right-->
+                        </div>
+                        <!--end container-->
+                    </div>
+                    <!--============ End Secondary Navigation ===========================================================-->
+                    <!--============ Main Navigation ====================================================================-->
+                    <div class="main-navigation">
+                        <div class="container">
+                            <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
+                                <a class="navbar-brand" href="index.html">
+                                    <img src="assets/img/logo.png" alt="">
+                                </a>
+                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                                <div class="collapse navbar-collapse" id="navbar">
+                                    <!--Main navigation list-->
+                                    <ul class="navbar-nav">
+                                        <li class="nav-item active has-child">
+                                            <a class="nav-link" href="SearchUserController?keyword=&index=1&role=all">Người dùng</a>
+                                            <ul class="child">
+                                                <li class="nav-item" >
+                                                    <a href="SearchUserController?keyword=&role=landlord&index=1" class="nav-link" >Người cho thuê</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="SearchUserController?keyword=&role=tenant&index=1" class="nav-link">Người thuê</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="nav-item has-child">
+                                            <a class="nav-link" href="ReportedController?index=1&type=all">Bị tố cáo</a>
+                                            <!-- 1st level -->
+                                            <ul class="child">
+                                                <li class="nav-item">
+                                                    <a href="ReportedController?index=1&type=room" class="nav-link">Phòng</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="ReportedController?index=1&type=comment" class="nav-link">Bình luận</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="contact.html">Liên hệ</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="admin.jsp" class="btn btn-primary text-caps btn-rounded btn-framed">Trang chủ</a>
+                                        </li>
+                                    </ul>
+                                    <!--Main navigation list-->
+                                </div>
+                                <!--end navbar-collapse-->
+                                <!--end main-search-form-toggle-->
+                            </nav>
+                            <!--end navbar-->
+
+                            <!--end breadcrumb-->
+                        </div>
+                        <!--end container-->
+                    </div>
+                    <!--============ End Main Navigation ================================================================-->
+
                     
                     <jsp:include page="header/navigation-admin.jsp" />
                     
+
                     <!--============ Page Title =========================================================================-->
                     <div class="page-title">
                         <div class="container">
                             <h1 class="opacity-80 center" style="color: red">
-                                Welcome Moderator
+                                Xin chào quản trị viên
                             </h1>
                         </div>
                         <!--end container-->
@@ -66,24 +149,24 @@
                         <div class="items grid grid-xl-2-items grid-lg-2-items grid-md-2-items">
                             <div class="item">                       
                                 <div class="wrapper" style="text-align: center">
-                                    <a href="SearchUserController?keyword=&index=1&role=all" style="color: black; font-size-adjust: 0.5"><h1 style="margin: 20px">User</h1></a>
+                                    <a href="SearchUserController?keyword=&index=1&role=all" style="color: black; font-size-adjust: 0.5"><h1 style="margin: 20px">Người dùng</h1></a>
                                     
                                     <div class="picback" style="background-image: url(assets/images/Landlord.jpg)">
-                                        <a href="SearchUserController?keyword=&role=landlord&index=1" class="btn" style="margin: 60px; font-size-adjust: 1">Landlords</a><br>
+                                        <a href="SearchUserController?keyword=&role=landlord&index=1" class="btn" style="margin: 50px"><h2>Người cho thuê</h2></a><br>
                                     </div>
                                     <div class="picback" style="background-image: url(assets/images/Tenant.jpg)">
-                                        <a href="SearchUserController?keyword=&role=tenant&index=1" class="btn" style="margin: 60px; font-size-adjust: 1">Tenants</a>
+                                        <a href="SearchUserController?keyword=&role=tenant&index=1" class="btn" style="margin: 50px"><h2>Người thuê</h2></a>
                                     </div>
                                 </div>
                             </div>
                             <div class="item">                           
                                 <div class="wrapper" style="text-align: center">
-                                    <a href="ReportedController?index=1&type=all" style="color: black; font-size-adjust: 0.5"><h1 style="margin: 20px">Reported</h1></a>   
+                                    <a href="ReportedController?index=1&type=all" style="color: black; font-size-adjust: 0.5"><h1 style="margin: 20px">Bị tố cáo</h1></a>   
                                     <div class="picback" style="background-image: url(assets/images/Rooms.jpg)">
-                                    <a href="ReportedController?index=1&type=room" class="btn" style="margin: 60px; font-size-adjust: 1">Rooms</a><br>
+                                        <a href="ReportedController?index=1&type=room" class="btn" style="margin: 50px"><h2>Phòng</h2></a><br>
                                     </div>
                                     <div class="picback" style="background-image: url(assets/images/Comments.jpg)">
-                                    <a href="ReportedController?index=1&type=comment" class="btn" style="margin: 60px; font-size-adjust: 1">Comments</a>
+                                        <a href="ReportedController?index=1&type=comment" class="btn" style="margin: 50px"><h2>Bình luận</h2></a>
                                 </div>
 
                             </div>

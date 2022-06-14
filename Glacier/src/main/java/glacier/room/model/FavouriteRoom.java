@@ -14,7 +14,13 @@ public class FavouriteRoom {
     private String email;
     private int roomID;
     private Timestamp time;
+    private String landLord;
+    private Room room;
+    
+    public FavouriteRoom() {
+    }
 
+    
     public FavouriteRoom(String email, int roomID) {
         this.email = email;
         this.roomID = roomID;
@@ -25,6 +31,30 @@ public class FavouriteRoom {
         this.roomID = roomID;
         this.time = time;
     }
+
+    public FavouriteRoom(String email, String landLord, Room room) {
+        this.email = email;
+        this.landLord = landLord;
+        this.room = room;
+    }
+
+    public String getLandLord() {
+        return landLord;
+    }
+
+    public void setLandLord(String landLord) {
+        this.landLord = landLord;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+    
+    
 
     public String getEmail() {
         return email;

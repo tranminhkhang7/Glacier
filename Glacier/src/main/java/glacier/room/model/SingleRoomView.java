@@ -42,24 +42,14 @@ public class SingleRoomView extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");   
         String url = ERROR;
-<<<<<<< HEAD
-        try {   
-            HttpSession session = request.getSession();
-            Account acc = (Account) session.getAttribute("acc");
-            acc = TESTACC;                                                              // this set default access delete this when merging
-//            if (acc.getRole().equals("landlord")){                                    // set privillage only tenant can see other room details 
-//                url = ERROR;
-//                request.setAttribute("ERROR", "WRONG PRIVILLAGE");
-//            }
-//            if (acc.getRole().equals("tenant")) {
-=======
+
         try {
             HttpSession session = request.getSession(false);
         Account acc = (Account) session.getAttribute("LOGIN_USER");
 //            acc = TESTACC;                                                            // this set default access delete this when merging
             if (acc==null) acc=GUEST;
             if ((acc.getRole().equals("tenant"))) {
->>>>>>> 4e21dbdf36150cfc837cc9307c5318c320f7789e
+
                     String indexPage = request.getParameter("index");
                     if (indexPage == null){
                         indexPage="1";

@@ -44,6 +44,7 @@ public class CommentManager {
         ArrayList<Comment> commentL = new ArrayList<>();
         conn = DBUtils.getConnection();
         Comment c = new Comment();
+<<<<<<< HEAD
         try {
             if (conn != null) {
                 String sql = "select c.commentID,t.name,t.profile_picture,c.content,c.time,c.rating\n"
@@ -51,6 +52,15 @@ public class CommentManager {
                         + "                                where (c.roomID=?)\n"
                         + "                                order by c.roomID\n"
                         + "                                OFFSET (?-1) * 5 row fetch next 5 rows only ";
+=======
+        try{
+                if (conn!=null){
+                String sql =    "select c.commentID,t.name,t.profile_picture,c.content,c.time,c.rating\n" +
+"                                from Comment c join Tenant t on (c.email=t.email)\n" +
+"                                where (c.roomID=?)\n" +
+"                                order by commentID DESC\n" +
+"                                OFFSET (?-1) * 5 row fetch next 5 rows only ";
+>>>>>>> 6d119e7bcd1579e88654cbb90302047bc2ad91fa
                 pstm = conn.prepareStatement(sql);
                 pstm.setInt(1, RoomID);
                 pstm.setInt(2, indexPage);

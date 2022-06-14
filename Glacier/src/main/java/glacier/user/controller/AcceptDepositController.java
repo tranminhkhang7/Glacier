@@ -5,6 +5,9 @@
  */
 package glacier.user.controller;
 
+import glacier.landlord.dbmanager.LandlordManager;
+import glacier.notification.model.NotificationDAO;
+import glacier.user.model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -29,21 +33,44 @@ public class AcceptDepositController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private final static String SUCCESS = "home";
+    private final static String ERROR = "error.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String url = ERROR;
         try {
+            HttpSession ss = request.getSession();
+            Account acc = (Account) ss.getAttribute("LOGIN_USER");
             UserManager manager = new UserManager();
+            NotificationDAO dao = new NotificationDAO();
+            LandlordManager landManager = new LandlordManager();
+
             String action = request.getParameter("action");
-            String email = request.getParameter("email");
+            //String email = request.getParameter("email");
             String roomId = request.getParameter("roomId");
+
             boolean check = false;
-            if("accept".equals(action)){
-                check = manager.acceptDeposit(Integer.parseInt(roomId));
-            }else{
-                
+            boolean isOwner = landManager.checkOwnership(acc.getEmail(), Integer.parseInt(roomId));
+            String roomStatus = landManager.roomStatus(Integer.parseInt(roomId));
+            
+            if (isOwner && "pending".equals(roomStatus.trim())) {
+                if ("accept".equals(action)) {
+                    check = manager.acceptDeposit(Integer.parseInt(roomId));
+                    if (check) {
+                        dao.landlordNotify(Integer.parseInt(roomId), acc.getEmail(), "YOUR ROOM REQUEST HAS BEEN ACCEPT", "PLEASE GO CHECK YOUR ROOM MANAGEMENT");
+                        url = SUCCESS;
+                    }
+                } else {
+                    dao.landlordNotify(Integer.parseInt(roomId), acc.getEmail(), "YOUR ROOM REQUEST HAS BEEN DECLINE", "PLEASE GO CHECK YOUR ROOM MANAGEMENT");
+                    url = ERROR;
+                }
             }
         } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            response.sendRedirect(url);
         }
     }
 
