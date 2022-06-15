@@ -64,7 +64,7 @@ public class AcceptDepositController extends HttpServlet {
                     }
                 } else {
                     dao.landlordNotify(Integer.parseInt(roomId), acc.getEmail(), "YOUR ROOM REQUEST HAS BEEN DECLINE", "PLEASE GO CHECK YOUR ROOM MANAGEMENT");
-                    url = ERROR;
+                    url = SUCCESS;
                 }
             }
         } catch (Exception e) {

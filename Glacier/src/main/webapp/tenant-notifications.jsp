@@ -68,12 +68,12 @@
                                     <c:forEach items="${requestScope.NOTI_LIST}" var="noti">
                                         <div class="answer">
                                             <div class="box">
-                                                <h3>${noti.title}</h3>
+                                                <h3>${noti.title}</h3> 
                                                 <p>
                                                     ${noti.content}
                                                 </p>
                                             </div>
-                                            <figure>Was this answer helpful? <a href="#">Yes<i class="fa fa-thumbs-up"></i></a> <a href="#">No<i class="fa fa-thumbs-down"></i></a></figure>
+                                            <figure>${noti.date}</figure>
                                         </div>
                                     </c:forEach>
                                     <!--end answer-->
