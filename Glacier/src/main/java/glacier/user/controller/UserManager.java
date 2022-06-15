@@ -336,6 +336,22 @@ public class UserManager {
         }
     }
 
+    
+    // This method processed the deposit of the tenant with the room with roomID. This method changes the status of the room to "Pending" and update the email tenant.
+    public void deposit(String emailTenant, int roomID){
+        try {
+            String sql = "UPDATE [Room]\n" +
+                        "SET [status] = N'pending', [emailTenant] = N'" + emailTenant + "'\n" +
+                        "WHERE [roomID] = " + roomID;
+            
+            Connection con = DBUtils.getConnection();
+            PreparedStatement getID = con.prepareStatement(sql);
+            getID.executeUpdate();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }
+    
     public static void main(String[] args) {
 
 //        UserManager user = new UserManager();

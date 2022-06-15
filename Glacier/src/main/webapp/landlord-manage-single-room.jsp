@@ -431,9 +431,27 @@
                             <div class="col-md-12">
 
                                 <section>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <form method="get" action="${pageContext.request.contextPath}/hehealo1234">
+                                                <button href="dadhakhkfha" class="btn btn-primary width-100">Xem giao diện phòng và đánh giá</button>
+                                            </form>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="submit" class="btn btn-primary width-100" onclick="openForm()">Tạo thông báo</button>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <div class="col-md-6">
+                                            <button type="submit" class="btn btn-primary width-100" onclick="openForm()">Tạo hóa đơn</button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="submit" class="btn btn-primary width-100" onclick="openForm()">Người thuê muốn rời đi</button>
+                                        </div>
 
-                                    <button type="submit" class="btn btn-primary width-100" onclick="openForm()">Tạo thông báo</button>
-
+                                    </div>
                                 </section>
 
                             </div>
@@ -556,18 +574,18 @@
         <script src="${pageContext.request.contextPath}/assets/js/custom.js"></script>
 
         <script>
-                                        function openForm() {
-                                            document.getElementsByClassName("page")[0].style.filter = "blur(8px)";
-                                            document.getElementById("reportForm").style.display = "block";
-                                        }
+                                                function openForm() {
+                                                    document.getElementsByClassName("page")[0].style.filter = "blur(8px)";
+                                                    document.getElementById("reportForm").style.display = "block";
+                                                }
 
-                                        function closeForm() {
-                                            document.getElementsByClassName("page")[0].style.filter = "none";
-                                            document.getElementById("reportForm").style.display = "none";
-                                        }
-                                        function closeNotify() {
-                                            document.getElementById("notifyBox").style.display = "none";
-                                        }
+                                                function closeForm() {
+                                                    document.getElementsByClassName("page")[0].style.filter = "none";
+                                                    document.getElementById("reportForm").style.display = "none";
+                                                }
+                                                function closeNotify() {
+                                                    document.getElementById("notifyBox").style.display = "none";
+                                                }
         </script>
     </body>
 </html>
