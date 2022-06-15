@@ -180,7 +180,7 @@ public class LandlordManager {
                 st = conn.prepareStatement(sql);
                 st.setInt(1, id);
                 rs = st.executeQuery();
-                if(rs.next()){
+                if (rs.next()) {
                     status = rs.getString("status");
                 }
             }
@@ -189,9 +189,71 @@ public class LandlordManager {
         return status;
     }
     
+    
+    public int countAllPendingRooms(String email){
+        try {
+            String sql = "SELECT COUNT(*)\n"
+                    + "FROM [Room]\n"
+                    + "WHERE [emailLandlord] = ? AND status='pending'";
+
+            Connection con = DBUtils.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return 0;
+    }
+    
+    //RETURNS LIST OF SPECIFIC LANDLORD ROOMS WHICH IS PENDING
+    public List<Room> getLandlordPendingRooms(String email, int index) {
+        List<Room> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT [roomID], r.[name], r.[emailTenant], r.[price], r.[address], t.[name] "
+                        + " FROM [Room] r join [Tenant] t on r.[emailTenant] = t.[email] "
+                        + " WHERE emailLandlord=? AND r.[status]='pending' "
+                        + " ORDER BY [roomID] "
+                        + " OFFSET ? ROWS FETCH NEXT 4 ROWS ONLY ";
+                st = conn.prepareStatement(sql);
+                st.setString(1, email);
+                st.setInt(2, (index - 1) * 4);
+                rs = st.executeQuery();
+                while (rs.next()) {
+                    int roomId = rs.getInt("roomID");
+                    String name = rs.getString("name").trim();
+                    int price = rs.getInt("price");
+                    String address = rs.getString("address").trim();
+                    String emailTenant = rs.getString("emailTenant");
+                    
+                    list.add(new Room(roomId, name, address, price, emailTenant));
+
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
         LandlordManager manager = new LandlordManager();
-        String s = manager.roomStatus(10);
-        System.out.println(s);
+//        int i = manager.countAllPendingRooms("dangngocduong@gmail.com");
+//        System.out.println(i);
+        List<Room> list = manager.getLandlordPendingRooms("dangngocduong@gmail.com", 1);
+        for (Room room : list) {
+            System.out.println(room);
+        }
+//        String s = manager.roomStatus(10);
+//        System.out.println(s);
     }
 }

@@ -4,6 +4,7 @@
     Author     : Admin
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="en">
@@ -65,7 +66,7 @@
                             Bạn có chắc muốn tiếp tục?
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">KHÔNG</button>
+                            <button class="btn btn-secondary" data-dismiss="modal">KHÔNG</button>
                             <a class="btn btn-primary btn-ok">CÓ</a>
                         </div>
                     </div>
@@ -76,28 +77,22 @@
                 <section class="block">
                     <div class="container">
                         <div class="row">
+                            <c:if test="${empty requestScope.list}">
+                                <div class="col-md-12">
+                                    <h1>Không có khách nào cần được duyệt</h1>
+                                </div>
+                            </c:if>
+                            <c:forEach var="room" items="${requestScope.list}">
                             <div class="col-md-12">
                                 <article class="blog-post ">
-                                    <a href="blog-post.html">
-                                        <img src="assets/img/blog-image-01.jpg" alt="">
-                                    </a>
                                     <div class="article-title">
-                                        <h2><a href="blog-post.html">Tên phòng</a></h2>
+                                        <h2 class="pb-3"><a href="blog-post.html">${room.name}</a></h2>
                                         <h4 class="location">
-                                            <a href="#">Địa điểm phòng</a>
+                                            <a href="#">${room.address}</a>
                                         </h4>
                                     </div>
-                                    <div class="meta">
-                                        <figure>
-                                            <div class="rating" data-rating="4"></div>
-                                            <i class="fa fa-calendar-o"></i>
-                                            02.05.2017
-                                        </figure>
-                                    </div>
                                     <div class="blog-post-content">
-                                        <p>
-                                            Chi tiết phòng
-                                        </p>                   
+                 
                                         <hr>
                                         <div class="author">
                                             <div class="author-image">
@@ -108,32 +103,14 @@
                                             <!--end author-image-->
                                             <div class="author-description">
                                                 <div class="section-title">
-                                                    <a href="<!-- Link tenant profile -->"><h2>Tên tenant</h2></a>
+                                                    <a href="<!-- Link tenant profile -->"><h2>Tên tenant</h2><span style="font-size: 12px">${room.emailTenant}</span></a>
                                                 </div>
-                                                <figure>
-                                                    <div class="text-align-right social">
-                                                        <a href="#">
-                                                            <i class="fa fa-phone-square"></i>
-                                                        </a>
-                                                        <a href="#">
-                                                            <i class="fa fa-facebook-square"></i>
-                                                        </a>
-                                                        <a href="#">
-                                                            <i class="fa fa-instagram"></i>
-                                                        </a>
-                                                    </div>
-                                                </figure>
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec tincidunt arcu,
-                                                    sit amet fermentum sem. Class aptent taciti sociosqu ad litora torquent per
-                                                    conubia nostra, per inceptos himenaeos.
-                                                </p>
 
                                                 <div class="modal-footer">
-                                                    <button type="button" data-href="" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">
-                                                        Đã hủy cọc
+                                                    <button data-href="./accept?action=decline&roomId=${room.roomID}" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">
+                                                        Hủy cọc
                                                     </button>
-                                                    <button type="button" data-href="" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                                    <button data-href="./accept?action=accept&roomId=${room.roomID}" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                                                         Xác nhận thuê nhà
                                                     </button>
                                                 </div>
@@ -148,6 +125,9 @@
                                 <!--end Article-->
 
                             </div>
+                            </c:forEach>
+                            
+                            
                             <!--end col-md-8-->
 
 

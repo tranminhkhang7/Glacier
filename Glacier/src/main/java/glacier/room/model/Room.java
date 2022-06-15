@@ -71,13 +71,14 @@ public class Room {
         this.area = area;
     }
 
-    public Room(int roomID, String name, String description, String address, int price, Date rentStartDate) {
+    public Room(int roomID, String name, String description, String address, int price, Date rentStartDate, String status) {
         this.roomID = roomID;
         this.name = name;
         this.description = description;
         this.address = address;
         this.price = price;
         this.rentStartDate = rentStartDate;
+        this.status = status;
     }   
     
     //Single Tenant room display
@@ -94,7 +95,16 @@ public class Room {
         this.detailAddress = detailAddress;
     }
     
+    //Landlord waiting room display
 
+    public Room(int roomID, String name, String address, int price, String emailTenant) {
+        this.roomID = roomID;
+        this.name = name;
+        this.address = address;
+        this.price = price;
+        this.emailTenant = emailTenant;
+    }
+    
     
     public int getRoomID() {
         return roomID;

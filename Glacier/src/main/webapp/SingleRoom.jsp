@@ -271,16 +271,7 @@
                                 <div class="number priceStyle">${room.price}<small>đ</small></div>
                                 <strong>/tháng</strong>
                                 <hr>
-<<<<<<< HEAD
-                                <c:set var="email" value="dinhxuantung@gmail.com"></c:set>
-                                <c:if test="${FStatus==true}">
-                                    <a href="AddFavouriteController?id=${room.roomID}&email=${email}" class="btn btn-primary btn-framed" style="width: 100%">Add to favourite <i class="fa fa-heart-o"></i></a>
-                                    </c:if>
-                                    <c:if test="${FStatus==false}">
-                                    <a href="RemoveFavouriteController?id=${room.roomID}&email=${email}" class="btn btn-primary btn-framed" style="width: 100%">Remove from favourite <i class="fa fa-heart-o"></i></a>
-                                    </c:if>
 
-=======
                                 <c:if test="${not empty acc}">
                                    
                                     <c:if test="${FStatus==true}">
@@ -298,7 +289,7 @@
                                         </form>
                                     </c:if>
                                 </c:if>
->>>>>>> 4e21dbdf36150cfc837cc9307c5318c320f7789e
+
                             </div>
                         </div>
                         <!--end container-->
