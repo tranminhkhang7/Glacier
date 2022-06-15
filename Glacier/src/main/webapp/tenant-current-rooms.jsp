@@ -188,7 +188,7 @@
                                     <a class="nav-link active icon" href="rooms">
                                         <i class="fa fa-heart"></i>Phòng của tôi
                                     </a>
-                                    <a class="nav-link icon" href="bookmarks.html">
+                                    <a class="nav-link icon" href="Favourite">
                                         <i class="fa fa-star"></i>Phòng yêu thích
                                     </a>
                                     <a class="nav-link icon" href="changepassword">

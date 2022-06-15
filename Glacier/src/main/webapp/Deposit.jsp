@@ -164,7 +164,7 @@
                                 <div style="text-align: center" class="">Tổng tiền: 1000000 VNĐ</div>
                                 <hr>
                                 <form action="deposit">
-                                    <input name="id" value="10" type="hidden">
+                                    <input name="id" value="${id}" type="hidden">
                                     <button class="btn btn-framed btn-primary" type="submit">Xác nhận thanh toán</button>
                                 </form>
                                 
