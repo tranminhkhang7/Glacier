@@ -6,9 +6,14 @@
 package glacier.user.controller;
 
 import glacier.notification.model.NotificationDAO;
+import glacier.room.dbmanager.CommentManager;
+import glacier.room.model.Comment;
 import glacier.user.model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,7 +39,7 @@ public class LandlordViewRentedRoom extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             HttpSession ss = request.getSession();
@@ -47,8 +52,22 @@ public class LandlordViewRentedRoom extends HttpServlet {
                 rd.forward(request, response);
             } else {
                 int id = Integer.parseInt(request.getParameter("id"));
-
+                String indexPage = request.getParameter("index");
+                    if (indexPage == null){
+                        indexPage="1";
+                    }
+                int currentPage=Integer.parseInt(indexPage);
+                 CommentManager cm = new CommentManager();
+                    ArrayList<Comment> Reviews = cm.getAllComment(id,currentPage);
+                    int totalReviews=cm.getNumberOfComment(id);
+                    int endPage = totalReviews/5;
+                    if (totalReviews % 5!=0){
+                        endPage++;
+                    }
                 request.setAttribute("id", id);
+                request.setAttribute("Reviews", Reviews);
+                request.setAttribute("endPage",endPage);
+                request.setAttribute("currentPage",currentPage);
                 RequestDispatcher rd = request.getRequestDispatcher("/landlord-manage-single-room.jsp");
                 rd.forward(request, response);
 //                } else { //landlords submit the notification
@@ -76,7 +95,11 @@ public class LandlordViewRentedRoom extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(LandlordViewRentedRoom.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -90,7 +113,11 @@ public class LandlordViewRentedRoom extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(LandlordViewRentedRoom.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
