@@ -15,17 +15,12 @@ import javax.servlet.http.HttpSession;
  */
 public class DBUtils {
 
-
     private final static String serverName = "localhost";
     private final static String dbName = "Glacier";
     private final static String portNumber = "1433";
     private final static String instance = "";//LEAVE THIS ONE EMPTY IF YOUR SQL IS A SINGLE INSTANCE
     private final static String userID = "sa";
-    private final static String password = "123456789";
-
-
-
-
+    private final static String password = "khoa";
 
 public static Connection getConnection() throws Exception {
         String url = "jdbc:sqlserver://" + serverName + ":" + portNumber + "\\" + instance + ";databaseName=" + dbName;

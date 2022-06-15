@@ -375,7 +375,7 @@ public class UserManager {
             if (conn != null) {
                 String sql = "SELECT [notificationID], [emailTenant], [emailLandlord], [title], [content], [time] FROM [Notification_LT] "
                         + " WHERE emailTenant=? "
-                        + " ORDER BY [notificationID] "
+                        + " ORDER BY [time] DESC "
                         + " OFFSET ? ROWS FETCH NEXT 8 ROWS ONLY ";
                 st = conn.prepareStatement(sql);
                 st.setString(1, email);
