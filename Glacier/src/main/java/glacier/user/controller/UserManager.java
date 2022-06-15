@@ -342,6 +342,10 @@ public class UserManager {
         }
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 64325c3db6e52c5061eef2e4fe2982a40da90582
     //Get all numbers off norifications
     public int getAllTenantNotifications(String email) {
         try {
@@ -453,6 +457,10 @@ public class UserManager {
         return check;
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 64325c3db6e52c5061eef2e4fe2982a40da90582
     
     // This method processed the deposit of the tenant with the room with roomID. This method changes the status of the room to "Pending" and update the email tenant.
     public void deposit(String emailTenant, int roomID){
