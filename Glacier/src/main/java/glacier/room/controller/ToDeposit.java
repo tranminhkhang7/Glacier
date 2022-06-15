@@ -4,8 +4,13 @@
  */
 package glacier.room.controller;
 
+import glacier.room.model.Room;
+import glacier.room.model.RoomDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,10 +34,14 @@ public class ToDeposit extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         int id = Integer.parseInt(request.getParameter("id")) ;
+        RoomDAO dao = new RoomDAO();
+        Room room = dao.getRoomById(id);
+        ArrayList<String> ImgList = dao.getRoomImgById(id);
         request.setAttribute("id", id);
+        request.setAttribute("room", room);
         request.getRequestDispatcher("Deposit.jsp").forward(request, response);
     }
 
@@ -48,7 +57,11 @@ public class ToDeposit extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(ToDeposit.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -62,7 +75,11 @@ public class ToDeposit extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(ToDeposit.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
