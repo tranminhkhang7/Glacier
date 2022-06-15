@@ -592,12 +592,14 @@
                                         </div>
                                         <!--end box-->
                                     </section>
-                                    <section>
-                                        <h2>Đặt phòng</h2>
-                                        <div class="box">
-                                            <a class="btn btn-framed btn-primary" href="Deposit.jsp">Tiến hành đặt cọc</a>
-                                        </div>
-                                    </section>
+                                    <c:if test="${not empty acc}">
+                                        <section>
+                                            <h2>Đặt phòng</h2>
+                                            <div class="box">
+                                                <a class="btn btn-framed btn-primary" href="./ToDeposit?id=${room.roomID}">Tiến hành đặt cọc</a>
+                                            </div>
+                                        </section>
+                                    </c:if>
                                     <!--End Author-->
 
                                 </aside>

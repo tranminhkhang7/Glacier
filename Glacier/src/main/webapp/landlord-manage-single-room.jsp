@@ -31,7 +31,7 @@
                 left: 50%;
                 top: 50%;
                 border-radius: 8px;
-                display: none; 
+                display: none;
                 text-align: center;
                 box-shadow: 10px 10px 50px grey;
             }
@@ -161,7 +161,147 @@
 
                                     </div>
                                 </section>
+                                <section>
+                                    <h2>Reviews</h2>
+                                    <div class="comments">
+                                        <c:forEach items="${Reviews}" var="review">
+                                            <div class="comment">
+                                                <div class="author">
+                                                    <a href="#" class="author-image">
+                                                        <div class="background-image">            
+                                                            <img src="${review.profile_picture}" alt="alt"/>
+                                                        </div>
+                                                    </a>
+                                                    <div class="author-description">
+                                                        <h3>${review.name}</h3>
+                                                        <div class="meta">
+                                                            <span class="rating" data-rating="${review.rating}"></span>
+                                                            <span>${review.time}</span>
+                                                        </div>
+                                                        <!--                                                end meta-->
+                                                        <p>
+                                                            ${review.content}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                    <div class="page-pagination">
+                                        <nav aria-label="Pagination">
+                                            <ul class="pagination">
 
+                                                <!--                                    <li class="page-item active">
+                                                                                        <a class="page-link" href="#">1</a>
+                                                                                    </li>
+                                                                                    <li class="page-item">
+                                                                                        <a class="page-link" href="#">2</a>
+                                                                                    </li>
+                                                                                    <li class="page-item">
+                                                                                        <a class="page-link" href="#">3</a>
+                                                                                    </li>-->
+
+                                                <c:forEach begin="1" end="${endPage}" step="1" var="i">
+                                                    <c:choose>
+                                                        <c:when test="${currentPage == i}">
+                                                            <li class="page-item active">
+                                                                <a class="page-link" href="?id=${room.roomID}&index=${i}">${i}</a>
+                                                            </li>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <li class="page-item">
+                                                                <a class="page-link" href="?id=${room.roomID}&index=${i}">${i}</a>
+                                                            </li>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </c:forEach>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                    <!--                                <div class="comments">
+                                                                        <div class="comment">
+                                                                            <div class="author">
+                                                                                <a href="#" class="author-image">
+                                                                                    <div class="background-image">
+                                                                                        <img src="assets/img/author-09.jpg" alt="">
+                                                                                    </div>
+                                                                                </a>
+                                                                                <div class="author-description">
+                                                                                    <h3>Jane Doe</h3>
+                                                                                    <div class="meta">
+                                                                                        <span class="rating" data-rating="4"></span>
+                                                                                        <span>02.05.2017</span>
+                                                                                    </div>
+                                                                                    end meta
+                                                                                    <p>
+                                                                                        Nam pulvinar tortor nec lacinia efficitur. Integer erat tortor, ultricies
+                                                                                        ut est vel, euismod imperdiet lacus. Aenean nec turpis condimentum, mollis
+                                                                                        mauris id, scelerisque quam.
+                                                                                    </p>
+                                                                                </div>
+                                                                                end author-description
+                                                                            </div>
+                                                                            end author
+                                                                        </div>
+                                                                        end comment
+
+                                                                        <div class="comment">
+                                                                            <div class="author">
+                                                                                <a href="#" class="author-image">
+                                                                                    <div class="background-image">
+                                                                                        <img src="assets/img/author-05.jpg" alt="">
+                                                                                    </div>
+                                                                                </a>
+                                                                                <div class="author-description">
+                                                                                    <h3>Perfect seller. I am satisfied.</h3>
+                                                                                    <div class="meta">
+                                                                                        <span class="rating" data-rating="5"></span>
+                                                                                        <span>02.05.2017</span>
+                                                                                        <h5><a href="#">John Doe</a></h5>
+                                                                                    </div>
+                                                                                    end meta
+                                                                                    <p>
+                                                                                        Integer erat tortor, ultricies ut est vel, euismod imperdiet lacus.
+                                                                                        Aenean nec turpis condimentum, mollis mauris id, scelerisque quam.
+                                                                                    </p>
+                                                                                </div>
+                                                                                end author-description
+                                                                            </div>
+                                                                            end author
+                                                                        </div>
+                                                                        end comment
+
+                                                                        <div class="comment">
+                                                                            <div class="author">
+                                                                                <a href="#" class="author-image">
+                                                                                    <div class="background-image">
+                                                                                        <img src="assets/img/author-04.jpg" alt="">
+                                                                                    </div>
+                                                                                </a>
+                                                                                <div class="author-description">
+                                                                                    <h3>Quick dispatch and good communication</h3>
+                                                                                    <div class="meta">
+                                                                                        <span class="rating" data-rating="3"></span>
+                                                                                        <span>02.05.2017</span>
+                                                                                        <h5><a href="#">Susan Jefferson</a></h5>
+                                                                                    </div>
+                                                                                    end meta
+                                                                                    <p>
+                                                                                        Cras luctus aliquet fringilla. In eu cursus nunc. Quisque dolor leo,
+                                                                                        vehicula a sem ut, aliquam pretium tellus. Morbi ut mi eleifend,
+                                                                                        sollicitudin nisl in, elementum nisi. Praesent sed libero euismod,
+                                                                                        pellentesque risus sit amet, faucibus lorem. Pellentesque bibendum
+                                                                                        libero sed tempor tristique.
+                                                                                    </p>
+                                                                                </div>
+                                                                                end author-description
+                                                                            </div>
+                                                                            end author
+                                                                        </div>
+                                                                        end comment
+                                                                    </div>-->
+                                    <!--end comment-->
+                                </section>
                             </div>
                             <!--end col-md-9-->
 
