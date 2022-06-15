@@ -725,22 +725,6 @@
                                     </div>
                                 </c:forEach>
                             </div>
-<<<<<<< HEAD
-                            <div class="page-pagination">
-                                <nav aria-label="Pagination">
-                                    <ul class="pagination">
-
-                                        <!--                                    <li class="page-item active">
-                                                                                <a class="page-link" href="#">1</a>
-                                                                            </li>
-                                                                            <li class="page-item">
-                                                                                <a class="page-link" href="#">2</a>
-                                                                            </li>
-                                                                            <li class="page-item">
-                                                                                <a class="page-link" href="#">3</a>
-                                                                            </li>-->
-
-=======
 
                             <div class="page-pagination">
                                 <nav aria-label="Pagination">
@@ -756,7 +740,21 @@
                                                                                 <a class="page-link" href="#">3</a>
                                                                             </li>-->
 
->>>>>>> 4e21dbdf36150cfc837cc9307c5318c320f7789e
+
+
+
+
+                                        <!--                                    <li class="page-item active">
+                                                                                <a class="page-link" href="#">1</a>
+                                                                            </li>
+                                                                            <li class="page-item">
+                                                                                <a class="page-link" href="#">2</a>
+                                                                            </li>
+                                                                            <li class="page-item">
+                                                                                <a class="page-link" href="#">3</a>
+                                                                            </li>-->
+
+
                                         <c:forEach begin="1" end="${endPage}" step="1" var="i">
                                             <c:choose>
                                                 <c:when test="${currentPage == i}">

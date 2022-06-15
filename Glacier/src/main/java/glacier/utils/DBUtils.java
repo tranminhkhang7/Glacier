@@ -21,14 +21,11 @@ public class DBUtils {
     private final static String portNumber = "1433";
     private final static String instance = "";//LEAVE THIS ONE EMPTY IF YOUR SQL IS A SINGLE INSTANCE
     private final static String userID = "sa";
-<<<<<<< HEAD
+
 
 
     private final static String password = "khoa";
 
-=======
-    private final static String password = "123456789";
->>>>>>> f52b547e892cc26d6bd27c07857efb71b6d0ab0b
 
 
 
