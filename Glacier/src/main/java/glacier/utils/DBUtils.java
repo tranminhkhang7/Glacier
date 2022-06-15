@@ -20,8 +20,12 @@ public class DBUtils {
     private final static String portNumber = "1433";
     private final static String instance = "";//LEAVE THIS ONE EMPTY IF YOUR SQL IS A SINGLE INSTANCE
     private final static String userID = "sa";
+<<<<<<< HEAD
 
     private final static String password = "khoa";
+=======
+    private final static String password = "khangtm";
+>>>>>>> 1f1f7e4f798d90e893ccc13c4f9eeaa211d820b9
 
 public static Connection getConnection() throws Exception {
         String url = "jdbc:sqlserver://" + serverName + ":" + portNumber + "\\" + instance + ";databaseName=" + dbName;
