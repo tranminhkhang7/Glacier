@@ -1,7 +1,7 @@
 <%-- 
-    Document   : SingleRoom
-    Created on : May 24, 2022, 1:34:52 AM
-    Author     : Admin
+    Document   : single-room-viewed-as-landlord
+    Created on : Jun 15, 2022, 3:13:57 AM
+    Author     : KHANG
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -106,7 +106,7 @@
             <header class="hero">
                 <div class="hero-wrapper">
 
-                    <jsp:include page="header/navigation.jsp" />
+                    <jsp:include page="header/navigation-landlord.jsp" />
 
                     <!--============ Hero Form ==========================================================================-->
                     <div class="collapse" id="collapseMainSearchForm">
@@ -260,34 +260,18 @@
                                 <c:if test="${not empty acc}" >
                                     <h1>
                                         <br>
-<!--                                        <span data-toggle="tooltip" data-placement="bottom" title="Save this room"><i class="fa fa-bookmark"></i></span>&nbsp;&nbsp;-->
+                                        <span data-toggle="tooltip" data-placement="bottom" title="Save this room"><i class="fa fa-bookmark"></i></span>&nbsp;&nbsp;
                                         <a onclick="openForm()">
                                             <span data-toggle="tooltip" data-placement="bottom" title="Reporting this room"><i class="fa fa-warning"></i></span>
                                         </a>
                                     </h1>
                                 </c:if>
                             </div>
-                                <div class="float-right float-xs-none price" style="width: 25%">
+                            <div class="float-right float-xs-none price">
                                 <div class="number priceStyle">${room.price}<small>đ</small></div>
                                 <strong>/tháng</strong>
                                 <hr>
-
-                                <c:if test="${not empty acc}">
-                                    <c:if test="${FStatus==true}">
-                                        <form action="AddFavouriteController">    
-                                            <input name="id" value="${room.roomID}" type="hidden">
-                                            <input name="email" value="${acc.email}" type="hidden">
-                                            <button class="btn btn-primary btn-framed" style="width: 100%" type="submit">Add to favourite <i class="fa fa-heart-o"></i></button>
-                                        </form>
-                                    </c:if>               
-                                    <c:if test="${FStatus==false}">
-                                        <form action="RemoveFavouriteController">    
-                                            <input name="id" value="${room.roomID}" type="hidden">
-                                            <input name="email" value="${acc.email}" type="hidden">
-                                            <button class="btn btn-primary btn-framed" style="width: 100%" type="submit">Remove from favourite <i class="fa fa-heart-o"></i></button>
-                                        </form>
-                                    </c:if>
-                                </c:if>
+                                
 
                             </div>
                         </div>
@@ -345,28 +329,28 @@
                                 <!--Description-->
 
                                 <section>
-                                    <h2>Mô tả</h2>
-                                    <p style="">
+                                    <h2>Description</h2>
+                                    <p style="white-space: pre-line">
                                         ${room.description}
                                     </p>
                                 </section>
                                 <!--end Description-->
                                 <!--Details-->
                                 <section>
-                                    <h2>Chi tiết</h2>
+                                    <h2>Details</h2>
                                     <dl class="columns-2">
-                                        <dt>Ngày thêm</dt>
+                                        <dt>Date Added</dt>
                                         <dd>${room.date_added}</dd>
-                                        <dt>Loại</dt>
+                                        <dt>Type</dt>
                                         <dd>Offer</dd>
-                                        <dt>Trạng thái</dt>
+                                        <dt>Status</dt>
                                         <dd>${room.status}</dd>
                                         <!--                                    <dt>First Owner</dt>
                                                                             <dd>Yes</dd>-->
-                                        <dt style="margin-right: 1rem">Địa chỉ</dt>
+                                        <dt style="margin-right: 1rem">Detail address</dt>
                                         <dd>${room.detailAddress}</dd>
-                                        <dt>Tiền thuê tháng</dt>
-                                        <dd>${room.price}<small>VND</small></dd>
+                                        <dt>Rent</dt>
+                                        <dd>${room.price} <small>VND</small></dd>
                                         <!--                                    <dt>Color</dt>
                                                                             <dd>White, Grey</dd>
                                                                             <dt>Height</dt>
@@ -396,6 +380,7 @@
                                                             </section>-->
                                 <!--end Features-->
 
+                                <hr>
 
                                 <!--Similar Ads-->
                                 <!--                            <section>
@@ -545,7 +530,7 @@
                                 <aside class="sidebar">
                                     <!--Author-->
                                     <section>
-                                        <h2>Người cho thuê</h2>
+                                        <h2>Author</h2>
                                         <div class="box">
                                             <div class="author">
                                                 <div class="author-image">
@@ -571,33 +556,28 @@
                                                 <dd>hijane@example.com</dd>
                                             </dl>
                                             <!--end author-->
-<!--                                            <form class="form email">
+                                            <form class="form email">
                                                 <div class="form-group">
                                                     <label for="name" class="col-form-label">Name</label>
                                                     <input name="name" type="text" class="form-control" id="name" placeholder="Your Name">
                                                 </div>
-                                                end form-group
+                                                <!--end form-group-->
                                                 <div class="form-group">
                                                     <label for="email" class="col-form-label">Email</label>
                                                     <input name="email" type="email" class="form-control" id="email" placeholder="Your Email">
                                                 </div>
-                                                end form-group
+                                                <!--end form-group-->
                                                 <div class="form-group">
                                                     <label for="message" class="col-form-label">Message</label>
                                                     <textarea name="message" id="message" class="form-control" rows="4" placeholder="Hi there! I am interested in your offer ID 53951. Please give me more details."></textarea>
                                                 </div>
-                                                end form-group
+                                                <!--end form-group-->
                                                 <button type="submit" class="btn btn-primary">Send</button>
-                                            </form>-->
+                                            </form>
                                         </div>
                                         <!--end box-->
                                     </section>
-                                    <section>
-                                        <h2>Đặt phòng</h2>
-                                        <div class="box">
-                                            <a class="btn btn-framed btn-primary" href="Deposit.jsp">Tiến hành đặt cọc</a>
-                                        </div>
-                                    </section>
+
                                     <!--End Author-->
 
                                 </aside>
@@ -605,9 +585,8 @@
                             </div>
                             <!--============ End Sidebar ================================================================-->
                         </div>
-                        <hr>
                         <section>
-                            <h2>Bản đồ</h2>
+                            <h2>Location</h2>
                             <div class="map height-300px" id="map-small">
                                 <iframe width="450"
                                         height="250"
@@ -619,34 +598,29 @@
                             </div>
                         </section>
                         <section>
-                            <h2>Viết đánh giá</h2>
-                            <c:if test="${user==null}">
-                                <div class="box" style="width: 100%">
-                                    <a href="./login" style="width: 100%">Bạn phải đăng nhập trước khi đánh giá</a>
-                                </div>                                                                 
-                            </c:if>
-                            <c:if test="${user!=null}">
-                            <form class="form" action="WriteComment">
+                            <h2>Write a Review</h2>
+                            <form class="form" action="WriteComment" method="POST">
                                 <input name="roomID" value="${room.roomID}" type="hidden">
                                 <div class="row">
                                     <div class="col-md-5">
                                         <div class="form-group">
-                                                <label for="username" class="col-form-label">Tên người dùng</label>
-                                                <div class="box" style="padding: 1.75rem">${user.name}</div> 
+                                            <c:set var="name" value="Tran Quang Khai"></c:set>                           <!-- set value to test only -->
+                                                <label for="username" class="col-form-label">My name</label>
+                                                <div class="box" >${name}</div> 
                                         </div>
                                         <!--end form-group-->
                                     </div>
                                     <!--end col-md-8-->
                                     <div class="col-md-7">
                                         <div class="form-group">
-                                            <label for="rating" class="col-form-label">Chất lượng</label>                                            
-                                            <select required="" name="rating" id="rating" data-placeholder="Select Rating">
-                                                <option value="">Lựa chọn của bạn</option>
-                                                <option value="1" data-option-stars="1">Kinh khủng</option>
-                                                <option value="2" data-option-stars="2">Trung bình</option>
-                                                <option value="3" data-option-stars="3">Ổn</option>
-                                                <option value="4" data-option-stars="4">Rất tốt</option>
-                                                <option value="5" data-option-stars="5">Tuyệt vời</option>
+                                            <label for="rating" class="col-form-label">Rating</label>                                            
+                                            <select name="rating" id="rating" data-placeholder="Select Rating">
+                                                <option value="">Select Rating</option>
+                                                <option value="1" data-option-stars="1">Horrible</option>
+                                                <option value="2" data-option-stars="2">Average</option>
+                                                <option value="3" data-option-stars="3">Good</option>
+                                                <option value="4" data-option-stars="4">Very Good</option>
+                                                <option value="5" data-option-stars="5">Excellent</option>
                                             </select>
                                         </div>
                                         <!--end form-group-->
@@ -654,17 +628,16 @@
                                     <!--end col-md-4-->
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="review" class="col-form-label">Đánh giá chi tiết cua bạn</label>
-                                            <textarea name="review" id="review" class="form-control" rows="4" placeholder="Căn phòng tuyệt nhất tôi từng ở"></textarea>
+                                            <label for="review" class="col-form-label">Your Review</label>
+                                            <textarea name="review" id="review" class="form-control" rows="4" placeholder="Good seller, I am satisfied."></textarea>
                                         </div>
                                         <!--end form-group-->
                                     </div>
                                     <!--end col-md-12-->
                                 </div>
-                                <button type="submit" class="btn btn-primary icon float-right width-20">Submit<i class="fa fa-chevron-right"></i></button>
+                                <button type="submit" class="btn btn-primary icon float-right width-100">Submit<i class="fa fa-chevron-right"></i></button>
                                 <!--end row-->
-                            </form>                               
-                            </c:if>
+                            </form>
                             <!--end form-->
                         </section>
                         <hr style="margin-top: 10rem">
@@ -681,39 +654,10 @@
                                             </a>
                                             <div class="author-description">
                                                 <h3>${review.name}</h3>
-                                                <div style="display: inline-block; margin-right: 808px" class="meta">
-                                                    <span class="rating" data-rating="${review.rating}"/>
+                                                <div class="meta">
+                                                    <span class="rating" data-rating="${review.rating}"></span>
                                                     <span>${review.time}</span>
                                                 </div>
-
-                                                <div class="popup" id="reportCommentForm">
-                                                    <h2>Báo cáo cho quản trị viên</h2>
-                                                    <form class="form form-submit" action="./reportcomment">
-                                                        <input type="hidden" value="${review.id}" name="commentId" />
-                                                        <input type="hidden" value="${room.roomID}" name="roomID" />
-                                                        <input type="hidden" value="${review.email}" name="email" />
-<!--                                                        <input type="hidden" value="${review.content}" name="content" />-->
-                                                        <!--                <div class="form-group">
-                                                                            <label for="title" class="col-form-label required">Tiêu đề</label>
-                                                                            <input name="title" type="text" class="form-control" id="title" placeholder="Mô tả ngắn gọn vấn đề của bạn" autocomplete="off" required>
-                                                                        </div>-->
-                                                        <div class="form-group">
-                                                            <label for="title" class="col-form-label required">Nội dung báo cáo</label>
-                                                            <input name="content" type="text" class="form-control" id="title" placeholder="Nội dung báo cáo chi tiết cho quản trị viên" autocomplete="off" required>
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <button type="submit" class="btn btn-primary large icon float-left" style="font-size: 16px; margin: 10px 20px 0px 0px;">Gửi</button>
-                                                        </div>
-                                                    </form>
-
-                                                    <button class="btn btn-secondary large icon float-left" style="font-size: 16px; margin: 10px 20px 0px 0px;" onclick="closeCommentForm()">Hủy</button>
-                                                </div>
-                                                <c:if test="${not empty acc}" >                                                      
-                                                    <a style="cursor:pointer" onclick="openCommentForm()">
-                                                        <span data-toggle="tooltip" data-placement="bottom" title="Reporting this comment"><i class="fa fa-2x fa-warning"></i></span>
-                                                    </a>
-                                                </c:if>
                                                 <!--                                                end meta-->
                                                 <p>
                                                     ${review.content}
@@ -723,8 +667,9 @@
                                     </div>
                                 </c:forEach>
                             </div>
-<<<<<<< HEAD
+
                             <div class="page-pagination">
+
                                 <nav aria-label="Pagination">
                                     <ul class="pagination">
 
@@ -738,23 +683,6 @@
                                                                                 <a class="page-link" href="#">3</a>
                                                                             </li>-->
 
-=======
-
-                            <div class="page-pagination">
-                                <nav aria-label="Pagination">
-                                    <ul class="pagination">
-
-                                        <!--                                    <li class="page-item active">
-                                                                                <a class="page-link" href="#">1</a>
-                                                                            </li>
-                                                                            <li class="page-item">
-                                                                                <a class="page-link" href="#">2</a>
-                                                                            </li>
-                                                                            <li class="page-item">
-                                                                                <a class="page-link" href="#">3</a>
-                                                                            </li>-->
-
->>>>>>> 4e21dbdf36150cfc837cc9307c5318c320f7789e
                                         <c:forEach begin="1" end="${endPage}" step="1" var="i">
                                             <c:choose>
                                                 <c:when test="${currentPage == i}">
@@ -881,22 +809,22 @@
         <script src="assets/js/jquery.validate.min.js"></script>
         <script src="assets/js/custom.js"></script>
         <script>
-                                                        for (let i = 0; i < document.getElementsByClassName("priceStyle").length; i++) {
-                                                            let priceText = document.getElementsByClassName("priceStyle")[i].textContent.trim();
-                                                            let textReverse = priceText.split("").reverse().join("").trim();
-                                                            var j = 1;
-                                                            var count = 0;
-                                                            while (j < textReverse.length) {
-                                                                count++;
-                                                                if (count > 3) {
-                                                                    textReverse = textReverse.slice(0, j) + "." + textReverse.slice(j);
-                                                                    count = 0;
-                                                                }
-                                                                j++;
-                                                            }
-                                                            let finalPrice = textReverse.split("").reverse().join("");
-                                                            document.getElementsByClassName("priceStyle")[i].innerHTML = finalPrice;
-                                                        }
+                                            for (let i = 0; i < document.getElementsByClassName("priceStyle").length; i++) {
+                                                let priceText = document.getElementsByClassName("priceStyle")[i].textContent.trim();
+                                                let textReverse = priceText.split("").reverse().join("").trim();
+                                                var j = 1;
+                                                var count = 0;
+                                                while (j < textReverse.length) {
+                                                    count++;
+                                                    if (count > 3) {
+                                                        textReverse = textReverse.slice(0, j) + "." + textReverse.slice(j);
+                                                        count = 0;
+                                                    }
+                                                    j++;
+                                                }
+                                                let finalPrice = textReverse.split("").reverse().join("");
+                                                document.getElementsByClassName("priceStyle")[i].innerHTML = finalPrice;
+                                            }
         </script>
 
         <script>
@@ -907,14 +835,6 @@
             function closeForm() {
                 document.getElementsByClassName("page")[0].style.filter = "none";
                 document.getElementById("reportForm").style.display = "none";
-            }
-            function openCommentForm() {
-//                document.getElementsByClassName("page")[0].style.filter = "blur(8px)";
-                document.getElementById("reportCommentForm").style.display = "block";
-            }
-            function closeCommentForm() {
-//                document.getElementsByClassName("page")[0].style.filter = "none";
-                document.getElementById("reportCommentForm").style.display = "none";
             }
             function closeNotify() {
                 document.getElementById("notifyBox").style.display = "none";
