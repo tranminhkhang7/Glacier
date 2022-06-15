@@ -6,6 +6,7 @@
 package glacier.landlord.dbmanager;
 
 import glacier.room.model.Room;
+import glacier.user.model.Landlord;
 import glacier.utils.DBUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +21,34 @@ import java.util.List;
  * @author KHANG
  */
 public class LandlordManager {
+    
+    public Landlord getLandLordInfo(int roomID){
+         Landlord l = new Landlord();
+        try {
 
+            Connection conn = DBUtils.getConnection();
+            String sql = " select l.email,l.name,l.status,l.profile_picture,l.gender,l.phone,l.facebook_link,l.instagram_link \n"
+                    + "  from Landlord l join Room r on (l.email=r.emailLandlord)\n"
+                    + "  where r.roomID = ?";
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setInt(1, roomID);
+            ResultSet rs = pstm.executeQuery();
+
+            while (rs.next()) {
+                String email = rs.getString("email");
+                String name = rs.getString("name");
+                String status = rs.getString("status");
+                String profile_picture = rs.getString("profile_picture");
+                String gender = rs.getString("gender");
+                String phone = rs.getString("phone");
+                l = new Landlord(email, name, profile_picture, status, gender, phone, "", "");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return l;
+    }
+    
     public void addRoom(String name, String description, String address, String detailAddress, String status, int price, int deposit, float avgRating, Date dateAdded, float area, String emailLandlord) {
         try {
             Connection con = DBUtils.getConnection();

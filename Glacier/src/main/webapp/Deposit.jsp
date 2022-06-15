@@ -102,20 +102,21 @@
                                                 </div>
                                                 <!--end author-image-->
                                                 <div class="author-description">
-                                                    <h3>Jane Doe</h3>
-                                                    <div class="rating" data-rating="4"></div>
+                                                    <h3>${landlord.name}</h3>
+<!--                                                    <div class="rating" data-rating="4"></div>
                                                     <a href="seller-detail-1.html" class="text-uppercase">Show My Listings
                                                         <span class="appendix">(12)</span>
-                                                    </a>
+                                                    </a>-->
+                                                <div class="clearfix"></div>
                                                 </div>
                                                 <!--end author-description-->
                                             </div>
                                             <hr>
                                             <dl>
                                                 <dt>Phone</dt>
-                                                <dd>830-247-0930</dd>
+                                                <dd>${landlord.phone}</dd>
                                                 <dt>Email</dt>
-                                                <dd>hijane@example.com</dd>
+                                                <dd>${landlord.email}</dd>
                                             </dl>
                                             <!--end author-->
                                         </div>
