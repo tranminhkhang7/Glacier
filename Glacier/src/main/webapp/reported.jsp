@@ -31,14 +31,95 @@
             <!--*********************************************************************************************************-->
             <header class="hero">
                 <div class="hero-wrapper">
+
+                    <!--============ Secondary Navigation ===============================================================-->
+                    <div class="secondary-navigation">
+                        <div class="container">
+                            <ul class="left">
+                                <li>
+                                    <span>
+                                        <i class="fa fa-phone"></i> +1 123 456 789
+                                    </span>
+                                </li>
+                            </ul>
+                            <!--end left-->
+                            <ul class="right">
+                                <li>
+                                    <a href="sign-in.html">
+                                        <i class="fa fa-sign-out"></i>Đăng xuất
+                                    </a>
+                                </li>
+                            </ul>
+                            <!--end right-->
+                        </div>
+                        <!--end container-->
+                    </div>
+                    <!--============ End Secondary Navigation ===========================================================-->
+                    <!--============ Main Navigation ====================================================================-->
+                    <div class="main-navigation">
+                        <div class="container">
+                            <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
+                                <a class="navbar-brand" href="index.html">
+
+                                </a>
+                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                                <div class="collapse navbar-collapse" id="navbar">
+                                    <!--Main navigation list-->
+                                    <ul class="navbar-nav">
+                                        <li class="nav-item active has-child">
+                                            <a class="nav-link" href="SearchUserController?keyword=a&index=1&role=all">Người dùng</a>
+                                            <ul class="child">
+                                                <li class="nav-item">
+                                                    <a href="SearchUserController?keyword=&role=landlord&index=1" class="nav-link">Người cho thuê</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="SearchUserController?keyword=&role=tenant&index=1" class="nav-link">Người thuê</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="nav-item has-child">
+                                            <a class="nav-link" href="ReportedController?index=1&type=all">Bị tố cáo</a>
+                                            <!-- 1st level -->
+                                            <ul class="child">
+                                                <li class="nav-item">
+                                                    <a href="ReportedController?index=1&type=room" class="nav-link">Phòng</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="ReportedController?index=1&type=comment" class="nav-link">Bình luận</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="contact.html">Liên hệ</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="admin.jsp" class="btn btn-primary text-caps btn-rounded btn-framed">Trang chủ</a>
+                                        </li>
+                                    </ul>
+                                    <!--Main navigation list-->
+                                </div>
+                                <!--end navbar-collapse-->
+                                <!--end main-search-form-toggle-->
+                            </nav>
+                            <!--end navbar-->
+
+                            <!--end breadcrumb-->
+                        </div>
+                        <!--end container-->
+                    </div>
+                    <!--============ End Main Navigation ================================================================-->
+
                     
                     <jsp:include page="header/navigation-admin.jsp" />
                     
+
                     <!--============ Page Title =========================================================================-->
                     <div class="page-title">
                         <div class="container">
                             <h1 class="opacity-80 center" style="color: red">
-                                Reported Data
+                                Thông tin tố cáo
                             </h1>
                         </div>
                         <!--end container-->
@@ -61,6 +142,26 @@
                 }
             %>
 
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Xác nhận</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Bạn có chắc muốn tiếp tục?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">KHÔNG</button>
+                            <a class="btn btn-primary btn-ok">CÓ</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <section class="content">
                 <section class="block">
                     <div class="container">
@@ -75,10 +176,11 @@
                                 <thead>
                                     <tr style="background-color:red">
                                         <th style="width:10%">ID</th>
-                                        <th style="width:30%">User Email</th>
-                                        <th style="width:50%">Detail</th>
-                                        <th style="width:20%">Date</th>
-                                        <th style="width:20%">Type</th>                           
+                                        <th style="width:30%">Email người dùng</th>
+                                        <th style="width:50%">Chi tiết</th>
+                                        <th style="width:20%">Thời gian</th>
+                                        <th style="width:20%">Loại</th>                           
+                                        <th></th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -94,7 +196,14 @@
                                         <td style="height:10px;padding:5px 10px; text-align: right"><%= reported.getDate()%></td>
                                         <td style="height:10px;padding:5px 10px; text-align: left"><%= reported.getType()%></td>
                                         <td style="height:10px;padding:5px 10px">    
-                                            <input type="submit" value="Delete"/>
+                                            <button type="button" data-href="DeleteReportedController?id=<%= reported.getId()%>&type=<%= reported.getType()%>&action=ignore" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                                Bỏ qua
+                                            </button>
+                                        </td>
+                                        <td style="height:10px;padding:5px 10px">    
+                                            <button type="button" data-href="DeleteReportedController?id=<%= reported.getId()%>&type=<%= reported.getType()%>&action=delete" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                                Xóa
+                                            </button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -180,6 +289,12 @@
         <script src="assets/js/jquery.validate.min.js"></script>
         <script src="assets/js/readmore.min.js"></script>
         <script src="assets/js/custom.js"></script>
+
+        <script>
+            $('#myModal').on('show.bs.modal', function (e) {
+                $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+            });
+        </script>
 
     </body>
 </html>

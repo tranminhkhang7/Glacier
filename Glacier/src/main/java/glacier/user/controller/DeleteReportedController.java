@@ -7,7 +7,6 @@ package glacier.user.controller;
 
 import glacier.moderator.dbmanager.ModeratorManager;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,12 +17,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Admin
  */
-@WebServlet(name = "BanUserController", urlPatterns = {"/BanUserController"})
-public class BanUserController extends HttpServlet {
-    
+@WebServlet(name = "DeleteReportedController", urlPatterns = {"/DeleteReportedController"})
+public class DeleteReportedController extends HttpServlet {
+
     private static final String ERROR = "error.jsp";
-    private static final String SUCCESS = "SearchUserController?keyword=&role=all&index=1";
-    
+    private static final String SUCCESS = "ReportedController?index=1&type=all";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,14 +37,17 @@ public class BanUserController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String userPhone = request.getParameter("userPhone");
-            String userRole = request.getParameter("userRole");
-            String userStatus = request.getParameter("status");
-            ModeratorManager dao = new ModeratorManager();
+            String action = request.getParameter("action");
+            String type = request.getParameter("type");
+            String id = request.getParameter("id");
             boolean check = false;
-            if(userStatus.equals("active")){
-                check = dao.banUser(userPhone, userRole);
-            } else check = dao.unbanUser(userPhone, userRole); 
+            ModeratorManager dao = new ModeratorManager();
+            if(action.equals("ignore")){
+                check = dao.removeReported(id, type);
+            } 
+            if(action.equals("delete")){
+                check = dao.deleteReported(id, type);
+            } 
             if(check){
                 url = SUCCESS;
             }

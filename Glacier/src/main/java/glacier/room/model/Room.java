@@ -27,7 +27,7 @@ public class Room {
     public Room() {
     }
 
-
+    
     public Room(int roomID, String name, String description, String address, String emailTenant, String emailLandlord, String status, int price, float deposit, float avgRating, Date date_added, float area, String detailAddress) {
         this.roomID = roomID;
         this.name = name;
@@ -55,7 +55,9 @@ public class Room {
         this.price = price;
         this.date_added = date_added;
     }
-
+    
+    
+    
     //This constructor is for Displaying Room List in Landlord's views.
     public Room(int roomID, String name, String description, String address, String status, int price, float avgRating, Date date_added, float area) {
         this.roomID = roomID;

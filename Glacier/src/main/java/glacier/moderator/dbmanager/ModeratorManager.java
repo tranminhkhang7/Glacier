@@ -24,10 +24,31 @@ public class ModeratorManager {
 
     public List<User> getListUser(String search, int index) throws SQLException {
         List<User> listUser = new ArrayList<>();
-        ModeratorManager dao = new ModeratorManager();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        String GET_LISTUSER = "SELECT tl.[email], [name], [gender], [phone], [role], [status] " +
+                              "FROM [Account] a JOIN (SELECT * FROM [Landlord] UNION SELECT * FROM [Tenant]) tl ON a.[email] = tl.[email] " +
+                              "WHERE (a.[email] LIKE ? OR [name] LIKE ?)" + 
+                              "ORDER BY [name] " +
+                              "OFFSET " + (index - 1) * 10 + " ROWS FETCH NEXT 10 ROWS ONLY" ;
         try {
-            listUser = dao.getListLandlord(search, index);
-            listUser.addAll(dao.getListTenant(search, index));
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_LISTUSER);
+                ptm.setString(1, "%" + search + "%");
+                ptm.setString(2, "%" + search + "%");
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String email = rs.getString("email");
+                    String name = rs.getString("name");
+                    String gender = rs.getString("gender");
+                    String phone = rs.getString("phone");
+                    String role = rs.getString("role");
+                    String status = rs.getString("status");
+                    listUser.add(new User(email, name, role, gender, phone, status));
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -39,7 +60,11 @@ public class ModeratorManager {
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
-        String GET_TENANT = "SELECT [email], [name], [gender], [phone], [status] FROM Tenant WHERE ([email] LIKE ? OR [name] LIKE ?) ORDER BY [name] OFFSET " + (index - 1) * 10 + " ROWS FETCH NEXT 10 ROWS ONLY";
+        String GET_TENANT = "SELECT [email], [name], [gender], [phone], [status] " +
+                            "FROM Tenant " +
+                            "WHERE ([email] LIKE ? OR [name] LIKE ?) " +
+                            "ORDER BY [name] " +
+                            "OFFSET " + (index - 1) * 10 + " ROWS FETCH NEXT 10 ROWS ONLY";
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
@@ -76,7 +101,11 @@ public class ModeratorManager {
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
-        String GET_LANDLORD = "SELECT [email], [name], [gender], [phone], [status] FROM Landlord WHERE ([email] LIKE ? OR [name] LIKE ?) ORDER BY [name] OFFSET " + (index - 1) * 10 + " ROWS FETCH NEXT 10 ROWS ONLY";
+        String GET_LANDLORD = "SELECT [email], [name], [gender], [phone], [status] "
+                            + "FROM Landlord "
+                            + "WHERE ([email] LIKE ? OR [name] LIKE ?) "
+                            + "ORDER BY [name] "
+                            + "OFFSET " + (index - 1) * 10 + " ROWS FETCH NEXT 10 ROWS ONLY";
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
@@ -142,8 +171,8 @@ public class ModeratorManager {
     public boolean banUser(String userPhone, String role) { // search: the key words user typed; index: page number
         boolean check = false;
         try {
-            String sql1 = "UPDATE Tenant SET status = 'disabled' WHERE phone = ? ";
-            String sql2 = "UPDATE Landlord SET status = 'disabled' WHERE phone = ? ";
+            String sql1 = "UPDATE Tenant SET status = 'disabled' WHERE phone LIKE '%" + userPhone + "%'";
+            String sql2 = "UPDATE Landlord SET status = 'disabled' WHERE phone LIKE '%" + userPhone + "%'";
             String sql = null;
             if (role.equals("tenant")) {
                 sql = sql1;
@@ -153,11 +182,27 @@ public class ModeratorManager {
             }
             Connection con = DBUtils.getConnection();
             PreparedStatement st = con.prepareStatement(sql);
-            st.setString(1, userPhone);
-            int temp = st.executeUpdate();
-            if (temp == 1) {
-                check = true;
+            check = st.executeUpdate() != 0;
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return check;
+    }
+    public boolean unbanUser(String userPhone, String role) { // search: the key words user typed; index: page number
+        boolean check = false;
+        try {
+            String sql1 = "UPDATE Tenant SET status = 'active' WHERE phone LIKE '%" + userPhone + "%'";
+            String sql2 = "UPDATE Landlord SET status = 'active' WHERE phone LIKE '%" + userPhone + "%'";
+            String sql = null;
+            if (role.equals("tenant")) {
+                sql = sql1;
             }
+            if (role.equals("landlord")) {
+                sql = sql2;
+            }
+            Connection con = DBUtils.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            check = st.executeUpdate() != 0;
         } catch (Exception ex) {
             System.out.println(ex);
         }
@@ -261,7 +306,6 @@ public class ModeratorManager {
                 sql = sql2;
             }
             Connection con = DBUtils.getConnection();
-
             PreparedStatement st = con.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
 
@@ -274,15 +318,61 @@ public class ModeratorManager {
 
         return 0;
     }
+    
+    public boolean removeReported(String id, String type){
+        boolean check = false;
+        String sql1 = "DELETE FROM [ReportRoom] WHERE roomID = " + id;
+        String sql2 = "DELETE FROM [ReportComment] WHERE commentID = " + id;
+        String sql = null;
+        try {
+            if (type.equals("room")) {
+                sql = sql1;
+            }
+            if (type.equals("comment")) {
+                sql = sql2;
+            }
+            Connection con = DBUtils.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            check = st.executeUpdate() != 0;
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return check;
+    }
+    
+    public boolean deleteReported(String id, String type){
+        boolean check = false;
+        String sql1 = "DELETE FROM [Room] WHERE roomID = " + id;
+        String sql2 = "DELETE FROM [Comment] WHERE commentID = " + id;
+        String sql = null;
+        ModeratorManager dao = new ModeratorManager();
+        try {
+            if (type.equals("room")) {
+                sql = sql1;
+            }
+            if (type.equals("comment")) {
+                sql = sql2;
+            }
+            dao.removeReported(id, type);
+            Connection con = DBUtils.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            check = st.executeUpdate() != 0;
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return check;
+    }
+    
 
     public static void main(String[] args) throws SQLException {
         ModeratorManager dao = new ModeratorManager();
         int count = dao.countMatched2("all");
         System.out.println(count);
-        List<Reported> list = dao.getListReported(1);
-        for (Reported user : list) {
+        List<User> list = dao.getListUser("a",1);
+        for (User user : list) {
             System.out.println(user);
         }
-
+        boolean check = dao.removeReported("1", "comment");
+        System.out.println(check);
     }
 }

@@ -4,14 +4,15 @@
  */
 package glacier.room.controller;
 
+import glacier.room.dbmanager.CommentManager;
 import glacier.room.dbmanager.FavouriteManager;
+import glacier.room.model.Comment;
 import glacier.room.model.FavouriteRoom;
 import glacier.user.model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,8 +24,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Admin
  */
-@WebServlet(name = "AddFavouriteController", urlPatterns = {"/AddFavouriteController"})
-public class AddFavouriteController extends HttpServlet {
+@WebServlet(name = "FavouriteRoomViewController", urlPatterns = {"/Favourite"})
+public class FavouriteRoomViewController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,47 +38,57 @@ public class AddFavouriteController extends HttpServlet {
      */
     
     private static final String ERROR = "error.jsp";               // change this after adding session
-    private static final String SUCCESS = "SingleRoomView";
-    private static final int TEST = 10;
-    private static final Account TESTACC = new Account("dinhxuantung@gmail.com","", "tenant");  // THIS DEFAULT ACCOUNT EMAIL NEED TO BE SYNC WITH DEFAULT EMAIL IN SINGLEROOM.JSP
-        
+    private static final String SUCCESS = "FavouriteRooms.jsp";
+    
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, Exception {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        Account acc = (Account) session.getAttribute("LOGIN_USER");
-//        acc = TESTACC;
-        try{
-            if (acc==null){
-            request.setAttribute("errCode",null);
-            request.getRequestDispatcher(ERROR).forward(request, response);
+        String url=ERROR;
+        try{      
+            HttpSession session = request.getSession(false);
+            Account a = (Account)session.getAttribute("LOGIN_USER");
+            if (a==null){
+                request.setAttribute("errCode",null);
+                url=ERROR;
             }
-            else if (acc.getRole().trim().equals("tenant")){
-                    String email = (String) request.getParameter("email");
-                    int roomID =  Integer.parseInt(request.getParameter("id"));
-                    long now = System.currentTimeMillis();
-                    Timestamp date = new Timestamp(now);
-                    FavouriteRoom fr = new FavouriteRoom(email, roomID, date);
-                    FavouriteManager FM = new FavouriteManager();
-                    FM.addToFavourite(fr);
-                    response.sendRedirect(SUCCESS+"?id="+roomID);
+            else if (a.getRole().equals("tenant")){
+                String indexPage=request.getParameter("index");
+                if (indexPage==null){
+                    indexPage="1";
                 }
+                int currentPage=Integer.parseInt(indexPage);
+                
+                FavouriteManager FM = new FavouriteManager();
+                ArrayList<FavouriteRoom> FRL = FM.getAllFRoom(a.getEmail(), currentPage);
+                int totalReviews=FM.getNumberOfFRooms(a.getEmail());
+                    int endPage = totalReviews/6;
+                    if (totalReviews % 6!=0){
+                        endPage++;
+                }
+                    url=SUCCESS;
+                    request.setAttribute("FRL",FRL);
+                    request.setAttribute("endPage",endPage);
+                    request.setAttribute("currentPage", currentPage);
+            }
                 else 
-                    if (acc.getRole().trim().equals("landlord")){
+                    if (a.getRole().trim().equals("landlord")){
                     request.setAttribute("errCode",1);
-                    request.getRequestDispatcher(ERROR).forward(request, response);
+                    url=ERROR;
                     }
                 else 
-                    if (acc.getRole().trim().equals("admin")){
+                    if (a.getRole().trim().equals("admin")){
                     request.setAttribute("errCode",2);
-                    request.getRequestDispatcher(ERROR).forward(request, response);
+                    url=ERROR;
                     }
+            
         }
         catch(Exception e){
             e.printStackTrace();
-            response.sendRedirect(ERROR);
-        }                                                                                  // DELETE THIS AFTER ADDING SESSION - CREATE DEFAULT ACCOUNT IN SESSION
+        }
+        finally {
+                request.getRequestDispatcher(url).forward(request, response);
+            }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -92,11 +103,7 @@ public class AddFavouriteController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (Exception ex) {
-            Logger.getLogger(AddFavouriteController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -110,11 +117,7 @@ public class AddFavouriteController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (Exception ex) {
-            Logger.getLogger(AddFavouriteController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
