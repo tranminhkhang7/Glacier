@@ -52,8 +52,8 @@
         <section class="content">
             <section class="block">
                 <div class="container">
-                    <h1 style="text-align: center;">CHỖ NÀY SẼ LÀ TÊN ROOM DÀI THIỆT LÀ DÀI BỰ THIỆT LÀ BỰ</h1>
-                    <h2 style="text-align: center;color: #6c757d;">ĐỊA CHỈ NGẮN Ở ĐÂY</h2>
+                    <h1 style="text-align: center;">${room.name}</h1>
+                    <h2 style="text-align: center;color: #6c757d;">${room.address}</h2>
                     <hr>
                     <div class="container box">
                         <h2 style="text-align: center;margin-bottom:1rem;margin-bottom: 2rem; font-size: 25px">THÔNG TIN PHÒNG TRỌ</h2>
@@ -97,7 +97,7 @@
                                             <div class="author">
                                                 <div class="author-image">
                                                     <div class="background-image">
-                                                        <img src="assets/img/author-01.jpg" alt="">
+                                                        <img src="assets/img/author-01.jpg" alt=""> <!-- pictur not yet available -->
                                                     </div>
                                                 </div>
                                                 <!--end author-image-->
@@ -125,13 +125,13 @@
                                         <dt>Loại</dt>
                                         <dd>Offer</dd>
                                         <dt>Trạng thái</dt>
-                                        <dd>CHƯA AI THUÊ</dd>
+                                        <dd>${room.status}</dd>
                                         <dt>Địa chỉ</dt>
-                                        <dd>KTX ĐHQG KHU B, DĨ AN, BÌNH DƯƠNG</dd>
+                                        <dd>${room.detailAddress}</dd>
                                         <dt>Tiền thuê tháng</dt>
-                                        <dd>200000<small>VND</small></dd>
+                                        <dd>${room.price}<small>VND</small></dd>
                                         <dt>Deposit</dt>
-                                        <dd>20000<small>VND</small></dd>
+                                        <dd>${room.deposit}<small>VND</small></dd>
                                     </dl>
                                 </div>
                             </div>                                   
@@ -154,14 +154,14 @@
                                     <td>1</td>
                                     <td>Tiền đặt cọc cho phòng {room.name}</td>
                                     <td>Tiền đặt cọc giữ phòng chờ xử lí</td>
-                                    <td>2000000</td>
+                                    <td>${room.deposit}</td>
                                     <td>VNĐ</td>
                                 </tr>
                                 <!-- đóng foreach ở đây nếu có xài -->
                             </table>
                             <div style="float: right">
                                 <hr>
-                                <div style="text-align: center" class="">Tổng tiền: 1000000 VNĐ</div>
+                                <div style="text-align: center" class="">Tổng tiền: ${room.deposit} VNĐ</div>
                                 <hr>
                                 <form action="deposit">
                                     <input name="id" value="${id}" type="hidden">
