@@ -51,7 +51,7 @@ public class Deposit extends HttpServlet {
                 UserManager mng = new UserManager();
                 mng.deposit(emailTenant, roomID);
                 
-                RequestDispatcher rd = request.getRequestDispatcher("sucess-deposit.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("success-deposit.jsp");
                 rd.forward(request, response);
             }
         }
