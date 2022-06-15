@@ -1,38 +1,41 @@
 <%-- 
-    Document   : register
-    Created on : May 21, 2022, 5:37:15 PM
-    Author     : ASUS
+    Document   : success-deposit
+    Created on : Jun 15, 2022, 8:10:46 AM
+    Author     : KHANG
 --%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!doctype html>
-<html lang="en">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
+<html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="author" content="ThemeStarz">
-
         <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Varela+Round" rel="stylesheet">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/bootstrap/css/bootstrap.css" type="text/css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/fonts/font-awesome.css" type="text/css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/selectize.css" type="text/css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user.css">
-
-        <title>Craigs - Easy Buy & Sell Listing HTML Template</title>
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.css" type="text/css">
+        <link rel="stylesheet" href="assets/fonts/font-awesome.css" type="text/css">
+        <link rel="stylesheet" href="assets/css/selectize.css" type="text/css">
+        <link rel="stylesheet" href="assets/css/owl.carousel.min.css" type="text/css">
+        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="assets/css/user.css">
 
     </head>
-    <body>
+    <body style="font-family: 'Varela Round', sans-serif;">
+        <c:set var="acc" value="${LOGIN_USER}" />
+        <c:set var="user" value="${USER_DETAIL}" />
+
         <div class="page sub-page">
             <!--*********************************************************************************************************-->
             <!--************ HERO ***************************************************************************************-->
             <!--*********************************************************************************************************-->
-            <!--end hero-->
-                        <section class="hero">
+            <header class="hero">
                 <div class="hero-wrapper">
-                    
-                    <jsp:include page="/header/navigation-access.jsp" />
-                    
+
+                    <jsp:include page="header/navigation.jsp" />
+
                     <!--============ Hero Form ==========================================================================-->
                     <div class="collapse" id="collapseMainSearchForm">
                         <form class="hero-form form">
@@ -86,26 +89,40 @@
                                     <div class="collapse" id="collapseAlternativeSearchForm">
                                         <div class="wrapper">
                                             <div class="form-row">
-                                                <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 d-xs-grid d-flex align-items-center justify-content-between">
-                                                    <label>
-                                                        <input type="checkbox" name="new">
-                                                        New
-                                                    </label>
-                                                    <label>
-                                                        <input type="checkbox" name="used">
-                                                        Used
-                                                    </label>
-                                                    <label>
-                                                        <input type="checkbox" name="with_photo">
-                                                        With Photo
-                                                    </label>
-                                                    <label>
-                                                        <input type="checkbox" name="featured">
-                                                        Featured
-                                                    </label>
+                                                <div class="col-xl-6 col-lg-5 col-md-12 col-sm-12">
+                                                    <div class="form-row">
+                                                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                                                            <label>
+                                                                <input type="checkbox" name="new">
+                                                                New
+                                                            </label>
+                                                        </div>
+                                                        <!--end col-md-3-->
+                                                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                                                            <label>
+                                                                <input type="checkbox" name="used">
+                                                                Used
+                                                            </label>
+                                                        </div>
+                                                        <!--end col-md-3-->
+                                                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                                                            <label>
+                                                                <input type="checkbox" name="with_photo">
+                                                                With Photo
+                                                            </label>
+                                                        </div>
+                                                        <!--end col-md-3-->
+                                                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                                                            <label>
+                                                                <input type="checkbox" name="featured">
+                                                                Featured
+                                                            </label>
+                                                        </div>
+                                                        <!--end col-md-3-->
+                                                    </div>
                                                 </div>
-                                                <!--end col-xl-6-->
-                                                <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
+                                                <!--end col-md-6-->
+                                                <div class="col-xl-6 col-lg-7 col-md-12 col-sm-12">
                                                     <div class="form-row">
                                                         <div class="col-md-4 col-sm-4">
                                                             <div class="form-group">
@@ -138,9 +155,7 @@
                                                         </div>
                                                         <!--end col-md-3-->
                                                     </div>
-                                                    <!--end form-row-->
                                                 </div>
-                                                <!--end col-xl-6-->
                                             </div>
                                             <!--end row-->
                                         </div>
@@ -157,136 +172,110 @@
                     <!--end collapse-->
                     <!--============ End Hero Form ======================================================================-->
                     <!--============ Page Title =========================================================================-->
-                    <div class="page-title">
-                        <div class="container">
-                            <h1>Personal Information</h1>
-                        </div>
-                        <!--end container-->
-                    </div>
+
                     <!--============ End Page Title =====================================================================-->
-                    <div class="background">
-                        <div class="background-image">
-                            <img src="${pageContext.request.contextPath}/assets/img/hero-background-image-02.jpg" alt="">
-                    </div>
-                    </div>
-                    
+                    <div class="background"></div>
                     <!--end background-->
                 </div>
                 <!--end hero-wrapper-->
-            </section>
+            </header>
             <!--end hero-->
+
             <!--*********************************************************************************************************-->
             <!--************ CONTENT ************************************************************************************-->
             <!--*********************************************************************************************************-->
-            
-            <section class="content">
-                <section class="block">
-                    <div class="container">                        
-                        <div class="row justify-content-center">
-                            <div class="col-xl-4 col-lg-5 col-md-6 col-sm-8">
-                                <form class="form clearfix" action="${pageContext.request.contextPath}/information" method="post">
-                                    <div class="form-group">
-                                        <label for="name" class="col-form-label required">Your Name</label>
-                                        <input name="name" type="text" class="form-control" id="name" placeholder="Your Name" value="${sessionScope.GOOGLE_USER.name}" required onkeyup="nameLengthCheck()">
-                                        <span id="name_message" style="text-align: right;"></span>
+            <section class="content" style="text-align: center">
+                <!--                <section class="block">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                
+                                                <section>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <form method="get" action="${pageContext.request.contextPath}/hehealo1234">
+                                                                <button href="dadhakhkfha" class="btn btn-primary width-100">Xem giao diện phòng và đánh giá</button>
+                                                            </form>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <button type="submit" class="btn btn-primary width-100" onclick="openForm()">Tạo thông báo</button>
+                                                        </div>
+                                                        <br>
+                                                        <br>
+                                                        <br>
+                                                        <br>
+                                                        <div class="col-md-6">
+                                                            <button type="submit" class="btn btn-primary width-100" onclick="openForm()">Tạo hóa đơn</button>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <button type="submit" class="btn btn-primary width-100" onclick="openForm()">Người thuê muốn rời đi</button>
+                                                        </div>
+                
+                                                    </div>
+                                                </section>
+                
+                                            </div>
+                                            end col-md-9
+                
+                                        </div>
+                                        end row
                                     </div>
-                                    <!--end form-group-->
-                                    <div class="form-group">
-                                        <label for="email" class="col-form-label required">Email</label>
-                                        <input name="email" type="email" class="form-control" id="email" value="${sessionScope.GOOGLE_USER.email}" placeholder="Your Email" readonly="" required>
-                                    </div>
-                                    
-                                    <!--end form-group-->
-                                    <div class="form-group">
-                                        <label for="phone" class="col-form-label required">Phone number</label>
-                                        <input name="phone" type="tel" class="form-control" id="phone" placeholder="Phone number" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" required>
-                                        
-                                    </div>
-                                    <!--end form-group-->
-                                    <div class="form-group">
-                                        <label for="hehe" class="col-form-label required">Who do you want to be</label>
-                                        <select id="hehe" name="role">
-                                            <option value="Tenant">Tenant</option>
-                                            <option value="Landlord">Landlord</option>
-                                        </select>
-                                    </div>
-                                    <!--end form-group-->
-                                    <div class="form-group">
-                                        <label for="Gender" class="col-form-label required">Gender</label>
-                                        <div id="Gender"></div>
-                                        <span style="padding-right: 20px;">Male</span><input name="gender" value="male" type="radio" class="form-control" id="Male" checked>
-                                        <span style="padding-right: 20px;">Female</span><input name="gender" value="female" type="radio" class="form-control" id="Female">
-            
-                                    </div>
-<<<<<<< HEAD
-                                    <button type="submit" class="btn btn-primary float-right">Đăng ký</button>
-=======
-                                     <button type="submit" class="btn btn-primary">Đăng ký</button>
->>>>>>> 4e21dbdf36150cfc837cc9307c5318c320f7789e
-                                    <!--end form-group-->
-                                </form>
-                                <hr>
-                                <p>
-                                    By clicking "Register" button, you agree with our <a href="#" class="link">Terms & Conditions.</a>
-                                </p>
-                            </div>
-                            <!--end col-md-6-->
-                        </div>
-                        <!--end row-->
-                    </div>
-                    <!--end container-->
-                </section>
+                                    end container
+                                </section>-->
                 <!--end block-->
+                <br>
+                <br>
+                <h1> <i class="fa fa-check-circle" style="color: green"></i> Đặt phòng thành công!</h1>
+
+               
             </section>
             <!--end content-->
 
             <!--*********************************************************************************************************-->
             <!--************ FOOTER *************************************************************************************-->
             <!--*********************************************************************************************************-->
-            
+            <%--<jsp:include page="header/footer.jsp" />--%>
             <!--end footer-->
         </div>
         <!--end page-->
 
-        <script src="${pageContext.request.contextPath}/assets/js/jquery-3.3.1.min.js"></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/popper.min.js"></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/js/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="assets/js/popper.min.js"></script>
+        <script type="text/javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyBEDfNcQRmKQEyulDN8nGWjLYPm8s4YB58&libraries=places"></script>
-        <script src="${pageContext.request.contextPath}/assets/js/selectize.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/js/masonry.pkgd.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/js/icheck.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/js/jquery.validate.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/js/custom.js"></script>
+        <script src="assets/js/selectize.min.js"></script>
+        <script src="assets/js/icheck.min.js"></script>
+        <script src="assets/js/owl.carousel.min.js"></script>
+        <script src="assets/js/jquery.validate.min.js"></script>
+        <script src="assets/js/custom.js"></script>
         <script>
-            function check() {
-                var length = document.getElementById("repeat_password").value.length;
-                if (document.getElementById("password").value === document.getElementById("repeat_password").value && (length >5 && length <30)) {
-                    document.getElementById("message").innerHTML = "✔ Matched";
-                    document.getElementById("message").style.color = "green";
-                        } else {
-                        document.getElementById("message").innerHTML = "✖ The confirm didn't match";
-                        document.getElementById("message").style.color = "red";
-                        }
+            for (let i = 0; i < document.getElementsByClassName("priceStyle").length; i++) {
+                let priceText = document.getElementsByClassName("priceStyle")[i].textContent.trim();
+                let textReverse = priceText.split("").reverse().join("").trim();
+                var j = 1;
+                var count = 0;
+                while (j < textReverse.length) {
+                    count++;
+                    if (count > 3) {
+                        textReverse = textReverse.slice(0, j) + "." + textReverse.slice(j);
+                        count = 0;
                     }
-            function lengthCheck(){
-                var titleElement = document.getElementById("password").value; 
-                if(titleElement.length < 5 || titleElement.length > 30){
-                    document.getElementById("length_message").innerHTML = "Password should be in 5-30 letters";
-                    document.getElementById("length_message").style.color = "red";
-                }else{
-                    document.getElementById("length_message").innerHTML = "";
+                    j++;
                 }
-            }
-            function nameLengthCheck(){
-                var titleElement = document.getElementById("name").value; 
-                if(titleElement.length < 5 || titleElement.length > 30){
-                    document.getElementById("name_message").innerHTML = "Name should be in 5-30 letters";
-                    document.getElementById("name_message").style.color = "red";
-                }else{
-                    document.getElementById("name_message").innerHTML = "";
-                }
+                let finalPrice = textReverse.split("").reverse().join("");
+                document.getElementsByClassName("priceStyle")[i].innerHTML = finalPrice;
             }
         </script>
+
+
+        <!--        <script>
+                    var latitude = 51.511971;
+                    var longitude = -0.137597;
+                    var markerImage = "assets/img/map-marker.png";
+                    var mapTheme = "light";
+                    var mapElement = "map-small";
+                    simpleMap(latitude, longitude, markerImage, mapTheme, mapElement);
+                </script>-->
+
     </body>
 </html>
-

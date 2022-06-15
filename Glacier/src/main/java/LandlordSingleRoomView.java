@@ -1,16 +1,19 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
-package glacier.room.model;
 
 import glacier.room.dbmanager.CommentManager;
 import glacier.room.dbmanager.FavouriteManager;
+import glacier.room.model.Comment;
+import glacier.room.model.Room;
+import glacier.room.model.RoomDAO;
 import glacier.user.model.Account;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,9 +21,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Admin
+ * @author KHANG
  */
-public class SingleRoomView extends HttpServlet {
+@WebServlet(urlPatterns = {"/LandlordSingleRoomView"})
+public class LandlordSingleRoomView extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,73 +35,71 @@ public class SingleRoomView extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-    
     private static final String ERROR = "error.jsp";               // change this after adding session
     private static final String SUCCESS = "SingleRoom.jsp";
     private static final int TEST = 10;
-    private static final Account TESTACC = new Account("dinhxuantung@gmail.com","","tenant");
-    private static final Account GUEST=new Account("","","tenant");
+    private static final Account TESTACC = new Account("dinhxuantung@gmail.com", "", "tenant");
+    private static final Account GUEST = new Account("", "", "tenant");
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");   
+        response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
 
         try {
             HttpSession session = request.getSession(false);
-        Account acc = (Account) session.getAttribute("LOGIN_USER");
+            Account acc = (Account) session.getAttribute("LOGIN_USER");
 //            acc = TESTACC;                                                            // this set default access delete this when merging
-            if (acc==null) acc=GUEST;
+            if (acc == null) {
+                acc = GUEST;
+            }
             if ((acc.getRole().equals("tenant"))) {
 
-                    String indexPage = request.getParameter("index");
-                    if (indexPage == null){
-                        indexPage="1";
-                    }
-                    int currentPage=Integer.parseInt(indexPage);
-                    int id = Integer.parseInt(request.getParameter("id"));      // get room id to view
-                    // GET ROOM
-                    RoomDAO dao = new RoomDAO();
-                    Room room = dao.getRoomById(id);                     
-                    ArrayList<String> ImgList = dao.getRoomImgById(id);
-                    
-                    //GET COMMENT AND PAGING
-                    CommentManager cm = new CommentManager();
-                    ArrayList<Comment> Reviews = cm.getAllComment(id,currentPage);
-                    int totalReviews=cm.getNumberOfComment(id);
-                    int endPage = totalReviews/5;
-                    if (totalReviews % 5!=0){
-                        endPage++;
-                    }
-                    
-                    //GET FAVOURITE STATUS
-                    FavouriteManager FM = new FavouriteManager();
-                    boolean FStatus = FM.getFStatus(id, acc.getEmail());
-                    
-                    //FINSIH
-                    url=SUCCESS;        
-                    request.setAttribute("room", room);
-                    request.setAttribute("ImgList", ImgList);
-                    request.setAttribute("FStatus", FStatus);
-                    request.setAttribute("Reviews", Reviews);
-                    request.setAttribute("endPage",endPage);
-                    request.setAttribute("currentPage",currentPage);
-            }
-            else if ((acc.getRole().trim().equals("landlord"))){                                    // set privillage only tenant can see other room details 
+                String indexPage = request.getParameter("index");
+                if (indexPage == null) {
+                    indexPage = "1";
+                }
+                int currentPage = Integer.parseInt(indexPage);
+                int id = Integer.parseInt(request.getParameter("id"));      // get room id to view
+                // GET ROOM
+                RoomDAO dao = new RoomDAO();
+                Room room = dao.getRoomById(id);
+                ArrayList<String> ImgList = dao.getRoomImgById(id);
+
+                //GET COMMENT AND PAGING
+                CommentManager cm = new CommentManager();
+                ArrayList<Comment> Reviews = cm.getAllComment(id, currentPage);
+                int totalReviews = cm.getNumberOfComment(id);
+                int endPage = totalReviews / 5;
+                if (totalReviews % 5 != 0) {
+                    endPage++;
+                }
+
+                //GET FAVOURITE STATUS
+                FavouriteManager FM = new FavouriteManager();
+                boolean FStatus = FM.getFStatus(id, acc.getEmail());
+
+                //FINSIH
+                url = SUCCESS;
+                request.setAttribute("room", room);
+                request.setAttribute("ImgList", ImgList);
+                request.setAttribute("FStatus", FStatus);
+                request.setAttribute("Reviews", Reviews);
+                request.setAttribute("endPage", endPage);
+                request.setAttribute("currentPage", currentPage);
+            } else if ((acc.getRole().trim().equals("landlord"))) {                                    // set privillage only tenant can see other room details 
                 url = ERROR;
-                request.setAttribute("errCode",1);
+                request.setAttribute("errCode", 1);
                 request.setAttribute("ERROR", "WRONG PRIVILLAGE");
-            } else if ((acc.getRole().trim().equals("admin"))){
+            } else if ((acc.getRole().trim().equals("admin"))) {
                 url = ERROR;
-                request.setAttribute("errCode",2);
+                request.setAttribute("errCode", 2);
                 request.setAttribute("ERROR", "WRONG PRIVILLAGE");
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
-            request.getRequestDispatcher(url).forward(request,response);
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

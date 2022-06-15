@@ -5,15 +5,21 @@
  */
 package glacier.user.controller;
 
+import glacier.notification.model.NotificationDTO;
 import glacier.user.model.Account;
 import glacier.user.model.Landlord;
+import glacier.user.model.Notification_LT;
+import glacier.user.model.Notification_TL;
 import glacier.user.model.Tenant;
 import glacier.utils.DBUtils;
 import java.sql.Connection;
 import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -336,9 +342,148 @@ public class UserManager {
         }
     }
 
+
+    //Get all numbers off norifications
+    public int getAllTenantNotifications(String email) {
+        try {
+            String sql = "SELECT COUNT(*)\n"
+                    + "FROM [Notification_LT]\n"
+                    + "WHERE [emailTenant] = ?";
+
+            Connection con = DBUtils.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return 0;
+    }
+
+    //Get all notifications of a specific user email
+    public List<NotificationDTO> getAllTenantNotifications(String email, int index) {
+        List<NotificationDTO> notiList = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT [notificationID], [emailTenant], [emailLandlord], [title], [content], [time] FROM [Notification_LT] "
+                        + " WHERE emailTenant=? "
+                        + " ORDER BY [notificationID] "
+                        + " OFFSET ? ROWS FETCH NEXT 8 ROWS ONLY ";
+                st = conn.prepareStatement(sql);
+                st.setString(1, email);
+                st.setInt(2, (index - 1) * 4);
+                rs = st.executeQuery();
+                while (rs.next()) {
+                    int id = rs.getInt("notificationID");
+                    String emailTenant = rs.getString("emailTenant");
+                    String title = rs.getString("title");
+                    String content = rs.getString("content");
+                    Timestamp time = rs.getTimestamp("time");
+                    notiList.add(new NotificationDTO(id, emailTenant, "", title, content, time));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return notiList;
+    }
+
+    //RETURN A TENANT NOTIFICATIONS LIST WITH THE SEARCH CONTENT
+    public List<NotificationDTO> searchNotificationsTenant(String search, int index) {
+        List<NotificationDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT * FROM [Notification_LT] "
+                        + " WHERE FREETEXT(title,?) OR FREETEXT(content,?) "
+                        + " ORDER BY [notificationID] "
+                        + " OFFSET ? ROWS FETCH NEXT 8 ROWS ONLY ";
+                st = conn.prepareStatement(sql);
+                st.setString(1, search);
+                st.setString(2, search);
+                st.setInt(3, (index - 1) * 4);
+                rs = st.executeQuery();
+                while (rs.next()) {
+                    int id = rs.getInt("notificationID");
+                    String emailTenant = rs.getString("emailTenant");
+                    String title = rs.getString("title");
+                    String content = rs.getString("content");
+                    Timestamp time = rs.getTimestamp("time");
+                    list.add(new NotificationDTO(id, emailTenant, "", title, content, time));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public boolean acceptDeposit(int roomId) {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement st = null;
+        long now = System.currentTimeMillis();
+        Timestamp date = new Timestamp(now);
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " UPDATE [Room] "
+                        + " SET status='unavailable', [rentStartDate]=?  "
+                        + " WHERE [roomId]=? ";
+
+                st = conn.prepareStatement(sql);
+                st.setTimestamp(1, date);
+                st.setInt(2, roomId);
+                
+                check = st.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return check;
+    }
+
+
+    
+    // This method processed the deposit of the tenant with the room with roomID. This method changes the status of the room to "Pending" and update the email tenant.
+    public void deposit(String emailTenant, int roomID){
+        try {
+            String sql = "UPDATE [Room]\n" +
+                        "SET [status] = N'pending', [emailTenant] = N'" + emailTenant + "'\n" +
+                        "WHERE [roomID] = " + roomID;
+            
+            Connection con = DBUtils.getConnection();
+            PreparedStatement getID = con.prepareStatement(sql);
+            getID.executeUpdate();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }
+    
     public static void main(String[] args) {
 
-//        UserManager user = new UserManager();
+        UserManager user = new UserManager();
+        List<NotificationDTO> list = user.searchNotificationsTenant("I that banana", 1);
+        for (NotificationDTO notification_LT : list) {
+            System.out.println(notification_LT);
+        }
+//        List<Notification_LT> list = user.getAllTenantNotifications("dinhxuantung@gmail.com", 1);
+//        for (Notification_LT notification_LT : list) {
+//            System.out.println(notification_LT);
+//        }
+//        int count = user.getAllTenantNotifications("dinhxuantung@gmail.com");
+//        System.out.println(count);
 //        Landlord l = user.getLandlordInfo("dangngocduong@gmail.com");
 //        System.out.println(l);
 //        boolean check = user.updateAccount("hehe@gmail.com", "Khoa Bui", "female", "1234567890", "fb.com/khoa.1313", "ig.com/khoa.1313", false );
