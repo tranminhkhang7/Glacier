@@ -33,7 +33,7 @@ public class AcceptDepositController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private final static String SUCCESS = "home";
+    private final static String SUCCESS = "roomsqueue";
     private final static String ERROR = "error.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -57,13 +57,16 @@ public class AcceptDepositController extends HttpServlet {
             
             if (isOwner && "pending".equals(roomStatus.trim())) {
                 if ("accept".equals(action)) {
-                    check = manager.acceptDeposit(Integer.parseInt(roomId));
+                    check = manager.acceptDeposit(Integer.parseInt(roomId),"unavailable");
                     if (check) {
                         dao.landlordNotify(Integer.parseInt(roomId), acc.getEmail(), "YOUR ROOM REQUEST HAS BEEN ACCEPT", "PLEASE GO CHECK YOUR ROOM MANAGEMENT");
                         url = SUCCESS;
                     }
                 } else {
+                    manager.acceptDeposit(Integer.parseInt(roomId),"available");
+                    manager.removeTenantFromRoom(Integer.parseInt(roomId));
                     dao.landlordNotify(Integer.parseInt(roomId), acc.getEmail(), "YOUR ROOM REQUEST HAS BEEN DECLINE", "PLEASE GO CHECK YOUR ROOM MANAGEMENT");
+                    
                     url = SUCCESS;
                 }
             }
