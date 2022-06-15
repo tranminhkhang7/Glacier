@@ -229,10 +229,10 @@
                                             <h3>
                                                 <c:choose>
                                                     <c:when test="${room.status eq 'unavailable'}">
-                                                        <a href="#" class="tag category">Renting</a>
+                                                        <a href="#" class="tag category">ĐANG THUÊ</a>
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <a href="#" class="tag category">Renting</a>
+                                                        <a href="#" class="tag category">CHỜ CHỦ NHÀ DUYỆT</a>
                                                     </c:otherwise>
                                                 </c:choose>
                                                 

@@ -67,6 +67,9 @@
                         <a class="nav-link" href="${pageContext.request.contextPath}/contact">Liên lạc</a>
                     </li>
                     <li class="nav-item">
+                        <a href="roomsqueue" class="btn btn-primary text-caps btn-rounded">KHÁCH MỚI</a>
+                    </li>
+                    <li class="nav-item">
                         <a href="#" class="btn btn-primary text-caps btn-rounded"><i class="fa fa-bell"></i></a>
                     </li>
                 </ul>
