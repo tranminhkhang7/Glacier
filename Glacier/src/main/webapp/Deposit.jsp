@@ -168,10 +168,13 @@
                                     <input name="id" value="${id}" type="hidden">
                                     <button class="btn btn-framed btn-primary" type="submit">Xác nhận thanh toán</button>
                                 </form>
-                                
                             </div>
+                                    
                             <div class="clearfix"></div>
-                            
+                            <br>
+                            <p><b>Lưu ý: </b></p>
+                            <p>- Sau khi hoàn tất thanh toán, bạn cần kiểm tra phòng trọ trực tiếp. Dù cho quyết định thuê hoặc không, bạn sẽ được Chủ nhà xác nhận và được hoàn tiền số tiền cọc này. Nếu bạn không nhận được xác nhận đó từ chủ nhà, sau 2 ngày, phòng sẽ tiếp tục được đăng tin và số tiền cọc sẽ không được hoàn lại.</p>
+                            <p>- Trong 2 ngày chờ duyệt từ chủ nhà, bạn sẽ không Hủy đặt cọc. Hãy chắn chắn bạn muốn đặt cọc trước khi thực hiện thao tác này.</p>
                         </div>
                         
                         
