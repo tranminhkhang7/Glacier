@@ -41,7 +41,9 @@ public class LandlordManager {
                 String profile_picture = rs.getString("profile_picture");
                 String gender = rs.getString("gender");
                 String phone = rs.getString("phone");
-                l = new Landlord(email, name, profile_picture, status, gender, phone, "", "");
+                String facebook=rs.getString("facebook_link");
+                String instagram=rs.getString("instagram_link");
+                l = new Landlord(email, name, profile_picture, status, gender, phone,facebook,instagram);
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -80,7 +80,7 @@ public class RoomManager {
 //                        "WHERE [title] LIKE '%" + searchText + "%'\n" +
 //                        "ORDER BY [ISBN]\n" +
 //                        "OFFSET " + (index - 1) * 9 + " ROWS FETCH NEXT 9 ROWS ONLY";
-            String sql = "SELECT R.[roomID], R.[name] as nameRoom, R.[address], R.[price], R.[date_added], L.[name] as nameLandlord, LEFT(R.[description], 100) as cutDescription\n"
+            String sql = "SESLECT R.[roomID], R.[name] as nameRoom, R.[address], R.[price], R.[date_added], L.[name] as nameLandlord, LEFT(R.[description], 100) as cutDescription\n"
                     + "FROM [Room] R JOIN [Landlord] L ON R.emailLandlord = L.email\n"
                     + "WHERE FREETEXT(R.[name], N'" + searchText + "') OR FREETEXT(R.[description], N'" + searchText + "') OR FREETEXT(R.[detailAddress], N'" + searchText + "') OR FREETEXT(R.[address], N'" + searchText + "')";
 //            if (rating != null && !rating.equals("all")) {
@@ -309,6 +309,28 @@ public class RoomManager {
             e.printStackTrace();
         }
         return landlord;
+    }
+    public boolean updateRoomRating(int roomId,int rating){
+        boolean status = false;
+        Connection conn = null;
+        PreparedStatement st = null;
+        try{
+            conn=DBUtils.getConnection();
+            if (conn!=null){
+                String sql = "update Room\n" +
+        "  set avg_rating=((avg_rating*numberRating)+?)/(numberRating+1),numberRating=numberRating+1\n"
+                        + "  where roomID=?";
+                st = conn.prepareStatement(sql);
+                st.setInt(1, rating);
+                st.setInt(2, roomId);
+                if (st.executeUpdate() == 1)
+                    status = true;
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return status;
     }
 
     public static void main(String[] args) {

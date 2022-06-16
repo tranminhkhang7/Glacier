@@ -353,6 +353,7 @@
                                 <!--end Description-->
                                 <!--Details-->
                                 <section>
+                                    
                                     <h2>Chi tiết</h2>
                                     <dl class="columns-2">
                                         <dt>Ngày thêm</dt>
@@ -363,7 +364,7 @@
                                         <dd>${room.status}</dd>
                                         <!--                                    <dt>First Owner</dt>
                                                                             <dd>Yes</dd>-->
-                                        <dt style="margin-right: 1rem">Địa chỉ</dt>
+                                        <dt>Địa chỉ</dt>
                                         <dd>${room.detailAddress}</dd>
                                         <dt>Tiền thuê tháng</dt>
                                         <dd>${room.price}<small>VND</small></dd>
@@ -378,23 +379,22 @@
                                     </dl>
                                 </section>
                                 <!--end Details-->
-                                <!--Location-->
-
-
-
-                                <!--end Location-->
-                                <!--Features-->
-                                <!--                            <section>
-                                                                <h2>Features</h2>
-                                                                <ul class="features-checkboxes columns-3">
-                                                                    <li>Quality Wood</li>
-                                                                    <li>Brushed Alluminium Handles</li>
-                                                                    <li>Foam mattress</li>
-                                                                    <li>Detachable chaise section</li>
-                                                                    <li>3 fold pull out mechanism</li>
-                                                                </ul>
-                                                            </section>-->
-                                <!--end Features-->
+<!--                                Features-->
+                                <c:set var="object" value="${f}" />
+                                <c:if test="${not empty object['class'].declaredFields}">
+                                    <section>
+                                      
+                                        <h2 style="">Features</h2>
+                                        <ul class="features-checkboxes columns-4">
+                                            <c:forEach var="field" items="${object['class'].declaredFields}">
+                                                <c:if test="${not empty object[field.name]}">
+                                                    <li style="font-weight: bold">${object[field.name]}</li>       
+                                                    </c:if>
+                                            </c:forEach>
+                                        </ul>
+                                    </section>
+                                </c:if>
+<!--                                end Features-->
 
 
                                 <!--Similar Ads-->
@@ -571,25 +571,7 @@
                                                 <dt>Email</dt>
                                                 <dd>${Landlord.email}</dd>
                                             </dl>
-                                            <!--end author-->
-<!--                                            <form class="form email">
-                                                <div class="form-group">
-                                                    <label for="name" class="col-form-label">Name</label>
-                                                    <input name="name" type="text" class="form-control" id="name" placeholder="Your Name">
-                                                </div>
-                                                end form-group
-                                                <div class="form-group">
-                                                    <label for="email" class="col-form-label">Email</label>
-                                                    <input name="email" type="email" class="form-control" id="email" placeholder="Your Email">
-                                                </div>
-                                                end form-group
-                                                <div class="form-group">
-                                                    <label for="message" class="col-form-label">Message</label>
-                                                    <textarea name="message" id="message" class="form-control" rows="4" placeholder="Hi there! I am interested in your offer ID 53951. Please give me more details."></textarea>
-                                                </div>
-                                                end form-group
-                                                <button type="submit" class="btn btn-primary">Send</button>
-                                            </form>-->
+                                            <!--end author-->            
                                         </div>
                                         <!--end box-->
                                     </section>
@@ -598,7 +580,10 @@
                                             <h2>Đặt phòng</h2>
                                             <div class="box">
                                                 <h3>Tiền đặt cọc:&nbsp;&nbsp;  ${room.deposit}</h3>
-                                                <a style="display:block;margin: auto" class="btn btn-framed btn-primary" href="./ToDeposit?id=${room.roomID}">Tiến hành đặt cọc</a>
+                                                <form action="./ToDeposit">
+                                                    <input name="id" value="${room.roomID}" type="hidden">
+                                                    <button style="display:block;margin: auto" class="btn btn-framed btn-primary" type="submit">Tiến hành đặt cọc</button>
+                                                </form>
                                             </div>
                                         </section>
                                     </c:if>
@@ -658,7 +643,7 @@
                                     <!--end col-md-4-->
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="review" class="col-form-label">Đánh giá chi tiết cua bạn</label>
+                                            <label for="review" class="col-form-label">Đánh giá chi tiết của bạn</label>
                                             <textarea name="review" id="review" class="form-control" rows="4" placeholder="Căn phòng tuyệt nhất tôi từng ở"></textarea>
                                         </div>
                                         <!--end form-group-->
@@ -685,9 +670,9 @@
                                             </a>
                                             <div class="author-description">
                                                 <h3>${review.name}</h3>
-                                                <div style="display: inline-block; margin-right: 808px" class="meta">
+                                                <div style="display: inline-block; " class="meta">
                                                     <span class="rating" data-rating="${review.rating}"/>
-                                                    <span>${review.time}</span>
+                                                    <span><fmt:formatDate type = "both" dateStyle = "short" timeStyle = "short" value = "${review.date}" /></span>
                                                 </div>
 
                                                 <div class="popup" id="reportCommentForm">
@@ -714,7 +699,7 @@
                                                     <button class="btn btn-secondary large icon float-left" style="font-size: 16px; margin: 10px 20px 0px 0px;" onclick="closeCommentForm()">Hủy</button>
                                                 </div>
                                                 <c:if test="${not empty acc}" >                                                      
-                                                    <a style="cursor:pointer" onclick="openCommentForm()">
+                                                    <a style="cursor:pointer" onclick="openCommentForm()" class="float-right">
                                                         <span data-toggle="tooltip" data-placement="bottom" title="Reporting this comment"><i class="fa fa-2x fa-warning"></i></span>
                                                     </a>
                                                 </c:if>

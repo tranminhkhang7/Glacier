@@ -44,7 +44,6 @@ public class ToDeposit extends HttpServlet {
         ArrayList<String> ImgList = dao.getRoomImgById(id);
         LandlordManager lm = new LandlordManager();
         Landlord l = lm.getLandLordInfo(id);
-        
         request.setAttribute("landlord", l);
         request.setAttribute("id", id);
         request.setAttribute("room", room);

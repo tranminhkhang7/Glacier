@@ -26,13 +26,13 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(int id, String name, String profile_picture, int roomId, String content, Date time, int rating) {
+    public Comment(int id, String name, String profile_picture, int roomId, String content, Timestamp date, int rating) {
         this.id = id;
         this.name = name;
         this.profile_picture = profile_picture;
         this.roomId = roomId;
         this.content = content;
-        this.time = time;
+        this.date=date;
         this.rating = rating;
     }
 
