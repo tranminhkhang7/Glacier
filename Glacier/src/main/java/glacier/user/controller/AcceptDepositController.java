@@ -7,6 +7,8 @@ package glacier.user.controller;
 
 import glacier.landlord.dbmanager.LandlordManager;
 import glacier.notification.model.NotificationDAO;
+import glacier.room.model.Room;
+import glacier.room.model.RoomDAO;
 import glacier.user.model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -54,19 +56,22 @@ public class AcceptDepositController extends HttpServlet {
             boolean check = false;
             boolean isOwner = landManager.checkOwnership(acc.getEmail(), Integer.parseInt(roomId));
             String roomStatus = landManager.roomStatus(Integer.parseInt(roomId));
+            RoomDAO roomDao = new RoomDAO();
+            Room room = roomDao.getRoomById(Integer.parseInt(roomId));
             
             if (isOwner && "pending".equals(roomStatus.trim())) {
                 if ("accept".equals(action)) {
                     check = manager.acceptDeposit(Integer.parseInt(roomId),"unavailable");
                     if (check) {
-                        dao.landlordNotify(Integer.parseInt(roomId), acc.getEmail(), "YOUR ROOM REQUEST HAS BEEN ACCEPT", "PLEASE GO CHECK YOUR ROOM MANAGEMENT");
+                        String notiSender = String.format("YOUR ROOM REQUEST FOR %s HAS BEEN ACCEPT", room.getName());
+                        dao.landlordNotify(Integer.parseInt(roomId), acc.getEmail(),"PLEASE GO CHECK YOUR ROOM MANAGEMENT", notiSender );
                         url = SUCCESS;
                     }
                 } else {
                     manager.acceptDeposit(Integer.parseInt(roomId),"available");
+                    String notiSender = String.format("YOUR ROOM REQUEST FOR %s HAS BEEN DECLINE", room.getName());
+                    dao.landlordNotify(Integer.parseInt(roomId), acc.getEmail(),"PLEASE GO CHECK YOUR ROOM MANAGEMENT", notiSender );
                     manager.removeTenantFromRoom(Integer.parseInt(roomId));
-                    dao.landlordNotify(Integer.parseInt(roomId), acc.getEmail(), "YOUR ROOM REQUEST HAS BEEN DECLINE", "PLEASE GO CHECK YOUR ROOM MANAGEMENT");
-                    
                     url = SUCCESS;
                 }
             }

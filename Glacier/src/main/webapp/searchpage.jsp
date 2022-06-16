@@ -197,7 +197,7 @@
                                                 <a href="${pageContext.request.contextPath}/SingleRoomView?id=${room.roomID}" class="title">${room.name}</a>
                                                 <!--<span class="tag">Offer</span>-->
                                             </h3>
-                                            <a href="single-listing-1.html" class="image-wrapper background-image">
+                                            <a href="${pageContext.request.contextPath}/SingleRoomView?id=${room.roomID}" class="image-wrapper background-image">
                                                 <img src="assets/img/image-01.jpg" alt="">
                                             </a>
                                         </div>
