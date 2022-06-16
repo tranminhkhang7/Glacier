@@ -555,7 +555,8 @@
                                                 </div>
                                                 <!--end author-image-->
                                                 <div class="author-description">
-                                                    <h3>Jane Doe</h3>
+                                                    <h3>${Landlord.name}</h3>
+                                                    
                                                     <div class="rating" data-rating="4"></div>
                                                     <a href="seller-detail-1.html" class="text-uppercase">Show My Listings
                                                         <span class="appendix">(12)</span>
@@ -566,9 +567,9 @@
                                             <hr>
                                             <dl>
                                                 <dt>Phone</dt>
-                                                <dd>830-247-0930</dd>
+                                                <dd>${Landlord.phone}</dd>
                                                 <dt>Email</dt>
-                                                <dd>hijane@example.com</dd>
+                                                <dd>${Landlord.email}</dd>
                                             </dl>
                                             <!--end author-->
 <!--                                            <form class="form email">
@@ -596,7 +597,8 @@
                                         <section>
                                             <h2>Đặt phòng</h2>
                                             <div class="box">
-                                                <a class="btn btn-framed btn-primary" href="./ToDeposit?id=${room.roomID}">Tiến hành đặt cọc</a>
+                                                <h3>Tiền đặt cọc:&nbsp;&nbsp;  ${room.deposit}</h3>
+                                                <a style="display:block;margin: auto" class="btn btn-framed btn-primary" href="./ToDeposit?id=${room.roomID}">Tiến hành đặt cọc</a>
                                             </div>
                                         </section>
                                     </c:if>
@@ -725,22 +727,6 @@
                                     </div>
                                 </c:forEach>
                             </div>
-<<<<<<< HEAD
-                            <div class="page-pagination">
-                                <nav aria-label="Pagination">
-                                    <ul class="pagination">
-
-                                        <!--                                    <li class="page-item active">
-                                                                                <a class="page-link" href="#">1</a>
-                                                                            </li>
-                                                                            <li class="page-item">
-                                                                                <a class="page-link" href="#">2</a>
-                                                                            </li>
-                                                                            <li class="page-item">
-                                                                                <a class="page-link" href="#">3</a>
-                                                                            </li>-->
-
-=======
 
                             <div class="page-pagination">
                                 <nav aria-label="Pagination">
@@ -756,7 +742,21 @@
                                                                                 <a class="page-link" href="#">3</a>
                                                                             </li>-->
 
->>>>>>> 4e21dbdf36150cfc837cc9307c5318c320f7789e
+
+
+
+
+                                        <!--                                    <li class="page-item active">
+                                                                                <a class="page-link" href="#">1</a>
+                                                                            </li>
+                                                                            <li class="page-item">
+                                                                                <a class="page-link" href="#">2</a>
+                                                                            </li>
+                                                                            <li class="page-item">
+                                                                                <a class="page-link" href="#">3</a>
+                                                                            </li>-->
+
+
                                         <c:forEach begin="1" end="${endPage}" step="1" var="i">
                                             <c:choose>
                                                 <c:when test="${currentPage == i}">

@@ -6,7 +6,9 @@ package glacier.room.model;
 
 import glacier.room.dbmanager.CommentManager;
 import glacier.room.dbmanager.FavouriteManager;
+import glacier.room.dbmanager.RoomManager;
 import glacier.user.model.Account;
+import glacier.user.model.Landlord;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -74,12 +76,16 @@ public class SingleRoomView extends HttpServlet {
                     FavouriteManager FM = new FavouriteManager();
                     boolean FStatus = FM.getFStatus(id, acc.getEmail());
                     
+                    //GET LANDLORD INFO
+                    RoomManager manager = new RoomManager();
+                    Landlord l = manager.getLandLordInfoInSingleRoom(id);
                     //FINSIH
                     url=SUCCESS;        
                     request.setAttribute("room", room);
                     request.setAttribute("ImgList", ImgList);
                     request.setAttribute("FStatus", FStatus);
                     request.setAttribute("Reviews", Reviews);
+                    request.setAttribute("Landlord", l);
                     request.setAttribute("endPage",endPage);
                     request.setAttribute("currentPage",currentPage);
             }

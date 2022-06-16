@@ -131,7 +131,7 @@
                                         <dd>${room.detailAddress}</dd>
                                         <dt>Tiền thuê tháng</dt>
                                         <dd>${room.price}<small>VND</small></dd>
-                                        <dt>Deposit</dt>
+                                        <dt>Tiền cọc</dt>
                                         <dd>${room.deposit}<small>VND</small></dd>
                                     </dl>
                                 </div>
@@ -153,7 +153,7 @@
                                 <!-- để foreach ở đây nếu có xài  --> 
                                 <tr>
                                     <td>1</td>
-                                    <td>Tiền đặt cọc cho phòng {room.name}</td>
+                                    <td>Tiền đặt cọc cho phòng ${room.name}</td>
                                     <td>Tiền đặt cọc giữ phòng chờ xử lí</td>
                                     <td>${room.deposit}</td>
                                     <td>VNĐ</td>

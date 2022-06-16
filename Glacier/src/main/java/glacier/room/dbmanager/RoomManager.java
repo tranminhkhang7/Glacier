@@ -7,6 +7,7 @@ package glacier.room.dbmanager;
 
 import glacier.room.model.Bill;
 import glacier.room.model.Room;
+import glacier.user.model.Landlord;
 import glacier.user.model.Notification_TL;
 import glacier.utils.DBUtils;
 import java.sql.Connection;
@@ -156,7 +157,7 @@ public class RoomManager {
 
                     Date rentStartDate = rs.getDate("rentStartDate");
                     String status = rs.getString("status").trim();
-                    list.add(new Room(roomId, name, des, address, price, rentStartDate,status));
+                    list.add(new Room(roomId, name, des, address, price, rentStartDate, status));
 
                 }
             }
@@ -235,7 +236,7 @@ public class RoomManager {
                 ResultSet rs = st.executeQuery();
                 while (rs.next()) {
                     int billId = rs.getInt("billID");
-                    
+
                     int amount = rs.getInt("amount");
                     String purpose = rs.getString("purpose");
                     Timestamp time = rs.getTimestamp("time");
@@ -284,18 +285,44 @@ public class RoomManager {
         return room;
     }
 
+    public Landlord getLandLordInfoInSingleRoom(int roomId) {
+        Landlord landlord = null;
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "  SELECT  l.[name], [email], [phone], [gender]  FROM Room r join Landlord l ON r.emailLandlord = l.email WHERE roomID = ?";
+                st = conn.prepareStatement(sql);
+                st.setInt(1, roomId);
+                rs = st.executeQuery();
+                if (rs.next()) {
+                    String name = rs.getString("name").trim();
+                    String email = rs.getString("email").trim();
+                    String gender = rs.getString("gender").trim();
+                    String phone = rs.getString("phone").trim();
+                    landlord = new Landlord(email, name, gender, phone);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return landlord;
+    }
+
     public static void main(String[] args) {
         RoomManager manager = new RoomManager();
-
+        Landlord l = manager.getLandLordInfoInSingleRoom(10);
+        System.out.println(l);
 //        List<Room> list = manager.getTenantRoomList("vuvannga@gmail.com", 1);
 //        for (Room room : list) {
 //            System.out.println(room);
 //        }
-
-        List<Bill> list = manager.getBillList(10);
-        for (Bill bill : list) {
-            System.out.println(bill);
-        }
+//        List<Bill> list = manager.getBillList(10);
+//        for (Bill bill : list) {
+//            System.out.println(bill);
+//        }
 //        Room room  = manager.getTenantRentedRoom(10);
 //        System.out.println(room);
 //        int count = manager.countTenantRooms("vuvannga@gmail.com");
