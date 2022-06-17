@@ -342,7 +342,6 @@ public class UserManager {
         }
     }
 
-
     //Get all numbers off norifications
     public int getAllTenantNotifications(String email) {
         try {
@@ -445,7 +444,7 @@ public class UserManager {
                 st = conn.prepareStatement(sql);
                 st.setTimestamp(1, date);
                 st.setInt(2, roomId);
-                
+
                 check = st.executeUpdate() > 0;
             }
         } catch (Exception e) {
@@ -454,15 +453,13 @@ public class UserManager {
         return check;
     }
 
-
-    
     // This method processed the deposit of the tenant with the room with roomID. This method changes the status of the room to "Pending" and update the email tenant.
-    public void deposit(String emailTenant, int roomID){
+    public void deposit(String emailTenant, int roomID) {
         try {
-            String sql = "UPDATE [Room]\n" +
-                        "SET [status] = N'pending', [emailTenant] = N'" + emailTenant + "'\n" +
-                        "WHERE [roomID] = " + roomID;
-            
+            String sql = "UPDATE [Room]\n"
+                    + "SET [status] = N'pending', [emailTenant] = N'" + emailTenant + "'\n"
+                    + "WHERE [roomID] = " + roomID;
+
             Connection con = DBUtils.getConnection();
             PreparedStatement getID = con.prepareStatement(sql);
             getID.executeUpdate();
@@ -470,7 +467,51 @@ public class UserManager {
             System.out.println(ex);
         }
     }
+
+    // This method returns tenant's email by the id of the room he/she is renting. This method is used for SingleRoomViewAsLandLord.java.
+    public String getEmailTenantByRoomID(int id) {
+        try {
+            String sql = "SELECT [emailTenant]\n" +
+                        "FROM [Room]\n" +
+                        "WHERE [roomID] = " + id;
+            
+            Connection con = DBUtils.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            String emailTenant = "";
+            while (rs.next()) {
+                emailTenant = rs.getString("emailTenant");
+            }
+            return emailTenant;
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
     
+    // This method returns rentStartDate by the id. This method is used for SingleRoomViewAsLandLord.java.
+    public String getStartRentDateByRoomID(int id) {
+        try {
+            String sql = "SELECT [rentStartDate]\n" +
+                        "FROM [Room]\n" +
+                        "WHERE [roomID] = " + id;
+            
+            Connection con = DBUtils.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            String rentStartDate = "";
+            while (rs.next()) {
+                rentStartDate = rs.getString("rentStartDate");
+            }
+            return rentStartDate;
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
 
         UserManager user = new UserManager();

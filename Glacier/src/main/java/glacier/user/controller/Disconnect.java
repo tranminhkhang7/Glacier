@@ -5,16 +5,9 @@
  */
 package glacier.user.controller;
 
-import glacier.notification.model.NotificationDAO;
-import glacier.room.dbmanager.CommentManager;
-import glacier.room.model.Comment;
 import glacier.user.model.Account;
-import glacier.user.model.Tenant;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,8 +20,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author KHANG
  */
-@WebServlet(name = "LandlordViewRentedRoom", urlPatterns = {"/roomlist/room"})
-public class LandlordViewRentedRoom extends HttpServlet {
+@WebServlet(name = "Disconnect", urlPatterns = {"/disconnect"})
+public class Disconnect extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,7 +33,7 @@ public class LandlordViewRentedRoom extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, Exception {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             HttpSession ss = request.getSession();
@@ -52,17 +45,13 @@ public class LandlordViewRentedRoom extends HttpServlet {
                 RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
                 rd.forward(request, response);
             } else {
-                int id = Integer.parseInt(request.getParameter("id"));
-                request.setAttribute("id", id);
-                
-                UserManager mng = new UserManager();
-                String emailTenant = mng.getEmailTenantByRoomID(id);
-                String rentStartDate = mng.getStartRentDateByRoomID(id);
-                Tenant tenant = mng.getTenantInfo(emailTenant);
+                String emailTenant = user.getEmail().trim();
+                int roomID = Integer.parseInt(request.getParameter("id"));
 
-                request.setAttribute("tenant", tenant);
-                request.setAttribute("rentStartDate", rentStartDate);
-                RequestDispatcher rd = request.getRequestDispatcher("/landlord-manage-single-room.jsp");
+                UserManager mng = new UserManager();
+                mng.deposit(emailTenant, roomID);
+
+                RequestDispatcher rd = request.getRequestDispatcher("success-deposit.jsp");
                 rd.forward(request, response);
             }
         }
@@ -80,11 +69,7 @@ public class LandlordViewRentedRoom extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (Exception ex) {
-            Logger.getLogger(LandlordViewRentedRoom.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -98,11 +83,7 @@ public class LandlordViewRentedRoom extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (Exception ex) {
-            Logger.getLogger(LandlordViewRentedRoom.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

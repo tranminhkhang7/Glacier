@@ -1,6 +1,6 @@
 <%-- 
     Document   : single-room-viewed-as-landlord
-    Created on : Jun 15, 2022, 3:13:57 AM
+    Created on : June 17, 2022, 1:34:52 AM
     Author     : KHANG
 --%>
 
@@ -72,33 +72,7 @@
         <c:set var="acc" value="${LOGIN_USER}" />
         <c:set var="user" value="${USER_DETAIL}" />
 
-        <div class="popup" id="reportForm">
-            <h2>Báo cáo cho quản trị viên</h2>
-            <form class="form form-submit" action="./report">
-                <input name="id" type="hidden" value="${room.roomID}">
-                <!--                <div class="form-group">
-                                    <label for="title" class="col-form-label required">Tiêu đề</label>
-                                    <input name="title" type="text" class="form-control" id="title" placeholder="Mô tả ngắn gọn vấn đề của bạn" autocomplete="off" required>
-                                </div>-->
-                <div class="form-group">
-                    <label for="title" class="col-form-label required">Nội dung báo cáo</label>
-                    <input name="content" type="text" class="form-control" id="title" placeholder="Nội dung báo cáo chi tiết cho quản trị viên" autocomplete="off" required>
-                </div>
-
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary large icon float-left" style="font-size: 16px; margin: 10px 20px 0px 0px;">Gửi</button>
-                </div>
-            </form>
-
-            <button class="btn btn-secondary large icon float-left" style="font-size: 16px; margin: 10px 20px 0px 0px;" onclick="closeForm()">Hủy</button>
-        </div>
-
-        <c:if test="${notify == 'report'}">
-            <div class="notify" id="notifyBox">
-                Báo cáo cho quản trị viên thành công!
-                &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-close" onclick="closeNotify()"></i>
-            </div>
-        </c:if>
+       
         <div class="page sub-page">
             <!--*********************************************************************************************************-->
             <!--************ HERO ***************************************************************************************-->
@@ -257,22 +231,11 @@
                                 <h4 class="location">
                                     <a href="#">${room.address}</a>
                                 </h4>
-                                <c:if test="${not empty acc}" >
-                                    <h1>
-                                        <br>
-                                        <span data-toggle="tooltip" data-placement="bottom" title="Save this room"><i class="fa fa-bookmark"></i></span>&nbsp;&nbsp;
-                                        <a onclick="openForm()">
-                                            <span data-toggle="tooltip" data-placement="bottom" title="Reporting this room"><i class="fa fa-warning"></i></span>
-                                        </a>
-                                    </h1>
-                                </c:if>
                             </div>
-                            <div class="float-right float-xs-none price">
+                                <div class="float-right float-xs-none price" style="width: 25%">
                                 <div class="number priceStyle">${room.price}<small>đ</small></div>
                                 <strong>/tháng</strong>
                                 <hr>
-                                
-
                             </div>
                         </div>
                         <!--end container-->
@@ -325,32 +288,32 @@
                         <!--end Gallery Carousel-->
                         <div class="row flex-column-reverse flex-md-row">
                             <!--============ Listing Detail =============================================================-->
-                            <div class="col-md-8">
+                            <div class="col-md-12">
                                 <!--Description-->
 
                                 <section>
-                                    <h2>Description</h2>
-                                    <p style="white-space: pre-line">
+                                    <h2>Mô tả</h2>
+                                    <p style="">
                                         ${room.description}
                                     </p>
                                 </section>
                                 <!--end Description-->
                                 <!--Details-->
                                 <section>
-                                    <h2>Details</h2>
+                                    <h2>Chi tiết</h2>
                                     <dl class="columns-2">
-                                        <dt>Date Added</dt>
+                                        <dt>Ngày thêm</dt>
                                         <dd>${room.date_added}</dd>
-                                        <dt>Type</dt>
+                                        <dt>Loại</dt>
                                         <dd>Offer</dd>
-                                        <dt>Status</dt>
+                                        <dt>Trạng thái</dt>
                                         <dd>${room.status}</dd>
                                         <!--                                    <dt>First Owner</dt>
                                                                             <dd>Yes</dd>-->
-                                        <dt style="margin-right: 1rem">Detail address</dt>
+                                        <dt style="margin-right: 1rem">Địa chỉ</dt>
                                         <dd>${room.detailAddress}</dd>
-                                        <dt>Rent</dt>
-                                        <dd>${room.price} <small>VND</small></dd>
+                                        <dt>Tiền thuê tháng</dt>
+                                        <dd>${room.price}<small>VND</small></dd>
                                         <!--                                    <dt>Color</dt>
                                                                             <dd>White, Grey</dd>
                                                                             <dt>Height</dt>
@@ -380,7 +343,6 @@
                                                             </section>-->
                                 <!--end Features-->
 
-                                <hr>
 
                                 <!--Similar Ads-->
                                 <!--                            <section>
@@ -526,67 +488,12 @@
                             </div>
                             <!--============ End Listing Detail =========================================================-->
                             <!--============ Sidebar ====================================================================-->
-                            <div class="col-md-4">
-                                <aside class="sidebar">
-                                    <!--Author-->
-                                    <section>
-                                        <h2>Author</h2>
-                                        <div class="box">
-                                            <div class="author">
-                                                <div class="author-image">
-                                                    <div class="background-image">
-                                                        <img src="assets/img/author-01.jpg" alt="">
-                                                    </div>
-                                                </div>
-                                                <!--end author-image-->
-                                                <div class="author-description">
-                                                    <h3>Jane Doe</h3>
-                                                    <div class="rating" data-rating="4"></div>
-                                                    <a href="seller-detail-1.html" class="text-uppercase">Show My Listings
-                                                        <span class="appendix">(12)</span>
-                                                    </a>
-                                                </div>
-                                                <!--end author-description-->
-                                            </div>
-                                            <hr>
-                                            <dl>
-                                                <dt>Phone</dt>
-                                                <dd>830-247-0930</dd>
-                                                <dt>Email</dt>
-                                                <dd>hijane@example.com</dd>
-                                            </dl>
-                                            <!--end author-->
-                                            <form class="form email">
-                                                <div class="form-group">
-                                                    <label for="name" class="col-form-label">Name</label>
-                                                    <input name="name" type="text" class="form-control" id="name" placeholder="Your Name">
-                                                </div>
-                                                <!--end form-group-->
-                                                <div class="form-group">
-                                                    <label for="email" class="col-form-label">Email</label>
-                                                    <input name="email" type="email" class="form-control" id="email" placeholder="Your Email">
-                                                </div>
-                                                <!--end form-group-->
-                                                <div class="form-group">
-                                                    <label for="message" class="col-form-label">Message</label>
-                                                    <textarea name="message" id="message" class="form-control" rows="4" placeholder="Hi there! I am interested in your offer ID 53951. Please give me more details."></textarea>
-                                                </div>
-                                                <!--end form-group-->
-                                                <button type="submit" class="btn btn-primary">Send</button>
-                                            </form>
-                                        </div>
-                                        <!--end box-->
-                                    </section>
-
-                                    <!--End Author-->
-
-                                </aside>
-
-                            </div>
+                            
                             <!--============ End Sidebar ================================================================-->
                         </div>
+                        <hr>
                         <section>
-                            <h2>Location</h2>
+                            <h2>Bản đồ</h2>
                             <div class="map height-300px" id="map-small">
                                 <iframe width="450"
                                         height="250"
@@ -597,49 +504,7 @@
                                 </iframe>
                             </div>
                         </section>
-                        <section>
-                            <h2>Write a Review</h2>
-                            <form class="form" action="WriteComment" method="POST">
-                                <input name="roomID" value="${room.roomID}" type="hidden">
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <c:set var="name" value="Tran Quang Khai"></c:set>                           <!-- set value to test only -->
-                                                <label for="username" class="col-form-label">My name</label>
-                                                <div class="box" >${name}</div> 
-                                        </div>
-                                        <!--end form-group-->
-                                    </div>
-                                    <!--end col-md-8-->
-                                    <div class="col-md-7">
-                                        <div class="form-group">
-                                            <label for="rating" class="col-form-label">Rating</label>                                            
-                                            <select name="rating" id="rating" data-placeholder="Select Rating">
-                                                <option value="">Select Rating</option>
-                                                <option value="1" data-option-stars="1">Horrible</option>
-                                                <option value="2" data-option-stars="2">Average</option>
-                                                <option value="3" data-option-stars="3">Good</option>
-                                                <option value="4" data-option-stars="4">Very Good</option>
-                                                <option value="5" data-option-stars="5">Excellent</option>
-                                            </select>
-                                        </div>
-                                        <!--end form-group-->
-                                    </div>
-                                    <!--end col-md-4-->
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="review" class="col-form-label">Your Review</label>
-                                            <textarea name="review" id="review" class="form-control" rows="4" placeholder="Good seller, I am satisfied."></textarea>
-                                        </div>
-                                        <!--end form-group-->
-                                    </div>
-                                    <!--end col-md-12-->
-                                </div>
-                                <button type="submit" class="btn btn-primary icon float-right width-100">Submit<i class="fa fa-chevron-right"></i></button>
-                                <!--end row-->
-                            </form>
-                            <!--end form-->
-                        </section>
+                        
                         <hr style="margin-top: 10rem">
                         <section>
                             <h2>Reviews</h2>
@@ -654,10 +519,39 @@
                                             </a>
                                             <div class="author-description">
                                                 <h3>${review.name}</h3>
-                                                <div class="meta">
-                                                    <span class="rating" data-rating="${review.rating}"></span>
+                                                <div style="display: inline-block; margin-right: 808px" class="meta">
+                                                    <span class="rating" data-rating="${review.rating}"/>
                                                     <span>${review.time}</span>
                                                 </div>
+
+                                                <div class="popup" id="reportCommentForm">
+                                                    <h2>Báo cáo cho quản trị viên</h2>
+                                                    <form class="form form-submit" action="./reportcomment">
+                                                        <input type="hidden" value="${review.id}" name="commentId" />
+                                                        <input type="hidden" value="${room.roomID}" name="roomID" />
+                                                        <input type="hidden" value="${review.email}" name="email" />
+<!--                                                        <input type="hidden" value="${review.content}" name="content" />-->
+                                                        <!--                <div class="form-group">
+                                                                            <label for="title" class="col-form-label required">Tiêu đề</label>
+                                                                            <input name="title" type="text" class="form-control" id="title" placeholder="Mô tả ngắn gọn vấn đề của bạn" autocomplete="off" required>
+                                                                        </div>-->
+                                                        <div class="form-group">
+                                                            <label for="title" class="col-form-label required">Nội dung báo cáo</label>
+                                                            <input name="content" type="text" class="form-control" id="title" placeholder="Nội dung báo cáo chi tiết cho quản trị viên" autocomplete="off" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <button type="submit" class="btn btn-primary large icon float-left" style="font-size: 16px; margin: 10px 20px 0px 0px;">Gửi</button>
+                                                        </div>
+                                                    </form>
+
+                                                    <button class="btn btn-secondary large icon float-left" style="font-size: 16px; margin: 10px 20px 0px 0px;" onclick="closeCommentForm()">Hủy</button>
+                                                </div>
+                                                <c:if test="${not empty acc}" >                                                      
+                                                    <a style="cursor:pointer" onclick="openCommentForm()">
+                                                        <span data-toggle="tooltip" data-placement="bottom" title="Reporting this comment"><i class="fa fa-2x fa-warning"></i></span>
+                                                    </a>
+                                                </c:if>
                                                 <!--                                                end meta-->
                                                 <p>
                                                     ${review.content}
@@ -668,21 +562,10 @@
                                 </c:forEach>
                             </div>
 
-                            <div class="page-pagination">
 
+                            <div class="page-pagination">
                                 <nav aria-label="Pagination">
                                     <ul class="pagination">
-
-                                        <!--                                    <li class="page-item active">
-                                                                                <a class="page-link" href="#">1</a>
-                                                                            </li>
-                                                                            <li class="page-item">
-                                                                                <a class="page-link" href="#">2</a>
-                                                                            </li>
-                                                                            <li class="page-item">
-                                                                                <a class="page-link" href="#">3</a>
-                                                                            </li>-->
-
                                         <c:forEach begin="1" end="${endPage}" step="1" var="i">
                                             <c:choose>
                                                 <c:when test="${currentPage == i}">
@@ -809,22 +692,22 @@
         <script src="assets/js/jquery.validate.min.js"></script>
         <script src="assets/js/custom.js"></script>
         <script>
-                                            for (let i = 0; i < document.getElementsByClassName("priceStyle").length; i++) {
-                                                let priceText = document.getElementsByClassName("priceStyle")[i].textContent.trim();
-                                                let textReverse = priceText.split("").reverse().join("").trim();
-                                                var j = 1;
-                                                var count = 0;
-                                                while (j < textReverse.length) {
-                                                    count++;
-                                                    if (count > 3) {
-                                                        textReverse = textReverse.slice(0, j) + "." + textReverse.slice(j);
-                                                        count = 0;
-                                                    }
-                                                    j++;
-                                                }
-                                                let finalPrice = textReverse.split("").reverse().join("");
-                                                document.getElementsByClassName("priceStyle")[i].innerHTML = finalPrice;
-                                            }
+                                                        for (let i = 0; i < document.getElementsByClassName("priceStyle").length; i++) {
+                                                            let priceText = document.getElementsByClassName("priceStyle")[i].textContent.trim();
+                                                            let textReverse = priceText.split("").reverse().join("").trim();
+                                                            var j = 1;
+                                                            var count = 0;
+                                                            while (j < textReverse.length) {
+                                                                count++;
+                                                                if (count > 3) {
+                                                                    textReverse = textReverse.slice(0, j) + "." + textReverse.slice(j);
+                                                                    count = 0;
+                                                                }
+                                                                j++;
+                                                            }
+                                                            let finalPrice = textReverse.split("").reverse().join("");
+                                                            document.getElementsByClassName("priceStyle")[i].innerHTML = finalPrice;
+                                                        }
         </script>
 
         <script>
@@ -835,6 +718,14 @@
             function closeForm() {
                 document.getElementsByClassName("page")[0].style.filter = "none";
                 document.getElementById("reportForm").style.display = "none";
+            }
+            function openCommentForm() {
+//                document.getElementsByClassName("page")[0].style.filter = "blur(8px)";
+                document.getElementById("reportCommentForm").style.display = "block";
+            }
+            function closeCommentForm() {
+//                document.getElementsByClassName("page")[0].style.filter = "none";
+                document.getElementById("reportCommentForm").style.display = "none";
             }
             function closeNotify() {
                 document.getElementById("notifyBox").style.display = "none";

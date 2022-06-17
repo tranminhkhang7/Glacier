@@ -64,7 +64,6 @@
                 transform: translate(-50%,-50%);
 
                 display: block;
-
             }
         </style>
 
@@ -98,12 +97,24 @@
             <button class="btn btn-secondary large icon float-left" style="font-size: 16px; margin: 10px 20px 0px 0px;" onclick="closeForm()">Hủy</button>
         </div>
 
-        <c:if test="${notify == 'notify success'}">
-            <div class="notify" id="notifyBox">
-                Thông báo cho người thuê thành công!
-                &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-close" onclick="closeNotify()"></i>
-            </div>
-        </c:if>
+        <div class="popup" id="disconnectConfirm">
+            <h2>Xác nhận hủy kết nối</h2>
+            <form class="form form-submit" action="${pageContext.request.contextPath}/disconnect">
+                <input name="id" type="hidden" value="${id}">
+                <!--                <div class="form-group">
+                                    <label for="title" class="col-form-label required">Tiêu đề</label>
+                                    <input name="title" type="text" class="form-control" id="title" placeholder="Mô tả ngắn gọn vấn đề của bạn" autocomplete="off" required>
+                                </div>-->
+
+                <p>Thao tác này không thể được hoàn tác. Bạn có chắc muốn tiếp tục?</p>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary large icon float-left" style="font-size: 16px; margin: 10px 20px 0px 0px;">OK</button>
+                </div>
+            </form>
+
+            <button class="btn btn-secondary large icon float-left" style="font-size: 16px; margin: 10px 20px 0px 0px;" onclick="closeDisconnectConfirm()">Hủy</button>
+        </div>
 
         <div class="page sub-page">
             <!--*********************************************************************************************************-->
@@ -111,13 +122,13 @@
             <!--*********************************************************************************************************-->
             <header class="hero">
                 <div class="hero-wrapper">
-                    
+
                     <jsp:include page="header/navigation-landlord.jsp" />
-                    
+
                     <!--============ Page Title =========================================================================-->
                     <div class="page-title">
                         <div class="container">
-                            <h1>Quản lý phòng (temporary)</h1>
+                            <h1>Quản lý phòng</h1>
                         </div>
                         <!--end container-->
                     </div>
@@ -137,11 +148,52 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12">
+                                <aside class="sidebar">
+                                    <!--Author-->
+                                    <section>
+                                        <h2>Thông tin người thuê</h2>
+                                        <div class="box">
+                                            <div class="author">
+                                                <div class="author-image">
+                                                    <div class="background-image">
+                                                        <img src="${pageContext.request.contextPath}/assets/img/author-01.jpg" alt="">
+                                                    </div>
+                                                </div>
+                                                <!--end author-image-->
+                                                <div class="author-description">
+                                                    <h3>${tenant.name}</h3>
+                                                    <!--<div class="rating" data-rating="4"></div>-->
+                                                    <a href="#" class="text-uppercase">Bắt đầu thuê từ ${rentStartDate}
+                                                    </a>
+                                                </div>
+                                                <!--end author-description-->
+                                            </div>
+                                            <hr>
+                                            <dl>
+                                                <dt>Số điện thoại</dt>
+                                                <dd>${tenant.phone}</dd>
+                                                <dt>Email</dt>
+                                                <dd>${tenant.email}</dd>
+                                                <dt>Facebook</dt>
+                                                <dd>${tenant.facebookLink}</dd>
+                                                <dt>Instagram</dt>
+                                                <dd>${tenant.facebookLink}</dd>
+                                            </dl>
+                                            <!--end author-->
+                                        </div>
+                                        <!--end box-->
+                                    </section>
+                                    <!--End Author-->
+                                </aside>
+                            </div>
+                            <div class="col-md-12">
 
                                 <section>
+                                    <h2>Các chức năng quản lý</h2>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <form method="get" action="${pageContext.request.contextPath}/hehealo1234">
+                                            <form method="get" action="${pageContext.request.contextPath}/roomlandlordview">
+                                                <input type="hidden" name="id" value="${id}"/>
                                                 <button href="dadhakhkfha" class="btn btn-primary width-100">Xem giao diện phòng và đánh giá</button>
                                             </form>
                                         </div>
@@ -156,152 +208,12 @@
                                             <button type="submit" class="btn btn-primary width-100" onclick="openForm()">Tạo hóa đơn</button>
                                         </div>
                                         <div class="col-md-6">
-                                            <button type="submit" class="btn btn-primary width-100" onclick="openForm()">Người thuê muốn rời đi</button>
+                                            <button type="submit" class="btn btn-primary width-100" onclick="openDisconnectConfirm()">Người thuê muốn rời đi</button>
                                         </div>
 
                                     </div>
                                 </section>
-                                <section>
-                                    <h2>Reviews</h2>
-                                    <div class="comments">
-                                        <c:forEach items="${Reviews}" var="review">
-                                            <div class="comment">
-                                                <div class="author">
-                                                    <a href="#" class="author-image">
-                                                        <div class="background-image">            
-                                                            <img src="${review.profile_picture}" alt="alt"/>
-                                                        </div>
-                                                    </a>
-                                                    <div class="author-description">
-                                                        <h3>${review.name}</h3>
-                                                        <div class="meta">
-                                                            <span class="rating" data-rating="${review.rating}"></span>
-                                                            <span>${review.time}</span>
-                                                        </div>
-                                                        <!--                                                end meta-->
-                                                        <p>
-                                                            ${review.content}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </c:forEach>
-                                    </div>
-                                    <div class="page-pagination">
-                                        <nav aria-label="Pagination">
-                                            <ul class="pagination">
 
-                                                <!--                                    <li class="page-item active">
-                                                                                        <a class="page-link" href="#">1</a>
-                                                                                    </li>
-                                                                                    <li class="page-item">
-                                                                                        <a class="page-link" href="#">2</a>
-                                                                                    </li>
-                                                                                    <li class="page-item">
-                                                                                        <a class="page-link" href="#">3</a>
-                                                                                    </li>-->
-
-                                                <c:forEach begin="1" end="${endPage}" step="1" var="i">
-                                                    <c:choose>
-                                                        <c:when test="${currentPage == i}">
-                                                            <li class="page-item active">
-                                                                <a class="page-link" href="?id=${room.roomID}&index=${i}">${i}</a>
-                                                            </li>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <li class="page-item">
-                                                                <a class="page-link" href="?id=${room.roomID}&index=${i}">${i}</a>
-                                                            </li>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </c:forEach>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                    <!--                                <div class="comments">
-                                                                        <div class="comment">
-                                                                            <div class="author">
-                                                                                <a href="#" class="author-image">
-                                                                                    <div class="background-image">
-                                                                                        <img src="assets/img/author-09.jpg" alt="">
-                                                                                    </div>
-                                                                                </a>
-                                                                                <div class="author-description">
-                                                                                    <h3>Jane Doe</h3>
-                                                                                    <div class="meta">
-                                                                                        <span class="rating" data-rating="4"></span>
-                                                                                        <span>02.05.2017</span>
-                                                                                    </div>
-                                                                                    end meta
-                                                                                    <p>
-                                                                                        Nam pulvinar tortor nec lacinia efficitur. Integer erat tortor, ultricies
-                                                                                        ut est vel, euismod imperdiet lacus. Aenean nec turpis condimentum, mollis
-                                                                                        mauris id, scelerisque quam.
-                                                                                    </p>
-                                                                                </div>
-                                                                                end author-description
-                                                                            </div>
-                                                                            end author
-                                                                        </div>
-                                                                        end comment
-
-                                                                        <div class="comment">
-                                                                            <div class="author">
-                                                                                <a href="#" class="author-image">
-                                                                                    <div class="background-image">
-                                                                                        <img src="assets/img/author-05.jpg" alt="">
-                                                                                    </div>
-                                                                                </a>
-                                                                                <div class="author-description">
-                                                                                    <h3>Perfect seller. I am satisfied.</h3>
-                                                                                    <div class="meta">
-                                                                                        <span class="rating" data-rating="5"></span>
-                                                                                        <span>02.05.2017</span>
-                                                                                        <h5><a href="#">John Doe</a></h5>
-                                                                                    </div>
-                                                                                    end meta
-                                                                                    <p>
-                                                                                        Integer erat tortor, ultricies ut est vel, euismod imperdiet lacus.
-                                                                                        Aenean nec turpis condimentum, mollis mauris id, scelerisque quam.
-                                                                                    </p>
-                                                                                </div>
-                                                                                end author-description
-                                                                            </div>
-                                                                            end author
-                                                                        </div>
-                                                                        end comment
-
-                                                                        <div class="comment">
-                                                                            <div class="author">
-                                                                                <a href="#" class="author-image">
-                                                                                    <div class="background-image">
-                                                                                        <img src="assets/img/author-04.jpg" alt="">
-                                                                                    </div>
-                                                                                </a>
-                                                                                <div class="author-description">
-                                                                                    <h3>Quick dispatch and good communication</h3>
-                                                                                    <div class="meta">
-                                                                                        <span class="rating" data-rating="3"></span>
-                                                                                        <span>02.05.2017</span>
-                                                                                        <h5><a href="#">Susan Jefferson</a></h5>
-                                                                                    </div>
-                                                                                    end meta
-                                                                                    <p>
-                                                                                        Cras luctus aliquet fringilla. In eu cursus nunc. Quisque dolor leo,
-                                                                                        vehicula a sem ut, aliquam pretium tellus. Morbi ut mi eleifend,
-                                                                                        sollicitudin nisl in, elementum nisi. Praesent sed libero euismod,
-                                                                                        pellentesque risus sit amet, faucibus lorem. Pellentesque bibendum
-                                                                                        libero sed tempor tristique.
-                                                                                    </p>
-                                                                                </div>
-                                                                                end author-description
-                                                                            </div>
-                                                                            end author
-                                                                        </div>
-                                                                        end comment
-                                                                    </div>-->
-                                    <!--end comment-->
-                                </section>
                             </div>
                             <!--end col-md-9-->
 
@@ -431,6 +343,17 @@
                                                     document.getElementsByClassName("page")[0].style.filter = "none";
                                                     document.getElementById("reportForm").style.display = "none";
                                                 }
+
+                                                function openDisconnectConfirm() {
+                                                    document.getElementsByClassName("page")[0].style.filter = "blur(8px)";
+                                                    document.getElementById("disconnectConfirm").style.display = "block";
+                                                }
+
+                                                function closeDisconnectConfirm() {
+                                                    document.getElementsByClassName("page")[0].style.filter = "none";
+                                                    document.getElementById("disconnectConfirm").style.display = "none";
+                                                }
+
                                                 function closeNotify() {
                                                     document.getElementById("notifyBox").style.display = "none";
                                                 }
