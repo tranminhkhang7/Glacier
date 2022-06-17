@@ -6,7 +6,10 @@ package glacier.room.model;
 
 import glacier.room.dbmanager.CommentManager;
 import glacier.room.dbmanager.FavouriteManager;
+import glacier.room.dbmanager.Feature;
+import glacier.room.dbmanager.RoomManager;
 import glacier.user.model.Account;
+import glacier.user.model.Landlord;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -20,6 +23,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Admin
  */
+
 public class SingleRoomView extends HttpServlet {
 
     /**
@@ -32,12 +36,12 @@ public class SingleRoomView extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     
-    
     private static final String ERROR = "error.jsp";               // change this after adding session
     private static final String SUCCESS = "SingleRoom.jsp";
     private static final int TEST = 10;
     private static final Account TESTACC = new Account("dinhxuantung@gmail.com","","tenant");
     private static final Account GUEST=new Account("","","tenant");
+   
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");   
@@ -45,7 +49,7 @@ public class SingleRoomView extends HttpServlet {
 
         try {
             HttpSession session = request.getSession(false);
-        Account acc = (Account) session.getAttribute("LOGIN_USER");
+            Account acc = (Account) session.getAttribute("LOGIN_USER");
 //            acc = TESTACC;                                                            // this set default access delete this when merging
             if (acc==null) acc=GUEST;
             if ((acc.getRole().equals("tenant"))) {
@@ -61,6 +65,19 @@ public class SingleRoomView extends HttpServlet {
                     Room room = dao.getRoomById(id);                     
                     ArrayList<String> ImgList = dao.getRoomImgById(id);
                     
+                    //GET ROOM FEATURE
+                    Feature f = new Feature();
+                    if (room.isHas_mayLanh()) f.setHas_mayLanh("Máy Lạnh");
+                    if (room.isHas_banCong()) f.setHas_banCong("Ban công");
+                    if (room.isHas_cuaSo()) f.setHas_cuaSo("Cửa sổ");
+                    if (room.isHas_hamGuiXe()) f.setHas_hamGuiXe("Hầm gửi xe");
+                    if (room.isHas_keBep()) f.setHas_keBep("Kệ bếp");
+                    if (room.isHas_khuDanCu()) f.setHas_khuDanCu("Trong khu dân cư");
+                    if (room.isHas_phongGiatDo()) f.setHas_phongGiatDo("Phòng giặt đồ");
+                    if (room.isHas_remCua()) f.setHas_remCua("Rèm cửa");
+                    if (room.isHas_xeBuyt()) f.setHas_xeBuyt("Gần trạm xe buýt");
+                    if (room.isHas_baoVe()) f.setHas_baoVe("Bảo vệ");
+                    
                     //GET COMMENT AND PAGING
                     CommentManager cm = new CommentManager();
                     ArrayList<Comment> Reviews = cm.getAllComment(id,currentPage);
@@ -74,12 +91,17 @@ public class SingleRoomView extends HttpServlet {
                     FavouriteManager FM = new FavouriteManager();
                     boolean FStatus = FM.getFStatus(id, acc.getEmail());
                     
+                    //GET LANDLORD INFO
+                    RoomManager manager = new RoomManager();
+                    Landlord l = manager.getLandLordInfoInSingleRoom(id);
                     //FINSIH
                     url=SUCCESS;        
                     request.setAttribute("room", room);
+                    request.setAttribute("f", f);
                     request.setAttribute("ImgList", ImgList);
                     request.setAttribute("FStatus", FStatus);
                     request.setAttribute("Reviews", Reviews);
+                    request.setAttribute("Landlord", l);
                     request.setAttribute("endPage",endPage);
                     request.setAttribute("currentPage",currentPage);
             }

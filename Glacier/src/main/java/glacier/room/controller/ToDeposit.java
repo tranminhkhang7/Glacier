@@ -4,8 +4,10 @@
  */
 package glacier.room.controller;
 
+import glacier.landlord.dbmanager.LandlordManager;
 import glacier.room.model.Room;
 import glacier.room.model.RoomDAO;
+import glacier.user.model.Landlord;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -40,6 +42,9 @@ public class ToDeposit extends HttpServlet {
         RoomDAO dao = new RoomDAO();
         Room room = dao.getRoomById(id);
         ArrayList<String> ImgList = dao.getRoomImgById(id);
+        LandlordManager lm = new LandlordManager();
+        Landlord l = lm.getLandLordInfo(id);
+        request.setAttribute("landlord", l);
         request.setAttribute("id", id);
         request.setAttribute("room", room);
         request.getRequestDispatcher("Deposit.jsp").forward(request, response);

@@ -428,7 +428,7 @@ public class UserManager {
         return list;
     }
 
-    public boolean acceptDeposit(int roomId) {
+    public boolean acceptDeposit(int roomId, String state) {
         boolean check = false;
         Connection conn = null;
         PreparedStatement st = null;
@@ -438,13 +438,15 @@ public class UserManager {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 String sql = " UPDATE [Room] "
-                        + " SET status='unavailable', [rentStartDate]=?  "
+                        + " SET status=?, [rentStartDate]=?  "
                         + " WHERE [roomId]=? ";
 
                 st = conn.prepareStatement(sql);
-                st.setTimestamp(1, date);
-                st.setInt(2, roomId);
 
+                st.setString(1,state);
+                st.setTimestamp(2, date);
+                st.setInt(3, roomId);
+                
                 check = st.executeUpdate() > 0;
             }
         } catch (Exception e) {
@@ -512,6 +514,32 @@ public class UserManager {
         return null;
     }
 
+    //
+    public boolean removeTenantFromRoom(int roomId){
+                boolean check = false;
+        Connection conn = null;
+        PreparedStatement st = null;
+        long now = System.currentTimeMillis();
+        Timestamp date = new Timestamp(now);
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " UPDATE [Room] "
+                        + " SET [emailTenant] = NULL  "
+                        + " WHERE [roomId]=? ";
+
+                st = conn.prepareStatement(sql);
+                
+                st.setInt(1, roomId);
+
+                check = st.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return check;
+    }
+    
     public static void main(String[] args) {
 
         UserManager user = new UserManager();

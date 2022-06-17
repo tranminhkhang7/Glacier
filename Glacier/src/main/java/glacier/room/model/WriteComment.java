@@ -5,6 +5,7 @@
 package glacier.room.model;
 
 import glacier.room.dbmanager.CommentManager;
+import glacier.room.dbmanager.RoomManager;
 import glacier.user.model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -61,7 +62,12 @@ public class WriteComment extends HttpServlet {
                     System.err.println("ERROR CREATE COMMENT");
                 }
                 else {
-                    response.sendRedirect(SUCCESS+"?id="+roomID);
+                    RoomManager rm = new RoomManager();
+                    if(rm.updateRoomRating(roomID, rating)) response.sendRedirect(SUCCESS+"?id="+roomID);
+                    else {
+                        request.setAttribute("errCode",null);
+                        request.getRequestDispatcher(ERROR).forward(request, response);
+                    }
                 }
             }
                 else 

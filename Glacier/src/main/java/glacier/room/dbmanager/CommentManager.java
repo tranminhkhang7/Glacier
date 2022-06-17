@@ -62,7 +62,7 @@ public class CommentManager {
                     String name = rs.getString("name").trim();
                     String profile_picture = rs.getString("profile_picture");
                     String content = rs.getString("content").trim();
-                    Date time = rs.getTime("time");
+                    Timestamp time = rs.getTimestamp("time");
                     int rating = rs.getInt("rating");
                     c = new Comment(id, name, profile_picture, RoomID, content, time, rating);
                     //create a comment with name and profile picture of commenter                    

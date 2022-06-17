@@ -71,7 +71,7 @@
                             <a href="rooms" class="btn btn-primary text-caps btn-rounded">QUẢN LÝ PHÒNG THUÊ</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="btn btn-primary text-caps btn-rounded"><i class="fa fa-bell"></i> 23</a>
+                            <a href="notifications" class="btn btn-primary text-caps btn-rounded"><i class="fa fa-bell"></i> 23</a>
                         </li>
                     </c:if>
                 </ul>
