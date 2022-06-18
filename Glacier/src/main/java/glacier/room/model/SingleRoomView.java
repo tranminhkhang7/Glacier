@@ -6,12 +6,10 @@ package glacier.room.model;
 
 import glacier.room.dbmanager.CommentManager;
 import glacier.room.dbmanager.FavouriteManager;
-import glacier.room.dbmanager.Feature;
 import glacier.room.dbmanager.RoomManager;
 import glacier.user.model.Account;
 import glacier.user.model.Landlord;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -66,17 +64,18 @@ public class SingleRoomView extends HttpServlet {
                     ArrayList<String> ImgList = dao.getRoomImgById(id);
                     
                     //GET ROOM FEATURE
-                    Feature f = new Feature();
-                    if (room.isHas_mayLanh()) f.setHas_mayLanh("Máy Lạnh");
-                    if (room.isHas_banCong()) f.setHas_banCong("Ban công");
-                    if (room.isHas_cuaSo()) f.setHas_cuaSo("Cửa sổ");
-                    if (room.isHas_hamGuiXe()) f.setHas_hamGuiXe("Hầm gửi xe");
-                    if (room.isHas_keBep()) f.setHas_keBep("Kệ bếp");
-                    if (room.isHas_khuDanCu()) f.setHas_khuDanCu("Trong khu dân cư");
-                    if (room.isHas_phongGiatDo()) f.setHas_phongGiatDo("Phòng giặt đồ");
-                    if (room.isHas_remCua()) f.setHas_remCua("Rèm cửa");
-                    if (room.isHas_xeBuyt()) f.setHas_xeBuyt("Gần trạm xe buýt");
-                    if (room.isHas_baoVe()) f.setHas_baoVe("Bảo vệ");
+                    ArrayList<String> f = dao.getRoomFeature(id);
+                    
+//                    if (room.isHas_mayLanh()) f.setHas_mayLanh("Máy Lạnh");
+//                    if (room.isHas_banCong()) f.setHas_banCong("Ban công");
+//                    if (room.isHas_cuaSo()) f.setHas_cuaSo("Cửa sổ");
+//                    if (room.isHas_hamGuiXe()) f.setHas_hamGuiXe("Hầm gửi xe");
+//                    if (room.isHas_keBep()) f.setHas_keBep("Kệ bếp");
+//                    if (room.isHas_khuDanCu()) f.setHas_khuDanCu("Trong khu dân cư");
+//                    if (room.isHas_phongGiatDo()) f.setHas_phongGiatDo("Phòng giặt đồ");
+//                    if (room.isHas_remCua()) f.setHas_remCua("Rèm cửa");
+//                    if (room.isHas_xeBuyt()) f.setHas_xeBuyt("Gần trạm xe buýt");
+//                    if (room.isHas_baoVe()) f.setHas_baoVe("Bảo vệ");
                     
                     //GET COMMENT AND PAGING
                     CommentManager cm = new CommentManager();

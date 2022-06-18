@@ -380,16 +380,14 @@
                                 </section>
                                 <!--end Details-->
 <!--                                Features-->
-                                <c:set var="object" value="${f}" />
-                                <c:if test="${not empty object['class'].declaredFields}">
+                                <c:if test="${not empty f}">
                                     <section>
-                                      
                                         <h2 style="">Features</h2>
                                         <ul class="features-checkboxes columns-4">
-                                            <c:forEach var="field" items="${object['class'].declaredFields}">
-                                                <c:if test="${not empty object[field.name]}">
-                                                    <li style="font-weight: bold">${object[field.name]}</li>       
-                                                    </c:if>
+                                            <c:forEach items="${f}" var="feature">
+                                                <c:if test="${not empty feature}">
+                                                    <li style="font-weight: bold">${feature}</li>       
+                                                </c:if>
                                             </c:forEach>
                                         </ul>
                                     </section>

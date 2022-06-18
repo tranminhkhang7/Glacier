@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package glacier.room.model;
-
 import java.util.Date;
 
 
@@ -24,23 +23,14 @@ public class Room {
     private Date rentStartDate;
     private float area;
     private String detailAddress;
-    private boolean has_mayLanh;
-    private boolean has_hamGuiXe;
-    private boolean has_keBep;
-    private boolean has_remCua;
-    private boolean has_phongGiatDo;
-    private boolean has_banCong;
-    private boolean has_xeBuyt;
-    private boolean has_khuDanCu;
-    private boolean has_cuaSo;
-    private boolean has_baoVe;
     
     public Room() {
     }
 
     // constructor cho singleRoomView
 
-    public Room(int roomID, String name, String description, String address, String emailTenant, String emailLandlord, String status, int price, float deposit, float avgRating, int numberRating, Date date_added, Date rentStartDate, float area, String detailAddress, boolean has_mayLanh, boolean has_hamGuiXe, boolean has_keBep, boolean has_remCua, boolean has_phongGiatDo, boolean has_banCong, boolean has_xeBuyt, boolean has_khuDanCu, boolean has_cuaSo, boolean has_baoVe) {
+    public Room(int roomID, String name, String description, String address, String emailTenant, String emailLandlord, String status, 
+            int price, float deposit, float avgRating, int numberRating, Date date_added, Date rentStartDate, float area, String detailAddress) {
         this.roomID = roomID;
         this.name = name;
         this.description = description;
@@ -56,20 +46,7 @@ public class Room {
         this.rentStartDate = rentStartDate;
         this.area = area;
         this.detailAddress = detailAddress;
-        this.has_mayLanh = has_mayLanh;
-        this.has_hamGuiXe = has_hamGuiXe;
-        this.has_keBep = has_keBep;
-        this.has_remCua = has_remCua;
-        this.has_phongGiatDo = has_phongGiatDo;
-        this.has_banCong = has_banCong;
-        this.has_xeBuyt = has_xeBuyt;
-        this.has_khuDanCu = has_khuDanCu;
-        this.has_cuaSo = has_cuaSo;
-        this.has_baoVe = has_baoVe;
     }
-
-
-    
 
 
     //This contruction is for Search function.
@@ -133,87 +110,15 @@ public class Room {
         this.emailTenant = emailTenant;
     }
 
-    public boolean isHas_mayLanh() {
-        return has_mayLanh;
+    public int getNumberRating() {
+        return numberRating;
     }
 
-    public void setHas_mayLanh(boolean has_mayLanh) {
-        this.has_mayLanh = has_mayLanh;
+    public void setNumberRating(int numberRating) {
+        this.numberRating = numberRating;
     }
 
-    public boolean isHas_hamGuiXe() {
-        return has_hamGuiXe;
-    }
-
-    public void setHas_hamGuiXe(boolean has_hamGuiXe) {
-        this.has_hamGuiXe = has_hamGuiXe;
-    }
-
-    public boolean isHas_keBep() {
-        return has_keBep;
-    }
-
-    public void setHas_keBep(boolean has_keBep) {
-        this.has_keBep = has_keBep;
-    }
-
-    public boolean isHas_remCua() {
-        return has_remCua;
-    }
-
-    public void setHas_remCua(boolean has_remCua) {
-        this.has_remCua = has_remCua;
-    }
-
-    public boolean isHas_phongGiatDo() {
-        return has_phongGiatDo;
-    }
-
-    public void setHas_phongGiatDo(boolean has_phongGiatDo) {
-        this.has_phongGiatDo = has_phongGiatDo;
-    }
-
-    public boolean isHas_banCong() {
-        return has_banCong;
-    }
-
-    public void setHas_banCong(boolean has_banCong) {
-        this.has_banCong = has_banCong;
-    }
-
-    public boolean isHas_xeBuyt() {
-        return has_xeBuyt;
-    }
-
-    public void setHas_xeBuyt(boolean has_xeBuyt) {
-        this.has_xeBuyt = has_xeBuyt;
-    }
-
-    public boolean isHas_khuDanCu() {
-        return has_khuDanCu;
-    }
-
-    public void setHas_khuDanCu(boolean has_khuDanCu) {
-        this.has_khuDanCu = has_khuDanCu;
-    }
-
-    public boolean isHas_cuaSo() {
-        return has_cuaSo;
-    }
-
-    public void setHas_cuaSo(boolean has_cuaSo) {
-        this.has_cuaSo = has_cuaSo;
-    }
-
-    public boolean isHas_baoVe() {
-        return has_baoVe;
-    }
-
-    public void setHas_baoVe(boolean has_baoVe) {
-        this.has_baoVe = has_baoVe;
-    }
-    
-    
+        
     public int getRoomID() {
         return roomID;
     }

@@ -54,16 +54,6 @@ public class RoomDAO {
 "      ,[date_added]\n" +
 "      ,[area]\n" +
 "      ,[rentStartDate]\n" +
-"      ,[having_mayLanh]\n" +
-"      ,[having_hamGuiXe]\n" +
-"      ,[having_keBep]\n" +
-"      ,[having_remCua]\n" +
-"      ,[having_phongGiatDo]\n" +
-"      ,[having_banCong]\n" +
-"      ,[having_xeBuyt]\n" +
-"      ,[having_khuDanCu]\n" +
-"      ,[having_cuaSo]\n" +
-"      ,[having_baoVe]\n" +
 "  FROM [Glacier].[dbo].[Room]\n" +
 "  where roomID=?";
                 pstm = conn.prepareStatement(sql);
@@ -85,23 +75,10 @@ public class RoomDAO {
                     Date date_added = rs.getDate("date_added");
                     float area = rs.getFloat("area");
                     Date rentStartDate=rs.getDate("rentStartDate");
-                    boolean having_mayLanh = rs.getBoolean("having_mayLanh");
-                    boolean having_hamGuiXe = rs.getBoolean("having_hamGuiXe");
-                    boolean having_keBep = rs.getBoolean("having_keBep");
-                    boolean having_remCua = rs.getBoolean("having_remCua");
-                    boolean having_phongGiatDo = rs.getBoolean("having_phongGiatDo");
-                    boolean having_banCong = rs.getBoolean("having_banCong");
-                    boolean having_xeBuyt = rs.getBoolean("having_xeBuyt");
-                    boolean having_khuDanCu = rs.getBoolean("having_khuDanCu");
-                    boolean having_cuaSo = rs.getBoolean("having_cuaSo");
-                    boolean having_baoVe = rs.getBoolean("having_baoVe");
                     room = new Room(roomID, name, description, address, emailTenant, 
                             emailLandlord, status, price, deposit, rating, 
                             numberRating, date_added, rentStartDate, area, 
-                            detailAddress, having_mayLanh, having_hamGuiXe, 
-                            having_keBep, having_remCua, having_phongGiatDo, 
-                            having_banCong, having_xeBuyt, having_khuDanCu, having_cuaSo, 
-                            having_baoVe);
+                            detailAddress);
                 }
             }
         } catch (Exception e) {
@@ -135,11 +112,36 @@ public class RoomDAO {
             return ImgList;
         }
     }
+    
+    public ArrayList<String> getRoomFeature(int roomID) throws Exception{
+        ArrayList<String> f = new ArrayList<>(10);
+        try {
+            conn = DBUtils.getConnection();
+            String sql =    "select f.name\n" +
+                            "from Room r join RoomFeature rf on (r.roomID=rf.roomID) \n" +
+                            "join Feature f on (rf.featureID=f.id)\n" +
+                            "where r.roomID=?";
+            if (conn != null) {
+                pstm = conn.prepareStatement(sql);
+                pstm.setInt(1, roomID);
+                rs = pstm.executeQuery();
+                while (rs.next()) {
+                    String feature = rs.getString("name").trim();
+                    f.add(feature);
+                }
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally{
+            closeConnection();
+            return f;
+        }
+    }
 //    public static void main(String[] args) throws SQLException, Exception {
 //        RoomDAO dao = new RoomDAO();
-//        ArrayList<String> l = dao.getRoomImgById(10);
-//        for (String i:l){
-//            System.out.println(i);
-//        }
+//        ArrayList<String> f = dao.getRoomFeature(10);
+//        System.out.println(f);
 //    }
 }
