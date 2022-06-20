@@ -253,6 +253,7 @@
                                         <!--                                    <span class="tag">Offer</span>-->
                                     </h1>
                                 </div>
+                                <div style="font-size: 18px;color:#ff0000" class="active"><i style="" class="fa fa-star" aria-hidden="true"></i><i style="" class="fa fa-star" aria-hidden="true"></i><i style="" class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i></div>
 
                                 <h4 class="location">
                                     <a href="#">${room.address}</a>

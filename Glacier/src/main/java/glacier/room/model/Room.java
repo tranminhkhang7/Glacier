@@ -4,10 +4,11 @@
  * and open the template in the editor.
  */
 package glacier.room.model;
+
 import java.util.Date;
 
-
 public class Room {
+
     private int roomID;
     private String name;
     private String description;
@@ -23,13 +24,14 @@ public class Room {
     private Date rentStartDate;
     private float area;
     private String detailAddress;
-    
+    private String qrStatus;
+    private String qrImage;
+
     public Room() {
     }
 
     // constructor cho singleRoomView
-
-    public Room(int roomID, String name, String description, String address, String emailTenant, String emailLandlord, String status, 
+    public Room(int roomID, String name, String description, String address, String emailTenant, String emailLandlord, String status,
             int price, float deposit, float avgRating, int numberRating, Date date_added, Date rentStartDate, float area, String detailAddress) {
         this.roomID = roomID;
         this.name = name;
@@ -48,7 +50,6 @@ public class Room {
         this.detailAddress = detailAddress;
     }
 
-
     //This contruction is for Search function.
     //The emailLandlord does not contain email, it contains landlord's name instead.
     public Room(int roomID, String name, String description, String address, String emailLandlord, int price, Date date_added) {
@@ -60,9 +61,7 @@ public class Room {
         this.price = price;
         this.date_added = date_added;
     }
-    
-    
-    
+
     //This constructor is for Displaying Room List in Landlord's views.
     public Room(int roomID, String name, String description, String address, String status, int price, float avgRating, Date date_added, float area) {
         this.roomID = roomID;
@@ -84,8 +83,8 @@ public class Room {
         this.price = price;
         this.rentStartDate = rentStartDate;
         this.status = status;
-    }   
-    
+    }
+
     //Single Tenant room display
     public Room(int roomID, String name, String description, String address, String emailTenant, String emailLandlord, int price, Date date_added, Date rentStartDate, String detailAddress) {
         this.roomID = roomID;
@@ -99,15 +98,24 @@ public class Room {
         this.rentStartDate = rentStartDate;
         this.detailAddress = detailAddress;
     }
-    
-    //Landlord waiting room display
 
+    //Landlord waiting room display
     public Room(int roomID, String name, String address, int price, String emailTenant) {
         this.roomID = roomID;
         this.name = name;
         this.address = address;
         this.price = price;
         this.emailTenant = emailTenant;
+    }
+
+    //CHECK ASSIGN ROOM
+    public Room(int roomID, String name, String emailTenant, Date rentStartDate, String qrStatus, String status) {
+        this.roomID = roomID;
+        this.name = name;
+        this.emailTenant = emailTenant;
+        this.rentStartDate = rentStartDate;
+        this.qrStatus = qrStatus;
+        this.status = status;
     }
 
     public int getNumberRating() {
@@ -118,7 +126,6 @@ public class Room {
         this.numberRating = numberRating;
     }
 
-        
     public int getRoomID() {
         return roomID;
     }
@@ -230,15 +237,30 @@ public class Room {
     public void setRentStartDate(Date rentStartDate) {
         this.rentStartDate = rentStartDate;
     }
-    
+
+    public String getQrStatus() {
+        return qrStatus;
+    }
+
+    public void setQrStatus(String qrStatus) {
+        this.qrStatus = qrStatus;
+    }
+
+    public String getQrImage() {
+        return qrImage;
+    }
+
+    public void setQrImage(String qrImage) {
+        this.qrImage = qrImage;
+    }
 
     @Override
     public String toString() {
-        return "Room{" + "roomID=" + roomID + ", name=" + name + ", description=" + description + ", address=" + address + ", emailTenant=" + emailTenant + ", emailLandlord=" + emailLandlord + ", status=" + status + ", price=" + price + ", deposit=" + deposit + ", avgRating=" + avgRating + ", date_added=" + date_added + ", rentStartDate=" + rentStartDate + ", area=" + area + ", detailAddress=" + detailAddress + '}';
+        return "Room{" + "roomID=" + roomID + ", name=" + name + ", description=" + description + ", address=" + address + ", emailTenant=" + emailTenant + ", emailLandlord=" + emailLandlord + ", status=" + status + ", price=" + price + ", deposit=" + deposit + ", avgRating=" + avgRating + ", numberRating=" + numberRating + ", date_added=" + date_added + ", rentStartDate=" + rentStartDate + ", area=" + area + ", detailAddress=" + detailAddress + ", qrStatus=" + qrStatus + ", qrImage=" + qrImage + '}';
     }
-
-
-
     
     
+
+
+
 }

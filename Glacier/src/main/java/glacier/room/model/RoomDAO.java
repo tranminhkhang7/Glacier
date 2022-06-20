@@ -139,9 +139,9 @@ public class RoomDAO {
             return f;
         }
     }
-//    public static void main(String[] args) throws SQLException, Exception {
-//        RoomDAO dao = new RoomDAO();
-//        ArrayList<String> f = dao.getRoomFeature(10);
-//        System.out.println(f);
-//    }
+    public static void main(String[] args) throws SQLException, Exception {
+        RoomDAO dao = new RoomDAO();
+        ArrayList<String> f = dao.getRoomFeature(10);
+        System.out.println(f);
+    }
 }

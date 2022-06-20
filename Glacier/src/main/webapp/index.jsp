@@ -21,7 +21,7 @@
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/user.css">
 
-        <title>Craigs - Easy Buy & Sell Listing HTML Template</title>
+        <title>Trang chủ</title>
 
     </head>
     <body style="font-family: 'Varela Round', sans-serif;">

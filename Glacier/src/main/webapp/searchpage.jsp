@@ -196,16 +196,18 @@
                                                 <!--<a href="#" class="tag category">Home & Decor</a>-->
                                                 <a href="${pageContext.request.contextPath}/SingleRoomView?id=${room.roomID}" class="title">${room.name}</a>
                                                 <!--<span class="tag">Offer</span>-->
+                                                 <span><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></span>
                                             </h3>
                                             <a href="${pageContext.request.contextPath}/SingleRoomView?id=${room.roomID}" class="image-wrapper background-image">
                                                 <img src="assets/img/image-01.jpg" alt="">
                                             </a>
+                                        
                                         </div>
                                         <!--end image-->
                                         <h4 class="location">
                                             <a href="#">${room.address}</a>
                                         </h4>
-                                        <div class="price">                                    
+                                        <div class="price" style="top:23.5rem !important">                                    
                                             ${room.price}đ
                                             <!--<small>VNĐ</small>-->
                                         </div>
