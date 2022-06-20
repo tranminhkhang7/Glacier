@@ -310,6 +310,37 @@ public class RoomManager {
         }
         return room;
     }
+    public Room getTenantPendingRoom(int id) {
+        Room room = null;
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "  select r.roomID,r.name,r.address,r.emailLandlord,r.status,r.price,r.deposit,r.detailAddress\n" +
+"  from Room r\n" +
+"  where (r.roomID = ?)";
+                st = conn.prepareStatement(sql);
+                st.setInt(1, id);
+                rs = st.executeQuery();
+                if (rs.next()) {
+                    int roomID = rs.getInt("roomID");
+                    String name = rs.getString("name");
+                    String address = rs.getString("address");
+                    String emailLandlord = rs.getString("emailLandlord");
+                    String status = rs.getString("status");
+                    int price = rs.getInt("price");
+                    float deposit = rs.getFloat("deposit");
+                    String detailAddress = rs.getString("detailAddress");
+                    room = new Room(roomID, name, address, emailLandlord, status, price, deposit, detailAddress);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return room;
+    }
 
     public Landlord getLandLordInfoInSingleRoom(int roomId) {
         Landlord landlord = null;

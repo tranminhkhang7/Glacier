@@ -42,15 +42,14 @@ public class Deposit extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             HttpSession ss = request.getSession();
             Account user = (Account) ss.getAttribute("LOGIN_USER");
-
             String role = (user == null) ? "" : user.getRole().trim();
-
             if (!"tenant".equals(role)) {
                 RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
                 rd.forward(request, response);
             } else {
                 String emailTenant = user.getEmail().trim();
                 int roomID = Integer.parseInt(request.getParameter("id"));
+<<<<<<< HEAD
                 String emailLandlord = request.getParameter("landlordEmail").trim();
                 UserManager mng = new UserManager();
                 mng.deposit(emailTenant, roomID);
@@ -62,6 +61,16 @@ public class Deposit extends HttpServlet {
                 String imageName = "room"+roomID+".png";
                 Utils.createQR(content, imageName);
                 
+=======
+                UserManager mng = new UserManager();
+                mng.deposit(emailTenant, roomID);
+                SendEmail se = new SendEmail();
+                if (se.SendDepositConfirm(emailTenant,roomID)){
+                    System.out.println("Deposit confirm mail sent to "+ emailTenant);
+                } else {
+                    System.out.println("Failed to send deposit confirm mail to "+emailTenant);
+                }
+>>>>>>> 88a09eec1550b0a5a06d1bb3e47270094cb7965f
                 RequestDispatcher rd = request.getRequestDispatcher("success-deposit.jsp");
                 rd.forward(request, response);
             }
