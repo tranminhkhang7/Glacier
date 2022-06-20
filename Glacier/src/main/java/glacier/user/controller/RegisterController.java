@@ -58,7 +58,6 @@ public class RegisterController extends HttpServlet {
                 //errors.put("duplicate", "Email has existed");
                 request.setAttribute("ERROR_REGISTER", "Email has existed");
             } else {
-
                 UserSession userSession = new UserSession(email, name, password, role, gender, phone, status, id, key);
                 ss.setAttribute("USER_SESSION", userSession);
                 //create instance object of the SendEmail Class

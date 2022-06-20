@@ -57,7 +57,7 @@ public class SingleRoomView extends HttpServlet {
                         indexPage="1";
                     }
                     int currentPage=Integer.parseInt(indexPage);
-                    int id = Integer.parseInt(request.getParameter("id"));      // get room id to view
+                    int id = Integer.parseInt(request.getParameter("id"));              // get room id to view
                     // GET ROOM
                     RoomDAO dao = new RoomDAO();
                     Room room = dao.getRoomById(id);                     
@@ -65,17 +65,6 @@ public class SingleRoomView extends HttpServlet {
                     
                     //GET ROOM FEATURE
                     ArrayList<String> f = dao.getRoomFeature(id);
-                    
-//                    if (room.isHas_mayLanh()) f.setHas_mayLanh("Máy Lạnh");
-//                    if (room.isHas_banCong()) f.setHas_banCong("Ban công");
-//                    if (room.isHas_cuaSo()) f.setHas_cuaSo("Cửa sổ");
-//                    if (room.isHas_hamGuiXe()) f.setHas_hamGuiXe("Hầm gửi xe");
-//                    if (room.isHas_keBep()) f.setHas_keBep("Kệ bếp");
-//                    if (room.isHas_khuDanCu()) f.setHas_khuDanCu("Trong khu dân cư");
-//                    if (room.isHas_phongGiatDo()) f.setHas_phongGiatDo("Phòng giặt đồ");
-//                    if (room.isHas_remCua()) f.setHas_remCua("Rèm cửa");
-//                    if (room.isHas_xeBuyt()) f.setHas_xeBuyt("Gần trạm xe buýt");
-//                    if (room.isHas_baoVe()) f.setHas_baoVe("Bảo vệ");
                     
                     //GET COMMENT AND PAGING
                     CommentManager cm = new CommentManager();
@@ -93,6 +82,7 @@ public class SingleRoomView extends HttpServlet {
                     //GET LANDLORD INFO
                     RoomManager manager = new RoomManager();
                     Landlord l = manager.getLandLordInfoInSingleRoom(id);
+                        
                     //FINSIH
                     url=SUCCESS;        
                     request.setAttribute("room", room);
