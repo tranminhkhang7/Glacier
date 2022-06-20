@@ -87,6 +87,7 @@ public class UserManager {
                     t.setPhone(rs.getString("phone"));
                     t.setFacebookLink(rs.getString("facebook_link"));
                     t.setInstagramLink(rs.getString("instagram_link"));
+                    
                 }
             }
         } catch (Exception e) {

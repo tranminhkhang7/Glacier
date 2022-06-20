@@ -15,11 +15,11 @@
         <meta name="author" content="ThemeStarz">
 
         <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Varela+Round" rel="stylesheet">
-        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.css" type="text/css">
-        <link rel="stylesheet" href="assets/fonts/font-awesome.css" type="text/css">
-        <link rel="stylesheet" href="assets/css/selectize.css" type="text/css">
-        <link rel="stylesheet" href="assets/css/style.css">
-        <link rel="stylesheet" href="assets/css/user.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/bootstrap/css/bootstrap.css" type="text/css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/fonts/font-awesome.css" type="text/css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/selectize.css" type="text/css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user.css">
 
         <title>Craigs - Easy Buy & Sell Listing HTML Template</title>
 
@@ -56,15 +56,15 @@
                             <!--Main Form-->
                             <div class="main-search-form">
                                 <div class="form-row">
-                                    <div class="col-md-9 col-sm-9">
+                                    <div class="col-md-10 col-sm-10">
                                         <div class="form-group">
                                             <label for="what" class="col-form-label">Bạn đang đi đến đâu?</label>
-                                            <input name="keyword" type="text" class="form-control" id="what" placeholder="Nhập vị trí, mô tả phòng mà bạn muốn đến..." required>
+                                            <input name="keyword" type="text" class="form-control" id="what" placeholder="Nhập vị trí, mô tả phòng mà bạn muốn đến...">
                                         </div>
                                         <!--end form-group-->
                                     </div>
                                     <!--end col-md-3-->
-                                    <div class="col-md-3 col-sm-3">
+                                    <div class="col-md-2 col-sm-2">
                                         <button type="submit" class="btn btn-primary width-100">Tìm kiếm</button>
                                     </div>
                                     <!--end col-md-3-->
@@ -72,14 +72,43 @@
                                 <!--end form-row-->
                             </div>
                             <!--end main-search-form-->
+                            <!--Alternative Form-->
+                            <div class="alternative-search-form">
+                                <a href="#collapseAlternativeSearchForm" class="icon" data-toggle="collapse"  aria-expanded="false" aria-controls="collapseAlternativeSearchForm"><i class="fa fa-plus"></i>Thêm bộ lọc</a>
+                                <div class="collapse" id="collapseAlternativeSearchForm">
+                                    <div class="wrapper">
+                                        <div class="form-row">
+                                            <%
+                                                int i = 1;
+                                            %>
+                                            <c:forEach items="${requestScope.listFeature}" var="feature">
+                                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                                    <label>
+                                                        <input type="checkbox" name="<%=i%>">
+                                                        ${feature}
+                                                    </label>
+                                                </div>
+                                                <%
+                                                    i++;
+                                                %>
+                                            </c:forEach>
+                                            <!--end col-xl-6-->
 
+                                        </div>
+                                        <!--end row-->
+                                    </div>
+                                    <!--end wrapper-->
+                                </div>
+                                <!--end collapse-->
+                            </div>
+                            <!--end alternative-search-form-->
                         </div>
                         <!--end container-->
                     </form>
                     <!--============ End Hero Form ======================================================================-->
                     <div class="background">
                         <div class="background-image">
-                            <img src="assets/img/hero-background-image-02.jpg" alt="">
+                            <img src="${pageContext.request.contextPath}/assets/img/hero-background-image-02.jpg" alt="">
                         </div>
                         <!--end background-image-->
                     </div>
@@ -102,7 +131,7 @@
                                 <div class="wrapper">
                                     <div class="image">
                                         <a href="single-listing-1.html" class="image-wrapper background-image">
-                                            <img src="assets/images/HCMC.jpg" alt="">
+                                            <img src="${pageContext.request.contextPath}/assets/images/HCMC.jpg" alt="">
                                         </a>
                                     </div>
                                     <!--end image-->
@@ -123,7 +152,7 @@
                                 <div class="wrapper">
                                     <div class="image">
                                         <a href="single-listing-1.html" class="image-wrapper background-image">
-                                            <img src="assets/images/LNDN.jpg" alt="">
+                                            <img src="${pageContext.request.contextPath}/assets/images/LNDN.jpg" alt="">
                                         </a>
                                     </div>
                                     <!--end image-->
@@ -144,7 +173,7 @@
                                 <div class="wrapper">
                                     <div class="image">
                                         <a href="single-listing-1.html" class="image-wrapper background-image">
-                                            <img src="assets/images/France.jpg" alt="">
+                                            <img src="${pageContext.request.contextPath}/assets/images/France.jpg" alt="">
                                         </a>
                                     </div>
                                     <!--end image-->
@@ -167,7 +196,7 @@
                                 <div class="wrapper">
                                     <div class="image">
                                         <a href="single-listing-1.html" class="image-wrapper background-image">
-                                            <img src="assets/images/WDC.jpg" alt="">
+                                            <img src="${pageContext.request.contextPath}/assets/images/WDC.jpg" alt="">
                                         </a>
                                     </div>
                                     <!--end image-->
@@ -188,7 +217,7 @@
                                 <div class="wrapper">
                                     <div class="image">
                                         <a href="single-listing-1.html" class="image-wrapper background-image">
-                                            <img src="assets/images/Rio.jpg" alt="">
+                                            <img src="${pageContext.request.contextPath}/assets/images/Rio.jpg" alt="">
                                         </a>
                                     </div>
                                     <!--end image-->
@@ -209,7 +238,7 @@
                                 <div class="wrapper">
                                     <div class="image">
                                         <a href="single-listing-1.html" class="image-wrapper background-image">
-                                            <img src="assets/images/Bei.jpg" alt="">
+                                            <img src="${pageContext.request.contextPath}/assets/images/Bei.jpg" alt="">
                                         </a>
                                     </div>
                                     <!--end image-->
@@ -255,16 +284,16 @@
         </div>
         <!--end page-->
 
-        <script src="assets/js/jquery-3.3.1.min.js"></script>
-        <script type="text/javascript" src="assets/js/popper.min.js"></script>
-        <script type="text/javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/popper.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/assets/bootstrap/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyBEDfNcQRmKQEyulDN8nGWjLYPm8s4YB58&libraries=places"></script>
         <!--<script type="text/javascript" src="http://maps.google.com/maps/api/js"></script>-->
-        <script src="assets/js/selectize.min.js"></script>
-        <script src="assets/js/masonry.pkgd.min.js"></script>
-        <script src="assets/js/icheck.min.js"></script>
-        <script src="assets/js/jquery.validate.min.js"></script>
-        <script src="assets/js/custom.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/selectize.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/masonry.pkgd.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/icheck.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/jquery.validate.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/custom.js"></script>
 
     </body>
 

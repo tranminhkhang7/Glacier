@@ -141,8 +141,13 @@
                     <!--============ End Hero Form ======================================================================-->
                     <!--============ Page Title =========================================================================-->
                     <div class="page-title">
-                        <div class="container">
-                            <h1>Kết quả cho tìm của bạn</h1>
+                        <div class="container" style="text-align: center">
+                            <c:if test="${empty requestScope.list}">
+                                <h1>Rất tiếc, chưa có kết quả nào cho tìm kiếm của bạn!</h1>
+                            </c:if>
+                            <c:if test="${not empty requestScope.list}">
+                                <h1>Kết quả cho tìm kiếm của bạn</h1>
+                            </c:if>
                         </div>
                         <!--end container-->
                     </div>
@@ -205,7 +210,7 @@
                                         <h4 class="location">
                                             <a href="#">${room.address}</a>
                                         </h4>
-                                        <div class="price">                                    
+                                        <div class="price" style="top: 235px">                                    
                                             ${room.price}đ
                                             <!--<small>VNĐ</small>-->
                                         </div>

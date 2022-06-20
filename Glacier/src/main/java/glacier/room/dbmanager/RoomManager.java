@@ -25,7 +25,7 @@ import java.util.List;
 public class RoomManager {
 
     // This method is calculating the total number of rooms that matches the keyword
-    public int countMatched(String searchText) { // searchText: the key words user typed; index: page number
+    public int countMatched(String searchText, List<Integer> listFeature) { // searchText: the key words user typed; index: page number
         try {
             for (int i = 0; i < searchText.length(); i++) {
                 if (searchText.charAt(i) == '\'') { // ki tu '
@@ -33,15 +33,32 @@ public class RoomManager {
                     i++;
                 }
             }
-            //String sql = "SELECT [ISBN], [title], [image], [price] FROM [Book] WHERE [title] LIKE '%" + searchText + "%'"; // Kiem tra truong hop text co dau '
-//            String sql = "SELECT COUNT (*)\n" +
-//                        "FROM [Book]\n" +
-//                        "WHERE [title] LIKE '%" + searchText + "%'";
-
-            String sql = "SELECT COUNT (*)\n"
+            String sql = "SELECT COUNT(*)\n"
                     + "FROM [Room] R\n"
-                    + "WHERE FREETEXT(R.[name], N'" + searchText + "') OR FREETEXT(R.[description], N'" + searchText + "') OR FREETEXT(R.[detailAddress], N'" + searchText + "') OR FREETEXT(R.[address], N'" + searchText + "')";
+                    + "WHERE R.[status] = N'available'\n";
 
+            if (searchText != null && !"".equals(searchText)) {
+                sql += "AND FREETEXT((R.[name], R.[description], R.[detailAddress], R.[address]), N'" + searchText + "') \n";
+            }
+
+            boolean isFirst = true;
+            for (Integer feature : listFeature) {
+                if (isFirst) {
+                    sql += "AND R.[roomID] IN\n"
+                            + "	(SELECT DISTINCT [roomID]\n"
+                            + "	FROM [RoomFeature]\n"
+                            + "	WHERE [featureID] = " + feature + "\n";
+                } else {
+                    sql += "INTERSECT\n"
+                            + "	SELECT DISTINCT [roomID]\n"
+                            + "	FROM [RoomFeature]\n"
+                            + "	WHERE [featureID] = " + feature + "\n";
+                }
+                isFirst = false;
+            }
+            if (!isFirst) {
+                sql += ")\n";
+            }
 //            if (rating != null && !rating.equals("all")) {
 //                sql += " AND avgRate >= " + rating + " ";
 //            }
@@ -65,7 +82,7 @@ public class RoomManager {
     }
 
     // This method returns the list of rooms that matches the searchText, on page index
-    public List<Room> search(String searchText, int index) { // searchText: the key words user typed; index: page number
+    public List<Room> search(String searchText, List<Integer> listFeature, int index) { // searchText: the key words user typed; index: page number
         try {
             for (int i = 0; i < searchText.length(); i++) {
                 if (searchText.charAt(i) == '\'') { // ki tu '
@@ -73,16 +90,37 @@ public class RoomManager {
                     i++;
                 }
             }
+            if (index <= 0) {
+                index = 1;
+            }
 
-            //String sql = "SELECT [ISBN], [title], [image], [price] FROM [Book] WHERE [title] LIKE '%" + searchText + "%'"; // Kiem tra truong hop text co dau '
-//            String sql = "SELECT [ISBN], [title], [image], [price]\n" +
-//                        "FROM [Book]\n" +
-//                        "WHERE [title] LIKE '%" + searchText + "%'\n" +
-//                        "ORDER BY [ISBN]\n" +
-//                        "OFFSET " + (index - 1) * 9 + " ROWS FETCH NEXT 9 ROWS ONLY";
             String sql = "SELECT R.[roomID], R.[name] as nameRoom, R.[address], R.[price], R.[date_added], L.[name] as nameLandlord, LEFT(R.[description], 100) as cutDescription\n"
                     + "FROM [Room] R JOIN [Landlord] L ON R.emailLandlord = L.email\n"
-                    + "WHERE FREETEXT(R.[name], N'" + searchText + "') OR FREETEXT(R.[description], N'" + searchText + "') OR FREETEXT(R.[detailAddress], N'" + searchText + "') OR FREETEXT(R.[address], N'" + searchText + "')";
+                    + "WHERE R.[status] = N'available'\n";
+
+            if (searchText != null && !"".equals(searchText)) {
+                sql += "AND FREETEXT((R.[name], R.[description], R.[detailAddress], R.[address]), N'" + searchText + "') \n";
+            }
+
+            boolean isFirst = true;
+            for (Integer feature : listFeature) {
+                if (isFirst) {
+                    sql += "AND R.[roomID] IN\n"
+                            + "	(SELECT DISTINCT [roomID]\n"
+                            + "	FROM [RoomFeature]\n"
+                            + "	WHERE [featureID] = " + feature + "\n";
+                } else {
+                    sql += "INTERSECT\n"
+                            + "	SELECT DISTINCT [roomID]\n"
+                            + "	FROM [RoomFeature]\n"
+                            + "	WHERE [featureID] = " + feature + "\n";
+                }
+                isFirst = false;
+            }
+            if (!isFirst) {
+                sql += ")\n";
+            }
+
 //            if (rating != null && !rating.equals("all")) {
 //                sql += " AND avgRate >= " + rating + " ";
 //            }
@@ -310,27 +348,47 @@ public class RoomManager {
         }
         return landlord;
     }
-    public boolean updateRoomRating(int roomId,int rating){
+
+    public boolean updateRoomRating(int roomId, int rating) {
         boolean status = false;
         Connection conn = null;
         PreparedStatement st = null;
-        try{
-            conn=DBUtils.getConnection();
-            if (conn!=null){
-                String sql = "update Room\n" +
-        "  set avg_rating=((avg_rating*numberRating)+?)/(numberRating+1),numberRating=numberRating+1\n"
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "update Room\n"
+                        + "  set avg_rating=((avg_rating*numberRating)+?)/(numberRating+1),numberRating=numberRating+1\n"
                         + "  where roomID=?";
                 st = conn.prepareStatement(sql);
                 st.setInt(1, rating);
                 st.setInt(2, roomId);
-                if (st.executeUpdate() == 1)
+                if (st.executeUpdate() == 1) {
                     status = true;
+                }
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return status;
+    }
+
+    public List<String> loadFeature() {
+        try {
+            String sql = "SELECT *\n"
+                    + "FROM [Feature]";
+            Connection con = DBUtils.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+
+            List<String> listResult = new ArrayList<>();
+            while (rs.next()) {
+                listResult.add(rs.getString("name").trim());
+            }
+            return listResult;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static void main(String[] args) {

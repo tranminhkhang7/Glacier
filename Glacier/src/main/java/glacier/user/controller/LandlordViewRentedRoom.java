@@ -59,7 +59,7 @@ public class LandlordViewRentedRoom extends HttpServlet {
                 String emailTenant = mng.getEmailTenantByRoomID(id);
                 String rentStartDate = mng.getStartRentDateByRoomID(id);
                 Tenant tenant = mng.getTenantInfo(emailTenant);
-
+                
                 request.setAttribute("tenant", tenant);
                 request.setAttribute("rentStartDate", rentStartDate);
                 RequestDispatcher rd = request.getRequestDispatcher("/landlord-manage-single-room.jsp");

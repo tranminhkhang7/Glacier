@@ -5,14 +5,18 @@
  */
 package glacier.user.controller;
 
+import glacier.room.dbmanager.RoomManager;
+import glacier.user.model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -34,8 +38,24 @@ public class TenantHomepage extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-            rd.forward(request, response);
+            HttpSession ss = request.getSession();
+            Account user = (Account) ss.getAttribute("LOGIN_USER");
+
+            String role = (user == null) ? "" : user.getRole().trim();
+            
+            if (!"tenant".equals(role) && !"".equals(role)) {
+                
+                RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
+                rd.forward(request, response);
+            } else {
+                
+                RoomManager mng = new RoomManager();
+                List<String> listFeature = mng.loadFeature();
+
+                request.setAttribute("listFeature", listFeature);
+                RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+                rd.forward(request, response);
+            }
         }
     }
 
