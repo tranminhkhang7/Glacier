@@ -25,5 +25,10 @@ public class Constant {
         public static long SCHEDULED_DELAY = 0;
         
         public static long SCHEDULED_PERIOD = 1;
+        
+        public static String GOOGLE_CLOUD_PROJECT_ID="glacier-351418";
+        
+        public static String GOOGLE_CLOUD_BUCKET_NAME="glacier-bucket";
+        
 
 }

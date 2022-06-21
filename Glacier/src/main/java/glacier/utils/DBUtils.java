@@ -22,7 +22,7 @@ public class DBUtils {
     private final static String userID = "sa";
 
 
-    private final static String password = "khangtm";
+    private final static String password = "123456789";
 
 
 public static Connection getConnection() throws Exception {
