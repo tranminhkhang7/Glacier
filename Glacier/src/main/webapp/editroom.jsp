@@ -68,7 +68,7 @@
 
             }
         </style>
-        <title>Craigs - Easy Buy & Sell Listing HTML Template</title>
+        <title>Chỉnh sửa phòng · Glacier</title>
 
     </head>
     <body style="font-family: 'Varela Round', sans-serif;">

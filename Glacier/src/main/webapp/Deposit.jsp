@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="assets/css/owl.carousel.min.css" type="text/css">
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/user.css">
-        <title>Glacier - Deposit</title>
+        <title>Xác nhận và Đặt cọc · Glacier</title>
         <style>
             .bill th, .bill td{
                 border: solid 1px black;

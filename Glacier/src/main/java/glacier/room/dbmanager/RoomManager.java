@@ -25,7 +25,7 @@ import java.util.List;
 public class RoomManager {
 
     // This method is calculating the total number of rooms that matches the keyword
-    public int countMatched(String searchText) { // searchText: the key words user typed; index: page number
+    public int countMatched(String searchText, List<Integer> listFeature) { // searchText: the key words user typed; index: page number
         try {
             for (int i = 0; i < searchText.length(); i++) {
                 if (searchText.charAt(i) == '\'') { // ki tu '
@@ -33,15 +33,32 @@ public class RoomManager {
                     i++;
                 }
             }
-            //String sql = "SELECT [ISBN], [title], [image], [price] FROM [Book] WHERE [title] LIKE '%" + searchText + "%'"; // Kiem tra truong hop text co dau '
-//            String sql = "SELECT COUNT (*)\n" +
-//                        "FROM [Book]\n" +
-//                        "WHERE [title] LIKE '%" + searchText + "%'";
-
-            String sql = "SELECT COUNT (*)\n"
+            String sql = "SELECT COUNT(*)\n"
                     + "FROM [Room] R\n"
-                    + "WHERE FREETEXT(R.[name], N'" + searchText + "') OR FREETEXT(R.[description], N'" + searchText + "') OR FREETEXT(R.[detailAddress], N'" + searchText + "') OR FREETEXT(R.[address], N'" + searchText + "')";
+                    + "WHERE R.[status] = N'available'\n";
 
+            if (searchText != null && !"".equals(searchText)) {
+                sql += "AND FREETEXT((R.[name], R.[description], R.[detailAddress], R.[address]), N'" + searchText + "') \n";
+            }
+
+            boolean isFirst = true;
+            for (Integer feature : listFeature) {
+                if (isFirst) {
+                    sql += "AND R.[roomID] IN\n"
+                            + "	(SELECT DISTINCT [roomID]\n"
+                            + "	FROM [RoomFeature]\n"
+                            + "	WHERE [featureID] = " + feature + "\n";
+                } else {
+                    sql += "INTERSECT\n"
+                            + "	SELECT DISTINCT [roomID]\n"
+                            + "	FROM [RoomFeature]\n"
+                            + "	WHERE [featureID] = " + feature + "\n";
+                }
+                isFirst = false;
+            }
+            if (!isFirst) {
+                sql += ")\n";
+            }
 //            if (rating != null && !rating.equals("all")) {
 //                sql += " AND avgRate >= " + rating + " ";
 //            }
@@ -65,7 +82,7 @@ public class RoomManager {
     }
 
     // This method returns the list of rooms that matches the searchText, on page index
-    public List<Room> search(String searchText, int index) { // searchText: the key words user typed; index: page number
+    public List<Room> search(String searchText, List<Integer> listFeature, int index) { // searchText: the key words user typed; index: page number
         try {
             for (int i = 0; i < searchText.length(); i++) {
                 if (searchText.charAt(i) == '\'') { // ki tu '
@@ -73,16 +90,37 @@ public class RoomManager {
                     i++;
                 }
             }
+            if (index <= 0) {
+                index = 1;
+            }
 
-            //String sql = "SELECT [ISBN], [title], [image], [price] FROM [Book] WHERE [title] LIKE '%" + searchText + "%'"; // Kiem tra truong hop text co dau '
-//            String sql = "SELECT [ISBN], [title], [image], [price]\n" +
-//                        "FROM [Book]\n" +
-//                        "WHERE [title] LIKE '%" + searchText + "%'\n" +
-//                        "ORDER BY [ISBN]\n" +
-//                        "OFFSET " + (index - 1) * 9 + " ROWS FETCH NEXT 9 ROWS ONLY";
-            String sql = "SELECT R.[roomID], R.[name] as nameRoom, R.[address], R.[price], R.[date_added], L.[name] as nameLandlord, LEFT(R.[description], 100) as cutDescription\n"
+            String sql = "SELECT R.[roomID], LEFT(R.[name],42) as nameRoom, R.[address], R.[price], R.[avg_rating], R.[date_added], L.[name] as nameLandlord, LEFT(R.[description], 100) as cutDescription\n"
                     + "FROM [Room] R JOIN [Landlord] L ON R.emailLandlord = L.email\n"
-                    + "WHERE FREETEXT(R.[name], N'" + searchText + "') OR FREETEXT(R.[description], N'" + searchText + "') OR FREETEXT(R.[detailAddress], N'" + searchText + "') OR FREETEXT(R.[address], N'" + searchText + "')";
+                    + "WHERE R.[status] = N'available'\n";
+
+            if (searchText != null && !"".equals(searchText)) {
+                sql += "AND FREETEXT((R.[name], R.[description], R.[detailAddress], R.[address]), N'" + searchText + "') \n";
+            }
+
+            boolean isFirst = true;
+            for (Integer feature : listFeature) {
+                if (isFirst) {
+                    sql += "AND R.[roomID] IN\n"
+                            + "	(SELECT DISTINCT [roomID]\n"
+                            + "	FROM [RoomFeature]\n"
+                            + "	WHERE [featureID] = " + feature + "\n";
+                } else {
+                    sql += "INTERSECT\n"
+                            + "	SELECT DISTINCT [roomID]\n"
+                            + "	FROM [RoomFeature]\n"
+                            + "	WHERE [featureID] = " + feature + "\n";
+                }
+                isFirst = false;
+            }
+            if (!isFirst) {
+                sql += ")\n";
+            }
+
 //            if (rating != null && !rating.equals("all")) {
 //                sql += " AND avgRate >= " + rating + " ";
 //            }
@@ -115,14 +153,15 @@ public class RoomManager {
 
             while (rs.next()) {
                 int roomID = rs.getInt("roomID");
-                String nameRoom = rs.getString("nameRoom");
+                String nameRoom = rs.getString("nameRoom"); nameRoom += "...";
                 String cutDescription = rs.getString("cutDescription");
                 String address = rs.getString("address");
                 String nameLandlord = rs.getString("nameLandlord");
                 int price = rs.getInt("price");
+                int avg_rating = (int)rs.getFloat("avg_rating");
                 Date dateAdded = rs.getDate("date_added");
 
-                Room matchedRoom = new Room(roomID, nameRoom, cutDescription, address, nameLandlord, price, dateAdded);
+                Room matchedRoom = new Room(roomID, nameRoom, cutDescription, address, nameLandlord, price, avg_rating, dateAdded);
                 list.add(matchedRoom);
             }
             return list;
@@ -391,6 +430,25 @@ public class RoomManager {
         return status;
     }
 
+
+    public List<String> loadFeature() {
+        try {
+            String sql = "SELECT *\n"
+                    + "FROM [Feature]";
+            Connection con = DBUtils.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+
+            List<String> listResult = new ArrayList<>();
+            while (rs.next()) {
+                listResult.add(rs.getString("name").trim());
+            }
+            return listResult;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     //THIS METHOD RETURN A ROOM IF TENANT KEY AND LANDLORD KEY ARE MATCH
     public Room getRoomWhenAssign(String tenantKey, String landlordKey) {
         Room room = null;
@@ -421,30 +479,60 @@ public class RoomManager {
         return room;
     }
 
-    public static void main(String[] args) {
-        RoomManager manager = new RoomManager();
-        
-//        Room room = manager.getRoomWhenAssign("123", "456");
-//        System.out.println(room);
-//        Landlord l = manager.getLandLordInfoInSingleRoom(10);
-//        System.out.println(l);
-        List<Room> list = manager.getTenantRoomList("vuvannga@gmail.com", 1);
-        for (Room room : list) {
-            System.out.println(room);
+    
+    public boolean updateRoomQR(String tenantKey,String landlordKey,String QR_image,int roomID){
+        boolean check=false;
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try{
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "update Room\n"
+                        + "set Room.tenant_key=?, landlord_key=?, qr_status='active' , qr_image=?\n"
+                        + "where roomID=?";
+                st=conn.prepareStatement(sql);
+                st.setString(1, tenantKey);
+                st.setString(2, landlordKey);
+                st.setString(3, QR_image);
+                st.setInt(4, roomID);
+                if (st.executeUpdate() == 1) {
+                    check = true;
+                }
+            }
         }
-//        List<Bill> list = manager.getPaidBillList(10,"paid",1);
-//        for (Bill bill : list) {
-//            System.out.println(bill);
-//        }
-//        Room room  = manager.getTenantRentedRoom(10);
-//        System.out.println(room);
-//        int count = manager.countTenantRooms("vuvannga@gmail.com");
-//        System.out.println(count);
+        catch (Exception e){
+            e.printStackTrace();
+        } 
+        return check;
 
-//        String newS = s.trim().replaceAll(" ", "");
-//        String shortS = s.substring(0, Math.min(s.length(), 101));
-//        int i = newS.length();
-//        int j = s.length();
-//        System.out.println(shortS);
     }
+    
+    
+//    public static void main(String[] args) {
+//        RoomManager manager = new RoomManager();
+//        
+////        Room room = manager.getRoomWhenAssign("123", "456");
+////        System.out.println(room);
+////        Landlord l = manager.getLandLordInfoInSingleRoom(10);
+////        System.out.println(l);
+////        List<Room> list = manager.getTenantRoomList("vuvannga@gmail.com", 1);
+////        for (Room room : list) {
+////            System.out.println(room);
+////        }
+////        List<Bill> list = manager.getPaidBillList(10,"paid",1);
+////        for (Bill bill : list) {
+////            System.out.println(bill);
+////        }
+////        Room room  = manager.getTenantRentedRoom(10);
+////        System.out.println(room);
+////        int count = manager.countTenantRooms("vuvannga@gmail.com");
+////        System.out.println(count);
+//
+////        String newS = s.trim().replaceAll(" ", "");
+////        String shortS = s.substring(0, Math.min(s.length(), 101));
+////        int i = newS.length();
+////        int j = s.length();
+////        System.out.println(shortS);
+//    }
 }

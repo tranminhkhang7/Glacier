@@ -6,7 +6,10 @@
 package glacier.user.controller;
 
 import com.google.zxing.WriterException;
+import glacier.room.dbmanager.RoomManager;
 import glacier.user.model.Account;
+import glacier.utils.Constant;
+import glacier.utils.GoogleCloudUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -49,31 +52,42 @@ public class Deposit extends HttpServlet {
             } else {
                 String emailTenant = user.getEmail().trim();
                 int roomID = Integer.parseInt(request.getParameter("id"));
-
-                String emailLandlord = request.getParameter("landlordEmail").trim();
+                String emailLandlord = request.getParameter("landlordEmail").trim();                
                 UserManager mng = new UserManager();
                 mng.deposit(emailTenant, roomID);
+
                 
                 //CREATE QR CODE //email + ngay + 1 so ngau nhien
+                
                 //ipv4:8080/Glacier/qrscan?tenant_key=abc
-                String tenatKey = DigestUtils.md5Hex(emailTenant);
-                String landlordKey = DigestUtils.md5Hex(emailLandlord);
-                String content = "http://192.168.1.7:8080/Glacier/qrscan?tenant_key="+tenatKey+"&landlord_key="+landlordKey;
-                //room-id.jpg
+                String tenantKey = DigestUtils.md5Hex(emailTenant+Math.random());
+                String landlordKey = DigestUtils.md5Hex(emailLandlord+Math.random());
+                
+                String content = "http://192.168.1.7:8080/Glacier/qrscan?tenant_key="+tenantKey+"&landlord_key="+landlordKey;
+                //room-id.png
                 String imageName = "room-"+roomID+".png";
                 Utils.createQR(content, imageName);
+                String QrLocalPath = "D:\\Tomcat Glassfish\\apache-tomcat-9.0.56\\bin\\Glacier\\QR\\"+imageName;
                 
                 //UP HÌNH LÊN CLOUD
-                //LẤY CÁI SIGNED URL, UPDATE CÁI qr_image TRONG ROOM    
+                GoogleCloudUtils.uploadObject(Constant.GOOGLE_CLOUD_PROJECT_ID, Constant.GOOGLE_CLOUD_BUCKET_NAME, imageName,QrLocalPath);
                 
-//                mng.deposit(emailTenant, roomID);
+                //UPDATE CÁI qr_image TRONG ROOM    
+                String QRCloudPath = "https://storage.cloud.google.com/glacier-bucket/Room_QR/"+imageName;
+                RoomManager rm = new RoomManager();
+                if (rm.updateRoomQR(tenantKey, landlordKey,QRCloudPath, roomID)){
+                    System.out.println("Successfully store data to db");
+                } else System.out.println("Failed to store data to db");
+                
+                //GỬI MAIL NÈ
                 SendEmail se = new SendEmail();
                 if (se.SendDepositConfirm(emailTenant,roomID)){
                     System.out.println("Deposit confirm mail sent to "+ emailTenant);
                 } else {
                     System.out.println("Failed to send deposit confirm mail to "+emailTenant);
                 }
-
+                
+                request.setAttribute("QR_Image",QRCloudPath);
                 RequestDispatcher rd = request.getRequestDispatcher("success-deposit.jsp");
                 rd.forward(request, response);
             }

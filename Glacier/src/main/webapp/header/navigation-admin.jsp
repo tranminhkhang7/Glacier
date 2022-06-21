@@ -1,4 +1,4 @@
-<%-- 
+    <%-- 
     Document   : header-admin
     Created on : Jun 8, 2022, 9:02:05 PM
     Author     : KHANG
@@ -45,34 +45,40 @@
             <div class="collapse navbar-collapse" id="navbar">
                 <!--Main navigation list-->
                 <ul class="navbar-nav">
-                    <li class="nav-item active has-child">
-                        <a class="nav-link" href="SearchUserController?keyword=&index=1&role=all">User</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="new-feature.jsp">Thêm feature</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="VerifyRoomController?index=1">Xét duyệt phòng mới</a>
+                    </li>
+                    <li class="nav-item has-child">
+                        <a class="nav-link" href="SearchUserController?keyword=&index=1&role=all">Người dùng</a>
                         <ul class="child">
                             <li class="nav-item" >
-                                <a href="SearchUserController?keyword=&role=landlord&index=1" class="nav-link" >Landlords</a>
+                                <a href="SearchUserController?keyword=&role=landlord&index=1" class="nav-link" >Người cho thuê</a>
                             </li>
                             <li class="nav-item">
-                                <a href="SearchUserController?keyword=&role=tenant&index=1" class="nav-link">Tenants</a>
+                                <a href="SearchUserController?keyword=&role=tenant&index=1" class="nav-link">Người thuê</a>
                             </li>
                         </ul>
                     </li>
                     <li class="nav-item has-child">
-                        <a class="nav-link" href="ReportedController?index=1&type=all">Reported</a>
+                        <a class="nav-link" href="ReportedController?index=1&type=all">Bị báo cáo</a>
                         <!-- 1st level -->
                         <ul class="child">
                             <li class="nav-item">
-                                <a href="ReportedController?index=1&type=room" class="nav-link">Rooms</a>
+                                <a href="ReportedController?index=1&type=room" class="nav-link">Phòng</a>
                             </li>
                             <li class="nav-item">
-                                <a href="ReportedController?index=1&type=comment" class="nav-link">Comments</a>
+                                <a href="ReportedController?index=1&type=comment" class="nav-link">Bình luận</a>
                             </li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Contact</a>
+                        <a class="nav-link" href="contact.html">Liên hệ</a>
                     </li>
                     <li class="nav-item">
-                        <a href="admin.jsp" class="btn btn-primary text-caps btn-rounded btn-framed">Home</a>
+                        <a href="admin.jsp" class="btn btn-primary text-caps btn-rounded btn-framed">Trang chủ</a>
                     </li>
                 </ul>
                 <!--Main navigation list-->

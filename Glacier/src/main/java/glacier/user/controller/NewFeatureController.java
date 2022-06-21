@@ -5,25 +5,24 @@
  */
 package glacier.user.controller;
 
-import glacier.room.dbmanager.RoomManager;
-import glacier.user.model.Account;
+import glacier.moderator.dbmanager.ModeratorManager;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author KHANG
+ * @author Admin
  */
-@WebServlet(name = "TenantHomepage", urlPatterns = {"/home"})
-public class TenantHomepage extends HttpServlet {
+@WebServlet(name = "NewFeatureController", urlPatterns = {"/NewFeatureController"})
+public class NewFeatureController extends HttpServlet {
+
+    public static final String ERROR = "error.jsp";
+    public static final String SUCCESS = "new-feature.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,25 +36,18 @@ public class TenantHomepage extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            HttpSession ss = request.getSession();
-            Account user = (Account) ss.getAttribute("LOGIN_USER");
-
-            String role = (user == null) ? "" : user.getRole().trim();
-            
-            if (!"tenant".equals(role) && !"".equals(role)) {
-                
-                RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
-                rd.forward(request, response);
-            } else {
-                
-                RoomManager mng = new RoomManager();
-                List<String> listFeature = mng.loadFeature();
-
-                request.setAttribute("listFeature", listFeature);
-                RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-                rd.forward(request, response);
+        String url = ERROR;
+        try {
+            String feature = request.getParameter("feature");
+            ModeratorManager dao = new ModeratorManager();
+            boolean check = dao.addFeature(feature);
+            if (check) {
+                url = SUCCESS;
             }
+        } catch (Exception e) {
+            log("Error at SearchController: " + e.toString());
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

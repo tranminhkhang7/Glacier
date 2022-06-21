@@ -11,6 +11,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
@@ -20,25 +21,59 @@ import java.nio.file.Path;
  * @author ASUS
  */
 public class Utils {
-    public static void createQR(String data, String imageName) throws IOException, WriterException{
-        
-        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+    //-------------------------------------------------
+    //CHECK IF DIRECTORY EXIST ? True:Create
+    //-------------------------------------------------
+    public static boolean createDir(String outputPrefix){
+        boolean check=false;
+        String path = outputPrefix+"\\Glacier\\QR";
+        File file = new File(path);
+        boolean fileExists = file.exists();
+        if (fileExists){
+            check=true;
+        }
+        else {
+            boolean dirCreated = file.mkdirs();
+            if (dirCreated){
+                check=true;
+            }
+            else System.out.println("Error creating directory at createDir");
+        }
+        return check;
+    }
+    
+    //-------------------------------------------------
+    //Create QR code base on input data and image name
+    //-------------------------------------------------
+    public static void createQR(String data, String imageName) {
+        try{
+            QRCodeWriter qrCodeWriter = new QRCodeWriter();
         BitMatrix matrix = qrCodeWriter.encode(data, BarcodeFormat.QR_CODE, 200, 200);
 
         // Write to file image
         String outputPrefix = FileSystems.getDefault()
                 .getPath("")
                 .toAbsolutePath()
-                .toString();
-        
-        System.out.println(outputPrefix);
-        String outputPath = outputPrefix+"\\src\\main\\webapp\\images\\"+imageName;
-        String outputFile = outputPath;
-        Path path = FileSystems.getDefault().getPath(outputFile);
-        MatrixToImageWriter.writeToPath(matrix, "JPG", path);
+                .toString();    
+             
+            if (createDir(outputPrefix)) {
+                String outputPath = outputPrefix + "\\Glacier\\QR\\" + imageName;
+                String outputFile = outputPath;
+                Path path = FileSystems.getDefault().getPath(outputFile);
+                MatrixToImageWriter.writeToPath(matrix, "png", path);
+            }
+            else {
+                System.out.println("False in createDir");
+            }
+        }
+        catch (Exception e){
+            System.out.print("Error at Utils createQR ");
+            e.printStackTrace();
+        }
     }
-    public static void main(String[] args) throws IOException, WriterException {
+    
+//    public static void main(String[] args) throws IOException, WriterException {
 //        createQR("hehe", "room-10.png");
-    }
+//    }
     
 }

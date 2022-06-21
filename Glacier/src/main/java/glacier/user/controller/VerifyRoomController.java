@@ -5,26 +5,26 @@
  */
 package glacier.user.controller;
 
-import glacier.room.dbmanager.RoomManager;
-import glacier.user.model.Account;
+import glacier.moderator.dbmanager.ModeratorManager;
+import glacier.moderator.dbmanager.VerifyingRoom;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author KHANG
+ * @author Admin
  */
-@WebServlet(name = "TenantHomepage", urlPatterns = {"/home"})
-public class TenantHomepage extends HttpServlet {
-
+@WebServlet(name = "VerifyRoomController", urlPatterns = {"/VerifyRoomController"})
+public class VerifyRoomController extends HttpServlet {
+    public static final String ERROR = "error.jsp";
+    public static final String SUCCESS = "verify-room.jsp";
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,25 +37,24 @@ public class TenantHomepage extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            HttpSession ss = request.getSession();
-            Account user = (Account) ss.getAttribute("LOGIN_USER");
-
-            String role = (user == null) ? "" : user.getRole().trim();
-            
-            if (!"tenant".equals(role) && !"".equals(role)) {
-                
-                RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
-                rd.forward(request, response);
-            } else {
-                
-                RoomManager mng = new RoomManager();
-                List<String> listFeature = mng.loadFeature();
-
-                request.setAttribute("listFeature", listFeature);
-                RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-                rd.forward(request, response);
+        String url = ERROR;
+        try {
+            int currentPage = Integer.parseInt(request.getParameter("index"));
+            ModeratorManager dao = new ModeratorManager();
+            List<VerifyingRoom> listRoom = dao.verifyingRoomList(currentPage);
+            int totalMatched = dao.countMatched3();
+            int endPage = totalMatched / 10;
+            if (totalMatched % 10 != 0) {
+                endPage++;
             }
+            request.setAttribute("END_PAGE", endPage);
+            request.setAttribute("CURRENT_PAGE", currentPage);
+            request.setAttribute("LIST_VERIFY_ROOM", listRoom);
+            url = SUCCESS;
+        } catch (Exception e) {
+            log("Error at SearchController: " + e.toString());
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

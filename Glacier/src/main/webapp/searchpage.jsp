@@ -22,7 +22,7 @@
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/user.css">
 
-        <title>Search</title>
+        <title>Kết quả tìm kiếm · Glacier</title>
 
     </head>
     <body style="font-family: 'Varela Round', sans-serif;">
@@ -141,8 +141,13 @@
                     <!--============ End Hero Form ======================================================================-->
                     <!--============ Page Title =========================================================================-->
                     <div class="page-title">
-                        <div class="container">
-                            <h1>Kết quả cho tìm của bạn</h1>
+                        <div class="container" style="text-align: center">
+                            <c:if test="${empty requestScope.list}">
+                                <h1>Rất tiếc, chưa có kết quả nào cho tìm kiếm của bạn!</h1>
+                            </c:if>
+                            <c:if test="${not empty requestScope.list}">
+                                <h1>Kết quả cho tìm kiếm của bạn</h1>
+                            </c:if>
                         </div>
                         <!--end container-->
                     </div>
@@ -196,12 +201,19 @@
                                                 <!--<a href="#" class="tag category">Home & Decor</a>-->
                                                 <a href="${pageContext.request.contextPath}/SingleRoomView?id=${room.roomID}" class="title">${room.name}</a>
                                                 <!--<span class="tag">Offer</span>-->
-                                                 <span><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></span>
+                                                <span>
+                                                    <c:forEach begin="1" end="${room.avgRating}" step="1">
+                                                        <i class="fa fa-star"></i>&nbsp;
+                                                    </c:forEach>
+                                                    <c:forEach begin="1" end="${5-room.avgRating}" step="1">
+                                                        <i class="fa fa-star-o"></i>&nbsp;
+                                                    </c:forEach>
+                                                    </span>
                                             </h3>
                                             <a href="${pageContext.request.contextPath}/SingleRoomView?id=${room.roomID}" class="image-wrapper background-image">
                                                 <img src="assets/img/image-01.jpg" alt="">
                                             </a>
-                                        
+
                                         </div>
                                         <!--end image-->
                                         <h4 class="location">
@@ -255,12 +267,12 @@
                                         <c:choose>
                                             <c:when test="${currentPage == i}">
                                                 <li class="page-item active">
-                                                    <a class="page-link" href="?keyword=${searchText}&index=${i}">${i}</a>
+                                                    <a class="page-link" href="?keyword=${searchText}${featureParameterSet}&index=${i}">${i}</a>
                                                 </li>
                                             </c:when>
                                             <c:otherwise>
                                                 <li class="page-item">
-                                                    <a class="page-link" href="?keyword=${searchText}&index=${i}">${i}</a>
+                                                    <a class="page-link" href="?keyword=${searchText}${featureParameterSet}&index=${i}">${i}</a>
                                                 </li>
                                             </c:otherwise>
                                         </c:choose>
@@ -315,7 +327,7 @@
                     }
                     j++;
                 }
-                
+
                 let finalPrice = textReverse.split("").reverse().join("");
                 document.getElementsByClassName("price")[i].innerHTML = finalPrice;
             }
