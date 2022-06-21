@@ -228,7 +228,7 @@
                 <h1 style="padding-bottom: 20px"> <i class="fa fa-check-circle" style="color: green"></i> Đặt phòng thành công!</h1>
                 <h3>Đây là mã QR của bạn dùng để xác nhận khi nhận phòng</h3>
                 <h3>Có thể xem lại mã của bạn trong phần xxxx</h3>
-                <img src="images/room-10.png" alt="qr" width="300" height="300" style="display: block;margin:auto" />
+                <img src="${QR_Image}" alt="qr" width="300" height="300" style="display: block;margin:auto">
 
             </section>
             <!--end content-->

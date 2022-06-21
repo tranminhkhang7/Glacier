@@ -478,31 +478,59 @@ public class RoomManager {
         }
         return room;
     }
-
-    public static void main(String[] args) {
-        RoomManager manager = new RoomManager();
-        
-//        Room room = manager.getRoomWhenAssign("123", "456");
-//        System.out.println(room);
-//        Landlord l = manager.getLandLordInfoInSingleRoom(10);
-//        System.out.println(l);
-//        List<Room> list = manager.getTenantRoomList("vuvannga@gmail.com", 1);
-//        for (Room room : list) {
-//            System.out.println(room);
-//        }
-//        List<Bill> list = manager.getPaidBillList(10,"paid",1);
-//        for (Bill bill : list) {
-//            System.out.println(bill);
-//        }
-//        Room room  = manager.getTenantRentedRoom(10);
-//        System.out.println(room);
-//        int count = manager.countTenantRooms("vuvannga@gmail.com");
-//        System.out.println(count);
-
-//        String newS = s.trim().replaceAll(" ", "");
-//        String shortS = s.substring(0, Math.min(s.length(), 101));
-//        int i = newS.length();
-//        int j = s.length();
-//        System.out.println(shortS);
+    
+    public boolean updateRoomQR(String tenantKey,String landlordKey,String QR_image,int roomID){
+        boolean check=false;
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try{
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "update Room\n"
+                        + "set Room.tenant_key=?, landlord_key=?, qr_status='active' , qr_image=?\n"
+                        + "where roomID=?";
+                st=conn.prepareStatement(sql);
+                st.setString(1, tenantKey);
+                st.setString(2, landlordKey);
+                st.setString(3, QR_image);
+                st.setInt(4, roomID);
+                if (st.executeUpdate() == 1) {
+                    check = true;
+                }
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        } 
+        return check;
     }
+    
+    
+//    public static void main(String[] args) {
+//        RoomManager manager = new RoomManager();
+//        
+////        Room room = manager.getRoomWhenAssign("123", "456");
+////        System.out.println(room);
+////        Landlord l = manager.getLandLordInfoInSingleRoom(10);
+////        System.out.println(l);
+////        List<Room> list = manager.getTenantRoomList("vuvannga@gmail.com", 1);
+////        for (Room room : list) {
+////            System.out.println(room);
+////        }
+////        List<Bill> list = manager.getPaidBillList(10,"paid",1);
+////        for (Bill bill : list) {
+////            System.out.println(bill);
+////        }
+////        Room room  = manager.getTenantRentedRoom(10);
+////        System.out.println(room);
+////        int count = manager.countTenantRooms("vuvannga@gmail.com");
+////        System.out.println(count);
+//
+////        String newS = s.trim().replaceAll(" ", "");
+////        String shortS = s.substring(0, Math.min(s.length(), 101));
+////        int i = newS.length();
+////        int j = s.length();
+////        System.out.println(shortS);
+//    }
 }
