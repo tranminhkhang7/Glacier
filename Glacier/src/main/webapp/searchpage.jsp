@@ -212,11 +212,7 @@
                                         <h4 class="location">
                                             <a href="#">${room.address}</a>
                                         </h4>
-<<<<<<< HEAD
-                                        <div class="price" style="top: 235px">                                    
-=======
                                         <div class="price" style="top:23.5rem !important">                                    
->>>>>>> 4456c35b9144cffee921457f3ea164cc95fc01d8
                                             ${room.price}đ
                                             <!--<small>VNĐ</small>-->
                                         </div>

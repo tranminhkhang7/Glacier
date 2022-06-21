@@ -35,7 +35,7 @@ public class Utils {
         String outputPath = outputPrefix+"\\src\\main\\webapp\\images\\"+imageName;
         String outputFile = outputPath;
         Path path = FileSystems.getDefault().getPath(outputFile);
-        MatrixToImageWriter.writeToPath(matrix, "PNG", path);
+        MatrixToImageWriter.writeToPath(matrix, "JPG", path);
     }
     public static void main(String[] args) throws IOException, WriterException {
 //        createQR("hehe", "room-10.png");

@@ -74,7 +74,7 @@ public class Room {
         this.detailAddress = detailAddress;
     }
     
- 
+    
     //This constructor is for Displaying Room List in Landlord's views.
     public Room(int roomID, String name, String description, String address, String status, int price, float avgRating, Date date_added, float area) {
         this.roomID = roomID;

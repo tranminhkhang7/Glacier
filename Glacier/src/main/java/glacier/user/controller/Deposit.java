@@ -49,28 +49,31 @@ public class Deposit extends HttpServlet {
             } else {
                 String emailTenant = user.getEmail().trim();
                 int roomID = Integer.parseInt(request.getParameter("id"));
-<<<<<<< HEAD
+
                 String emailLandlord = request.getParameter("landlordEmail").trim();
                 UserManager mng = new UserManager();
                 mng.deposit(emailTenant, roomID);
                 
-                //CREATE QR CODE
+                //CREATE QR CODE //email + ngay + 1 so ngau nhien
+                //ipv4:8080/Glacier/qrscan?tenant_key=abc
                 String tenatKey = DigestUtils.md5Hex(emailTenant);
                 String landlordKey = DigestUtils.md5Hex(emailLandlord);
                 String content = "http://192.168.1.7:8080/Glacier/qrscan?tenant_key="+tenatKey+"&landlord_key="+landlordKey;
-                String imageName = "room"+roomID+".png";
+                //room-id.jpg
+                String imageName = "room-"+roomID+".png";
                 Utils.createQR(content, imageName);
                 
-=======
-                UserManager mng = new UserManager();
-                mng.deposit(emailTenant, roomID);
+                //UP HÌNH LÊN CLOUD
+                //LẤY CÁI SIGNED URL, UPDATE CÁI qr_image TRONG ROOM    
+                
+//                mng.deposit(emailTenant, roomID);
                 SendEmail se = new SendEmail();
                 if (se.SendDepositConfirm(emailTenant,roomID)){
                     System.out.println("Deposit confirm mail sent to "+ emailTenant);
                 } else {
                     System.out.println("Failed to send deposit confirm mail to "+emailTenant);
                 }
->>>>>>> 88a09eec1550b0a5a06d1bb3e47270094cb7965f
+
                 RequestDispatcher rd = request.getRequestDispatcher("success-deposit.jsp");
                 rd.forward(request, response);
             }
