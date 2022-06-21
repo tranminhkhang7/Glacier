@@ -49,10 +49,8 @@ public class Deposit extends HttpServlet {
             } else {
                 String emailTenant = user.getEmail().trim();
                 int roomID = Integer.parseInt(request.getParameter("id"));
-<<<<<<< HEAD
-                String emailLandlord = request.getParameter("landlordEmail").trim();
-                UserManager mng = new UserManager();
-                mng.deposit(emailTenant, roomID);
+
+                String emailLandlord = request.getParameter("landlordEmail").trim();                
                 
                 //CREATE QR CODE
                 String tenatKey = DigestUtils.md5Hex(emailTenant);
@@ -61,7 +59,7 @@ public class Deposit extends HttpServlet {
                 String imageName = "room"+roomID+".png";
                 Utils.createQR(content, imageName);
                 
-=======
+
                 UserManager mng = new UserManager();
                 mng.deposit(emailTenant, roomID);
                 SendEmail se = new SendEmail();
@@ -70,7 +68,7 @@ public class Deposit extends HttpServlet {
                 } else {
                     System.out.println("Failed to send deposit confirm mail to "+emailTenant);
                 }
->>>>>>> 88a09eec1550b0a5a06d1bb3e47270094cb7965f
+
                 RequestDispatcher rd = request.getRequestDispatcher("success-deposit.jsp");
                 rd.forward(request, response);
             }
