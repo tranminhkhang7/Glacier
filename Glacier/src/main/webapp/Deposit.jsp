@@ -166,6 +166,7 @@
                                 <hr>
                                 <form action="deposit">
                                     <input name="id" value="${id}" type="hidden">
+                                    <input name="landlordEmail" value="${landlord.email}" type="hidden">
                                     <button class="btn btn-framed btn-primary" type="submit">Xác nhận thanh toán</button>
                                 </form>
                             </div>

@@ -627,6 +627,9 @@
                             end items-->
                             <!--============ End Items ==============================================================-->
                             
+                            
+                            <!--end page-pagination-->
+                        </div>
                             <div class="page-pagination">
                                 <nav aria-label="Pagination">
                                     <ul class="pagination">
@@ -672,8 +675,6 @@
                                     </ul>
                                 </nav>
                             </div>
-                            <!--end page-pagination-->
-                        </div>
                         <!--end col-md-9-->
                     </div>
                     <!--end row-->
