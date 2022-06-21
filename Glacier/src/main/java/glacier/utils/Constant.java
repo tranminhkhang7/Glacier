@@ -22,10 +22,9 @@ public class Constant {
 
 	public static String GOOGLE_GRANT_TYPE = "authorization_code";
         
-<<<<<<< HEAD
+
         public static long SCHEDULED_DELAY = 0;
         
         public static long SCHEDULED_PERIOD = 1;
-=======
->>>>>>> 88a09eec1550b0a5a06d1bb3e47270094cb7965f
+
 }
