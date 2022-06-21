@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="assets/css/owl.carousel.min.css" type="text/css">
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/user.css">
-        <title>Glacier - Deposit</title>
+        <title>Xác nhận và Đặt cọc · Glacier</title>
         <style>
             .bill th, .bill td{
                 border: solid 1px black;
@@ -166,6 +166,7 @@
                                 <hr>
                                 <form action="deposit">
                                     <input name="id" value="${id}" type="hidden">
+                                    <input name="landlordEmail" value="${landlord.email}" type="hidden">
                                     <button class="btn btn-framed btn-primary" type="submit">Xác nhận thanh toán</button>
                                 </form>
                             </div>

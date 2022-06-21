@@ -87,6 +87,7 @@ public class UserManager {
                     t.setPhone(rs.getString("phone"));
                     t.setFacebookLink(rs.getString("facebook_link"));
                     t.setInstagramLink(rs.getString("instagram_link"));
+                    
                 }
             }
         } catch (Exception e) {
@@ -443,10 +444,10 @@ public class UserManager {
 
                 st = conn.prepareStatement(sql);
 
-                st.setString(1,state);
+                st.setString(1, state);
                 st.setTimestamp(2, date);
                 st.setInt(3, roomId);
-                
+
                 check = st.executeUpdate() > 0;
             }
         } catch (Exception e) {
@@ -473,14 +474,14 @@ public class UserManager {
     // This method returns tenant's email by the id of the room he/she is renting. This method is used for SingleRoomViewAsLandLord.java.
     public String getEmailTenantByRoomID(int id) {
         try {
-            String sql = "SELECT [emailTenant]\n" +
-                        "FROM [Room]\n" +
-                        "WHERE [roomID] = " + id;
-            
+            String sql = "SELECT [emailTenant]\n"
+                    + "FROM [Room]\n"
+                    + "WHERE [roomID] = " + id;
+
             Connection con = DBUtils.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            
+
             String emailTenant = "";
             while (rs.next()) {
                 emailTenant = rs.getString("emailTenant");
@@ -491,18 +492,18 @@ public class UserManager {
         }
         return null;
     }
-    
+
     // This method returns rentStartDate by the id. This method is used for SingleRoomViewAsLandLord.java.
     public String getStartRentDateByRoomID(int id) {
         try {
-            String sql = "SELECT [rentStartDate]\n" +
-                        "FROM [Room]\n" +
-                        "WHERE [roomID] = " + id;
-            
+            String sql = "SELECT [rentStartDate]\n"
+                    + "FROM [Room]\n"
+                    + "WHERE [roomID] = " + id;
+
             Connection con = DBUtils.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            
+
             String rentStartDate = "";
             while (rs.next()) {
                 rentStartDate = rs.getString("rentStartDate");
@@ -515,8 +516,8 @@ public class UserManager {
     }
 
     //
-    public boolean removeTenantFromRoom(int roomId){
-                boolean check = false;
+    public boolean removeTenantFromRoom(int roomId) {
+        boolean check = false;
         Connection conn = null;
         PreparedStatement st = null;
         long now = System.currentTimeMillis();
@@ -529,7 +530,7 @@ public class UserManager {
                         + " WHERE [roomId]=? ";
 
                 st = conn.prepareStatement(sql);
-                
+
                 st.setInt(1, roomId);
 
                 check = st.executeUpdate() > 0;
@@ -539,14 +540,65 @@ public class UserManager {
         }
         return check;
     }
-    
+
+    public List<Integer> getRoomIDsOver2Days() {
+        List<Integer> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT roomID, emailTenant, emailLandlord, price FROM  Room \n"
+                        + "WHERE rentStartDate <= DATEADD(day,-2,GETDATE()) AND [status] = 'pending'";
+                st = conn.prepareStatement(sql);
+
+                rs = st.executeQuery();
+                while (rs.next()) {
+                    list.add(rs.getInt(1));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public boolean freeRoomAfter2Days(int roomId) {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement st = null;
+
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " UPDATE [Room] "
+                        + " SET [rentStartDate] = NULL, [status]='available'  "
+                        + " WHERE [roomId]=? ";
+
+                st = conn.prepareStatement(sql);
+
+                st.setInt(1, roomId);
+
+                check = st.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return check;
+    }
+
     public static void main(String[] args) {
 
         UserManager user = new UserManager();
-        List<NotificationDTO> list = user.searchNotificationsTenant("I that banana", 1);
-        for (NotificationDTO notification_LT : list) {
-            System.out.println(notification_LT);
+        List<Integer> list = user.getRoomIDsOver2Days();
+        for (Integer integer : list) {
+            System.out.println(integer);
         }
+//        List<NotificationDTO> list = user.searchNotificationsTenant("I that banana", 1);
+//        for (NotificationDTO notification_LT : list) {
+//            System.out.println(notification_LT);
+//        }
 //        List<Notification_LT> list = user.getAllTenantNotifications("dinhxuantung@gmail.com", 1);
 //        for (Notification_LT notification_LT : list) {
 //            System.out.println(notification_LT);

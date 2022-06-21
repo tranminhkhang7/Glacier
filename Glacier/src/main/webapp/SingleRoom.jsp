@@ -65,7 +65,7 @@
             }
         </style>
 
-        <title>${room.name}</title>
+        <title>${room.name} · Glacier</title>
 
     </head>
     <body style="font-family: 'Varela Round', sans-serif;">
@@ -246,13 +246,16 @@
                     <!--============ Page Title =========================================================================-->
                     <div class="page-title">
                         <div class="container clearfix" >
-                            <div class="float-left float-xs-none" style="width: 75%">
+                            <div class="float-left float-xs-none" style="width: 100%">
                                 <div>
                                     <h1>
                                         ${room.name}
                                         <!--                                    <span class="tag">Offer</span>-->
                                     </h1>
                                 </div>
+                            </div>
+                            <div class="float-left float-xs-none" style="width: 75%">
+                                <div style="font-size: 18px;color:#ff0000" class="active"><i style="" class="fa fa-star" aria-hidden="true"></i><i style="" class="fa fa-star" aria-hidden="true"></i><i style="" class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i></div>
 
                                 <h4 class="location">
                                     <a href="#">${room.address}</a>
@@ -260,14 +263,14 @@
                                 <c:if test="${not empty acc}" >
                                     <h1>
                                         <br>
-<!--                                        <span data-toggle="tooltip" data-placement="bottom" title="Save this room"><i class="fa fa-bookmark"></i></span>&nbsp;&nbsp;-->
+                                        <!--                                        <span data-toggle="tooltip" data-placement="bottom" title="Save this room"><i class="fa fa-bookmark"></i></span>&nbsp;&nbsp;-->
                                         <a onclick="openForm()">
-                                            <span data-toggle="tooltip" data-placement="bottom" title="Reporting this room"><i class="fa fa-warning"></i></span>
+                                            <span data-toggle="tooltip" data-placement="bottom" title="Báo cáo cho quản trị viên"><i class="fa fa-warning"></i></span>
                                         </a>
                                     </h1>
                                 </c:if>
                             </div>
-                                <div class="float-right float-xs-none price" style="width: 25%">
+                            <div class="float-right float-xs-none price" style="width: 25%">
                                 <div class="number priceStyle">${room.price}<small>đ</small></div>
                                 <strong>/tháng</strong>
                                 <hr>
@@ -277,14 +280,14 @@
                                         <form action="AddFavouriteController">    
                                             <input name="id" value="${room.roomID}" type="hidden">
                                             <input name="email" value="${acc.email}" type="hidden">
-                                            <button class="btn btn-primary btn-framed" style="width: 100%" type="submit">Add to favourite <i class="fa fa-heart-o"></i></button>
+                                            <button class="btn btn-primary btn-framed" style="width: 100%" type="submit">Thêm vào Yêu thích <i class="fa fa-heart-o"></i></button>
                                         </form>
                                     </c:if>               
                                     <c:if test="${FStatus==false}">
                                         <form action="RemoveFavouriteController">    
                                             <input name="id" value="${room.roomID}" type="hidden">
                                             <input name="email" value="${acc.email}" type="hidden">
-                                            <button class="btn btn-primary btn-framed" style="width: 100%" type="submit">Remove from favourite <i class="fa fa-heart-o"></i></button>
+                                            <button class="btn btn-primary btn-framed" style="width: 100%" type="submit">Bỏ Yêu thích <i class="fa fa-heart-o"></i></button>
                                         </form>
                                     </c:if>
                                 </c:if>
@@ -353,7 +356,7 @@
                                 <!--end Description-->
                                 <!--Details-->
                                 <section>
-                                    
+
                                     <h2>Chi tiết</h2>
                                     <dl class="columns-2">
                                         <dt>Ngày thêm</dt>
@@ -367,7 +370,7 @@
                                         <dt>Địa chỉ</dt>
                                         <dd>${room.detailAddress}</dd>
                                         <dt>Tiền thuê tháng</dt>
-                                        <dd>${room.price}<small>VND</small></dd>
+                                        <dd class="priceStyle">${room.price}<small>đ</small></dd>
                                         <!--                                    <dt>Color</dt>
                                                                             <dd>White, Grey</dd>
                                                                             <dt>Height</dt>
@@ -379,20 +382,20 @@
                                     </dl>
                                 </section>
                                 <!--end Details-->
-<!--                                Features-->
+                                <!--                                Features-->
                                 <c:if test="${not empty f}">
                                     <section>
-                                        <h2 style="">Features</h2>
+                                        <h2 style="">Phòng chúng tôi có gì</h2>
                                         <ul class="features-checkboxes columns-4">
                                             <c:forEach items="${f}" var="feature">
                                                 <c:if test="${not empty feature}">
                                                     <li style="font-weight: bold">${feature}</li>       
-                                                </c:if>
-                                            </c:forEach>
+                                                    </c:if>
+                                                </c:forEach>
                                         </ul>
                                     </section>
                                 </c:if>
-<!--                                end Features-->
+                                <!--                                end Features-->
 
 
                                 <!--Similar Ads-->
@@ -554,7 +557,7 @@
                                                 <!--end author-image-->
                                                 <div class="author-description">
                                                     <h3>${Landlord.name}</h3>
-                                                    
+
                                                     <div class="rating" data-rating="4"></div>
                                                     <a href="seller-detail-1.html" class="text-uppercase">Show My Listings
                                                         <span class="appendix">(12)</span>
@@ -577,7 +580,7 @@
                                         <section>
                                             <h2>Đặt phòng</h2>
                                             <div class="box">
-                                                <h3>Tiền đặt cọc:&nbsp;&nbsp;  ${room.deposit}</h3>
+                                                <h3 style="text-align: center">Tiền đặt cọc:&nbsp;&nbsp;  ${room.deposit}đ</h3>
                                                 <form action="./ToDeposit">
                                                     <input name="id" value="${room.roomID}" type="hidden">
                                                     <button style="display:block;margin: auto" class="btn btn-framed btn-primary" type="submit">Tiến hành đặt cọc</button>
@@ -613,44 +616,44 @@
                                 </div>                                                                 
                             </c:if>
                             <c:if test="${user!=null}">
-                            <form class="form" action="WriteComment">
-                                <input name="roomID" value="${room.roomID}" type="hidden">
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <div class="form-group">
+                                <form class="form" action="WriteComment">
+                                    <input name="roomID" value="${room.roomID}" type="hidden">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
                                                 <label for="username" class="col-form-label">Tên người dùng</label>
                                                 <div class="box" style="padding: 1.75rem">${user.name}</div> 
+                                            </div>
+                                            <!--end form-group-->
                                         </div>
-                                        <!--end form-group-->
-                                    </div>
-                                    <!--end col-md-8-->
-                                    <div class="col-md-7">
-                                        <div class="form-group">
-                                            <label for="rating" class="col-form-label">Chất lượng</label>                                            
-                                            <select required="" name="rating" id="rating" data-placeholder="Select Rating">
-                                                <option value="">Lựa chọn của bạn</option>
-                                                <option value="1" data-option-stars="1">Kinh khủng</option>
-                                                <option value="2" data-option-stars="2">Trung bình</option>
-                                                <option value="3" data-option-stars="3">Ổn</option>
-                                                <option value="4" data-option-stars="4">Rất tốt</option>
-                                                <option value="5" data-option-stars="5">Tuyệt vời</option>
-                                            </select>
+                                        <!--end col-md-8-->
+                                        <div class="col-md-7">
+                                            <div class="form-group">
+                                                <label for="rating" class="col-form-label">Chất lượng</label>                                            
+                                                <select required="" name="rating" id="rating" data-placeholder="Select Rating">
+                                                    <option value="">Lựa chọn của bạn</option>
+                                                    <option value="1" data-option-stars="1">Kinh khủng</option>
+                                                    <option value="2" data-option-stars="2">Trung bình</option>
+                                                    <option value="3" data-option-stars="3">Ổn</option>
+                                                    <option value="4" data-option-stars="4">Rất tốt</option>
+                                                    <option value="5" data-option-stars="5">Tuyệt vời</option>
+                                                </select>
+                                            </div>
+                                            <!--end form-group-->
                                         </div>
-                                        <!--end form-group-->
-                                    </div>
-                                    <!--end col-md-4-->
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="review" class="col-form-label">Đánh giá chi tiết của bạn</label>
-                                            <textarea name="review" id="review" class="form-control" rows="4" placeholder="Căn phòng tuyệt nhất tôi từng ở"></textarea>
+                                        <!--end col-md-4-->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="review" class="col-form-label">Đánh giá chi tiết của bạn</label>
+                                                <textarea name="review" id="review" class="form-control" rows="4" placeholder="Căn phòng tuyệt nhất tôi từng ở"></textarea>
+                                            </div>
+                                            <!--end form-group-->
                                         </div>
-                                        <!--end form-group-->
+                                        <!--end col-md-12-->
                                     </div>
-                                    <!--end col-md-12-->
-                                </div>
-                                <button type="submit" class="btn btn-primary icon float-right width-20">Submit<i class="fa fa-chevron-right"></i></button>
-                                <!--end row-->
-                            </form>                               
+                                    <button type="submit" class="btn btn-primary icon float-right width-20">Đăng<i class="fa fa-chevron-right"></i></button>
+                                    <!--end row-->
+                                </form>                               
                             </c:if>
                             <!--end form-->
                         </section>

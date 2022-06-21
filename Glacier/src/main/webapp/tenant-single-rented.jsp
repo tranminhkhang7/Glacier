@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/user.css">
 
-    <title>Craigs - Easy Buy & Sell Listing HTML Template</title>
+    <title>Phòng của bạn</title>
     <style>
         a:hover{
             color: black;
@@ -40,316 +40,7 @@
         <header class="hero">
             <div class="hero-wrapper">
                 <!--============ Secondary Navigation ===============================================================-->
-                <div class="secondary-navigation">
-                    <div class="container">
-                        <ul class="left">
-                            <li>
-                                <span>
-                                    <i class="fa fa-phone"></i> +1 123 456 789
-                                </span>
-                            </li>
-                        </ul>
-                        <!--end left-->
-                        <ul class="right">
-                            <li>
-                                <a href="my-ads.html">
-                                    <i class="fa fa-heart"></i>My Ads
-                                </a>
-                            </li>
-                            <li>
-                                <a href="sign-in.html">
-                                    <i class="fa fa-sign-in"></i>Sign In
-                                </a>
-                            </li>
-                            <li>
-                                <a href="register.html">
-                                    <i class="fa fa-pencil-square-o"></i>Register
-                                </a>
-                            </li>
-                        </ul>
-                        <!--end right-->
-                    </div>
-                    <!--end container-->
-                </div>
-                <!--============ End Secondary Navigation ===========================================================-->
-                <!--============ Main Navigation ====================================================================-->
-                <div class="main-navigation">
-                    <div class="container">
-                        <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
-                            <a class="navbar-brand" href="index.html">
-                                <img src="assets/img/logo.png" alt="">
-                            </a>
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar"
-                                aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                            <div class="collapse navbar-collapse" id="navbar">
-                                <!--Main navigation list-->
-                                <ul class="navbar-nav">
-                                    <li class="nav-item active has-child">
-                                        <a class="nav-link" href="#">Home</a>
-                                        <ul class="child">
-                                            <li class="nav-item">
-                                                <a href="index.html" class="nav-link">Home 1</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="index-2.html" class="nav-link">Home 2</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="index-3.html" class="nav-link">Home 3</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="index-4.html" class="nav-link">Home 4</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item has-child">
-                                        <a class="nav-link" href="#">Listing</a>
-                                        <!-- 1st level -->
-                                        <ul class="child">
-                                            <li class="nav-item has-child">
-                                                <a href="#" class="nav-link">Grid</a>
-                                                <!-- 2nd level -->
-                                                <ul class="child">
-                                                    <li class="nav-item">
-                                                        <a href="listing-grid-full-width.html" class="nav-link">Full
-                                                            Width</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="listing-grid-sidebar.html" class="nav-link">With
-                                                            Sidebar</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="listing-grid-compact-sidebar.html"
-                                                            class="nav-link">Compact With Sidebar</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="listing-grid-compact-full-width.html"
-                                                            class="nav-link">Compact Full Width</a>
-                                                    </li>
-                                                </ul>
-                                                <!-- end 2nd level -->
-                                            </li>
-                                            <li class="nav-item has-child">
-                                                <a href="#" class="nav-link">List</a>
-                                                <!-- 2nd level -->
-                                                <ul class="child">
-                                                    <li class="nav-item">
-                                                        <a href="listing-list-full-width.html" class="nav-link">Full
-                                                            Width</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="listing-list-sidebar.html" class="nav-link">With
-                                                            Sidebar</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="listing-list-compact-sidebar.html"
-                                                            class="nav-link">Compact With Sidebar</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="listing-list-compact-full-width.html"
-                                                            class="nav-link">Compact Full Width</a>
-                                                    </li>
-                                                </ul>
-                                                <!-- end 2nd level -->
-                                            </li>
-                                            <li class="nav-item has-child">
-                                                <a href="#" class="nav-link">Masonry</a>
-                                                <!-- 2nd level -->
-                                                <ul class="child">
-                                                    <li class="nav-item">
-                                                        <a href="listing-masonry-full-width.html" class="nav-link">Full
-                                                            Width</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="listing-masonry-sidebar.html" class="nav-link">With
-                                                            Sidebar</a>
-                                                    </li>
-                                                </ul>
-                                                <!-- end 2nd level -->
-                                            </li>
-                                            <li class="nav-item has-child">
-                                                <a href="#" class="nav-link">Single</a>
-                                                <!-- 2nd level -->
-                                                <ul class="child">
-                                                    <li class="nav-item">
-                                                        <a href="single-listing-1.html" class="nav-link">Single 1</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="single-listing-2.html" class="nav-link">Single 2</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="single-listing-3.html" class="nav-link">Single 3</a>
-                                                    </li>
-                                                </ul>
-                                                <!-- end 2nd level -->
-                                            </li>
-                                        </ul>
-                                        <!-- end 1st level -->
-                                    </li>
-                                    <li class="nav-item has-child">
-                                        <a class="nav-link" href="#">Pages</a>
-                                        <!-- 2nd level -->
-                                        <ul class="child">
-                                            <li class="nav-item">
-                                                <a href="sellers.html" class="nav-link">Sellers</a>
-                                            </li>
-                                            <li class="nav-item has-child">
-                                                <a href="#" class="nav-link">Seller Detail</a>
-                                                <!-- 3rd level -->
-                                                <ul class="child">
-                                                    <li class="nav-item">
-                                                        <a href="seller-detail-1.html" class="nav-link">Seller Detail
-                                                            1</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="seller-detail-2.html" class="nav-link">Seller Detail
-                                                            2</a>
-                                                    </li>
-                                                </ul>
-                                                <!-- end 3rd level -->
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="blog.html" class="nav-link">Blog</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="blog-post.html" class="nav-link">Blog Post</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="submit.html" class="nav-link">Submit Ad</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="pricing.html" class="nav-link">Pricing</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="faq.html" class="nav-link">FAQ</a>
-                                            </li>
-                                        </ul>
-                                        <!-- end 2nd level -->
-                                    </li>
-                                    <li class="nav-item has-child">
-                                        <a class="nav-link" href="#">Extras</a>
-                                        <!--1st level -->
-                                        <ul class="child">
-                                            <li class="nav-item has-child">
-                                                <a href="#" class="nav-link">Grid Variants</a>
-                                                <ul class="child">
-                                                    <li class="nav-item">
-                                                        <a href="listing-grid-4-items.html" class="nav-link">4 Items</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="listing-grid-3-items.html" class="nav-link">3 Items</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="listing-grid-2-items.html" class="nav-link">2 Items</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li class="nav-item has-child">
-                                                <a href="#" class="nav-link">User Panel</a>
-                                                <ul class="child">
-                                                    <li class="nav-item">
-                                                        <a href="my-profile.html" class="nav-link">My Profile</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="my-ads.html" class="nav-link">My Ads</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="change-password.html" class="nav-link">Change
-                                                            Password</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="sign-in.html" class="nav-link">Sign In</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="register.html" class="nav-link">Register</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="elements.html" class="nav-link">Elements</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="typography.html" class="nav-link">Typography</a>
-                                            </li>
-                                            <li class="nav-item has-child">
-                                                <a href="#" class="nav-link">Nested Navigation</a>
-                                                <!--2nd level -->
-                                                <ul class="child">
-                                                    <li class="nav-item">
-                                                        <a href="#" class="nav-link">Level 2</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="#" class="nav-link">Level 2</a>
-                                                    </li>
-                                                    <li class="nav-item has-child">
-                                                        <a href="#" class="nav-link">Level 2</a>
-                                                        <!--3rd level -->
-                                                        <ul class="child">
-                                                            <li class="nav-item has-child">
-                                                                <a href="#" class="nav-link">Level 3</a>
-                                                                <!--4th level -->
-                                                                <ul class="child">
-                                                                    <li class="nav-item">
-                                                                        <a href="#" class="nav-link">Level 4</a>
-                                                                    </li>
-                                                                    <li class="nav-item">
-                                                                        <a href="#" class="nav-link">Level 4</a>
-                                                                    </li>
-                                                                    <li class="nav-item">
-                                                                        <a href="#" class="nav-link">Level 4</a>
-                                                                    </li>
-                                                                </ul>
-                                                                <!-- end 4th level-->
-                                                            </li>
-                                                            <li class="nav-item">
-                                                                <a href="#" class="nav-link">Level 3</a>
-                                                            </li>
-                                                            <li class="nav-item">
-                                                                <a href="#" class="nav-link">Level 3</a>
-                                                            </li>
-                                                        </ul>
-                                                        <!--end 3rd level-->
-                                                    </li>
-                                                </ul>
-                                                <!-- end 2nd level -->
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="image-header.html" class="nav-link">Image Header</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="messaging.html" class="nav-link">Messages</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="contact.html">Contact</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="submit.html"
-                                            class="btn btn-primary text-caps btn-rounded btn-framed">Submit Ad</a>
-                                    </li>
-                                </ul>
-                                <!--Main navigation list-->
-                            </div>
-                            <!--end navbar-collapse-->
-                            <a href="#collapseMainSearchForm" class="main-search-form-toggle" data-toggle="collapse"
-                                aria-expanded="false" aria-controls="collapseMainSearchForm">
-                                <i class="fa fa-search"></i>
-                                <i class="fa fa-close"></i>
-                            </a>
-                            <!--end main-search-form-toggle-->
-                        </nav>
-                        <!--end navbar-->
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item"><a href="#">Library</a></li>
-                            <li class="breadcrumb-item active">Data</li>
-                        </ol>
-                        <!--end breadcrumb-->
-                    </div>
-                    <!--end container-->
-                </div>
+                <jsp:include page="header/navigation.jsp" />
                 <!--============ End Main Navigation ================================================================-->
                 <!--============ Hero Form ==========================================================================-->
                 <div class="collapse" id="collapseMainSearchForm">
@@ -499,7 +190,27 @@
                 <!--end collapse-->
                 <!--============ End Hero Form ======================================================================-->
                 <!--============ Page Title =========================================================================-->
+                    <div class="page-title">
+                        <div class="container clearfix" >
+                            <div class="float-left float-xs-none" style="width: 75%">
+                                <div>
+                                    <h1>
+                                        ${SINGLE_ROOM.name}
+                                        <!--                                    <span class="tag">Offer</span>-->
+                                    </h1>
+                                </div>
+                                <div style="font-size: 18px;color:#ff0000" class="active"><i style="" class="fa fa-star" aria-hidden="true"></i><i style="" class="fa fa-star" aria-hidden="true"></i><i style="" class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i></div>
 
+                                <h4 class="location">
+                                    <a href="#">${SINGLE_ROOM.address}</a>
+                                </h4>
+                                
+
+                            </div>
+
+                        </div>
+                        <!--end container-->
+                    </div>
                 <!--============ End Page Title =====================================================================-->
                 <div class="background"></div>
                 <!--end background-->
@@ -516,18 +227,35 @@
                 <div class="container">
                     <!--Gallery Carousel-->
                     <section>
-                        <div class="gallery-carousel owl-carousel">
-                            <img src="assets/img/image-20.jpg" alt="" data-hash="1">
-                            <img src="assets/img/image-01.jpg" alt="" data-hash="2">
-                            <img src="assets/img/image-21.jpg" alt="" data-hash="3">
-                            <img src="assets/img/image-22.jpg" alt="" data-hash="4">
-                            <img src="assets/img/image-23.jpg" alt="" data-hash="5">
-                            <img src="assets/img/image-14.jpg" alt="" data-hash="6">
-                        </div>
-                        <h2 style="text-align: center;">${SINGLE_ROOM.name}</h2>
-                        <h3 style="text-align: center;color: #D3D3D3;">${SINGLE_ROOM.address}</h3>
-                        <hr>
-                    </section>
+                            <div class="gallery-carousel owl-carousel">
+                                <img src="assets/img/image-20.jpg" alt="" data-hash="1">
+                                <img src="assets/img/image-01.jpg" alt="" data-hash="2">
+                                <img src="assets/img/image-21.jpg" alt="" data-hash="3">
+                                <img src="assets/img/image-22.jpg" alt="" data-hash="4">
+                                <img src="assets/img/image-23.jpg" alt="" data-hash="5">
+                                <img src="assets/img/image-14.jpg" alt="" data-hash="6">
+                            </div>
+                            <div class="gallery-carousel-thumbs owl-carousel">
+                                <a href="#1" class="owl-thumb active-thumb background-image">
+                                    <img src="assets/img/image-20.jpg" alt="">
+                                </a>
+                                <a href="#2" class="owl-thumb background-image">
+                                    <img src="assets/img/image-01.jpg" alt="">
+                                </a>
+                                <a href="#3" class="owl-thumb background-image">
+                                    <img src="assets/img/image-21.jpg" alt="">
+                                </a>
+                                <a href="#4" class="owl-thumb background-image">
+                                    <img src="assets/img/image-22.jpg" alt="">
+                                </a>
+                                <a href="#5" class="owl-thumb background-image">
+                                    <img src="assets/img/image-23.jpg" alt="">
+                                </a>
+                                <a href="#6" class="owl-thumb background-image">
+                                    <img src="assets/img/image-14.jpg" alt="">
+                                </a>
+                            </div>
+                        </section>
                     <!--end Gallery Carousel-->
                     <div class="row flex-column-reverse flex-md-row">
 
@@ -542,6 +270,18 @@
                                 </p>
                                  <hr>
                             </section>
+                                <c:if test="${not empty f}">
+                                    <section>
+                                        <h2 style="">Features</h2>
+                                        <ul class="features-checkboxes columns-4">
+                                            <c:forEach items="${f}" var="feature">
+                                                <c:if test="${not empty feature}">
+                                                    <li style="font-weight: bold">${feature}</li>       
+                                                </c:if>
+                                            </c:forEach>
+                                        </ul>
+                                    </section>
+                                </c:if>
                             <!--end Description-->
                             <!--Details-->
                             <!-- <section>
@@ -569,107 +309,13 @@
                             </section> -->
                             <!--end Details-->
                             <!--Location-->
-                            <section style=" margin-bottom: 40px;">
-                                <h2>Billing</h2>
-                                <c:forEach items="${requestScope.BILL_LIST}" var="bill">
-                                    <c:set value="${bill.time}" var="dateString" />
-                                    <fmt:parseDate value="${dateString}" var="dateObject"
-                                                                            pattern="yyyy-MM-dd HH:mm:ss" />
-                                <a href="#" class="">
-                                    <div
-                                        style="display: flex; max-height: 50px; border: 1px solid #D3D3D3;border-radius: 8px; margin-bottom: 20px;">
-                                        <div
-                                            style="margin-left: -1px;margin-top: -1px;line-height: 50px;text-align: center;margin-right: 20px; opacity:0.8 ; background-color: #28A745; min-width: 15%; height: 50px; border-radius: 8px 0 0 8px; border: 1px solid #D3D3D3;">
-                                            ${fn:toUpperCase(bill.status)}
-                                        </div>
-                                        <div style="min-width: 70%;">
-                                            <div style="margin-right: 50px;">
-                                                <p style="display: inline-block;padding-right: 20%; min-width: 219px;">
-                                                    Invoice ID: ${bill.id}</p>
-                                                <p style="display: inline-block; min-width: 219px;">Start Date:
-                                                    <fmt:formatDate value="${dateObject }" pattern="dd/MM/yyyy"/></p>
-                                            </div>
-                                            <div>
-                                                <p style="display: inline-block; min-width: 219px; max-width: 220px;">
-                                                    Purpose: ${bill.purpose}</p>
-                                                <p style="display: inline-block; min-width: 219px;">Due Date: 01/01/2003
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div
-                                            style="text-align: center; line-height: 50px; min-width: 5%; margin-left: -10px;">
-                                            <fmt:formatNumber type = "number" pattern="#,###.##" maxFractionDigits = "3" value = "${bill.amount}" var="pat" />
-                                            ${fn:replace(pat, ",", ".")} 
-                                        </div>
-                                    </div>
-                                </a>
-                                </c:forEach>
-<!--                                <a href="#">
-                                    <div
-                                        style="display: flex; max-height: 55px; border: 1px solid #D3D3D3;border-radius: 8px; margin-bottom: 20px;">
-                                        <div
-                                            style="margin-left: -1px;margin-top: -1px;line-height: 55px;text-align: center;margin-right: 50px; background-color: #DC3545; min-width: 15%; height: 55px; border-radius: 8px 0 0 8px; border: 1px solid #D3D3D3;">
-                                            NOT PAID
-                                        </div>
-                                        <div style="min-width: 70%;">
-                                            <div style="margin-right: 50px;">
-                                                <p style="display: inline-block;padding-right: 20%; min-width: 219px;">
-                                                    Invoice ID: 123456</p>
-                                                <p style="display: inline-block; min-width: 219px;">Start Date:
-                                                    12/12/2002</p>
-                                            </div>
-                                            <div>
-                                                <p style="display: inline-block; padding-right: 20%; min-width: 219px;">
-                                                    Purpose: Tiền thu</p>
-                                                <p style="display: inline-block; min-width: 219px;">Due Date: 01/01/2003
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div
-                                            style="text-align: center; line-height: 50px; min-width: 5%; margin-left: -10px;">
-                                            3.000.000
-                                        </div>
-                                    </div>
-                                </a>-->
 
-                                <!-- <dl class="columns-1">
-                                    <dt>Date Added</dt>
-                                    <dd>05.04.2017</dd>
-                                    <dt>Type</dt>
-                                    <dd>Offer</dd>
-                                    <dt>Status</dt>
-                                    <dd>Used</dd>
-                                    <dt>First Owner</dt>
-                                    <dd>Yes</dd>
-                                    <dt>Material</dt>
-                                    <dd>Wood, Leather</dd>
-                                    <dt>Color</dt>
-                                    <dd>White, Grey</dd>
-                                </dl> -->
-                                <!-- <a href="#" class="bill-link">
-                                    <div class="row"
-                                        style="border: 1px solid #D3D3D3; height:50px; width: 60%; border-radius: 10px; border-left: none;">
-                                        <div class="column-1" style="background-color: #28A745">
-                                            <h2>PAID</h2>
-                                        </div>
-                                        <div class="column-2">
-                                            <p>InvoiceID: 123456</p>
-                                            <p>Start date: 27/06/2022</p>
-                                            <p>Purpose: banana</p>
-                                            <p>Due date: 27/06/2023</p>
-                                        </div>
-                                        <div class="column-3">
-                                            <p>3.000.000VND</p>
-                                        </div>
-                                    </div>
-                                </a> -->
-                            </section>
                             <!--end Features-->
 
-                            <hr>
+                           
 
                             <!--Similar Ads-->
-                            <section>
+<!--                            <section>
                                 <h2>Send your request</h2>
                                 <form action="tenantnotify" method="POST" class="form">
                                     <input type="hidden" id="emailTenantForm" name="emailTenant" value="${SINGLE_ROOM.emailTenant}"/>
@@ -682,20 +328,20 @@
                                                 <input name="subject" type="text" class="form-control" id="subject"
                                                        placeholder="Did you like a deal?">
                                             </div>
-                                            <!--end form-group-->
+                                            end form-group
                                         </div>
-                                        <!--end col-md-8-->
+                                        end col-md-8
 
-                                        <!--end col-md-4-->
+                                        end col-md-4
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="review" class="col-form-label">Your Request</label>
                                                 <textarea name="content" id="review" class="form-control" rows="6"
                                                     placeholder="Good seller, I am satisfied."></textarea>
                                             </div>
-                                            <!--end form-group-->
+                                            end form-group
                                         </div>
-                                        <!--end col-md-12-->
+                                        end col-md-12
                                     </div>
                                     <div class="d-flex justify-content-between align-items-baseline">
                                         <label>
@@ -703,10 +349,10 @@
                                         </label>
                                         <button id="btn_submit" type="submit" class="btn btn-danger">Send request</button>
                                     </div>
-                                    <!--end row-->
+                                    end row
                                 </form>
-                                <!--end items.list.compact-->
-                            </section>
+                                end items.list.compact
+                            </section>-->
                             <!--end Similar Ads-->
                         </div>
 
@@ -733,6 +379,37 @@
                                     </dl>
                                     <!--end box-->
                                 </section>
+                                         <section>
+                                        <h2>Người cho thuê</h2>
+                                        <div class="box">
+                                            <div class="author">
+                                                <div class="author-image">
+                                                    <div class="background-image">
+                                                        <img src="assets/img/author-01.jpg" alt="">
+                                                    </div>
+                                                </div>
+                                                <!--end author-image-->
+                                                <div class="author-description">
+                                                    <h3>${Landlord.name}</h3>
+                                                    
+                                                    <div class="rating" data-rating="4"></div>
+                                                    <a href="seller-detail-1.html" class="text-uppercase">Show My Listings
+                                                        <span class="appendix">(12)</span>
+                                                    </a>
+                                                </div>
+                                                <!--end author-description-->
+                                            </div>
+                                            <hr>
+                                            <dl>
+                                                <dt>Phone</dt>
+                                                <dd>${Landlord.phone}</dd>
+                                                <dt>Email</dt>
+                                                <dd>${Landlord.email}</dd>
+                                            </dl>
+                                            <!--end author-->            
+                                        </div>
+                                        <!--end box-->
+                                    </section>
                                 <!--End Author-->
                             </aside>
 

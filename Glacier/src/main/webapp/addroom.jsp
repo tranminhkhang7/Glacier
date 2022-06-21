@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="assets/css/user.css">
 
 
-	<title>Craigs - Easy Buy & Sell Listing HTML Template</title>
+	<title>Thêm phòng mới · Glacier</title>
 
 </head>
 <body style="font-family: 'Varela Round', sans-serif;">

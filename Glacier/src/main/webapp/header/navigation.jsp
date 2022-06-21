@@ -72,7 +72,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="notifications" class="btn btn-primary text-caps btn-rounded"><i class="fa fa-bell"></i> 23</a>
-                        </li>
+                        </li>                        
                     </c:if>
                 </ul>
                 <!--Main navigation list-->

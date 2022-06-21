@@ -10,9 +10,11 @@ import glacier.room.model.Bill;
 import glacier.room.model.Room;
 import glacier.room.model.RoomDAO;
 import glacier.user.model.Account;
+import glacier.user.model.Landlord;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,10 +49,16 @@ public class TenantSingleRoomController extends HttpServlet {
         HttpSession ss = request.getSession(false);
         Account acc = (Account) ss.getAttribute("LOGIN_USER");
         RoomManager manager = new RoomManager();
+        RoomDAO dao = new RoomDAO();
+        
         Room room = manager.getTenantRentedRoom(Integer.parseInt(id));
         if(acc.getEmail().equals(room.getEmailTenant().trim())){
-            List<Bill> listOfBill = manager.getBillList(Integer.parseInt(id));
-            request.setAttribute("BILL_LIST", listOfBill);
+            ArrayList<String> f = dao.getRoomFeature(Integer.parseInt(id));
+            Landlord l = manager.getLandLordInfoInSingleRoom(Integer.parseInt(id));
+//            List<Bill> listOfBill = manager.getBillList(Integer.parseInt(id));
+//            request.setAttribute("BILL_LIST", listOfBill);
+            request.setAttribute("f", f);
+            request.setAttribute("Landlord", l);
             request.setAttribute("SINGLE_ROOM", room);
             request.getRequestDispatcher("tenant-single-rented.jsp").forward(request, response);
             return;

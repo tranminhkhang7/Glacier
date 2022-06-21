@@ -3,14 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package glacier.user.controller;
+package glacier.room.controller;
 
+import glacier.landlord.dbmanager.LandlordManager;
+import glacier.notification.model.NotificationDAO;
 import glacier.room.dbmanager.RoomManager;
+import glacier.room.model.Room;
+import glacier.user.controller.UserManager;
 import glacier.user.model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,10 +22,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author KHANG
+ * @author ASUS
  */
-@WebServlet(name = "TenantHomepage", urlPatterns = {"/home"})
-public class TenantHomepage extends HttpServlet {
+@WebServlet(name = "AssignToRoomController", urlPatterns = {"/assign"})
+public class AssignToRoomController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,29 +36,49 @@ public class TenantHomepage extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private static final String SUCCESS = "success.jsp";
+    private static final String ERROR = "error.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        String url = ERROR;
+        try {
             HttpSession ss = request.getSession();
-            Account user = (Account) ss.getAttribute("LOGIN_USER");
-
-            String role = (user == null) ? "" : user.getRole().trim();
-            
-            if (!"tenant".equals(role) && !"".equals(role)) {
-                
-                RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
-                rd.forward(request, response);
+            UserManager userManager = new UserManager();
+            RoomManager manager = new RoomManager();
+            LandlordManager landlordManager = new LandlordManager();
+            NotificationDAO dao = new NotificationDAO();
+                       
+            Account acc = (Account) ss.getAttribute("LOGIN_USER");
+            String landlordEmail = acc.getEmail();
+            String role = acc.getRole();
+            String tenantKey = request.getParameter("tenant_key");
+            String landlordKey = request.getParameter("landlord_key");
+            if (!"landlord".equals(role)) {
+                url = ERROR;
             } else {
-                
-                RoomManager mng = new RoomManager();
-                List<String> listFeature = mng.loadFeature();
-
-                request.setAttribute("listFeature", listFeature);
-                RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-                rd.forward(request, response);
+                Room room = manager.getRoomWhenAssign(tenantKey, landlordKey);
+                if (room != null && "available".equals(room.getQrStatus().trim()) && "pending".equals(room.getStatus().trim())) {
+                    boolean checkOwnerShip = landlordManager.checkOwnership(landlordEmail, room.getRoomID());
+                    if (checkOwnerShip) {
+                        url = SUCCESS;
+//                        boolean check = userManager.acceptDeposit(room.getRoomID(), "unavailable");
+//                        if (check) {
+//                            String notiSender = String.format("Yêu cầu của bạn cho phòng %s đã được chấp thuận", room.getName());
+//                            dao.landlordNotify(room.getRoomID(), acc.getEmail(), "Vui lòng xem lại các thông tin về phòng ở phần thông báo", notiSender);
+//                            url = SUCCESS;
+//                        }
+                    }
+                }
             }
+
+        } catch (Exception e) {
+            log("Error at AssignToRoomController: " + e.toString());
+        }finally{
+            response.sendRedirect(url);
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

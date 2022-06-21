@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/user.css">
 
-	<title>Craigs - Easy Buy & Sell Listing HTML Template</title>
+	<title>Phòng yêu thích · Glacier</title>
 
 </head>
 <body style="font-family: 'Varela Round', sans-serif;">
@@ -627,6 +627,9 @@
                             end items-->
                             <!--============ End Items ==============================================================-->
                             
+                            
+                            <!--end page-pagination-->
+                        </div>
                             <div class="page-pagination">
                                 <nav aria-label="Pagination">
                                     <ul class="pagination">
@@ -672,8 +675,6 @@
                                     </ul>
                                 </nav>
                             </div>
-                            <!--end page-pagination-->
-                        </div>
                         <!--end col-md-9-->
                     </div>
                     <!--end row-->

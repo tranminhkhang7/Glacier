@@ -9,6 +9,9 @@ package glacier.user.controller;
  *
  * @author ASUS
  */
+import glacier.room.dbmanager.RoomManager;
+import glacier.room.model.Room;
+import glacier.user.model.Tenant;
 import java.util.Properties;
 import java.util.Random;
 import javax.mail.Authenticator;
@@ -73,6 +76,82 @@ public class SendEmail {
             Transport.send(message);
 
             System.out.println("Successfully sent Verification Link");
+            test = true;
+        } catch (Exception e) {
+            System.out.println("Error at SendingEmail.java: " + e);
+        }
+
+
+        return test;
+    }
+    public boolean SendDepositConfirm(String email,int roomID) {
+        boolean test = false;
+        String toEmail = email;
+        final String fromEmail = "glacier.hostel@gmail.com";
+        final String password = "bagqavudvkeacwvo";
+        Properties theProperties = new Properties();
+        theProperties.put("mail.smtp.auth", "true");
+        theProperties.put("mail.smtp.starttls.enable", "true");
+        theProperties.put("mail.smtp.host", "smtp.gmail.com");
+        theProperties.put("mail.smtp.port", "587");
+        
+        Session session = Session.getDefaultInstance(theProperties, new javax.mail.Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(fromEmail, password);
+            }
+        });
+        
+        RoomManager rm = new RoomManager();
+        Room r = rm.getTenantPendingRoom(roomID);
+        
+        UserManager um = new UserManager();
+        Tenant t = um.getTenantInfo(toEmail);
+        //html form for mail
+        try {
+            String content = "<body style=\"font-family:Arial,Helvetica,sans-serif ; margin: 1rem 1rem 1rem 1rem\">\n" +
+"    <div style=\"flex: auto; background-color: #fff; width: 100%; margin-bottom: 2rem;\">\n" +
+"        <div style=\"text-align: center; font-size:30px; font-weight: bold;\">Đặt cọc phòng \""+r.getName()+"\"</div>\n" + 
+"        <br>\n" +
+"      <div style=\"text-align:left\">\n" +
+"        <strong>"+t.getName()+",</strong>\n" +
+"        <p>Cám ơn bạn đã đặt cọc cho phòng \""+r.getName()+"\", chúng tôi đang chuẩn bị mọi thứ cho bạn.</p>\n" +
+"        <p>Phòng của bạn đang được đưa vào trạng thái chờ chủ trọ xác nhận</p>\n" +
+"        <p>Dưới đây là chi tiết đặt cọc của bạn:</p>\n" +
+"      </div>\n" +
+"        <table style=\"width: 100%; border-collapse: collapse;\">\n" +
+"            <tr>\n" +
+"                <th style=\"border: 0.5px solid\">STT</th>\n" +
+"                <th style=\"border: 0.5px solid\">Tên mục trả tiền</th>\n" +
+"                <th style=\"border: 0.5px solid\">Mô tả</th>\n" +
+"                <th style=\"border: 0.5px solid\">Số tiền</th>\n" +
+"                <th style=\"border: 0.5px solid\">Đơn vị tính</th>\n" +
+"            </tr>\n" +
+"\n" +
+"            <tr style=\"\">\n" +
+"                <td style=\"border: 0.5px solid; margin-left: 5rem;\">1</td>\n" +
+"                <td style=\"border: 0.5px solid; margin-left: 5rem;\">Tiền đặt cọc cho phòng "+r.getName()+"</td>\n" +
+"                <td style=\"border: 0.5px solid; margin-left: 5rem;\">Tiền đặt cọc giữ chờ xử lí</td>\n" +
+"                <td style=\"border: 0.5px solid; margin-left: 5rem;\">"+r.getDeposit()+"</td>\n" +
+"                <td style=\"border: 0.5px solid; margin-left: 5rem;\">VNĐ</td>\n" +
+"            </tr>\n" +
+"        </table>\n" +
+"        <div style=\"float: right; margin-top: 0.5rem;\">\n" +
+"            <div style=\"text-align: center;border-top: 0.5px solid; margin-top: 1rem; padding: 0.5rem;\">Tổng tiền: "+r.getDeposit()+" VNĐ</div>        \n" +
+"        </div>\n" +
+"        <div style=\"clear: both;\"></div>        \n" +
+"    </div>\n" +
+"    <div class=\"footer\">\n" +
+"        <strong>Glacier hostel</strong>\n" +
+"    </div>\n" +
+"</body>";
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(fromEmail));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
+            message.setSubject("Bạn đã đặt phòng ở Glacier.co","UTF-8");
+            message.setContent(content,"text/html;charset=UTF-8");
+            Transport.send(message);
+            System.out.println("Deposit mail sent");
             test = true;
         } catch (Exception e) {
             System.out.println("Error at SendingEmail.java: " + e);

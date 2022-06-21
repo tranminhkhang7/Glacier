@@ -1,16 +1,15 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package glacier.user.controller;
+package glacier.nav;
 
-import glacier.room.dbmanager.RoomManager;
+import glacier.notification.model.NotificationDTO;
+import glacier.user.controller.UserManager;
 import glacier.user.model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,43 +19,14 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author KHANG
+ * @author Admin
  */
-@WebServlet(name = "TenantHomepage", urlPatterns = {"/home"})
-public class TenantHomepage extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+@WebServlet(name = "NavBarLoadServlet", urlPatterns = {"/NavBarLoadServlet"})
+public class NavBarLoadServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            HttpSession ss = request.getSession();
-            Account user = (Account) ss.getAttribute("LOGIN_USER");
-
-            String role = (user == null) ? "" : user.getRole().trim();
-            
-            if (!"tenant".equals(role) && !"".equals(role)) {
-                
-                RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
-                rd.forward(request, response);
-            } else {
-                
-                RoomManager mng = new RoomManager();
-                List<String> listFeature = mng.loadFeature();
-
-                request.setAttribute("listFeature", listFeature);
-                RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-                rd.forward(request, response);
-            }
-        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -85,6 +55,11 @@ public class TenantHomepage extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession ss = request.getSession();
+        Account acc = (Account) ss.getAttribute("LOGIN_USER");
+        String email = acc.getEmail();
+        UserManager manager = new UserManager();
+//        ArrayList<NotificationDTO> list = manager.getAllTenantNotifications(email, currentPage);        
         processRequest(request, response);
     }
 

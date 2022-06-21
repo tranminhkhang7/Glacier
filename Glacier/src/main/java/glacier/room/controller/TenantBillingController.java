@@ -3,27 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package glacier.user.controller;
+package glacier.room.controller;
 
 import glacier.room.dbmanager.RoomManager;
-import glacier.user.model.Account;
+import glacier.room.model.Bill;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author KHANG
+ * @author ASUS
  */
-@WebServlet(name = "TenantHomepage", urlPatterns = {"/home"})
-public class TenantHomepage extends HttpServlet {
+@WebServlet(name = "TenantBillingController", urlPatterns = {"/bills"})
+public class TenantBillingController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,25 +35,20 @@ public class TenantHomepage extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            HttpSession ss = request.getSession();
-            Account user = (Account) ss.getAttribute("LOGIN_USER");
+        try {
+            String roomId = request.getParameter("id");
+            RoomManager manager = new RoomManager();
 
-            String role = (user == null) ? "" : user.getRole().trim();
-            
-            if (!"tenant".equals(role) && !"".equals(role)) {
-                
-                RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
-                rd.forward(request, response);
-            } else {
-                
-                RoomManager mng = new RoomManager();
-                List<String> listFeature = mng.loadFeature();
 
-                request.setAttribute("listFeature", listFeature);
-                RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-                rd.forward(request, response);
-            }
+            List<Bill> paidBillList = manager.getPaidBillList(Integer.parseInt(roomId), "paid");
+            List<Bill> unpaidBillList = manager.getPaidBillList(Integer.parseInt(roomId), "unpaid");
+
+
+            request.setAttribute("PAID_BILLS", paidBillList);
+            request.setAttribute("UNPAID_BILLS", unpaidBillList);
+            request.getRequestDispatcher("tenant-room-bill.jsp").forward(request, response);
+        } catch (Exception e) {
+            log("Error at TenantBillingController: "+e.toString());
         }
     }
 
