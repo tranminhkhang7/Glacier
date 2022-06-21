@@ -260,12 +260,12 @@
                                         <c:choose>
                                             <c:when test="${currentPage == i}">
                                                 <li class="page-item active">
-                                                    <a class="page-link" href="?keyword=${searchText}&index=${i}">${i}</a>
+                                                    <a class="page-link" href="?keyword=${searchText}${featureParameterSet}&index=${i}">${i}</a>
                                                 </li>
                                             </c:when>
                                             <c:otherwise>
                                                 <li class="page-item">
-                                                    <a class="page-link" href="?keyword=${searchText}&index=${i}">${i}</a>
+                                                    <a class="page-link" href="?keyword=${searchText}${featureParameterSet}&index=${i}">${i}</a>
                                                 </li>
                                             </c:otherwise>
                                         </c:choose>

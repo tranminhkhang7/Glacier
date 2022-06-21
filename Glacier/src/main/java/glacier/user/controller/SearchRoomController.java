@@ -76,6 +76,12 @@ public class SearchRoomController extends HttpServlet {
             List<Room> listResult = manager.search(searchText, listFeature, currentPage);
 
             request.setAttribute("searchText", searchText);
+            // MOUNT ALL THE SELECTED FEATURE IDs INTO A SET OF PARAMETERS
+            String featureParameterSet = "";
+            for (Integer featureID: listFeature) {
+                featureParameterSet += "&" + featureID + "=on";
+            }
+            request.setAttribute("featureParameterSet", featureParameterSet);
             request.setAttribute("endPage", endPage);
             request.setAttribute("currentPage", currentPage);
             request.setAttribute("list", listResult);
