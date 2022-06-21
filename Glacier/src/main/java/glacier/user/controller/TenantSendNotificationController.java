@@ -6,6 +6,7 @@
 package glacier.user.controller;
 
 import glacier.room.dbmanager.RoomManager;
+import glacier.user.model.Account;
 import glacier.user.model.Notification_TL;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -23,8 +25,8 @@ import javax.servlet.http.HttpServletResponse;
 
 public class TenantSendNotificationController extends HttpServlet {
 
-    private static final String SUCCESS = "your-rooms";
-    private static final String ERROR = "your-rooms";
+    private static final String SUCCESS = "rooms";
+    private static final String ERROR = "rooms";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,7 +40,26 @@ public class TenantSendNotificationController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+        request.setCharacterEncoding("UTF-8");
+               String url = ERROR;
+        try {
+            HttpSession ss = request.getSession();
+            Account acc = (Account) ss.getAttribute("LOGIN_USER");
+            //String roomID = request.getParameter("roomID");
+            String page = request.getParameter("page");
+            String emailTenant = acc.getEmail();
+            String emailLandlord = request.getParameter("emailLandlord");
+            String subject = request.getParameter("title");
+            String content = request.getParameter("content");
+            Notification_TL noti = new Notification_TL(emailTenant, emailLandlord, subject, content);
+            RoomManager manager = new RoomManager();
+            boolean check = manager.insertNotificationTL(noti);
+            if(check) url = SUCCESS+"?index="+page;
+        } catch (Exception e) {
+            log("Error at TenantSendNotificationController: " + e.toString());
+        }finally{
+            response.sendRedirect(url);
+        }
         
     }
 
@@ -68,22 +89,8 @@ public class TenantSendNotificationController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       String url = ERROR;
-        try {
-            String roomID = request.getParameter("roomID");
-            String emailTenant = request.getParameter("emailTenant");
-            String emailLandlord = request.getParameter("emailLandlord");
-            String subject = request.getParameter("subject");
-            String content = request.getParameter("content");
-            Notification_TL noti = new Notification_TL(emailTenant, emailLandlord, subject, content);
-            RoomManager manager = new RoomManager();
-            boolean check = manager.insertNotificationTL(noti);
-            if(check) url = SUCCESS+"?id="+roomID;
-        } catch (Exception e) {
-            log("Error at TenantSendNotificationController: " + e.toString());
-        }finally{
-            response.sendRedirect(url);
-        }
+        processRequest(request, response);
+
     }
 
     /**

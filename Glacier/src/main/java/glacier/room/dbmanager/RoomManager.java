@@ -140,7 +140,7 @@ public class RoomManager {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT [roomID], [name], [price], [address], [description], [rentStartDate], [status] FROM [Room] "
+                String sql = "SELECT [roomID], [name], [price], [address], [description], [rentStartDate], [status], [emailLandlord] FROM [Room] "
                         + " WHERE emailTenant=? "
                         + " ORDER BY [RoomID] "
                         + " OFFSET ? ROWS FETCH NEXT 4 ROWS ONLY ";
@@ -154,10 +154,10 @@ public class RoomManager {
                     int price = rs.getInt("price");
                     String address = rs.getString("address").trim();
                     String des = rs.getString("description").trim().substring(0, Math.min(rs.getString("description").length(), 101));
-
+                    String landlordEmail = rs.getString("emailLandlord");
                     Date rentStartDate = rs.getDate("rentStartDate");
                     String status = rs.getString("status").trim();
-                    list.add(new Room(roomId, name, des, address, price, rentStartDate, status));
+                    list.add(new Room(roomId, name, des, address, price, rentStartDate, status,landlordEmail));
 
                 }
             }
@@ -428,10 +428,10 @@ public class RoomManager {
 //        System.out.println(room);
 //        Landlord l = manager.getLandLordInfoInSingleRoom(10);
 //        System.out.println(l);
-//        List<Room> list = manager.getTenantRoomList("vuvannga@gmail.com", 1);
-//        for (Room room : list) {
-//            System.out.println(room);
-//        }
+        List<Room> list = manager.getTenantRoomList("vuvannga@gmail.com", 1);
+        for (Room room : list) {
+            System.out.println(room);
+        }
 //        List<Bill> list = manager.getPaidBillList(10,"paid",1);
 //        for (Bill bill : list) {
 //            System.out.println(bill);

@@ -12,7 +12,8 @@ let scanning = false;
 
 qrcode1.callback = res => {
   if (res) {
-      outputData.innerText = res;
+      const decodedComponent = decodeURIComponent(res);
+      outputData.innerText = decodedComponent;
     scanning = false;
 
     video.srcObject.getTracks().forEach(track => {
@@ -22,6 +23,8 @@ qrcode1.callback = res => {
     qrResult.hidden = false;
     canvasElement.hidden = true;
     btnScanQR.hidden = false;
+    
+    window.location.replace(decodedComponent);
   }
 };
 
@@ -55,4 +58,7 @@ function scan() {
   } catch (e) {
     setTimeout(scan, 300);
   }
+}
+function decode_utf8(s) {
+    return decodeURIComponent(unescape(s));
 }

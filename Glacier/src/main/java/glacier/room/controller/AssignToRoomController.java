@@ -36,7 +36,7 @@ public class AssignToRoomController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private static final String SUCCESS = "success.jsp";
+    private static final String SUCCESS = "assign-tenant-successful.jsp";
     private static final String ERROR = "error.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -76,7 +76,8 @@ public class AssignToRoomController extends HttpServlet {
         } catch (Exception e) {
             log("Error at AssignToRoomController: " + e.toString());
         }finally{
-            response.sendRedirect(url);
+            //response.sendRedirect(url);
+            request.getRequestDispatcher(url).forward(request, response);
         }
 
     }

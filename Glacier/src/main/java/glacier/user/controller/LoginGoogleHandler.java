@@ -52,7 +52,7 @@ public class LoginGoogleHandler extends HttpServlet {
 
             UserManager manager = new UserManager();
             boolean isAccountExist = manager.checkDuplicate(user.getEmail());
-
+            System.out.println(isAccountExist);
             HttpSession ss = request.getSession();
            
             if (!isAccountExist) {

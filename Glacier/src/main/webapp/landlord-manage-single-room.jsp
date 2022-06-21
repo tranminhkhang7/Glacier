@@ -67,7 +67,7 @@
             }
         </style>
 
-        <title>Craigs - Easy Buy & Sell Listing HTML Template</title>
+        <title>Quản lý phòng</title>
 
     </head>
     <body style="font-family: 'Varela Round', sans-serif;">

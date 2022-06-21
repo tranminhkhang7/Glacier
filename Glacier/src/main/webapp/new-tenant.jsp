@@ -19,9 +19,21 @@
         <link rel="stylesheet" href="assets/css/selectize.css" type="text/css">
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/user.css">
-
-        <title>Craigs - Easy Buy & Sell Listing HTML Template</title>
-
+<!--        <link rel="stylesheet" href="${pageContext.request.contextPath}/testing/styles.css" />-->
+        <script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr_packed.js"></script>
+        <title>Duyệt phòng đang chờ</title>
+        <style>
+            .page-title a:after{
+                background-color: transparent !important;
+            }
+            #btn-scan-qr img{
+                height: 110px;
+                margin: 0;
+            }
+            #close:hover{
+                cursor:pointer;
+            }
+        </style>
     </head>
     <body>
         <div class="page sub-page">
@@ -35,17 +47,29 @@
 
                     <!--============ End Main Navigation ================================================================-->
                     <!--============ Page Title =========================================================================-->
-                    <div class="page-title">
-                        <div class="container">
-                            <h1>Khách thuê nhà mới</h1>
+<!--                    <div  class="page-title">
+                        <div style="display:flex; justify-content: space-between;" class="container">
+                            <h1 style="color:black">Khách thuê nhà mới</h1>
                         </div>
-                        <!--end container-->
-                    </div>
+                        end container
+                        <div  id="container">
+                            <a id="btn-scan-qr">
+                                <img width="100" src="https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/07/1499401426qr_icon.svg">
+                            </a>
+                            <button id="close" onclick="close()">X</button>
+                            <canvas hidden="" id="qr-canvas" ></canvas>
+
+                            <div id="qr-result" hidden="">
+                                <b>Data:</b> <span id="outputData"></span>
+                            </div>
+                        </div>
+                    </div>-->
                     <!--============ End Page Title =====================================================================-->
                     <div class="background"></div>
                     <!--end background-->
                 </div>
                 <!--end hero-wrapper-->
+
             </header>
             <!--end hero-->
 
@@ -82,52 +106,63 @@
                                     <h1>Không có khách nào cần được duyệt</h1>
                                 </div>
                             </c:if>
+<!--                            <div  id="container">
+                                <a id="btn-scan-qr">
+                                    <img width="100" src="https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/07/1499401426qr_icon.svg">
+                                </a>
+                                <button id="close" onclick="close()">X</button>
+                                <canvas hidden="" id="qr-canvas" ></canvas>
+
+                                <div id="qr-result" hidden="">
+                                    <b>Data:</b> <span id="outputData"></span>
+                                </div>
+                            </div>-->
                             <c:forEach var="room" items="${requestScope.list}">
-                            <div class="col-md-12">
-                                <article class="blog-post ">
-                                    <div class="article-title">
-                                        <h2 class="pb-3"><a href="blog-post.html">${room.name}</a></h2>
-                                        <h4 class="location">
-                                            <a href="#">${room.address}</a>
-                                        </h4>
-                                    </div>
-                                    <div class="blog-post-content">
-                 
-                                        <hr>
-                                        <div class="author">
-                                            <div class="author-image">
-                                                <div class="background-image">
-                                                    <img src="assets/img/author-09.jpg" alt="">
-                                                </div>
-                                            </div>
-                                            <!--end author-image-->
-                                            <div class="author-description">
-                                                <div class="section-title">
-                                                    <a href="<!-- Link tenant profile -->"><h2>Tên tenant</h2><span style="font-size: 12px">${room.emailTenant}</span></a>
-                                                </div>
-
-                                                <div class="modal-footer">
-                                                    <button data-href="./accept?action=decline&roomId=${room.roomID}" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">
-                                                        Hủy cọc
-                                                    </button>
-                                                    <button data-href="./accept?action=accept&roomId=${room.roomID}" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                                                        Xác nhận thuê nhà
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <!--end author-description-->
+                                <div class="col-md-12">
+                                    <article class="blog-post ">
+                                        <div class="article-title">
+                                            <h2 class="pb-3"><a href="blog-post.html">${room.name}</a></h2>
+                                            <h4 class="location">
+                                                <a href="#">${room.address}</a>
+                                            </h4>
                                         </div>
-                                        <!--end author-->
-                                    </div>
-                                    <!--end blog-post-content-->
-                                </article>
+                                        <div class="blog-post-content">
 
-                                <!--end Article-->
+                                            <hr>
+                                            <div class="author">
+                                                <div class="author-image">
+                                                    <div class="background-image">
+                                                        <img src="assets/img/author-09.jpg" alt="">
+                                                    </div>
+                                                </div>
+                                                <!--end author-image-->
+                                                <div class="author-description">
+                                                    <div class="section-title">
+                                                        <a href="<!-- Link tenant profile -->"><h2>Tên tenant</h2><span style="font-size: 12px">${room.emailTenant}</span></a>
+                                                    </div>
 
-                            </div>
+                                                    <div class="modal-footer">
+                                                        <button data-href="./accept?action=decline&roomId=${room.roomID}" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">
+                                                            Hủy cọc
+                                                        </button>
+<!--                                                        <button data-href="./accept?action=accept&roomId=${room.roomID}" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                                            Xác nhận thuê nhà
+                                                        </button>-->
+                                                    </div>
+                                                </div>
+                                                <!--end author-description-->
+                                            </div>
+                                            <!--end author-->
+                                        </div>
+                                        <!--end blog-post-content-->
+                                    </article>
+
+                                    <!--end Article-->
+
+                                </div>
                             </c:forEach>
-                            
-                            
+
+
                             <!--end col-md-8-->
 
 
@@ -245,10 +280,20 @@
         <script src="assets/js/readmore.min.js"></script>
         <script src="assets/js/custom.js"></script>
         <script>
-            $('#myModal').on('show.bs.modal', function (e) {
-                $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-            });
+                                    $('#myModal').on('show.bs.modal', function (e) {
+                                        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+                                    });
         </script>
+        <script>
+            function close() {
+                if (document.getElememtById("qr-canvas").hidden) {
+                    document.getElememtById("close").hidden = true;
+                }
+                document.getElememtById("qr-canvas").hidden = false;
+                document.getElememtById("qr-canvas").style.display = "block";
+            }
+        </script>
+        <script src="${pageContext.request.contextPath}/testing/qrCodeScanner.js"></script>
     </body>
 </html>
 

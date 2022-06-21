@@ -34,6 +34,14 @@ public class Landlord {
         this.instagramLink = instagramLink;
     }
 
+    public Landlord(String email, String name, String gender, String phone, String profilePicture) {
+        this.email = email;
+        this.name = name;
+        this.gender = gender;
+        this.phone = phone;
+        this.profilePicture = profilePicture;
+    }
+
     public Landlord(String email, String name, String gender, String phone) {
         this.email = email;
         this.name = name;

@@ -183,17 +183,18 @@ public class UserManager {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = " INSERT INTO Tenant(email,name,status,gender,phone) "
-                        + " VALUES(?,?,?,?,?) ";
+                String sql = " INSERT INTO Tenant(email,name,status,gender,phone,profile_picture) "
+                        + " VALUES(?,?,?,?,?,?) ";
                 if (t == null) {
-                    sql = " INSERT INTO Landlord(email,name,gender,phone) "
-                            + " VALUES(?,?,?,?) ";
+                    sql = " INSERT INTO Landlord(email,name,gender,phone,profile_picture) "
+                            + " VALUES(?,?,?,?,?) ";
                     st = conn.prepareStatement(sql);
                     st.setString(1, l.getEmail());
                     st.setString(2, l.getName());
                     //st.setString(3, l.getStatus());
                     st.setString(3, l.getGender());
                     st.setString(4, l.getPhone());
+                    st.setString(5, l.getProfilePicture());
                 } else {
                     st = conn.prepareStatement(sql);
                     st.setString(1, t.getEmail());
@@ -201,6 +202,7 @@ public class UserManager {
                     st.setString(3, t.getStatus());
                     st.setString(4, t.getGender());
                     st.setString(5, t.getPhone());
+                    st.setString(6, t.getProfilePicture());
                 }
                 check = st.executeUpdate() > 0;
             }
@@ -525,7 +527,7 @@ public class UserManager {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 String sql = " UPDATE [Room] "
-                        + " SET [emailTenant] = NULL  "
+                        + " SET [status] = 'available', [emailTenant] = NULL, [rentStartDate] = NULL  "
                         + " WHERE [roomId]=? ";
 
                 st = conn.prepareStatement(sql);
@@ -572,7 +574,7 @@ public class UserManager {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 String sql = " UPDATE [Room] "
-                        + " SET [rentStartDate] = NULL, [status]='available'  "
+                        + " SET [rentStartDate] = NULL, [status]='available', [emailTenant] = NULL  "
                         + " WHERE [roomId]=? ";
 
                 st = conn.prepareStatement(sql);

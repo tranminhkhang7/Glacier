@@ -11,7 +11,7 @@
     <title>QR Code Scanner</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/testing/styles.css" />
+<!--    <link rel="stylesheet" href="${pageContext.request.contextPath}/testing/styles.css" />-->
     <script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr_packed.js"></script>
   </head>
 
@@ -20,7 +20,7 @@
       <h1>QR Code Scanner</h1>
 
       <a id="btn-scan-qr">
-        <img src="https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/07/1499401426qr_icon.svg">
+        <img width="100" src="https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/07/1499401426qr_icon.svg">
       <a/>
 
       <canvas hidden="" id="qr-canvas"></canvas>
@@ -29,7 +29,9 @@
         <b>Data:</b> <span id="outputData"></span>
       </div>
     </div>
-
+              <img src="https://storage.cloud.google.com/glacier-bucket/Room_QR/room-11.png" alt=""/>
+        <img src="https://storage.cloud.google.com/glacier-bucket/Room_QR/room-13.png" alt=""/>
+        <img src="https://storage.cloud.google.com/glacier-bucket/Room_QR/room-15.png" alt=""/>
     <script src="${pageContext.request.contextPath}/testing/qrCodeScanner.js"></script>
   </body>
 </html>

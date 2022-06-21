@@ -23,9 +23,80 @@
         <link rel="stylesheet" href="assets/css/user.css">
 
         <title>Craigs - Easy Buy & Sell Listing HTML Template</title>
+        <style>
+            
+            .popup{
+                z-index: 20;
+                background-color: #ffffff;
+                width: 750px;
+                padding: 30px 40px;
+                position: fixed;
+                transform: translate(-50%,-50%);
+                left: 50%;
+                top: 50%;
+                border-radius: 8px;
+                display: none;
+                text-align: center;
+                box-shadow: 10px 10px 50px grey;
+            }
 
+            .popup h2{
+                margin-top: -20px;
+            }
+            .popup p{
+                font-size: 14px;
+                text-align: justify;
+                margin: 20px 0;
+                line-height: 25px;
+            }
+            .popup label{
+                font-size: 16px;
+            }
+
+            .notify{
+                z-index: 19;
+                background-color: rgb(235, 244, 251);
+                box-shadow: 0 .1rem 2rem rgba(0, 0, 0, .15);
+                left: 50%;
+                top: 10%;
+                padding: 15px;
+                border: 1px solid rgb(166, 206, 237);
+                border-radius: .3rem;
+                text-align: center;
+                position: fixed;
+
+                transform: translate(-50%,-50%);
+
+                display: block;
+            }
+        </style>
     </head>
-    <body>
+    <body style="font-family: 'Varela Round', sans-serif;">
+        <div class="popup" id="requestForm">
+            <h2>Thông báo cho chủ nhà</h2>
+            <form class="form form-submit" action="${pageContext.request.contextPath}/tenantnotify" method="POST">
+                <input name="id" type="hidden" value="${id}">
+                <!--                <div class="form-group">
+                                    <label for="title" class="col-form-label required">Tiêu đề</label>
+                                    <input name="title" type="text" class="form-control" id="title" placeholder="Mô tả ngắn gọn vấn đề của bạn" autocomplete="off" required>
+                                </div>-->
+                <div class="form-group">
+                    <label for="title" class="col-form-label required">Tiêu đề</label>
+                    <input name="title" type="text" class="form-control" id="title" placeholder="Tiêu đề thông báo" autocomplete="off" required>
+                </div>
+                <div class="form-group">
+                    <label for="content" class="col-form-label required">Nội dung thông báo</label>
+                    <textarea name="content" type="text" class="form-control" id="content" placeholder="Nội dung thông báo chi tiết" autocomplete="off" required></textarea>
+                </div>
+                <input type="hidden" value="${requestScope.currentPage}" name="page" />
+                <input type="hidden" id="emailLandlordSend" value="" name="emailLandlord" />
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary large icon float-left" style="font-size: 16px; margin: 10px 20px 0px 0px;">Gửi</button>
+                </div>
+            </form>
+
+            <button class="btn btn-secondary large icon float-left" style="font-size: 16px; margin: 10px 20px 0px 0px;" onclick="closeForm()">Hủy</button>
+        </div>
         <div class="page sub-page">
             <!--*********************************************************************************************************-->
             <!--************ HERO ***************************************************************************************-->
@@ -277,13 +348,14 @@
                                                                                                     
                                                 <c:choose>
                                                     <c:when test="${room.status eq 'unavailable'}">
-                                                        <a href="bills?id=${room.roomID}" class="ad-hide pb-2" ><i class="fa fa-file-text-o" aria-hidden="true"></i>Xem hóa đơn</a>
+                                                        <a href="bills?id=${room.roomID}" class="ad-hide pb-2" ><i class="fa fa-file-text-o" aria-hidden="true"></i>Xem hóa đơn</a>                                            
                                                     </c:when>
                                                 </c:choose>
                                                         
                                                 <c:choose>
                                                     <c:when test="${room.status eq 'unavailable'}">
-                                                        <a href="your-rooms?id=${room.roomID}" class="ad-hide pb-2" ><i class="fa fa-bell-o" aria-hidden="true"></i>Tạo thông báo</a>
+                                                        <a href="#" style="cursor:pointer" onclick="openForm()" class="ad-hide pb-2" ><i class="fa fa-bell-o" aria-hidden="true"></i>Tạo thông báo</a>
+                                                        <p hidden="" id="emailLandlord">${room.emailLandlord}</p>
                                                     </c:when>
                                                 </c:choose>
 
@@ -433,7 +505,19 @@
         <script src="assets/js/icheck.min.js"></script>
         <script src="assets/js/jquery.validate.min.js"></script>
         <script src="assets/js/custom.js"></script>
+        <script>
+                            function openForm() {
+                    document.getElementsByClassName("page")[0].style.filter = "blur(8px)";
+                    document.getElementById("requestForm").style.display = "block";
+                    let emailLandlord = document.getElementById("emailLandlord").innerHTML;
+                    document.getElementById("emailLandlordSend").value = emailLandlord;
+                }
 
+                function closeForm() {
+                    document.getElementsByClassName("page")[0].style.filter = "none";
+                    document.getElementById("requestForm").style.display = "none";
+                }
+        </script>
     </body>
 </html>
 

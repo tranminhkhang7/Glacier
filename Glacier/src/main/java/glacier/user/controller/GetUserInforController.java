@@ -37,34 +37,37 @@ public class GetUserInforController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
+            
             String email = request.getParameter("email");
             String name = request.getParameter("name");
             String gender = request.getParameter("gender");
             String role = request.getParameter("role").toLowerCase();
             String phone = request.getParameter("phone");
+            
             String status = "active";
             boolean checkInsertUser = false;
             UserManager manager = new UserManager();
             HttpSession ss = request.getSession();
+            String image = (String)ss.getAttribute("user");
             Account acc = new Account(email, null, role);
             boolean checkInsertAccount = manager.insertGoogleAccount(email, role);
             if (checkInsertAccount) {
                 ss.removeAttribute("user");
                 if ("tenant".equals(role)) {
-                    Tenant t = new Tenant(email, name, status, gender, phone);
+                    Tenant t = new Tenant(email, name, status, gender, phone,image);
                     checkInsertUser = manager.insertUser(t, null);
                     if (checkInsertUser) {
                         ss.setAttribute("LOGIN_USER", acc);
                         ss.setAttribute("USER_DETAIL", t);
-                        response.sendRedirect("success.jsp");
+                        response.sendRedirect("home");
                     }
                 } else {
-                    Landlord l = new Landlord(email, name, gender, phone);
+                    Landlord l = new Landlord(email, name, gender, phone,image);
                     checkInsertUser = manager.insertUser(null, l);
                     if (checkInsertUser) {
                         ss.setAttribute("LOGIN_USER", acc);
                         ss.setAttribute("USER_DETAIL", l);
-                        response.sendRedirect("success.jsp");                      
+                        response.sendRedirect("home");                      
                     }
                 }
             }

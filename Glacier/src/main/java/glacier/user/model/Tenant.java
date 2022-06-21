@@ -33,6 +33,15 @@ public class Tenant {
         this.instagramLink = instagramLink;
     }
 
+    public Tenant(String email, String name, String status, String gender, String phone, String profilePicture) {
+        this.email = email;
+        this.name = name;
+        this.status = status;
+        this.gender = gender;
+        this.phone = phone;
+        this.profilePicture = profilePicture;
+    }
+
     public Tenant(String email, String name, String status, String gender, String phone) {
         this.email = email;
         this.name = name;
