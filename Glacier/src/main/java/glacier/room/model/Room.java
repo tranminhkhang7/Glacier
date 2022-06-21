@@ -52,6 +52,17 @@ public class Room {
 
     //This contruction is for Search function.
     //The emailLandlord does not contain email, it contains landlord's name instead.
+    public Room(int roomID, String name, String description, String address, String emailLandlord, int price, float avgRating, Date date_added) {
+        this.roomID = roomID;
+        this.name = name;
+        this.description = description;
+        this.address = address;
+        this.emailLandlord = emailLandlord;
+        this.price = price;
+        this.avgRating = avgRating;
+        this.date_added = date_added;
+    }
+    
     public Room(int roomID, String name, String description, String address, String emailLandlord, int price, Date date_added) {
         this.roomID = roomID;
         this.name = name;
@@ -120,6 +131,7 @@ public class Room {
         this.price = price;
         this.emailTenant = emailTenant;
     }
+       
 
     //CHECK ASSIGN ROOM
     public Room(int roomID, String name, String emailTenant, Date rentStartDate, String qrStatus, String status) {

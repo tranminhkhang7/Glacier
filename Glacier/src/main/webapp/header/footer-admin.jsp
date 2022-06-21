@@ -29,10 +29,13 @@
                             <nav>
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="admin.jsp">Home</a>
+                                        <a href="admin.jsp">Trang chủ</a>
                                     </li>
                                     <li>
-                                        <a href="SearchUserController?keyword=&index=1&role=all">User</a>
+                                        <a href="SearchUserController?keyword=&index=1&role=all">Người dùng</a>
+                                    </li>
+                                    <li>
+                                        <a href="new-feature.jsp">Thêm feature</a>
                                     </li>
 
                                 </ul>
@@ -42,10 +45,13 @@
                             <nav>
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="ReportedController?index=1&type=all">Reported</a>
+                                        <a href="ReportedController?index=1&type=all">Bị báo cáo</a>
                                     </li>
                                     <li>
-                                        <a href="#">Contact</a>
+                                        <a href="#">Liên hệ</a>
+                                    </li>
+                                    <li>
+                                        <a href="VerifyRoomController?index=1">Xét duyệt phòng mới</a>
                                     </li>
                                 </ul>
                             </nav>

@@ -94,7 +94,7 @@ public class RoomManager {
                 index = 1;
             }
 
-            String sql = "SELECT R.[roomID], R.[name] as nameRoom, R.[address], R.[price], R.[date_added], L.[name] as nameLandlord, LEFT(R.[description], 100) as cutDescription\n"
+            String sql = "SELECT R.[roomID], LEFT(R.[name],42) as nameRoom, R.[address], R.[price], R.[avg_rating], R.[date_added], L.[name] as nameLandlord, LEFT(R.[description], 100) as cutDescription\n"
                     + "FROM [Room] R JOIN [Landlord] L ON R.emailLandlord = L.email\n"
                     + "WHERE R.[status] = N'available'\n";
 
@@ -153,14 +153,15 @@ public class RoomManager {
 
             while (rs.next()) {
                 int roomID = rs.getInt("roomID");
-                String nameRoom = rs.getString("nameRoom");
+                String nameRoom = rs.getString("nameRoom"); nameRoom += "...";
                 String cutDescription = rs.getString("cutDescription");
                 String address = rs.getString("address");
                 String nameLandlord = rs.getString("nameLandlord");
                 int price = rs.getInt("price");
+                int avg_rating = (int)rs.getFloat("avg_rating");
                 Date dateAdded = rs.getDate("date_added");
 
-                Room matchedRoom = new Room(roomID, nameRoom, cutDescription, address, nameLandlord, price, dateAdded);
+                Room matchedRoom = new Room(roomID, nameRoom, cutDescription, address, nameLandlord, price, avg_rating, dateAdded);
                 list.add(matchedRoom);
             }
             return list;
