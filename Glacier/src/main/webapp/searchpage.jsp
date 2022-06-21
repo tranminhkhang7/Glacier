@@ -201,12 +201,19 @@
                                                 <!--<a href="#" class="tag category">Home & Decor</a>-->
                                                 <a href="${pageContext.request.contextPath}/SingleRoomView?id=${room.roomID}" class="title">${room.name}</a>
                                                 <!--<span class="tag">Offer</span>-->
-                                                 <span><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></span>
+                                                <span>
+                                                    <c:forEach begin="1" end="${room.avgRating}" step="1">
+                                                        <i class="fa fa-star"></i>&nbsp;
+                                                    </c:forEach>
+                                                    <c:forEach begin="1" end="${5-room.avgRating}" step="1">
+                                                        <i class="fa fa-star-o"></i>&nbsp;
+                                                    </c:forEach>
+                                                    </span>
                                             </h3>
                                             <a href="${pageContext.request.contextPath}/SingleRoomView?id=${room.roomID}" class="image-wrapper background-image">
                                                 <img src="assets/img/image-01.jpg" alt="">
                                             </a>
-                                        
+
                                         </div>
                                         <!--end image-->
                                         <h4 class="location">
@@ -320,7 +327,7 @@
                     }
                     j++;
                 }
-                
+
                 let finalPrice = textReverse.split("").reverse().join("");
                 document.getElementsByClassName("price")[i].innerHTML = finalPrice;
             }
