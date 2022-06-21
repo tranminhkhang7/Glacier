@@ -62,7 +62,6 @@ public class Room {
         this.date_added = date_added;
     }
 
-
     // this constructor is used to get room information to send email via RoomManager.getTenantPendingRoom
     public Room(int roomID, String name, String address, String emailLandlord, String status, int price,float deposit, String detailAddress) {
         this.roomID = roomID;

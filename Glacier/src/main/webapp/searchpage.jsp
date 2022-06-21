@@ -22,7 +22,7 @@
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/user.css">
 
-        <title>Search</title>
+        <title>Kết quả tìm kiếm · Glacier</title>
 
     </head>
     <body style="font-family: 'Varela Round', sans-serif;">
@@ -141,8 +141,13 @@
                     <!--============ End Hero Form ======================================================================-->
                     <!--============ Page Title =========================================================================-->
                     <div class="page-title">
-                        <div class="container">
-                            <h1>Kết quả cho tìm của bạn</h1>
+                        <div class="container" style="text-align: center">
+                            <c:if test="${empty requestScope.list}">
+                                <h1>Rất tiếc, chưa có kết quả nào cho tìm kiếm của bạn!</h1>
+                            </c:if>
+                            <c:if test="${not empty requestScope.list}">
+                                <h1>Kết quả cho tìm kiếm của bạn</h1>
+                            </c:if>
                         </div>
                         <!--end container-->
                     </div>
@@ -255,12 +260,12 @@
                                         <c:choose>
                                             <c:when test="${currentPage == i}">
                                                 <li class="page-item active">
-                                                    <a class="page-link" href="?keyword=${searchText}&index=${i}">${i}</a>
+                                                    <a class="page-link" href="?keyword=${searchText}${featureParameterSet}&index=${i}">${i}</a>
                                                 </li>
                                             </c:when>
                                             <c:otherwise>
                                                 <li class="page-item">
-                                                    <a class="page-link" href="?keyword=${searchText}&index=${i}">${i}</a>
+                                                    <a class="page-link" href="?keyword=${searchText}${featureParameterSet}&index=${i}">${i}</a>
                                                 </li>
                                             </c:otherwise>
                                         </c:choose>
