@@ -21,7 +21,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user.css">
 
-        <title>Trang chủ</title>
+        <title>Glacier - Thuê bất cứ đâu bạn muốn!</title>
 
     </head>
     <body style="font-family: 'Varela Round', sans-serif;">

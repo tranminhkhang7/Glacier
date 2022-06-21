@@ -19,7 +19,7 @@
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/user.css">
 
-        <title>Craigs - Easy Buy & Sell Listing HTML Template</title>
+        <title>Trang chủ · Glacier</title>
         <style>
             .picback {
                 height: 180px;

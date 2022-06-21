@@ -22,7 +22,7 @@
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/user.css">
 
-        <title>Search</title>
+        <title>Kết quả tìm kiếm · Glacier</title>
 
     </head>
     <body style="font-family: 'Varela Round', sans-serif;">

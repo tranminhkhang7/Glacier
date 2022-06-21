@@ -65,7 +65,7 @@
             }
         </style>
 
-        <title>${room.name}</title>
+        <title>${room.name} · Glacier</title>
 
     </head>
     <body style="font-family: 'Varela Round', sans-serif;">
