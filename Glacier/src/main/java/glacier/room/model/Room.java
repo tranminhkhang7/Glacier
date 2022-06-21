@@ -109,6 +109,7 @@ public class Room {
         this.price = price;
         this.emailTenant = emailTenant;
     }
+       
 
     public int getNumberRating() {
         return numberRating;

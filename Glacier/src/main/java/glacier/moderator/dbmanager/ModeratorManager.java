@@ -5,6 +5,7 @@
  */
 package glacier.moderator.dbmanager;
 
+import glacier.room.model.Room;
 import glacier.user.model.Reported;
 import glacier.user.model.User;
 
@@ -27,11 +28,11 @@ public class ModeratorManager {
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
-        String GET_LISTUSER = "SELECT tl.[email], [name], [gender], [phone], [role], [status] " +
-                              "FROM [Account] a JOIN (SELECT * FROM [Landlord] UNION SELECT * FROM [Tenant]) tl ON a.[email] = tl.[email] " +
-                              "WHERE (a.[email] LIKE ? OR [name] LIKE ?)" + 
-                              "ORDER BY [name] " +
-                              "OFFSET " + (index - 1) * 10 + " ROWS FETCH NEXT 10 ROWS ONLY" ;
+        String GET_LISTUSER = "SELECT tl.[email], [name], [gender], [phone], [role], [status] "
+                + "FROM [Account] a JOIN (SELECT [email], [name], [gender], [phone], [status] FROM [Landlord] UNION SELECT [email], [name], [gender], [phone], [status] FROM [Tenant]) tl ON a.[email] = tl.[email] "
+                + "WHERE (a.[email] LIKE ? OR [name] LIKE ?)"
+                + "ORDER BY [name] "
+                + "OFFSET " + (index - 1) * 10 + " ROWS FETCH NEXT 10 ROWS ONLY";
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
@@ -50,8 +51,18 @@ public class ModeratorManager {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
+
         return listUser;
     }
 
@@ -60,11 +71,11 @@ public class ModeratorManager {
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
-        String GET_TENANT = "SELECT [email], [name], [gender], [phone], [status] " +
-                            "FROM Tenant " +
-                            "WHERE ([email] LIKE ? OR [name] LIKE ?) " +
-                            "ORDER BY [name] " +
-                            "OFFSET " + (index - 1) * 10 + " ROWS FETCH NEXT 10 ROWS ONLY";
+        String GET_TENANT = "SELECT [email], [name], [gender], [phone], [status] "
+                + "FROM Tenant "
+                + "WHERE ([email] LIKE ? OR [name] LIKE ?) "
+                + "ORDER BY [name] "
+                + "OFFSET " + (index - 1) * 10 + " ROWS FETCH NEXT 10 ROWS ONLY";
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
@@ -102,10 +113,10 @@ public class ModeratorManager {
         PreparedStatement ptm = null;
         ResultSet rs = null;
         String GET_LANDLORD = "SELECT [email], [name], [gender], [phone], [status] "
-                            + "FROM Landlord "
-                            + "WHERE ([email] LIKE ? OR [name] LIKE ?) "
-                            + "ORDER BY [name] "
-                            + "OFFSET " + (index - 1) * 10 + " ROWS FETCH NEXT 10 ROWS ONLY";
+                + "FROM Landlord "
+                + "WHERE ([email] LIKE ? OR [name] LIKE ?) "
+                + "ORDER BY [name] "
+                + "OFFSET " + (index - 1) * 10 + " ROWS FETCH NEXT 10 ROWS ONLY";
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
@@ -188,6 +199,7 @@ public class ModeratorManager {
         }
         return check;
     }
+
     public boolean unbanUser(String userPhone, String role) { // search: the key words user typed; index: page number
         boolean check = false;
         try {
@@ -208,7 +220,7 @@ public class ModeratorManager {
         }
         return check;
     }
-    
+
     public List<Reported> getListRPRoom(int index) throws SQLException {
         List<Reported> listReported = new ArrayList<>();
         Connection conn = null;
@@ -242,7 +254,7 @@ public class ModeratorManager {
         }
         return listReported;
     }
-    
+
     public List<Reported> getListRPComment(int index) throws SQLException {
         List<Reported> listReported = new ArrayList<>();
         Connection conn = null;
@@ -276,7 +288,7 @@ public class ModeratorManager {
         }
         return listReported;
     }
-    
+
     public List<Reported> getListReported(int index) throws SQLException {
         List<Reported> listReported = new ArrayList<>();
         ModeratorManager dao = new ModeratorManager();
@@ -288,7 +300,7 @@ public class ModeratorManager {
         }
         return listReported;
     }
-    
+
     public int countMatched2(String type) { // search: the key words user typed; index: page number
         try {
 
@@ -318,8 +330,8 @@ public class ModeratorManager {
 
         return 0;
     }
-    
-    public boolean removeReported(String id, String type){
+
+    public boolean removeReported(String id, String type) {
         boolean check = false;
         String sql1 = "DELETE FROM [ReportRoom] WHERE roomID = " + id;
         String sql2 = "DELETE FROM [ReportComment] WHERE commentID = " + id;
@@ -339,8 +351,8 @@ public class ModeratorManager {
         }
         return check;
     }
-    
-    public boolean deleteReported(String id, String type){
+
+    public boolean deleteReported(String id, String type) {
         boolean check = false;
         String sql1 = "DELETE FROM [Room] WHERE roomID = " + id;
         String sql2 = "DELETE FROM [Comment] WHERE commentID = " + id;
@@ -362,17 +374,153 @@ public class ModeratorManager {
         }
         return check;
     }
+
+    public int newID() throws SQLException {
+        String sql = "SELECT Count(id) as total from Feature";
+        int id = 0;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            con = DBUtils.getConnection();
+            ptm = con.prepareStatement(sql);
+            rs = ptm.executeQuery();
+            while (rs.next()) {
+                id = rs.getInt("total");
+            }
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return id + 1;
+    }
+
+    public boolean addFeature(String feature) throws SQLException {
+        boolean check = false;
+        String sql = "INSERT INTO Feature(id,name) VALUES (?,?)";
+        ModeratorManager dao = new ModeratorManager();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(sql);
+                ptm.setInt(1, dao.newID());
+                ptm.setString(2, feature);
+                check = ptm.executeUpdate() != 0;
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+
+    public List<VerifyingRoom> verifyingRoomList(int index) throws SQLException {
+        String sql= "SELECT roomID, r.name, address, date_added, phone, emailLandlord " +
+                    "FROM Room r JOIN Landlord l ON r.emailLandlord = l.email " +
+                    "WHERE r.status LIKE '%verifying%' " +
+                    "ORDER BY roomID " +
+                    "OFFSET " + (index - 1) * 10 + " ROWS FETCH NEXT 10 ROWS ONLY";
+        List<VerifyingRoom> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(sql);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    int roomID = rs.getInt("roomID");
+                    String name = rs.getString("name");
+                    String address = rs.getString("address");
+                    String emailLandlord = rs.getString("emailLandlord");
+                    String date_added = rs.getString("date_added");
+                    String phone = rs.getString("phone");
+                    list.add(new VerifyingRoom(roomID, name, address, emailLandlord, date_added, phone));
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public int countMatched3() { // search: the key words user typed; index: page number
+        try {
+
+            String sql = "SELECT COUNT (*) FROM Room where status LIKE '%verifying%'";
+            Connection con = DBUtils.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+
+        return 0;
+    }
+
+    public boolean verified(String id) {
+        boolean check = false;
+        String sql = "UPDATE Room SET status = 'available' WHERE roomID =" + id;
+        try {
+            Connection con = DBUtils.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            check = st.executeUpdate() != 0;
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return check;
+    }
     
+    public boolean notVerified(String id) {
+        boolean check = false;
+        String sql = "UPDATE Room SET status = 'verifiedFail' WHERE roomID =" + id;
+        try {
+            Connection con = DBUtils.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            check = st.executeUpdate() != 0;
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return check;
+    }
 
     public static void main(String[] args) throws SQLException {
         ModeratorManager dao = new ModeratorManager();
-        int count = dao.countMatched2("all");
-        System.out.println(count);
-        List<User> list = dao.getListUser("a",1);
-        for (User user : list) {
-            System.out.println(user);
-        }
-        boolean check = dao.removeReported("1", "comment");
-        System.out.println(check);
+        System.out.println(dao.verifyingRoomList(1));
+        
     }
 }

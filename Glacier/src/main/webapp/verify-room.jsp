@@ -3,6 +3,8 @@
     Created on : May 30, 2022, 10:25:08 AM
     Author     : Admin
 --%>
+<%@page import="glacier.moderator.dbmanager.VerifyingRoom"%>
+<%@page import="glacier.room.model.Room"%>
 <%@page import="glacier.user.model.Reported"%>
 <%@page import="java.util.List"%>
 
@@ -40,7 +42,7 @@
                     <div class="page-title">
                         <div class="container">
                             <h1 class="opacity-80 center" style="color: red">
-                                Thông tin tố cáo
+                                Thông tin phòng chờ xét duyêt
                             </h1>
                         </div>
                         <!--end container-->
@@ -56,12 +58,7 @@
             <!--*********************************************************************************************************-->
             <!--************ CONTENT ************************************************************************************-->
             <!--*********************************************************************************************************-->
-            <%
-                String type = request.getParameter("type");
-                if (type == null) {
-                    type = "all";
-                }
-            %>
+            
 
             <!-- Modal -->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -89,41 +86,43 @@
                         <%--Bảng thông tin report --%>
                         <div class="center">
                             <%
-                                List<Reported> listReported = (List<Reported>) request.getAttribute("LIST_REPORTED");
-                                if (listReported != null) {
-                                    if (listReported.size() > 0) {
+                                List<VerifyingRoom> listRoom = (List<VerifyingRoom>) request.getAttribute("LIST_VERIFY_ROOM");
+                                if (listRoom != null) {
+                                    if (listRoom.size() > 0) {
                             %>
                             <table border="2"style="text-align: center">
                                 <thead>
                                     <tr style="background-color:red">
-                                        <th style="width:10%">ID</th>
-                                        <th style="width:30%">Email người dùng</th>
-                                        <th style="width:50%">Chi tiết</th>
-                                        <th style="width:20%">Thời gian</th>
-                                        <th style="width:20%">Loại</th>                           
-                                        <th></th>
-                                        <th></th>
+                                        <th >ID</th>
+                                        <th >Tên Phòng</th>
+                                        <th >Địa Chi</th>
+                                        <th >GIờ Đăng</th>
+                                        <th >Email Người Cho Thuê</th>
+                                        <th >SDT</th>
+                                        <th ></th>
+                                        <th ></th>
                                     </tr>
                                 </thead>
                                 <%
-                                    for (Reported reported : listReported) {
+                                    for (VerifyingRoom room : listRoom) {
                                 %>
 
                                 <tbody>         
                                     <tr>
-                                        <td style="height:10px;padding:5px 10px; text-align: right"><%= reported.getId()%></td>
-                                        <td style="height:10px;padding:5px 10px; text-align: left"><%= reported.getUserEmail()%></td>
-                                        <td style="height:10px;padding:5px 10px; text-align: left"><%= reported.getDetail()%></td>
-                                        <td style="height:10px;padding:5px 10px; text-align: right"><%= reported.getDate()%></td>
-                                        <td style="height:10px;padding:5px 10px; text-align: left"><%= reported.getType()%></td>
+                                        <td style="height:10px;padding:5px 10px; text-align: right"><%= room.getRoomID()%></td>
+                                        <td style="height:10px;padding:5px 10px; text-align: left"><%= room.getName()%></td>
+                                        <td style="height:10px;padding:5px 10px; text-align: left"><%= room.getAddress()%></td>
+                                        <td style="height:10px;padding:5px 10px; text-align: left"><%= room.getDate_added()%></td>
+                                        <td style="height:10px;padding:5px 10px; text-align: right"><%= room.getEmailLandlord()%></td>
+                                        <td style="height:10px;padding:5px 10px; text-align: right"><%= room.getPhone()%></td>
                                         <td style="height:10px;padding:5px 10px">    
-                                            <button type="button" data-href="DeleteReportedController?id=<%= reported.getId()%>&type=<%= reported.getType()%>&action=ignore" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                            <button type="button" data-href="VerifyingController?roomID=<%= room.getRoomID() %>&action=no" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                                                 Bỏ qua
                                             </button>
                                         </td>
                                         <td style="height:10px;padding:5px 10px">    
-                                            <button type="button" data-href="DeleteReportedController?id=<%= reported.getId()%>&type=<%= reported.getType()%>&action=delete" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                                                Xóa
+                                            <button type="button" data-href="VerifyingController?roomID=<%= room.getRoomID() %>&action=yes" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                                Duyệt
                                             </button>
                                         </td>
                                     </tr>
@@ -149,7 +148,7 @@
                                     int endPage = (int) request.getAttribute("END_PAGE");
                                     if (currentPage != 1) {
                                 %>
-                                <a class="page-link" href="?type=<%=type%>&index=<%=currentPage - 1%>" aria-label="Previous">
+                                <a class="page-link" href="?index=<%=currentPage - 1%>" aria-label="Previous">
                                     <span aria-hidden="true">
                                         <i class="fa fa-chevron-left"></i>
                                     </span>
@@ -161,20 +160,20 @@
                                         if (currentPage == i) {
                                 %>
                                 <li class="page-item active">
-                                    <a class="page-link" href="?type=<%=type%>&index=<%=i%>"><%=i%></a>
+                                    <a class="page-link" href="?index=<%=i%>"><%=i%></a>
                                 </li> 
                                 <%
                                 } else {
                                 %>
                                 <li class="page-item">
-                                    <a class="page-link" href="?type=<%=type%>&index=<%=i%>"><%=i%></a>
+                                    <a class="page-link" href="?index=<%=i%>"><%=i%></a>
                                 </li> 
                                 <%
                                         }
                                     }
                                     if (currentPage != endPage) {
                                 %>
-                                <a class="page-link" href="?type=<%=type%>&index=<%=currentPage + 1%>" aria-label="Next">
+                                <a class="page-link" href="?index=<%=currentPage + 1%>" aria-label="Next">
                                     <span aria-hidden="true">
                                         <i class="fa fa-chevron-right"></i>
                                     </span>

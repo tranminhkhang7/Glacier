@@ -48,7 +48,7 @@
                     <div class="page-title">
                         <div class="container">
                             <h1 class="opacity-80 center" style="color: red">
-                                Xin chào quản trị viên
+                                Xét duyệt phòng
                             </h1>
                         </div>
                         <!--end container-->
@@ -66,46 +66,34 @@
             <!--*********************************************************************************************************-->
             
             <section class="content">
-                <section class="block">
-                    <div class="container" >
-                        <!--============ Items ==========================================================================-->
-                        <div class="items grid grid-xl-2-items grid-lg-2-items grid-md-2-items">
-                            <div class="item">                       
-                                <div class="wrapper" style="text-align: center">
-                                    <a href="SearchUserController?keyword=&index=1&role=all" style="color: black; font-size-adjust: 0.5"><h1 style="margin: 20px">Người dùng</h1></a>
-                                    
-                                    <div class="picback" style="background-image: url(assets/images/Landlord.jpg)">
-                                        <a href="SearchUserController?keyword=&role=landlord&index=1" class="btn" style="margin: 50px"><h2>Người cho thuê</h2></a><br>
+                <form class="hero-form form" action="NewFeatureController">
+                    <div class="container">
+                        <!--Main Form-->
+                        <div class="main-search-form">
+                            <div class="form-row">
+                                <div class="col-md-9 col-sm-9">
+                                    <div class="form-group">
+                                        <label for="what" class="col-form-label">Thêm feature mới cho các phòng</label>
+                                        <input name="feature" type="text" class="form-control" id="what" placeholder="Nhập feature mới">
                                     </div>
-                                    <div class="picback" style="background-image: url(assets/images/Tenant.jpg)">
-                                        <a href="SearchUserController?keyword=&role=tenant&index=1" class="btn" style="margin: 50px"><h2>Người thuê</h2></a>
-                                    </div>
+                                    <!--end form-group-->
                                 </div>
-                            </div>
-                            <div class="item">                           
-                                <div class="wrapper" style="text-align: center">
-                                    <a href="ReportedController?index=1&type=all" style="color: black; font-size-adjust: 0.5"><h1 style="margin: 20px">Bị báo cáo</h1></a>   
-                                    <div class="picback" style="background-image: url(assets/images/Rooms.jpg)">
-                                        <a href="ReportedController?index=1&type=room" class="btn" style="margin: 50px"><h2>Phòng</h2></a><br>
-                                    </div>
-                                    <div class="picback" style="background-image: url(assets/images/Comments.jpg)">
-                                        <a href="ReportedController?index=1&type=comment" class="btn" style="margin: 50px"><h2>Bình luận</h2></a>
+                                <!--end col-md-3-->
+                                <div class="col-md-3 col-sm-3">
+                                    <button type="submit" class="btn btn-primary width-100">Thêm</button>
                                 </div>
-
+                                <!--end col-md-3-->
                             </div>
-                            <!--end item-->
-
-
-
-
+                            <!--end form-row-->
                         </div>
-                        <!--============ End Items ======================================================================-->
-
-                        <!--end page-pagination-->
+                        <!--end main-search-form-->
+                        <!--Alternative Form-->
+                        <div class="alternative-search-form">
+                        </div>
+                        <!--end alternative-search-form-->
                     </div>
                     <!--end container-->
-                </section>
-                <!--end block-->
+                </form>
             </section>
             <!--end content-->
 
