@@ -62,6 +62,16 @@ public class Room {
         this.avgRating = avgRating;
         this.date_added = date_added;
     }
+    
+    public Room(int roomID, String name, String description, String address, String emailLandlord, int price, Date date_added) {
+        this.roomID = roomID;
+        this.name = name;
+        this.description = description;
+        this.address = address;
+        this.emailLandlord = emailLandlord;
+        this.price = price;
+        this.date_added = date_added;
+    }
 
     // this constructor is used to get room information to send email via RoomManager.getTenantPendingRoom
     public Room(int roomID, String name, String address, String emailLandlord, String status, int price,float deposit, String detailAddress) {
