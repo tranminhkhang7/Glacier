@@ -23,6 +23,7 @@ import glacier.utils.Utils;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.nio.file.FileSystems;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -32,7 +33,16 @@ import org.apache.commons.codec.digest.DigestUtils;
  */
 @WebServlet(name = "Deposit", urlPatterns = {"/deposit"})
 public class Deposit extends HttpServlet {
-
+    public String getIpAddress(){
+        String ip = "";
+        try (final DatagramSocket socket = new DatagramSocket()) {
+            socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
+            ip = socket.getLocalAddress().getHostAddress();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ip;
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -77,6 +87,7 @@ public class Deposit extends HttpServlet {
                 //ipv4:8080/Glacier/qrscan?tenant_key=abc
                 String tenantKey = DigestUtils.md5Hex(emailTenant+Math.random());
                 String landlordKey = DigestUtils.md5Hex(emailLandlord+Math.random());
+
                 String ip=getIpAddress();
                 System.out.println(ip);
                 String content = "http://"+ip+"/Glacier/qrscan?tenant_key="+tenantKey+"&landlord_key="+landlordKey;
@@ -84,6 +95,7 @@ public class Deposit extends HttpServlet {
                 String imageName = "room-"+roomID+".png";
                 Utils.createQR(content, imageName);
                 String QrLocalPath = FileSystems.getDefault().getPath("").toAbsolutePath().toString() + "\\Glacier\\QR\\" + imageName;
+
                 
                 //-----------------------------------------------------------------------------------------------------------------------
                 //UP HÌNH LÊN CLOUD

@@ -70,11 +70,11 @@ public class LoginGoogleHandler extends HttpServlet {
                     if ("tenant".equals(role)) {
                         Tenant t = manager.getTenantInfo(acc.getEmail());
                         ss.setAttribute("USER_DETAIL", t);
-                        response.sendRedirect("success.jsp");                        
+                        response.sendRedirect("home");                        
                     }else{
                         Landlord l = manager.getLandlordInfo(acc.getEmail());
                         ss.setAttribute("USER_DETAIL", l);
-                        response.sendRedirect("success.jsp");
+                        response.sendRedirect("home");
                     }
                 }
             }

@@ -164,7 +164,7 @@
                                 <hr>
                                 <div style="text-align: center" class="">Tổng tiền: ${room.deposit} VNĐ</div>
                                 <hr>
-                                <form action="deposit">
+                                <form action="deposit" method="POST">
                                     <input name="id" value="${id}" type="hidden">
                                     <input name="landlordEmail" value="${landlord.email}" type="hidden">
                                     <button class="btn btn-framed btn-primary" type="submit">Xác nhận thanh toán</button>
