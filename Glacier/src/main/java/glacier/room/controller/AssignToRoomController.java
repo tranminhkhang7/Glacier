@@ -59,7 +59,7 @@ public class AssignToRoomController extends HttpServlet {
                 url = ERROR;
             } else {
                 Room room = manager.getRoomWhenAssign(tenantKey, landlordKey);
-                if (room != null && "available".equals(room.getQrStatus().trim()) && "pending".equals(room.getStatus().trim())) {
+                if (room != null && "active".equals(room.getQrStatus().trim()) && "pending".equals(room.getStatus().trim())) {
                     boolean checkOwnerShip = landlordManager.checkOwnership(landlordEmail, room.getRoomID());
                     if (checkOwnerShip) {
                         url = SUCCESS;

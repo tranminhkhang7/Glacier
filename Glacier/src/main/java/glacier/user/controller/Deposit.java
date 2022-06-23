@@ -20,6 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import glacier.utils.Utils;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -29,7 +31,16 @@ import org.apache.commons.codec.digest.DigestUtils;
  */
 @WebServlet(name = "Deposit", urlPatterns = {"/deposit"})
 public class Deposit extends HttpServlet {
-
+    public String getIpAddress(){
+        String ip = "";
+        try (final DatagramSocket socket = new DatagramSocket()) {
+            socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
+            ip = socket.getLocalAddress().getHostAddress();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ip;
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -62,12 +73,12 @@ public class Deposit extends HttpServlet {
                 //ipv4:8080/Glacier/qrscan?tenant_key=abc
                 String tenantKey = DigestUtils.md5Hex(emailTenant+Math.random());
                 String landlordKey = DigestUtils.md5Hex(emailLandlord+Math.random());
-                
-                String content = "http://192.168.1.7:8080/Glacier/qrscan?tenant_key="+tenantKey+"&landlord_key="+landlordKey;
+                String ip = getIpAddress();
+                String content = "http://192.168.27.61:8080/Glacier/assign?tenant_key="+tenantKey+"&landlord_key="+landlordKey;
                 //room-id.png
                 String imageName = "room-"+roomID+".png";
                 Utils.createQR(content, imageName);
-                String QrLocalPath = "D:\\Tomcat Glassfish\\apache-tomcat-9.0.56\\bin\\Glacier\\QR\\"+imageName;
+                String QrLocalPath = "D:\\FPT\\SP2022\\PRJ301\\apache-tomcat-8.5.73\\bin\\Glacier\\QR\\"+imageName;
                 
                 //UP HÌNH LÊN CLOUD
                 GoogleCloudUtils.uploadObject(Constant.GOOGLE_CLOUD_PROJECT_ID, Constant.GOOGLE_CLOUD_BUCKET_NAME, imageName,QrLocalPath);

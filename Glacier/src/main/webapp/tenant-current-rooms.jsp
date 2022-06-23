@@ -69,6 +69,12 @@
 
                 display: block;
             }
+            #close-qr{
+                
+            }
+            #close-qr:hover{
+                cursor:pointer;
+            }
         </style>
     </head>
     <body style="font-family: 'Varela Round', sans-serif;">
@@ -97,6 +103,10 @@
 
             <button class="btn btn-secondary large icon float-left" style="font-size: 16px; margin: 10px 20px 0px 0px;" onclick="closeForm()">Hủy</button>
         </div>
+                <div class="popup" id="popup-image">
+                    <a id="close-qr" style="display:block" class="float-right mb-2" onclick="closeImage()">X</a>
+                    <img src="" alt="hehe" id="qr-image"/>
+                </div>
         <div class="page sub-page">
             <!--*********************************************************************************************************-->
             <!--************ HERO ***************************************************************************************-->
@@ -354,11 +364,17 @@
                                                         
                                                 <c:choose>
                                                     <c:when test="${room.status eq 'unavailable'}">
-                                                        <a href="#" style="cursor:pointer" onclick="openForm()" class="ad-hide pb-2" ><i class="fa fa-bell-o" aria-hidden="true"></i>Tạo thông báo</a>
-                                                        <p hidden="" id="emailLandlord">${room.emailLandlord}</p>
+                                                        <a href="#" style="cursor:pointer" onclick="openForm()" class="ad-hide pb-2 noti" ><p hidden="" id="emailLandlord">${room.emailLandlord}</p><i class="fa fa-bell-o" aria-hidden="true"></i>Tạo thông báo</a>
+                                                        
                                                     </c:when>
                                                 </c:choose>
-
+                                                <c:choose>
+                                                    <c:when test="${room.status eq 'pending'}">
+                                                        <a class="ad-hide hehe"  style="cursor:pointer;line-height:8"><p id="image" hidden="">${room.qrImage}</p><i class="fa fa-qrcode fa-2x" aria-hidden="true"></i> Xem mã QR</a>
+<!--                                                        <img hidden="" id="qrImage" src="${room.qrImage}" alt="" />-->
+                                                        
+                                                    </c:when>
+                                                </c:choose>
                                             </div>
                                         </div>
                                                         
@@ -506,7 +522,7 @@
         <script src="assets/js/jquery.validate.min.js"></script>
         <script src="assets/js/custom.js"></script>
         <script>
-                            function openForm() {
+                function openForm() {
                     document.getElementsByClassName("page")[0].style.filter = "blur(8px)";
                     document.getElementById("requestForm").style.display = "block";
                     let emailLandlord = document.getElementById("emailLandlord").innerHTML;
@@ -516,7 +532,42 @@
                 function closeForm() {
                     document.getElementsByClassName("page")[0].style.filter = "none";
                     document.getElementById("requestForm").style.display = "none";
+                    document.getElementById("emailLandlordSend").value = "";
                 }
+                function openImage(){
+                    document.getElementById("popup-image").style.display = "block";
+                    let imageSrc = document.getElementById("image").innerHTML;
+                    console.log(imageSrc);
+                    document.getElementById("qr-image").src = imageSrc;
+                }
+                function closeImage(){
+                    document.getElementById("popup-image").style.display = "none";
+                    document.getElementById("qr-image").value = "";
+                }
+                $(".hehe").click(function() {
+                    
+                    var clickBtn = $(this).val();
+                    console.log(clickBtn);
+                    let imageSrc = $(this).find("#image").html();
+                    console.log(imageSrc);
+//                    var imageSrc = clickBtn.innerHTML;
+//                    console.log(clickBtn.innerHTML);
+                    document.getElementById("qr-image").src = imageSrc;
+                    document.getElementById("popup-image").style.display = "block";
+//                    alert(fired_button);
+                });
+                $(".noti").click(function() {
+                    
+                    var clickBtn = $(this).val();
+                    console.log(clickBtn);
+                    let imageSrc = $(this).find("#emailLandlord").html();
+                    console.log(imageSrc);
+//                    var imageSrc = clickBtn.innerHTML;
+//                    console.log(clickBtn.innerHTML);
+                    document.getElementById("emailLandlordSend").value = imageSrc;
+                    document.getElementById("requestForm").style.display = "block";
+//                    alert(fired_button);
+                });
         </script>
     </body>
 </html>
