@@ -20,6 +20,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import glacier.utils.Utils;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.nio.file.FileSystems;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -39,6 +42,19 @@ public class Deposit extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    public String getIpAddress(){
+        String ip = "";
+        try (final DatagramSocket socket = new DatagramSocket()) {
+            socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
+            ip = socket.getLocalAddress().getHostAddress();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ip;
+    }
+    
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, WriterException {
         response.setContentType("text/html;charset=UTF-8");
@@ -56,22 +72,24 @@ public class Deposit extends HttpServlet {
                 UserManager mng = new UserManager();
                 mng.deposit(emailTenant, roomID);
 
-                
+                //-----------------------------------------------------------------------------------------------------------------------
                 //CREATE QR CODE //email + ngay + 1 so ngau nhien
-                
                 //ipv4:8080/Glacier/qrscan?tenant_key=abc
                 String tenantKey = DigestUtils.md5Hex(emailTenant+Math.random());
                 String landlordKey = DigestUtils.md5Hex(emailLandlord+Math.random());
-                
-                String content = "http://192.168.1.7:8080/Glacier/qrscan?tenant_key="+tenantKey+"&landlord_key="+landlordKey;
+                String ip=getIpAddress();
+                System.out.println(ip);
+                String content = "http://"+ip+"/Glacier/qrscan?tenant_key="+tenantKey+"&landlord_key="+landlordKey;
                 //room-id.png
                 String imageName = "room-"+roomID+".png";
                 Utils.createQR(content, imageName);
-                String QrLocalPath = "D:\\Tomcat Glassfish\\apache-tomcat-9.0.56\\bin\\Glacier\\QR\\"+imageName;
+                String QrLocalPath = FileSystems.getDefault().getPath("").toAbsolutePath().toString() + "\\Glacier\\QR\\" + imageName;
                 
+                //-----------------------------------------------------------------------------------------------------------------------
                 //UP HÌNH LÊN CLOUD
                 GoogleCloudUtils.uploadObject(Constant.GOOGLE_CLOUD_PROJECT_ID, Constant.GOOGLE_CLOUD_BUCKET_NAME, imageName,QrLocalPath);
                 
+                //-----------------------------------------------------------------------------------------------------------------------
                 //UPDATE CÁI qr_image TRONG ROOM    
                 String QRCloudPath = "https://storage.cloud.google.com/glacier-bucket/Room_QR/"+imageName;
                 RoomManager rm = new RoomManager();
