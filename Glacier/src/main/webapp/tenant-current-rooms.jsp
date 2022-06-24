@@ -103,9 +103,11 @@
 
             <button class="btn btn-secondary large icon float-left" style="font-size: 16px; margin: 10px 20px 0px 0px;" onclick="closeForm()">Hủy</button>
         </div>
-                <div class="popup" id="popup-image">
-                    <a id="close-qr" style="display:block" class="float-right mb-2" onclick="closeImage()">X</a>
-                    <img src="" alt="hehe" id="qr-image"/>
+                <div style="width:400px; height:400px;" class="popup" id="popup-image">
+                    
+                        <a id="close-qr" style="display:block;font-weight: 700;margin-left: auto;font-size: x-large" class="float-right mb-2" onclick="closeImage()">X</a>
+                        <img style="margin: auto;display:block;margin-top: 20%" src="" alt="hehe" id="qr-image"/>
+                    
                 </div>
         <div class="page sub-page">
             <!--*********************************************************************************************************-->

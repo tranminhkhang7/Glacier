@@ -6,6 +6,7 @@
 package glacier.user.controller;
 
 import glacier.user.model.Account;
+import glacier.user.model.GoogleUser;
 import glacier.user.model.Landlord;
 import glacier.user.model.Tenant;
 import java.io.IOException;
@@ -36,6 +37,7 @@ public class GetUserInforController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         try {
             
             String email = request.getParameter("email");
@@ -48,11 +50,12 @@ public class GetUserInforController extends HttpServlet {
             boolean checkInsertUser = false;
             UserManager manager = new UserManager();
             HttpSession ss = request.getSession();
-            String image = (String)ss.getAttribute("user");
+            GoogleUser user = (GoogleUser) ss.getAttribute("GOOGLE_USER");
+            String image = user.getPicture();
             Account acc = new Account(email, null, role);
             boolean checkInsertAccount = manager.insertGoogleAccount(email, role);
             if (checkInsertAccount) {
-                ss.removeAttribute("user");
+                ss.removeAttribute("GOOGLE_USER");
                 if ("tenant".equals(role)) {
                     Tenant t = new Tenant(email, name, status, gender, phone,image);
                     checkInsertUser = manager.insertUser(t, null);
@@ -60,6 +63,7 @@ public class GetUserInforController extends HttpServlet {
                         ss.setAttribute("LOGIN_USER", acc);
                         ss.setAttribute("USER_DETAIL", t);
                         response.sendRedirect("home");
+                        return;
                     }
                 } else {
                     Landlord l = new Landlord(email, name, gender, phone,image);
@@ -67,7 +71,8 @@ public class GetUserInforController extends HttpServlet {
                     if (checkInsertUser) {
                         ss.setAttribute("LOGIN_USER", acc);
                         ss.setAttribute("USER_DETAIL", l);
-                        response.sendRedirect("home");                      
+                        response.sendRedirect("home");   
+                        return;
                     }
                 }
             }
