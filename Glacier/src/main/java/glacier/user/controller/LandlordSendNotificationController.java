@@ -57,7 +57,7 @@ public class LandlordSendNotificationController extends HttpServlet {
                     rd.forward(request, response);
                 } else { 
                     NotificationDAO mng = new NotificationDAO();
-                    mng.landlordNotify(id, email, title, content);
+                     mng.landlordNotify(id, email, title, content, "text");
 
                     request.setAttribute("notify", "notify success");
                     RequestDispatcher rd = request.getRequestDispatcher("/roomlist/room?id=" + id);

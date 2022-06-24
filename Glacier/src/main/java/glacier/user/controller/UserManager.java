@@ -375,7 +375,7 @@ public class UserManager {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT [notificationID], [emailTenant], [emailLandlord], [title], [content], [time] FROM [Notification_LT] "
+                String sql = "SELECT [notificationID], [emailTenant], [emailLandlord], [roomID], [title], [content], [time], [type] FROM [Notification_LT] "
                         + " WHERE emailTenant=? "
                         + " ORDER BY [time] DESC "
                         + " OFFSET ? ROWS FETCH NEXT 8 ROWS ONLY ";
@@ -386,10 +386,12 @@ public class UserManager {
                 while (rs.next()) {
                     int id = rs.getInt("notificationID");
                     String emailTenant = rs.getString("emailTenant");
+                    int roomID = rs.getInt("roomID");
                     String title = rs.getString("title");
                     String content = rs.getString("content");
                     Timestamp time = rs.getTimestamp("time");
-                    notiList.add(new NotificationDTO(id, emailTenant, "", title, content, time));
+                    String type = rs.getString("type").trim();
+                    notiList.add(new NotificationDTO(id, emailTenant, "", roomID, title, content, time, type));
                 }
             }
         } catch (Exception e) {

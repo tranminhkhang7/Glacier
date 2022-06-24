@@ -23,7 +23,7 @@
         <title>Craigs - Easy Buy & Sell Listing HTML Template</title>
 
     </head>
-    <body>
+    <body style="font-family: 'Varela Round', sans-serif;">
         <div class="page sub-page">
             <!--*********************************************************************************************************-->
             <!--************ HERO ***************************************************************************************-->
@@ -50,6 +50,28 @@
             <!--*********************************************************************************************************-->
             <!--************ CONTENT ************************************************************************************-->
             <!--*********************************************************************************************************-->
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Xác nhận</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Bạn có chắc muốn tiếp tục?
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" data-dismiss="modal">KHÔNG</button>
+                            <a class="btn btn-primary btn-ok">CÓ</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <section class="content">
                 <section class="block">
                     <div class="container">
@@ -67,12 +89,29 @@
                                 <section>
                                     <c:forEach items="${requestScope.NOTI_LIST}" var="noti">
                                         <div class="answer">
-                                            <div class="box">
-                                                <h3>${noti.title}</h3> 
-                                                <p>
-                                                    ${noti.content}
-                                                </p>
-                                            </div>
+                                            <c:if test="${noti.type == 'text'}">
+                                                <div class="box">
+                                                    <h3>${noti.title}</h3> 
+                                                    <p>
+                                                        ${noti.content}
+                                                    </p>
+                                                </div>
+                                            </c:if>
+                                            <c:if test="${noti.type == 'decide'}">
+                                                <div class="box" style="padding-bottom: 80px">
+                                                    <h3>${noti.title}</h3> 
+                                                    <p>
+                                                        ${noti.content}
+                                                    </p>
+
+<!--                                                    <button data-href="./accept?action=decline&roomId=${room.roomID}" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">
+        Hủy
+    </button>-->
+                                                    <button data-href="./disconnect?action=accept&roomId=${noti.roomID}&notiID=${noti.id}" class="btn btn-primary float-right" data-toggle="modal" data-target="#myModal">
+                                                        Xác nhận
+                                                    </button>
+                                                </div>
+                                            </c:if>
                                             <figure>${noti.date}</figure>
                                         </div>
                                     </c:forEach>
@@ -220,7 +259,11 @@
         <script src="assets/js/icheck.min.js"></script>
         <script src="assets/js/jquery.validate.min.js"></script>
         <script src="assets/js/custom.js"></script>
-
+        <script>
+            $('#myModal').on('show.bs.modal', function (e) {
+                $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+            });
+        </script>
     </body>
 </html>
 
