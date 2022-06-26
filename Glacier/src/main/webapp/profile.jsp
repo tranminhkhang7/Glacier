@@ -210,22 +210,22 @@
                                 <form class="form" method="POST" action="account">
                                     <div class="row">
                                         <div class="col-md-8">
-                                            <h2>Personal Information</h2>
+                                            <h2>Thông tin cá nhân của bạn</h2>
                                             <section>
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <label for="title" class="col-form-label">Title</label>
+                                                            <label for="title" class="col-form-label">Giới tính</label>
                                                             <select name="newGender" id="title" data-placeholder="Title">                                                              
-                                                                <option value="female" ${female}>Mrs</option>
-                                                                <option value="male" ${male}>Mr</option>
+                                                                <option value="female" ${female}>Nữ</option>
+                                                                <option value="male" ${male}>Nam</option>
                                                             </select>
                                                         </div>
                                                         <!--end form-group-->
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="form-group">
-                                                            <label for="name" class="col-form-label required">Your Name</label>
+                                                            <label for="name" class="col-form-label required">Tên</label>
                                                             <input name="newName" type="text" class="form-control" id="name" placeholder="Your Name" value="${fn:trim(detail.name)}" required>
                                                         </div>
                                                         <!--end form-group-->
@@ -246,9 +246,9 @@
                                             </section>
 
                                             <section>
-                                                <h2>Contact</h2>
+                                                <h2>Liên hệ</h2>
                                                 <div class="form-group">
-                                                    <label for="phone" class="col-form-label">Phone</label>
+                                                    <label for="phone" class="col-form-label">Số điện thoại</label>
                                                     <input name="newPhone" type="text" class="form-control" id="phone" placeholder="Your Phone" value="${fn:trim(detail.phone)}">
                                                 </div>
                                                 <!--end form-group-->
@@ -260,7 +260,7 @@
                                             </section>
 
                                             <section>
-                                                <h2>Social</h2>
+                                                <h2>Mạng xã hội</h2>
                                                 <div class="form-group">
                                                     <label for="twitter" class="col-form-label">Instagram</label>
                                                     <input name="newInstagram" type="text" class="form-control" id="twitter" placeholder="http://" value="${fn:trim(detail.instagramLink)}">
@@ -274,7 +274,7 @@
                                             </section>
 
                                             <section class="clearfix">
-                                                <button name="infor" value="submit" type="submit" class="btn btn-primary float-right">Save Changes</button>
+                                                <button name="infor" value="submit" type="submit" class="btn btn-primary float-right">Lưu thay đổi</button>
                                             </section>
                                         </div>
                                 </form>
@@ -288,10 +288,10 @@
                                         <form action="">
                                             <div class="single-file-input">
                                                 <input type="file" id="user_image" name="user_image">
-                                                <div class="btn btn-framed btn-primary small">Upload a picture</div>
+                                                <div class="btn btn-framed btn-primary small">Cập nhật ảnh</div>
                                             </div>
                                             <div class="single-file-input">
-                                                <input type="submit" class="btn btn-primary small" value="Save pics"/>
+                                                <input type="submit" class="btn btn-primary small" value="Lưu ảnh"/>
                                             </div>
                                     </div>
                                     </form>

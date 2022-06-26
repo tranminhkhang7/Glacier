@@ -180,7 +180,7 @@ public class RoomManager {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT [roomID], [name], [price], [address], [description], [rentStartDate], [status], [emailLandlord] FROM [Room] "
+                String sql = "SELECT [roomID], [name], [price], [address], [description], [rentStartDate], [status], [emailLandlord], [qr_image] FROM [Room] "
                         + " WHERE emailTenant=? "
                         + " ORDER BY [RoomID] "
                         + " OFFSET ? ROWS FETCH NEXT 4 ROWS ONLY ";
@@ -195,10 +195,10 @@ public class RoomManager {
                     String address = rs.getString("address").trim();
                     String des = rs.getString("description").trim().substring(0, Math.min(rs.getString("description").length(), 101));
                     String landlordEmail = rs.getString("emailLandlord");
+                    String qrImage = rs.getString("qr_image");
                     Date rentStartDate = rs.getDate("rentStartDate");
                     String status = rs.getString("status").trim();
-                    list.add(new Room(roomId, name, des, address, price, rentStartDate, status, landlordEmail));
-
+                    list.add(new Room(roomId, name, des, address, price, rentStartDate, status,landlordEmail,qrImage));
                 }
             }
         } catch (Exception e) {

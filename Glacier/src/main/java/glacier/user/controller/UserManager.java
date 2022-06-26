@@ -443,7 +443,7 @@ public class UserManager {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 String sql = " UPDATE [Room] "
-                        + " SET status=?, [rentStartDate]=?  "
+                        + " SET [status]=?, [rentStartDate]=?, [qr_status] = disable  "
                         + " WHERE [roomId]=? ";
 
                 st = conn.prepareStatement(sql);
