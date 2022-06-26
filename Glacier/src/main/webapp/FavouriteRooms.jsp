@@ -159,7 +159,7 @@
                 <!--============ Page Title =========================================================================-->
                 <div class="page-title">
                     <div class="container">
-                        <h1>Bookmarks</h1>
+                        <h1>Phòng yêu thích</h1>
                     </div>
                     <!--end container-->
                 </div>
