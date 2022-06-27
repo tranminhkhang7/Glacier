@@ -162,7 +162,6 @@ public class LandlordManager {
 
     // This method is for Updating room based on its ID.
     public void updateRoom(int roomID, String name, String description, String address, String detailAddress, int price, int deposit, float area) {
-
         try {
             String sql = "UPDATE [Room]\n"
                     + "SET [name] = N'" + name + "', [description] = N'" + description + "', [address] = N'" + address + "', [detailAddress] = N'" + detailAddress + "', [price] = " + price + ", [deposit] = " + deposit + ", [area] = " + area + "\n"
@@ -179,7 +178,6 @@ public class LandlordManager {
 
     // This method is for Updating room based on its ID.
     public void deleteRoom(int roomID) {
-
         try {
             String sql = "DELETE\n"
                     + "FROM [Room]\n"
@@ -275,6 +273,21 @@ public class LandlordManager {
         return list;
     }
 
+    // This method updates the status of a bill
+    public void confirmRentPayment (int billID) {
+        try {
+            String sql = "UPDATE [Bill]\n" +
+                        "SET [status] = N'paid'\n" +
+                        "WHERE [billID] = " + billID;
+
+            Connection con = DBUtils.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            st.executeUpdate();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }
+    
     public static void main(String[] args) {
         LandlordManager manager = new LandlordManager();
 //        int i = manager.countAllPendingRooms("dangngocduong@gmail.com");
