@@ -134,7 +134,7 @@
                                         </a>
                                     </div>
                                     <!--end image-->
-                                    <div class="price">Hà Nội</div>
+<!--                                    <div class="price">Hà Nội</div>-->
 
                                     <!--end meta-->
                                     <div class="description">
@@ -148,11 +148,11 @@
                                 <div class="wrapper">
                                     <div class="image">
                                         <a href="${pageContext.request.contextPath}/search?keyword=Đà+Nẵng" class="image-wrapper background-image">
-                                            <img src="https://live.staticflickr.com/65535/52178041320_55f32740fe_b.jpg" alt="">
+                                            <img src="https://live.staticflickr.com/65535/52177733981_1d9210211d_b.jpg" alt="">
                                         </a>
                                     </div>
                                     <!--end image-->
-                                    <div class="price">Đà Nẵng</div>
+<!--                                    <div class="price">Đà Nẵng</div>-->
 
                                     <!--end meta-->
                                     <div class="description">
@@ -166,11 +166,11 @@
                                 <div class="wrapper">
                                     <div class="image">
                                         <a href="${pageContext.request.contextPath}/search?keyword=Hồ+Chí+Minh" class="image-wrapper background-image">
-                                            <img src="${pageContext.request.contextPath}/assets/images/HCMC.jpg" alt="">
+                                            <img src="https://live.staticflickr.com/65535/52177965574_de3b148c41_b.jpg" alt="">
                                         </a>
                                     </div>
                                     <!--end image-->
-                                    <div class="price">TP. Hồ Chí Minh</div>
+<!--                                    <div class="price">TP. Hồ Chí Minh</div>-->
 
                                     <!--end meta-->
                                     <div class="description">
@@ -184,11 +184,11 @@
                                 <div class="wrapper">
                                     <div class="image">
                                         <a href="${pageContext.request.contextPath}/search?keyword=Cần+Thơ" class="image-wrapper background-image">
-                                            <img src="${pageContext.request.contextPath}/assets/images/HCMC.jpg" alt="">
+                                            <img src="https://live.staticflickr.com/65535/52177743711_3939711600_b.jpg" alt="">
                                         </a>
                                     </div>
                                     <!--end image-->
-                                    <div class="price">Cần Thơ</div>
+<!--                                    <div class="price">Cần Thơ</div>-->
 
                                     <!--end meta-->
                                     <div class="description">
