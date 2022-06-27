@@ -6,7 +6,6 @@
 package glacier.user.controller;
 
 import glacier.landlord.dbmanager.LandlordManager;
-import glacier.notification.model.NotificationDAO;
 import glacier.user.model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;

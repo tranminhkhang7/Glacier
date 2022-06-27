@@ -94,13 +94,24 @@ public class RoomManager {
                 index = 1;
             }
 
-            String sql = "SELECT R.[roomID], LEFT(R.[name],42) as nameRoom, R.[address], R.[price], R.[avg_rating], R.[date_added], L.[name] as nameLandlord, LEFT(R.[description], 100) as cutDescription\n"
-                    + "FROM [Room] R JOIN [Landlord] L ON R.emailLandlord = L.email\n"
-                    + "WHERE R.[status] = N'available'\n";
+            String sql = "SELECT R.[roomID], LEFT(R.[name],42) as nameRoom, \n"
+                    + "	R.[address], R.[price], \n"
+                    + "	R.[avg_rating], R.[date_added], \n"
+                    + "	L.[name] as nameLandlord, \n"
+                    + "	LEFT(R.[description], 100) as cutDescription\n"
+                    + "FROM [Room] R JOIN [Landlord] L ON R.emailLandlord = L.email\n";
 
             if (searchText != null && !"".equals(searchText)) {
-                sql += "AND FREETEXT((R.[name], R.[description], R.[detailAddress], R.[address]), N'" + searchText + "') \n";
+                sql += "INNER JOIN FREETEXTTABLE([Room], \n"
+                        + "	([name],\n"
+                        + "	 [description],\n"
+                        + "	 [address],\n"
+                        + "	 [detailAddress]),\n"
+                        + "	N'" + searchText + "') AS KEY_TBL \n"
+                        + "	ON R.[roomID] = KEY_TBL.[KEY]\n";
             }
+
+            sql += "WHERE R.[status] = N'available'\n";
 
             boolean isFirst = true;
             for (Integer feature : listFeature) {
@@ -121,28 +132,14 @@ public class RoomManager {
                 sql += ")\n";
             }
 
-//            if (rating != null && !rating.equals("all")) {
-//                sql += " AND avgRate >= " + rating + " ";
-//            }
-//            if (genres != null && !genres.equals("all")) {
-//                sql += " AND [ISBN] IN\n"
-//                        + "		(SELECT [ISBN]\n"
-//                        + "		FROM [ProductTag]\n"
-//                        + "		WHERE [tagName] = N'" + genres + "')\n";
-//            }
-//
-//            if (sortBy != null && !sortBy.equals("")) {
-//                if (sortBy.equals("Low - high price")) {
-//                    sortBy = "ASC";
-//                } else {
-//                    sortBy = "DESC";
-//                }
-//                sql += "ORDER BY price " + sortBy + "\n";
-//            } else {
-//                sql += "ORDER BY [ISBN]\n";
-//            }
-            sql += "ORDER BY R.[roomID]\n";
+            if (searchText != null && !"".equals(searchText)) {
+                sql += "ORDER BY RANK DESC \n";
+            } else {
+                sql += "ORDER BY [date_added] DESC \n";
+            }
             sql += "OFFSET " + (index - 1) * 16 + " ROWS FETCH NEXT 16 ROWS ONLY";
+
+            System.out.println(sql);
 
             Connection con = DBUtils.getConnection();
             PreparedStatement st = con.prepareStatement(sql);
@@ -198,7 +195,7 @@ public class RoomManager {
                     String qrImage = rs.getString("qr_image");
                     Date rentStartDate = rs.getDate("rentStartDate");
                     String status = rs.getString("status").trim();
-                    list.add(new Room(roomId, name, des, address, price, rentStartDate, status,landlordEmail,qrImage));
+                    list.add(new Room(roomId, name, des, address, price, rentStartDate, status, landlordEmail, qrImage));
                 }
             }
         } catch (Exception e) {
