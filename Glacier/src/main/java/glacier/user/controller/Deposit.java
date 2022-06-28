@@ -53,18 +53,6 @@ public class Deposit extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     
-    public String getIpAddress(){
-        String ip = "";
-        try (final DatagramSocket socket = new DatagramSocket()) {
-            socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
-            ip = socket.getLocalAddress().getHostAddress();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ip;
-    }
-    
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, WriterException {
         response.setContentType("text/html;charset=UTF-8");

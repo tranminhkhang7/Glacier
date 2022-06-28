@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package glacier.room.model;
+package glacier.bill.model;
 
 import java.sql.Timestamp;
 

@@ -5,7 +5,7 @@
  */
 package glacier.room.dbmanager;
 
-import glacier.room.model.Bill;
+import glacier.bill.model.Bill;
 import glacier.room.model.Room;
 import glacier.user.model.Landlord;
 import glacier.user.model.Notification_TL;

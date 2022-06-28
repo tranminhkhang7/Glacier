@@ -48,10 +48,8 @@ public class TenantHomepage extends HttpServlet {
                 RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
                 rd.forward(request, response);
             } else {
-                
                 RoomManager mng = new RoomManager();
                 List<String> listFeature = mng.loadFeature();
-
                 request.setAttribute("listFeature", listFeature);
                 RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
                 rd.forward(request, response);

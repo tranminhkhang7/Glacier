@@ -51,7 +51,7 @@ public class LandlordViewRoomList extends HttpServlet {
 
                 LandlordManager mng = new LandlordManager();
 
-                String indexPage = request.getParameter("index");
+                String indexPage = request.getParameter("insdex");
                 if (indexPage == null) {
                     indexPage = "1";
                 }

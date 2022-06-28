@@ -26,10 +26,10 @@
                 background-color: #ffffff;
                 width: 750px;
                 padding: 30px 40px;
-                position: fixed;
+                position: absolute;
                 transform: translate(-50%,-50%);
                 left: 50%;
-                top: 50%;
+                top: 60%;
                 border-radius: 8px;
                 display: none;
                 text-align: center;
@@ -74,25 +74,89 @@
 
         <div class="popup" id="reportForm">
             <h2>Thông báo cho người thuê</h2>
-            <form class="form form-submit" action="${pageContext.request.contextPath}/landlordnotify">
-                <input name="id" type="hidden" value="${id}">
-                <!--                <div class="form-group">
-                                    <label for="title" class="col-form-label required">Tiêu đề</label>
-                                    <input name="title" type="text" class="form-control" id="title" placeholder="Mô tả ngắn gọn vấn đề của bạn" autocomplete="off" required>
-                                </div>-->
-                <div class="form-group">
-                    <label for="title" class="col-form-label required">Tiêu đề</label>
-                    <input name="title" type="text" class="form-control" id="title" placeholder="Tiêu đề thông báo" autocomplete="off" required>
-                </div>
-                <div class="form-group">
-                    <label for="content" class="col-form-label required">Nội dung thông báo</label>
-                    <textarea name="content" type="text" class="form-control" id="content" placeholder="Nội dung thông báo chi tiết" autocomplete="off" required></textarea>
-                </div>
+                            <form id="bill-form" class="form form-submit"
+                                action="${pageContext.request.contextPath}/landlordnotify">
+                                <input name="id" type="hidden" value="${id}">                           
+                                <div class="card" style="margin-bottom: 5px; background-color: #f2f2f2;">
+                                    <div class="card-header" style="font-weight: 700; font-size: 20px;">
+                                        <label class="float-left">
+                                            <input id="check-home" type="checkbox" name="type" required>
+                                            Tiền nhà
+                                        </label>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <input disabled id="tien-nha" name="amount" type="number" value="200" class="form-control home" placeholder="Số Tiền *"
+                                                autocomplete="off" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input name="description" type="text" class="form-control home" placeholder="Nội dung"
+                                                autocomplete="off">
+                                        </div>
+                                        <input type="hidden" name="name" value="Tiền nhà">
+                                    </div>
+                                </div>
 
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary large icon float-left" style="font-size: 16px; margin: 10px 20px 0px 0px;">Gửi</button>
-                </div>
-            </form>
+                                <div class="card" style="margin-bottom: 5px; background-color: #f2f2f2;">
+                                    <div class="card-header" style="font-weight: 700; font-size: 20px;">
+                                        <label class="float-left">
+                                            <input id="check-electricity" type="checkbox" name="type" value="1"
+                                                required>
+                                            Tiền điện
+                                        </label>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <input name="amount" type="number" class="form-control" placeholder="Số Tiền *"
+                                                autocomplete="off" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input name="descripton" type="text" class="form-control" placeholder="Nội dung"
+                                                autocomplete="off">
+                                        </div>
+                                        <input type="hidden" name="name" value="Tiền điện">
+                                    </div>
+                                </div>
+                                <div class="card" style="margin-bottom: 5px; background-color: #f2f2f2;">
+                                    <div class="card-header" style="font-weight: 700; font-size: 20px;">
+                                        <label class="float-left">
+                                            <input id="check-water" type="checkbox" name="type" value="1" required>
+                                            Tiền nước
+                                        </label>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <input name="amount" type="number" class="form-control" placeholder="Số Tiền *"
+                                                autocomplete="off" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input name="description" type="text" class="form-control" placeholder="Nội dung"
+                                                autocomplete="off">
+                                        </div>
+                                        <input type="hidden" name="name" value="Tiền nước">
+                                    </div>
+                                </div>
+                                <div class="card" style="margin-bottom: 5px; background-color: #f2f2f2;">
+                                    <div class="card-header" style="font-weight: 700; font-size: 20px;">
+                                        <label class="float-left">
+
+                                            <input id="check-other" type="checkbox" name="type" value="1" required>
+                                            Tiền khác
+                                        </label>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <input name="amount" type="text" class="form-control" placeholder="Số Tiền *"
+                                                autocomplete="off" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input name="description" type="text" class="form-control" placeholder="Nội dung"
+                                                autocomplete="off">
+                                        </div>
+                                        <input type="hidden" name="name" value="Tiền khác">
+                                    </div>
+                                </div>
+                            </form>
 
             <button class="btn btn-secondary large icon float-left" style="font-size: 16px; margin: 10px 20px 0px 0px;" onclick="closeForm()">Hủy</button>
         </div>
