@@ -7,6 +7,7 @@ package glacier.bill.dbmanager;
 import glacier.bill.model.Bill;
 import glacier.bill.model.BillDetail;
 import glacier.utils.DBUtils;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -57,6 +58,33 @@ public class BillManager {
         return index+1;
     }
     
+    public int[] getCurrent2BillIDByRoom (int id){
+        int[] IDs = new int[4];
+        int index=0;
+        String sql = "select top 2 billId from Bill\n" +
+"where roomID=?\n" +
+"order by billID desc";
+        try{
+            conn=DBUtils.getConnection();
+            if (conn!=null){
+                pstm = conn.prepareStatement(sql);
+                pstm.setInt(1, id);
+                rs = pstm.executeQuery();
+                while (rs.next()){
+//                    int i=rs.getInt("billId");
+//                    IDs[index]=i;
+//                    index++;
+                    IDs[index]=rs.getInt(1);
+                    index++;
+                }
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return IDs;
+    }
+    
     public int getNextBillDetailID(int BillID){
         int index=0;
         String sql = "select top 1 detailID from BillDetail\n" +
@@ -105,7 +133,7 @@ public class BillManager {
     }
     
     public ArrayList<BillDetail> getBillDetailByBillId(int id){
-        ArrayList<BillDetail> bdl = null;
+        ArrayList<BillDetail> bdl = new ArrayList<>();
         String sql="select detailID,purpose,amount,description from BillDetail\n" +
 "where billID=?";
         try{
@@ -185,24 +213,10 @@ public class BillManager {
         return check;
     }
     
-//    public static void main(String[] args) {
-//        BillManager bm = new BillManager();
-////        Timestamp date = new Timestamp(System.currentTimeMillis());
-////        bm.createBill(bm.getNextBillID(),10,date,"unpaid");
-//        ArrayList<BillDetail> lis = new ArrayList<>();
-//        BillDetail b1 = new BillDetail(1, 1, "Tiền điện", 10000, "");
-//        BillDetail b2 = new BillDetail(1, 2, "Tiền nước", 10000, "");
-//        BillDetail b3 = new BillDetail(1, 3, "Tiền nhà", 10000, "");
-//        BillDetail b4 = new BillDetail(1, 4, "Tiền khác", 10000, "");
-//        lis.add(b1);
-//        lis.add(b2);
-//        lis.add(b3);
-//        lis.add(b4);
-//        System.out.println(b1);
-//        System.out.println(b2);
-//        System.out.println(b3);
-//        System.out.println(b4);
-////        bm.getNextBillDetailID(10);
-//        bm.createBillDetail(1, lis);
-//    }
+    public static void main(String[] args) {
+        BillManager bm = new BillManager();
+//        Timestamp date = new Timestamp(System.currentTimeMillis());
+//        bm.createBill(bm.getNextBillID(),10,date,"unpaid");
+        System.out.println(bm.getCurrent2BillIDByRoom(22).toString());
+    }
 }

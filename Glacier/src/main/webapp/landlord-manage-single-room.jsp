@@ -393,9 +393,43 @@
                                                                 </div>
                                                             </section> -->
                                 <div class="row" style="justify-content: space-around">
-                                    <div class="col-md-5 box">
-                                        <h2>Các hóa đơn gần đây</h2>                
-                                        <div class="answer">
+                                    <div class="col-md-5 box" style="height: fit-content">
+                                        <h2>Các hóa đơn gần đây</h2>
+                                        <c:if test="${empty bd0}">
+                                            <c:if test="${not empty bd1}">
+                                                <div class="answer">
+                                                    <div style="background-color: #f2f2f2" class="box">
+                                                        <h3>Bill #${bd1[0].billID}</h3>
+                                                        <c:forEach items="${bd1}" var="b">
+                                                            <p>
+                                                                ${b.purpose} - ${b.amount}đ - ${b.description}
+                                                            </p>
+                                                        </c:forEach>
+                                                    </div>
+                                                </div>
+                                            </c:if>
+                                            <c:if test="${not empty bd2}">
+                                                <div class="answer">
+                                                    <div class="box">
+                                                        <h3>Bill #${bd2[0].billID}</h3>
+                                                        <c:forEach items="${bd2}" var="b">
+                                                            <p>
+                                                                ${b.purpose} - ${b.amount}đ - ${b.description}
+                                                            </p>
+                                                        </c:forEach>
+                                                    </div>
+                                                </div>   
+                                            </c:if>
+                                        </c:if>
+                                        <c:if test="${not empty bd0}">
+                                            <div class="answer">
+                                                <div style="background-color: #f2f2f2" class="box">
+                                                    <h3>${bd0}</h3>
+                                                </div>
+                                            </div>   
+                                        </c:if>
+                                            
+<!--                                        <div class="answer">
                                             <div style="background-color: #f2f2f2" class="box">
                                                 <h3>Bill #</h3>
                                                 <p>Ut nec vulputate enim. Nulla faucibus convallis dui. Donec arcu enim,
@@ -405,7 +439,6 @@
                                                     placerat. Donec ultrices placerat arcu non accumsan
                                                 </p>
                                             </div>
-
                                         </div>    
                                         <div class="answer">
                                             <div class="box">
@@ -418,16 +451,15 @@
                                                 </p>
                                             </div>
 
-                                        </div>
+                                        </div>-->
                                         <div style="display: inline-block; padding-left: 0;" class="col-md-3">
                                             <button class="btn btn-info btn-framed">Xem tất cả hóa đơn</button>
                                         </div>
                                         <div style="display: inline-block; right:10%; " class="col-md-3 float-right">
                                             <button onclick="openBillForm()" class="btn btn-info btn-framed">Tạo hóa đơn</button>
                                         </div>
-                                        
                                     </div>
-                                    <div class="col-md-5 box">
+                                    <div class="col-md-5 box" style="height: fit-content">
                                         <h2>Các yêu cầu gần đây</h2>
                                         <div class="answer">
                                             <div class="box" style="background-color: #f2f2f2">
