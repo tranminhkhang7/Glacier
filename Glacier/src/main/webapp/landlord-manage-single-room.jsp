@@ -88,88 +88,88 @@
 
     <body style="font-family: 'Varela Round', sans-serif;">
 
-        <div class="popup" id="billForm" style="top: 30%">
+        <div class="popup" id="billForm" style="top: 40%">
             <h2>Hóa đơn cho người thuê</h2>
             <form id="bill-form" class="form form-submit" action="#">
                 <input name="id" type="hidden" value="${id}">
-                <div class="card" style="margin-bottom: 5px; background-color: #f2f2f2;">
-                    <div class="card-header" style="font-weight: 700; font-size: 20px;">
-                        <label class="float-left">
-                            <input id="check-home" type="checkbox" name="type" required>
-                            Tiền nhà
-                        </label>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group">
-                            <input disabled id="tien-nha" name="amount" type="number" value="200" class="form-control home"
-                                   placeholder="Số Tiền *" autocomplete="off" required>
-                        </div>
-                        <div class="form-group">
-                            <input name="description" type="text" class="form-control home" placeholder="Nội dung"
-                                   autocomplete="off">
-                        </div>
-                        <input type="hidden" name="name" value="Tiền nhà">
-                    </div>
+            <div class="card" style="margin-bottom: 5px; background-color: #f2f2f2;">
+                <div class="card-header" style="font-weight: 700; font-size: 20px;">
+                    <label class="float-left">
+                        <input id="check-home" type="checkbox" value="Tiền nhà" name="type">
+                        Tiền nhà
+                    </label>
                 </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <input readonly disabled id='home' name="amount" type="number" value="200" class="form-control home"
+                            placeholder="Số Tiền *" autocomplete="off" required>
+                    </div>
+                    <div class="form-group">
+                        <input disabled name="description" type="text" id="home-description" class="form-control home" placeholder="Nội dung"
+                            autocomplete="off">
+                    </div>
+                    
+                </div>
+            </div>
 
-                <div class="card" style="margin-bottom: 5px; background-color: #f2f2f2;">
-                    <div class="card-header" style="font-weight: 700; font-size: 20px;">
-                        <label class="float-left">
-                            <input id="check-electricity" type="checkbox" name="type" value="1" required>
-                            Tiền điện
-                        </label>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group">
-                            <input name="amount" type="number" class="form-control" placeholder="Số Tiền *"
-                                   autocomplete="off" required>
-                        </div>
-                        <div class="form-group">
-                            <input name="descripton" type="text" class="form-control" placeholder="Nội dung"
-                                   autocomplete="off">
-                        </div>
-                        <input type="hidden" name="name" value="Tiền điện">
-                    </div>
+            <div class="card" style="margin-bottom: 5px; background-color: #f2f2f2;">
+                <div class="card-header" style="font-weight: 700; font-size: 20px;">
+                    <label class="float-left">
+                        <input id="check-electricity" value="Tiền điện" type="checkbox" name="type">
+                        Tiền điện
+                    </label>
                 </div>
-                <div class="card" style="margin-bottom: 5px; background-color: #f2f2f2;">
-                    <div class="card-header" style="font-weight: 700; font-size: 20px;">
-                        <label class="float-left">
-                            <input id="check-water" type="checkbox" name="type" value="1" required>
-                            Tiền nước
-                        </label>
+                <div class="card-body">
+                    <div class="form-group">
+                        <input disabled name="amount" type="number" id="electric" class="form-control" placeholder="Số Tiền *"
+                            autocomplete="off" required>
                     </div>
-                    <div class="card-body">
-                        <div class="form-group">
-                            <input name="amount" type="number" class="form-control" placeholder="Số Tiền *"
-                                   autocomplete="off" required>
-                        </div>
-                        <div class="form-group">
-                            <input name="description" type="text" class="form-control" placeholder="Nội dung"
-                                   autocomplete="off">
-                        </div>
-                        <input type="hidden" name="name" value="Tiền nước">
+                    <div class="form-group">
+                        <input disabled name="descripton" type="text" id="electric-description" class="form-control" placeholder="Nội dung"
+                            autocomplete="off">
                     </div>
+                    
                 </div>
-                <div class="card" style="margin-bottom: 5px; background-color: #f2f2f2;">
-                    <div class="card-header" style="font-weight: 700; font-size: 20px;">
-                        <label class="float-left">
+            </div>
+            <div class="card" style="margin-bottom: 5px; background-color: #f2f2f2;">
+                <div class="card-header" style="font-weight: 700; font-size: 20px;">
+                    <label class="float-left">
+                        <input id="check-water" value="Tiền nước" type="checkbox" name="type">
+                        Tiền nước
+                    </label>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <input disabled name="amount" type="number" id="water" class="form-control" placeholder="Số Tiền *"
+                            autocomplete="off" required>
+                    </div>
+                    <div class="form-group">
+                        <input disabled name="description" type="text" id="water-description" class="form-control" placeholder="Nội dung"
+                            autocomplete="off">
+                    </div>
+                    <input type="hidden" name="name" value="Tiền nước">
+                </div>
+            </div>
+            <div class="card" style="margin-bottom: 5px; background-color: #f2f2f2;">
+                <div class="card-header" style="font-weight: 700; font-size: 20px;">
+                    <label class="float-left">
 
-                            <input id="check-other" type="checkbox" name="type" value="1" required>
-                            Tiền khác
-                        </label>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group">
-                            <input name="amount" type="text" class="form-control" placeholder="Số Tiền *" autocomplete="off"
-                                   required>
-                        </div>
-                        <div class="form-group">
-                            <input name="description" type="text" class="form-control" placeholder="Nội dung"
-                                   autocomplete="off">
-                        </div>
-                        <input type="hidden" name="name" value="Tiền khác">
-                    </div>
+                        <input id="check-other" value="Tiền khác" type="checkbox" name="type">
+                        Tiền khác
+                    </label>
                 </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <input disabled name="amount" type="text" id="other" class="form-control" placeholder="Số Tiền *" autocomplete="off"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <input disabled name="description" type="text" id="other-description" class="form-control" placeholder="Nội dung"
+                            autocomplete="off" required>
+                    </div>
+                    <input type="hidden" name="name" value="Tiền khác">
+                </div>
+            </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary large icon float-left" style="font-size: 16px; margin: 19px 20px 0px 0px;">Gửi</button>
                 </div>
@@ -424,9 +424,9 @@
         <script type="text/javascript" src="${pageContext.request.contextPath}/assets/bootstrap/js/bootstrap.min.js"></script>
         <script type="text/javascript"
         src="http://maps.google.com/maps/api/js?key=AIzaSyBEDfNcQRmKQEyulDN8nGWjLYPm8s4YB58&libraries=places"></script>
-        <script src="${pageContext.request.contextPath}/assets/js/selectize.min.js"></script>
+<!--        <script src="${pageContext.request.contextPath}/assets/js/selectize.min.js"></script>-->
         <script src="${pageContext.request.contextPath}/assets/js/masonry.pkgd.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/js/icheck.min.js"></script>
+<!--        <script src="${pageContext.request.contextPath}/assets/js/icheck.min.js"></script>-->
         <script src="${pageContext.request.contextPath}/assets/js/jquery.validate.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/custom.js"></script>
 
@@ -464,6 +464,46 @@
                                                 function closeNotify() {
                                                     document.getElementById("notifyBox").style.display = "none";
                                                 }
+        let homeCheckBox = document.getElementById('check-home');
+        let electricCheckbox = document.getElementById('check-electricity');
+        let waterCheckbox = document.getElementById('check-water');
+        let otherCheckbox = document.getElementById('check-other');
+        homeCheckBox.addEventListener('click',function(){
+            if(homeCheckBox.checked === false){
+                //document.getElementById('home').disabled = true;
+                document.getElementById('home-description').disabled = true;    
+            }else{
+                //document.getElementById('home').disabled = false;
+                document.getElementById('home-description').disabled = false; 
+            }
+        })
+        electricCheckbox.addEventListener('click',function(){
+            if(electricCheckbox.checked === false){
+                document.getElementById('electric').disabled = true;
+                document.getElementById('electric-description').disabled = true;               
+            }else{
+                document.getElementById('electric').disabled = false;
+                document.getElementById('electric-description').disabled = false; 
+            }
+        })
+        waterCheckbox.addEventListener('click',function(){
+            if(waterCheckbox.checked == false){
+                document.getElementById('water').disabled = true;
+                document.getElementById('water-description').disabled = true;   
+            }else{
+                document.getElementById('water').disabled = false;
+                document.getElementById('water-description').disabled = false;   
+            }
+        })
+        otherCheckbox.addEventListener('click',function(){
+            if(otherCheckbox.checked == false){
+                document.getElementById('other').disabled = true;
+                document.getElementById('other-description').disabled = true;   
+            }else{
+                document.getElementById('other').disabled = false;
+                document.getElementById('other-description').disabled = false;   
+            }
+        })
         </script>
     </body>
 

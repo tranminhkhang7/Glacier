@@ -522,6 +522,8 @@ public class RoomManager {
         return check;
 
     }
+    
+    //METHOD THAT GET TOP 2 BILL
 
 //    public static void main(String[] args) {
 //        RoomManager manager = new RoomManager();
