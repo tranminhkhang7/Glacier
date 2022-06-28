@@ -5,6 +5,8 @@
  */
 package glacier.user.controller;
 
+import glacier.notification.model.NotificationDAO;
+import glacier.room.dbmanager.RoomManager;
 import glacier.user.model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -40,18 +42,32 @@ public class Disconnect extends HttpServlet {
             Account user = (Account) ss.getAttribute("LOGIN_USER");
 
             String role = (user == null) ? "" : user.getRole().trim();
-
-            if (!"landlord".equals(role)) {
-                RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
-                rd.forward(request, response);
-            } else {
-                String emailTenant = user.getEmail().trim();
+            if ("landlord".equals(role)) {
+                String emailLandlord = user.getEmail().trim();
                 int roomID = Integer.parseInt(request.getParameter("id"));
+                    
+                String title = "Bạn đang rời khỏi phòng đang thuê?";
+                String content = "Chúng tôi nhận được yêu cầu hủy thuê nhà từ Chủ nhà của bạn. Nếu bạn đang chuyển đi, vui lòng bấm Xác nhận. Nếu đây là một nhầm lẫn, vui long bấm Hủy hoặc bỏ qua thông báo này.";
 
-                UserManager mng = new UserManager();
-                mng.deposit(emailTenant, roomID);
+                NotificationDAO mng = new NotificationDAO();
+                mng.landlordNotify(roomID, emailLandlord, title, content, "decide");
 
-                RequestDispatcher rd = request.getRequestDispatcher("success-deposit.jsp");
+                request.setAttribute("notify", "notify success");
+                RequestDispatcher rd = request.getRequestDispatcher("/roomlist/room?id=" + roomID);
+                rd.forward(request, response);
+             } else if ("tenant".equals(role)) {
+                String action = request.getParameter("action").trim();
+                int roomID = Integer.parseInt(request.getParameter("roomId"));
+                int notiID = Integer.parseInt(request.getParameter("notiId"));
+                if ("accept".equals(action)) {
+                    // UPADTE status, emailTenant OF THE ROOM
+                    RoomManager mng = new RoomManager();
+                    mng.updateRoomAfterDisconnect(roomID, notiID);
+                    RequestDispatcher rd = request.getRequestDispatcher("/notifications");
+                    rd.forward(request, response);
+                }
+            } else {
+                RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
                 rd.forward(request, response);
             }
         }

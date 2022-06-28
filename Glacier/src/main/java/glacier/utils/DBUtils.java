@@ -23,7 +23,7 @@ public class DBUtils {
     private final static String password = "123456789";
 
 
-
+    
 public static Connection getConnection() throws Exception {
         String url = "jdbc:sqlserver://" + serverName + ":" + portNumber + "\\" + instance + ";databaseName=" + dbName;
         if (instance == null || instance.trim().isEmpty()) {

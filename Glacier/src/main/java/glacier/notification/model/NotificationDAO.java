@@ -73,8 +73,7 @@ public class NotificationDAO {
     }
     
     // This method adds notification from landlords to tenants. Notice: this id is the id of the room (that the tenant is living in), not the notification's ID
-    public void landlordNotify(int id, String landlordEmail, String title, String content) {
-        try {
+    public void landlordNotify(int id, String landlordEmail, String title, String content, String type) {    try {
             Connection con = DBUtils.getConnection();
             PreparedStatement getID = con.prepareStatement("SELECT MAX([notificationID]) as lastID FROM [Notification_LT]");
             ResultSet rs = getID.executeQuery();
@@ -92,9 +91,9 @@ public class NotificationDAO {
             
             Date date = new Date();
             String dateString = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS").format(date);
-            sql = "INSERT INTO [Notification_LT] ([notificationID], [emailLandlord], [emailTenant], [title], [content], [time])\n" +
-                  "VALUES (" + newID + ", N'" + landlordEmail + "', N'" + tenantEmail + "', N'" + title + "', N'" + content + "', N'" + dateString + "')";
-            System.out.println(sql);
+            sql = "INSERT INTO [Notification_LT] ([notificationID], [emailLandlord], [emailTenant], [roomID], [title], [content], [time], [type])\n" +
+                  "VALUES (" + newID + ", N'" + landlordEmail + "', N'" + tenantEmail + "', N'" + id + "', N'" + title + "', N'" + content + "', N'" + dateString + "', N'" + type + "')";
+//            System.out.println(sql);
             PreparedStatement st = con.prepareStatement(sql);
             st.executeUpdate();
             

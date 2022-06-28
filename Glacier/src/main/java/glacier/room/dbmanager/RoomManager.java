@@ -94,13 +94,24 @@ public class RoomManager {
                 index = 1;
             }
 
-            String sql = "SELECT R.[roomID], LEFT(R.[name],42) as nameRoom, R.[address], R.[price], R.[avg_rating], R.[date_added], L.[name] as nameLandlord, LEFT(R.[description], 100) as cutDescription\n"
-                    + "FROM [Room] R JOIN [Landlord] L ON R.emailLandlord = L.email\n"
-                    + "WHERE R.[status] = N'available'\n";
+            String sql = "SELECT R.[roomID], LEFT(R.[name],42) as nameRoom, \n"
+                    + "	R.[address], R.[price], \n"
+                    + "	R.[avg_rating], R.[date_added], \n"
+                    + "	L.[name] as nameLandlord, \n"
+                    + "	LEFT(R.[description], 100) as cutDescription\n"
+                    + "FROM [Room] R JOIN [Landlord] L ON R.emailLandlord = L.email\n";
 
             if (searchText != null && !"".equals(searchText)) {
-                sql += "AND FREETEXT((R.[name], R.[description], R.[detailAddress], R.[address]), N'" + searchText + "') \n";
+                sql += "INNER JOIN FREETEXTTABLE([Room], \n"
+                        + "	([name],\n"
+                        + "	 [description],\n"
+                        + "	 [address],\n"
+                        + "	 [detailAddress]),\n"
+                        + "	N'" + searchText + "') AS KEY_TBL \n"
+                        + "	ON R.[roomID] = KEY_TBL.[KEY]\n";
             }
+
+            sql += "WHERE R.[status] = N'available'\n";
 
             boolean isFirst = true;
             for (Integer feature : listFeature) {
@@ -121,28 +132,14 @@ public class RoomManager {
                 sql += ")\n";
             }
 
-//            if (rating != null && !rating.equals("all")) {
-//                sql += " AND avgRate >= " + rating + " ";
-//            }
-//            if (genres != null && !genres.equals("all")) {
-//                sql += " AND [ISBN] IN\n"
-//                        + "		(SELECT [ISBN]\n"
-//                        + "		FROM [ProductTag]\n"
-//                        + "		WHERE [tagName] = N'" + genres + "')\n";
-//            }
-//
-//            if (sortBy != null && !sortBy.equals("")) {
-//                if (sortBy.equals("Low - high price")) {
-//                    sortBy = "ASC";
-//                } else {
-//                    sortBy = "DESC";
-//                }
-//                sql += "ORDER BY price " + sortBy + "\n";
-//            } else {
-//                sql += "ORDER BY [ISBN]\n";
-//            }
-            sql += "ORDER BY R.[roomID]\n";
+            if (searchText != null && !"".equals(searchText)) {
+                sql += "ORDER BY RANK DESC \n";
+            } else {
+                sql += "ORDER BY [date_added] DESC \n";
+            }
             sql += "OFFSET " + (index - 1) * 16 + " ROWS FETCH NEXT 16 ROWS ONLY";
+
+            System.out.println(sql);
 
             Connection con = DBUtils.getConnection();
             PreparedStatement st = con.prepareStatement(sql);
@@ -153,12 +150,13 @@ public class RoomManager {
 
             while (rs.next()) {
                 int roomID = rs.getInt("roomID");
-                String nameRoom = rs.getString("nameRoom"); nameRoom += "...";
+                String nameRoom = rs.getString("nameRoom");
+                nameRoom += "...";
                 String cutDescription = rs.getString("cutDescription");
                 String address = rs.getString("address");
                 String nameLandlord = rs.getString("nameLandlord");
                 int price = rs.getInt("price");
-                int avg_rating = (int)rs.getFloat("avg_rating");
+                int avg_rating = (int) rs.getFloat("avg_rating");
                 Date dateAdded = rs.getDate("date_added");
 
                 Room matchedRoom = new Room(roomID, nameRoom, cutDescription, address, nameLandlord, price, avg_rating, dateAdded);
@@ -197,8 +195,7 @@ public class RoomManager {
                     String qrImage = rs.getString("qr_image");
                     Date rentStartDate = rs.getDate("rentStartDate");
                     String status = rs.getString("status").trim();
-                    list.add(new Room(roomId, name, des, address, price, rentStartDate, status,landlordEmail,qrImage));
-
+                    list.add(new Room(roomId, name, des, address, price, rentStartDate, status, landlordEmail, qrImage));
                 }
             }
         } catch (Exception e) {
@@ -258,9 +255,9 @@ public class RoomManager {
         }
         return check;
     }
-    
+
     //METHOD TO HOW MANY BILLS
-    public int countAllBills(int roomId, String status){
+    public int countAllBills(int roomId, String status) {
         try {
             String sql = "SELECT COUNT(*)\n"
                     + "FROM [Bill]\n"
@@ -280,7 +277,7 @@ public class RoomManager {
         }
         return 0;
     }
-    
+
     //Function to get a list of bill for tenant in a specific room
     public List<Bill> getPaidBillList(int roomId, String billStatus) {
         List<Bill> list = new ArrayList<>();
@@ -293,12 +290,11 @@ public class RoomManager {
                 String sql = " SELECT [billID], [roomID], [amount], [purpose], [time], [status] "
                         + " FROM [Bill] "
                         + " WHERE [roomID]=? AND [status]=? "
-                        + " ORDER BY [time] DESC "
-                        ;
+                        + " ORDER BY [time] DESC ";
                 st = conn.prepareStatement(sql);
                 st.setInt(1, roomId);
                 st.setString(2, billStatus);
-                
+
                 ResultSet rs = st.executeQuery();
                 while (rs.next()) {
                     int billId = rs.getInt("billID");
@@ -350,6 +346,7 @@ public class RoomManager {
         }
         return room;
     }
+
     public Room getTenantPendingRoom(int id) {
         Room room = null;
         Connection conn = null;
@@ -358,9 +355,9 @@ public class RoomManager {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "  select r.roomID,r.name,r.address,r.emailLandlord,r.status,r.price,r.deposit,r.detailAddress\n" +
-"  from Room r\n" +
-"  where (r.roomID = ?)";
+                String sql = "  select r.roomID,r.name,r.address,r.emailLandlord,r.status,r.price,r.deposit,r.detailAddress\n"
+                        + "  from Room r\n"
+                        + "  where (r.roomID = ?)";
                 st = conn.prepareStatement(sql);
                 st.setInt(1, id);
                 rs = st.executeQuery();
@@ -431,7 +428,6 @@ public class RoomManager {
         return status;
     }
 
-
     public List<String> loadFeature() {
         try {
             String sql = "SELECT *\n"
@@ -450,6 +446,7 @@ public class RoomManager {
         }
         return null;
     }
+
     //THIS METHOD RETURN A ROOM IF TENANT KEY AND LANDLORD KEY ARE MATCH
     public Room getRoomWhenAssign(String tenantKey, String landlordKey) {
         Room room = null;
@@ -471,7 +468,7 @@ public class RoomManager {
                     Date rentStartDate = rs.getDate("rentStartDate");
                     String qrStatus = rs.getString("qr_status");
                     String roomStatus = rs.getString("status");
-                    room = new Room(roomId, roomName, emailTenant, rentStartDate,qrStatus,roomStatus);
+                    room = new Room(roomId, roomName, emailTenant, rentStartDate, qrStatus, roomStatus);
                 }
             }
         } catch (Exception e) {
@@ -480,19 +477,37 @@ public class RoomManager {
         return room;
     }
 
-    
-    public boolean updateRoomQR(String tenantKey,String landlordKey,String QR_image,int roomID){
-        boolean check=false;
+    public void updateRoomAfterDisconnect(int roomID, int notiID) {
+        try {
+            String sql = "UPDATE [Room]\n"
+                    + "SET [status] = N'available', [emailTenant] = NULL\n"
+                    + "WHERE [roomID] = " + roomID + "\n"
+                    + "GO\n"
+                    + "UPDATE [Notification_LT]\n"
+                    + "SET [content] = N'Chúng tôi nhận được yêu cầu hủy thuê nhà từ Chủ nhà của bạn. Nếu bạn đang chuyển đi, vui lòng bấm Xác nhận. Nếu đây là một nhầm lẫn, vui lòng bỏ qua thông báo này. Chúng tôi ghi nhận bạn đã xác nhận rời khỏi phòng thuê.',\n"
+                    + "[type] = N'text'\n"
+                    + "WHERE [notificationID] = " + notiID;
+
+            Connection con = DBUtils.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            st.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean updateRoomQR(String tenantKey, String landlordKey, String QR_image, int roomID) {
+        boolean check = false;
         Connection conn = null;
         PreparedStatement st = null;
         ResultSet rs = null;
-        try{
+        try {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 String sql = "update Room\n"
                         + "set Room.tenant_key=?, landlord_key=?, qr_status='active' , qr_image=?\n"
                         + "where roomID=?";
-                st=conn.prepareStatement(sql);
+                st = conn.prepareStatement(sql);
                 st.setString(1, tenantKey);
                 st.setString(2, landlordKey);
                 st.setString(3, QR_image);
@@ -501,15 +516,15 @@ public class RoomManager {
                     check = true;
                 }
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        } 
+        }
         return check;
 
     }
     
-    
+    //METHOD THAT GET TOP 2 BILL
+
 //    public static void main(String[] args) {
 //        RoomManager manager = new RoomManager();
 //        

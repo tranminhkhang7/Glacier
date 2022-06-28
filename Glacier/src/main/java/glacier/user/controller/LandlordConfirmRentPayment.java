@@ -5,7 +5,7 @@
  */
 package glacier.user.controller;
 
-import glacier.notification.model.NotificationDAO;
+import glacier.landlord.dbmanager.LandlordManager;
 import glacier.user.model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,8 +21,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author KHANG
  */
-@WebServlet(name = "LandlordSendNotificationController", urlPatterns = {"/landlordnotify"})
-public class LandlordSendNotificationController extends HttpServlet {
+@WebServlet(name = "LandlordConfirmRentPayment", urlPatterns = {"/LandlordConfirmRentPayment"})
+public class LandlordConfirmRentPayment extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,29 +41,17 @@ public class LandlordSendNotificationController extends HttpServlet {
             Account user = (Account) ss.getAttribute("LOGIN_USER");
 
             String role = (user == null) ? "" : user.getRole().trim();
+            if ("landlord".equals(role)) {
+//                String emailLandlord = user.getEmail().trim();
+                int billID = Integer.parseInt(request.getParameter("id"));
 
-            if (!"landlord".equals(role)) {
-                RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
+                // UPDATE THE STATUS OF THE BILL
+                LandlordManager mng = new LandlordManager();
+                mng.confirmRentPayment(billID);
+
+                request.setAttribute("notify", "notify success");
+                RequestDispatcher rd = request.getRequestDispatcher("/roomlist"); // Change this!!!
                 rd.forward(request, response);
-            } else {
-                int id = Integer.parseInt(request.getParameter("id"));
-                String title = request.getParameter("title");
-                String content = request.getParameter("content");
-
-                String email = user.getEmail();
-
-                if (title == null || content == null) { 
-                    RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
-                    rd.forward(request, response);
-                } else { 
-                    NotificationDAO mng = new NotificationDAO();
-                     mng.landlordNotify(id, email, title, content, "text");
-
-                    request.setAttribute("notify", "notify success");
-                    RequestDispatcher rd = request.getRequestDispatcher("/roomlist/room?id=" + id);
-                    rd.forward(request, response);
-                }
-
             }
         }
     }

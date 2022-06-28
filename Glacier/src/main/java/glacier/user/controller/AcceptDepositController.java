@@ -64,14 +64,13 @@ public class AcceptDepositController extends HttpServlet {
                     check = manager.acceptDeposit(Integer.parseInt(roomId),"unavailable");
                     if (check) {
                         String notiSender = String.format("YOUR ROOM REQUEST FOR %s HAS BEEN ACCEPT", room.getName());
-                        dao.landlordNotify(Integer.parseInt(roomId), acc.getEmail(),"PLEASE GO CHECK YOUR ROOM MANAGEMENT", notiSender );
+                        dao.landlordNotify(Integer.parseInt(roomId), acc.getEmail(),"PLEASE GO CHECK YOUR ROOM MANAGEMENT", notiSender, "text");
                         url = SUCCESS;
                     }
                 } else {
                     manager.acceptDeposit(Integer.parseInt(roomId),"available");
                     String notiSender = String.format("Yêu cầu của bạn cho phòng %s đã bị từ chối", room.getName());
-                    dao.landlordNotify(Integer.parseInt(roomId), acc.getEmail(),"HÃY VÀO XEM LẠI PHÒNG CỦA BẠN", notiSender );
-                    manager.removeTenantFromRoom(Integer.parseInt(roomId));
+                    dao.landlordNotify(Integer.parseInt(roomId), acc.getEmail(),"HÃY VÀO XEM LẠI PHÒNG CỦA BẠN", notiSender, "text");manager.removeTenantFromRoom(Integer.parseInt(roomId));
                     url = SUCCESS;
                 }
             }

@@ -59,7 +59,7 @@ public class TenantGetNotificationsController extends HttpServlet {
             if(searchTxt != null && !"".equals(searchTxt)){
                 list = manager.searchNotificationsTenant(searchTxt, currentPage);
             }
-
+            
             request.setAttribute("endPage", endPage);
             request.setAttribute("currentPage", currentPage);
             request.setAttribute("NOTI_LIST", list);

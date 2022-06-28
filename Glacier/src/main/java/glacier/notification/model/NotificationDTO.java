@@ -16,16 +16,18 @@ public class NotificationDTO {
     public int id;
     public String emailTenant;
     public String emailLandlord;
+    public int roomID;
     public String title;
     public String content;
     public Timestamp date;
+    public String type;
 
     public NotificationDTO(String title, String content, Timestamp date) {
         this.title = title;
         this.content = content;
         this.date = date;
     }
-    
+
     public NotificationDTO(int id, String emailTenant, String emailLandlord, String title, String content, Timestamp date) {
         this.id = id;
         this.emailTenant = emailTenant;
@@ -33,6 +35,17 @@ public class NotificationDTO {
         this.title = title;
         this.content = content;
         this.date = date;
+    }
+
+    public NotificationDTO(int id, String emailTenant, String emailLandlord, int roomID, String title, String content, Timestamp date, String type) {
+        this.id = id;
+        this.emailTenant = emailTenant;
+        this.emailLandlord = emailLandlord;
+        this.roomID = roomID;
+        this.title = title;
+        this.content = content;
+        this.date = date;
+        this.type = type;
     }
 
     public int getId() {
@@ -83,8 +96,24 @@ public class NotificationDTO {
         this.date = date;
     }
 
+    public int getRoomID() {
+        return roomID;
+    }
+
+    public void setRoomID(int roomID) {
+        this.roomID = roomID;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
-        return "NotificationDTO{" + "id=" + id + ", emailTenant=" + emailTenant + ", emailLandlord=" + emailLandlord + ", title=" + title + ", content=" + content + ", date=" + date + '}';
+        return "NotificationDTO{" + "id=" + id + ", emailTenant=" + emailTenant + ", emailLandlord=" + emailLandlord + ", roomID=" + roomID + ", title=" + title + ", content=" + content + ", date=" + date + ", type=" + type + '}';
     }
 }
