@@ -80,6 +80,55 @@ public class BillManager {
         return index+1;
     }
     
+    public Bill getBillByID(int ID){
+        Bill bill=null;
+        String sql="select billID,roomID,time,status from Bill \n" +
+"where billID=?";
+        try{
+            conn=DBUtils.getConnection();
+            if (conn!=null){
+                pstm=conn.prepareStatement(sql);
+                pstm.setInt(1, ID);
+                rs=pstm.executeQuery();
+                while (rs.next()){
+                    int billID= rs.getInt("billID");
+                    int roomID=rs.getInt("roomID");
+                    Timestamp time = rs.getTimestamp("time");
+                    String status = rs.getString("status");
+                    bill = new Bill(ID, roomID, time, status);
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return bill;
+    }
+    
+    public ArrayList<BillDetail> getBillDetailByBillId(int id){
+        ArrayList<BillDetail> bdl = null;
+        String sql="select detailID,purpose,amount,description from BillDetail\n" +
+"where billID=?";
+        try{
+            conn=DBUtils.getConnection();
+            if (conn!=null){
+                pstm=conn.prepareStatement(sql);
+                pstm.setInt(1, id);
+                rs=pstm.executeQuery();
+                while (rs.next()){
+                    int billID= rs.getInt("detailID");
+                    String purpose=rs.getString("purpose");
+                    int amount=rs.getInt("amount");
+                    String des= rs.getString("description");
+                    BillDetail bd = new BillDetail(id, billID, purpose, amount, des);
+                    bdl.add(bd);
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return bdl;
+    }
+    
     public boolean createBill(int id,int roomID, Timestamp time,String status){
         boolean check = false;
         String sql = "insert into Bill\n" +
@@ -120,11 +169,13 @@ public class BillManager {
         return check;
     }
     
+
+    
     public boolean createBillDetail(int id,ArrayList<BillDetail> l){
         boolean check = false;
         try {
             for (BillDetail b : l) {
-                addBillDetail(b, id);
+                addBillDetail(b, id);                
             }
             check=true;
         }

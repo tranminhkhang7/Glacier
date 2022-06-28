@@ -21,10 +21,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Admin
  */
-@WebServlet(name = "CreateBillController", urlPatterns = {"/CreateBillController"})
+@WebServlet(name = "CreateBillController", urlPatterns = {"/roomlist/CreateBillController"})
 public class CreateBillController extends HttpServlet {
     
-    public static final String SUCCESS = "landlord-manage-single-room.jsp";
+    public static final String SUCCESS = "/Glacier/roomlist/room?id=";
     public static final String FAILED="error.jsp";
     
     /**
@@ -39,63 +39,76 @@ public class CreateBillController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        String url=FAILED;
-        
+
+        String url = FAILED;
+
         //INIT VAR AS STRING TO RECEIVE DATA FROM VIEW, WE WILL PARSE AMOUNT BACK TO INT WHEN USING
         String[] name = new String[4];
-        String[] amount = new String[4]; 
-        String[] des= new String[4];
+        String[] amount = new String[4];
+        String[] des = new String[4];
+
+        // assign value to all array 
+        for (int i = 0; i <= 3; i++) {
+            name[i] = "/";
+            amount[i] = "/";
+            des[i] = "/";
+        }
         
-        //get parameter
-        int roomID = Integer.parseInt(request.getParameter("roomID"));
-        name=request.getParameterValues("name");
-        amount = request.getParameterValues("amount");
-        des=request.getParameterValues("des");   
-        
-        // init values
-        BillManager bm= new BillManager();
-        ArrayList<BillDetail> bill = new ArrayList<>();
-                
-                
-        //CREATE THE HOLE BILL       
-        int BillID = bm.getNextBillID();
-        for (int i=0;i<=3;i++){ // loop in name
-            for (int j=0;i<=3;j++){ // loop in amount
-                for (int k=0;k<=3;k++){ // loop in des
-                    if ((i==j)&&(j==k)){
-                        BillDetail b = new BillDetail(BillID,i+1, name[i], Integer.parseInt(amount[j]), des[k]);
-                        bill.add(b); // GENERATE BILL AS AN ARRAY LIST
-                    }
+        try {
+            //get parameter
+            int roomID = Integer.parseInt(request.getParameter("id"));
+            name = request.getParameterValues("name");
+            amount = request.getParameterValues("amount");
+            des = request.getParameterValues("description");
+//        System.out.println("NAME:");
+//        for (int i=0;i<name.length;i++) {
+//            if (!name[i].equals("/"))
+//            System.out.println(name[i]);
+//            else System.out.println("/");
+//        }
+//        System.out.println("AMOUNT:");
+//        for (int i=0;i<amount.length;i++) {
+//            if (!amount[i].equals("/"))
+//            System.out.println(amount[i]);
+//            else System.out.println("/");
+//        }
+//        System.out.println("DESCRIPTION:");
+//        for (int i=0;i<des.length;i++) {
+//            if (!des[i].equals("/"))
+//            System.out.println(des[i]);
+//            else System.out.println("/");
+//        }
+            // init values
+            BillManager bm = new BillManager();
+            ArrayList<BillDetail> bill = new ArrayList<>();
+
+            //CREATE THE HOLE BILL       
+            int BillID = bm.getNextBillID();
+            int i = 0;
+            while ((i < name.length) && (!name[i].equals("/"))) {
+                BillDetail b = new BillDetail(BillID, i + 1, name[i], Integer.parseInt(amount[i]), des[i]);
+//                System.out.println(b);
+                bill.add(b); // GENERATE BILL AS AN ARRAY LIST
+                i++;
+            }
+
+            // init current time to create bill
+            Timestamp date = new Timestamp(System.currentTimeMillis());
+
+            //MAIN CREATING FUNCTION
+            if (bm.createBill(BillID, roomID, date, "unpaid")) { // CREATE BILL
+                if (bm.createBillDetail(BillID, bill)) { // CREATE ALL BILL DETAIL IN BILL ARRAYLIST
+                    url = SUCCESS+roomID;
                 }
             }
         }
-        
-        
-        //////TEST DATA
-//        int BillID=3;
-//        int roomID=10;
-//        BillDetail b1 = new BillDetail(BillID, 1, "Tiền điện", 10000, "");
-//        BillDetail b2 = new BillDetail(BillID, 2, "Tiền nước", 10000, "");
-//        BillDetail b3 = new BillDetail(BillID, 3, "Tiền nhà", 10000, "");
-//        BillDetail b4 = new BillDetail(BillID, 4, "Tiền khác", 10000, "");
-//        bill.add(b1);
-//        bill.add(b2);
-//        bill.add(b3);
-//        bill.add(b4);
-
-
-
-        // init current time to create bill
-        Timestamp date = new Timestamp(System.currentTimeMillis());
-        
-        //MAIN CREATING FUNCTION
-        if (bm.createBill(BillID, roomID, date, "unpaid")){ // CREATE BILL
-            if(bm.createBillDetail(BillID, bill)) { // CREATE ALL BILL DETAIL IN BILL ARRAYLIST
-                url = SUCCESS;
-            }
+        catch (Exception e){
+            e.printStackTrace();
+            url=FAILED;
         }
-        request.getRequestDispatcher(url).forward(request, response);
+        finally{
+             response.sendRedirect(url);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

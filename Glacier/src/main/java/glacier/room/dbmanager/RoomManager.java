@@ -298,12 +298,12 @@ public class RoomManager {
                 ResultSet rs = st.executeQuery();
                 while (rs.next()) {
                     int billId = rs.getInt("billID");
-
-                    int amount = rs.getInt("amount");
-                    String purpose = rs.getString("purpose");
+//                    int amount = rs.getInt("amount");
+//                    String purpose = rs.getString("purpose");
                     Timestamp time = rs.getTimestamp("time");
                     String status = rs.getString("status");
-                    list.add(new Bill(billId, roomId, amount, purpose, time, status));
+//                    list.add(new Bill(billId, roomId, amount, purpose, time, status));
+                    list.add(new Bill(billId, roomId, time, status));
                 }
             }
         } catch (Exception e) {

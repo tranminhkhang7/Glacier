@@ -90,7 +90,7 @@
 
         <div class="popup" id="billForm" style="top: 40%">
             <h2>Hóa đơn cho người thuê</h2>
-            <form id="bill-form" class="form form-submit" action="#">
+            <form id="bill-form" class="form form-submit" action="CreateBillController">
                 <input name="id" type="hidden" value="${id}">
             <div class="card" style="margin-bottom: 5px; background-color: #f2f2f2;">
                 <div class="card-header" style="font-weight: 700; font-size: 20px;">
@@ -125,7 +125,7 @@
                             autocomplete="off" required>
                     </div>
                     <div class="form-group">
-                        <input disabled name="descripton" type="text" id="electric-description" class="form-control" placeholder="Nội dung"
+                        <input disabled name="description" type="text" id="electric-description" class="form-control" placeholder="Nội dung"
                             autocomplete="off">
                     </div>
                     
@@ -147,7 +147,7 @@
                         <input disabled name="description" type="text" id="water-description" class="form-control" placeholder="Nội dung"
                             autocomplete="off">
                     </div>
-                    <input type="hidden" name="name" value="Tiền nước">
+<!--                    <input type="hidden" name="name" value="Tiền nước">-->
                 </div>
             </div>
             <div class="card" style="margin-bottom: 5px; background-color: #f2f2f2;">
@@ -167,7 +167,7 @@
                         <input disabled name="description" type="text" id="other-description" class="form-control" placeholder="Nội dung"
                             autocomplete="off" required>
                     </div>
-                    <input type="hidden" name="name" value="Tiền khác">
+<!--                    <input type="hidden" name="name" value="Tiền khác">-->
                 </div>
             </div>
                 <div class="form-group">
@@ -394,10 +394,10 @@
                                                             </section> -->
                                 <div class="row" style="justify-content: space-around">
                                     <div class="col-md-5 box">
-                                        <h2>Các hóa đơn gần đây</h2>
+                                        <h2>Các hóa đơn gần đây</h2>                
                                         <div class="answer">
                                             <div style="background-color: #f2f2f2" class="box">
-                                                <h3>Sed tincidunt vel orci sed fermentum. Nullam nec turpis blandit?</h3>
+                                                <h3>Bill #</h3>
                                                 <p>Ut nec vulputate enim. Nulla faucibus convallis dui. Donec arcu enim,
                                                     scelerisque gravida lacus vel,
                                                     dignissim cursus lectus. Aliquam laoreet purus in iaculis sodales. Morbi
@@ -406,7 +406,7 @@
                                                 </p>
                                             </div>
 
-                                        </div>
+                                        </div>    
                                         <div class="answer">
                                             <div class="box">
                                                 <h3>Sed tincidunt vel orci sed fermentum. Nullam nec turpis blandit?</h3>
@@ -537,7 +537,7 @@
                 //document.getElementById('home').disabled = true;
                 document.getElementById('home-description').disabled = true;    
             }else{
-                //document.getElementById('home').disabled = false;
+                document.getElementById('home').disabled = false;
                 document.getElementById('home-description').disabled = false; 
             }
         })

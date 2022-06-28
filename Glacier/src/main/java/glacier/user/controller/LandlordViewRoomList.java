@@ -5,11 +5,15 @@
  */
 package glacier.user.controller;
 
+import glacier.bill.dbmanager.BillManager;
+import glacier.bill.model.Bill;
+import glacier.bill.model.BillDetail;
 import glacier.landlord.dbmanager.LandlordManager;
 import glacier.room.model.Room;
 import glacier.user.model.Landlord;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -63,6 +67,7 @@ public class LandlordViewRoomList extends HttpServlet {
                 if (totalMatched % 4 != 0) {
                     endPage++;
                 }
+                
                 
                 request.setAttribute("endPage", endPage);
                 request.setAttribute("currentPage", currentPage);

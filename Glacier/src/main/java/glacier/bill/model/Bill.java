@@ -14,19 +14,15 @@ import java.sql.Timestamp;
 public class Bill {
     private int id;
     private int roomId;
-    private int amount;
-    private String purpose;
     private Timestamp time;
     private String status;
 
     public Bill() {
     }
 
-    public Bill(int id, int roomId, int amount, String purpose, Timestamp time, String status) {
+    public Bill(int id, int roomId, Timestamp time, String status) {
         this.id = id;    
         this.roomId = roomId;
-        this.amount = amount;
-        this.purpose = purpose;
         this.time = time;
         this.status = status;
     }
@@ -47,22 +43,6 @@ public class Bill {
         this.roomId = roomId;
     }
 
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    public String getPurpose() {
-        return purpose;
-    }
-
-    public void setPurpose(String purpose) {
-        this.purpose = purpose;
-    }
-
     public Timestamp getTime() {
         return time;
     }
@@ -81,6 +61,8 @@ public class Bill {
 
     @Override
     public String toString() {
-        return "Bill{" + "id=" + id + ", roomId=" + roomId + ", amount=" + amount + ", purpose=" + purpose + ", time=" + time + ", status=" + status + '}';
+        return "Bill{" + "id=" + id + ", roomId=" + roomId + ", time=" + time + ", status=" + status + '}';
     }
+
+
 }
