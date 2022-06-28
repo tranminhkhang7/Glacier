@@ -72,7 +72,7 @@
             .box::after{
                 content: ''!important;
                 background-color: transparent !important;
-
+                box-shadow: none !important;
             }
             .box::before{
                 border-style: none !important;
@@ -171,7 +171,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary large icon float-left" style="font-size: 19px; margin: 10px 20px 0px 0px;">Gửi</button>
+                    <button type="submit" class="btn btn-primary large icon float-left" style="font-size: 16px; margin: 19px 20px 0px 0px;">Gửi</button>
                 </div>
             </form>
 
@@ -328,71 +328,73 @@
                                 
                                                                 </div>
                                                             </section> -->
-                                <div class="col-md-6">
-                                    <h2>Các hóa đơn gần đây</h2>
-                                    <div class="answer">
-                                        <div class="box">
-                                            <h3>Sed tincidunt vel orci sed fermentum. Nullam nec turpis blandit?</h3>
-                                            <p>Ut nec vulputate enim. Nulla faucibus convallis dui. Donec arcu enim,
-                                                scelerisque gravida lacus vel,
-                                                dignissim cursus lectus. Aliquam laoreet purus in iaculis sodales. Morbi
-                                                convallis diam ac accumsan
-                                                placerat. Donec ultrices placerat arcu non accumsan
-                                            </p>
-                                        </div>
+                                <div class="row" style="justify-content: space-around">
+                                    <div class="col-md-5 box">
+                                        <h2>Các hóa đơn gần đây</h2>
+                                        <div class="answer">
+                                            <div style="background-color: #f2f2f2" class="box">
+                                                <h3>Sed tincidunt vel orci sed fermentum. Nullam nec turpis blandit?</h3>
+                                                <p>Ut nec vulputate enim. Nulla faucibus convallis dui. Donec arcu enim,
+                                                    scelerisque gravida lacus vel,
+                                                    dignissim cursus lectus. Aliquam laoreet purus in iaculis sodales. Morbi
+                                                    convallis diam ac accumsan
+                                                    placerat. Donec ultrices placerat arcu non accumsan
+                                                </p>
+                                            </div>
 
-                                    </div>
-                                    <div class="answer">
-                                        <div class="box">
-                                            <h3>Sed tincidunt vel orci sed fermentum. Nullam nec turpis blandit?</h3>
-                                            <p>Ut nec vulputate enim. Nulla faucibus convallis dui. Donec arcu enim,
-                                                scelerisque gravida lacus vel,
-                                                dignissim cursus lectus. Aliquam laoreet purus in iaculis sodales. Morbi
-                                                convallis diam ac accumsan
-                                                placerat. Donec ultrices placerat arcu non accumsan
-                                            </p>
                                         </div>
+                                        <div class="answer">
+                                            <div class="box">
+                                                <h3>Sed tincidunt vel orci sed fermentum. Nullam nec turpis blandit?</h3>
+                                                <p>Ut nec vulputate enim. Nulla faucibus convallis dui. Donec arcu enim,
+                                                    scelerisque gravida lacus vel,
+                                                    dignissim cursus lectus. Aliquam laoreet purus in iaculis sodales. Morbi
+                                                    convallis diam ac accumsan
+                                                    placerat. Donec ultrices placerat arcu non accumsan
+                                                </p>
+                                            </div>
 
-                                    </div>
-                                    <div style="display: inline-block; padding-left: 0;" class="col-md-3">
-                                        <button class="btn btn-info btn-framed">Xem tất cả hóa đơn</button>
-                                    </div>
-                                    <div style="display: inline-block; right:3%; " class="col-md-3 float-right">
-                                        <button onclick="openBillForm()" class="btn btn-info btn-framed">Tạo hóa đơn</button>
-                                    </div>
-                                    <hr>
-                                </div>
-                                <div class="col-md-6">
-                                    <h2>Các yêu cầu gần đây</h2>
-                                    <div class="answer">
-                                        <div class="box">
-                                            <h3>Sed tincidunt vel orci sed fermentum. Nullam nec turpis blandit?</h3>
-                                            <p>Ut nec vulputate enim. Nulla faucibus convallis dui. Donec arcu enim,
-                                                scelerisque gravida lacus vel,
-                                                dignissim cursus lectus. Aliquam laoreet purus in iaculis sodales. Morbi
-                                                convallis diam ac accumsan
-                                                placerat. Donec ultrices placerat arcu non accumsan
-                                            </p>
                                         </div>
-
-                                    </div>
-                                    <div class="answer">
-                                        <div class="box">
-                                            <h3>Sed tincidunt vel orci sed fermentum. Nullam nec turpis blandit?</h3>
-                                            <p>Ut nec vulputate enim. Nulla faucibus convallis dui. Donec arcu enim,
-                                                scelerisque gravida lacus vel,
-                                                dignissim cursus lectus. Aliquam laoreet purus in iaculis sodales. Morbi
-                                                convallis diam ac accumsan
-                                                placerat. Donec ultrices placerat arcu non accumsan
-                                            </p>
+                                        <div style="display: inline-block; padding-left: 0;" class="col-md-3">
+                                            <button class="btn btn-info btn-framed">Xem tất cả hóa đơn</button>
                                         </div>
+                                        <div style="display: inline-block; right:10%; " class="col-md-3 float-right">
+                                            <button onclick="openBillForm()" class="btn btn-info btn-framed">Tạo hóa đơn</button>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="col-md-5 box">
+                                        <h2>Các yêu cầu gần đây</h2>
+                                        <div class="answer">
+                                            <div class="box" style="background-color: #f2f2f2">
+                                                <h3>Sed tincidunt vel orci sed fermentum. Nullam nec turpis blandit?</h3>
+                                                <p>Ut nec vulputate enim. Nulla faucibus convallis dui. Donec arcu enim,
+                                                    scelerisque gravida lacus vel,
+                                                    dignissim cursus lectus. Aliquam laoreet purus in iaculis sodales. Morbi
+                                                    convallis diam ac accumsan
+                                                    placerat. Donec ultrices placerat arcu non accumsan
+                                                </p>
+                                            </div>
 
-                                    </div>
-                                    <div style="display: inline-block; padding-left: 0;" class="col-md-3">
-                                        <button class="btn btn-info btn-framed">Xem tất cả thông báo</button>
-                                    </div>
-                                    <div style="display: inline-block; right:3%" class="col-md-3 float-right">
-                                        <button onclick="openForm()" type="submit" class="btn btn-info btn-framed">Tạo thông báo</button>
+                                        </div>
+                                        <div class="answer">
+                                            <div class="box">
+                                                <h3>Sed tincidunt vel orci sed fermentum. Nullam nec turpis blandit?</h3>
+                                                <p>Ut nec vulputate enim. Nulla faucibus convallis dui. Donec arcu enim,
+                                                    scelerisque gravida lacus vel,
+                                                    dignissim cursus lectus. Aliquam laoreet purus in iaculis sodales. Morbi
+                                                    convallis diam ac accumsan
+                                                    placerat. Donec ultrices placerat arcu non accumsan
+                                                </p>
+                                            </div>
+
+                                        </div>
+                                        <div style="display: inline-block; padding-left: 0;" class="col-md-3">
+                                            <button class="btn btn-info btn-framed">Xem tất cả thông báo</button>
+                                        </div>
+                                        <div style="display: inline-block; right:10%" class="col-md-3 float-right">
+                                            <button onclick="openForm()" type="submit" class="btn btn-info btn-framed">Tạo thông báo</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -429,39 +431,39 @@
         <script src="${pageContext.request.contextPath}/assets/js/custom.js"></script>
 
         <script>
-                                            function openForm() {
-                                                document.getElementsByClassName("page")[0].style.filter = "blur(8px)";
-                                                document.getElementById("reportForm").style.display = "block";
-                                            }
+                                                function openForm() {
+                                                    document.getElementsByClassName("page")[0].style.filter = "blur(8px)";
+                                                    document.getElementById("reportForm").style.display = "block";
+                                                }
 
-                                            function closeForm() {
-                                                document.getElementsByClassName("page")[0].style.filter = "none";
-                                                document.getElementById("reportForm").style.display = "none";
-                                            }
+                                                function closeForm() {
+                                                    document.getElementsByClassName("page")[0].style.filter = "none";
+                                                    document.getElementById("reportForm").style.display = "none";
+                                                }
 
-                                            function openBillForm() {
-                                                document.getElementsByClassName("page")[0].style.filter = "blur(8px)";
-                                                document.getElementById("billForm").style.display = "block";
-                                            }
+                                                function openBillForm() {
+                                                    document.getElementsByClassName("page")[0].style.filter = "blur(8px)";
+                                                    document.getElementById("billForm").style.display = "block";
+                                                }
 
-                                            function closeBillForm() {
-                                                document.getElementsByClassName("page")[0].style.filter = "none";
-                                                document.getElementById("billForm").style.display = "none";
-                                            }
+                                                function closeBillForm() {
+                                                    document.getElementsByClassName("page")[0].style.filter = "none";
+                                                    document.getElementById("billForm").style.display = "none";
+                                                }
 
-                                            function openDisconnectConfirm() {
-                                                document.getElementsByClassName("page")[0].style.filter = "blur(8px)";
-                                                document.getElementById("disconnectConfirm").style.display = "block";
-                                            }
+                                                function openDisconnectConfirm() {
+                                                    document.getElementsByClassName("page")[0].style.filter = "blur(8px)";
+                                                    document.getElementById("disconnectConfirm").style.display = "block";
+                                                }
 
-                                            function closeDisconnectConfirm() {
-                                                document.getElementsByClassName("page")[0].style.filter = "none";
-                                                document.getElementById("disconnectConfirm").style.display = "none";
-                                            }
+                                                function closeDisconnectConfirm() {
+                                                    document.getElementsByClassName("page")[0].style.filter = "none";
+                                                    document.getElementById("disconnectConfirm").style.display = "none";
+                                                }
 
-                                            function closeNotify() {
-                                                document.getElementById("notifyBox").style.display = "none";
-                                            }
+                                                function closeNotify() {
+                                                    document.getElementById("notifyBox").style.display = "none";
+                                                }
         </script>
     </body>
 
