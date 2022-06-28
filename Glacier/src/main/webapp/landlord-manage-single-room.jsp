@@ -95,7 +95,7 @@
             <div class="card" style="margin-bottom: 5px; background-color: #f2f2f2;">
                 <div class="card-header" style="font-weight: 700; font-size: 20px;">
                     <label class="float-left">
-                        <input id="check-home" type="checkbox" value="Tiền nhà" name="type">
+                        <input id="check-home" type="checkbox" value="Tiền nhà" name="name">
                         Tiền nhà
                     </label>
                 </div>
@@ -115,7 +115,7 @@
             <div class="card" style="margin-bottom: 5px; background-color: #f2f2f2;">
                 <div class="card-header" style="font-weight: 700; font-size: 20px;">
                     <label class="float-left">
-                        <input id="check-electricity" value="Tiền điện" type="checkbox" name="type">
+                        <input id="check-electricity" value="Tiền điện" type="checkbox" name="name">
                         Tiền điện
                     </label>
                 </div>
@@ -134,7 +134,7 @@
             <div class="card" style="margin-bottom: 5px; background-color: #f2f2f2;">
                 <div class="card-header" style="font-weight: 700; font-size: 20px;">
                     <label class="float-left">
-                        <input id="check-water" value="Tiền nước" type="checkbox" name="type">
+                        <input id="check-water" value="Tiền nước" type="checkbox" name="name">
                         Tiền nước
                     </label>
                 </div>
@@ -154,7 +154,7 @@
                 <div class="card-header" style="font-weight: 700; font-size: 20px;">
                     <label class="float-left">
 
-                        <input id="check-other" value="Tiền khác" type="checkbox" name="type">
+                        <input id="check-other" value="Tiền khác" type="checkbox" name="name">
                         Tiền khác
                     </label>
                 </div>
