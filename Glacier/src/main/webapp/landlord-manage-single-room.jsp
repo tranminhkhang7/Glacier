@@ -101,7 +101,7 @@
                 </div>
                 <div class="card-body">
                     <div class="form-group">
-                        <input readonly disabled id='home' name="amount" type="number" value="200" class="form-control home"
+                        <input readonly disabled id="home" name="amount" type="number" value="200" class="form-control home"
                             placeholder="Số Tiền *" autocomplete="off" required>
                     </div>
                     <div class="form-group">
