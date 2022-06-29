@@ -6,7 +6,7 @@
 package glacier.room.controller;
 
 import glacier.room.dbmanager.RoomManager;
-import glacier.room.model.Bill;
+import glacier.bill.model.Bill;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;

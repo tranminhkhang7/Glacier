@@ -29,9 +29,9 @@
                 width: 750px;
                 padding: 30px 40px;
                 position: absolute;
-                transform: translate(-50%, -50%);
+                transform: translate(-50%,-50%);
                 left: 50%;
-                top: 20%;
+                top: 60%;
                 border-radius: 8px;
                 display: none;
                 text-align: center;
@@ -90,7 +90,7 @@
 
         <div class="popup" id="billForm" style="top: 40%">
             <h2>Hóa đơn cho người thuê</h2>
-            <form id="bill-form" class="form form-submit" action="#">
+            <form id="bill-form" class="form form-submit" action="CreateBillController">
                 <input name="id" type="hidden" value="${id}">
             <div class="card" style="margin-bottom: 5px; background-color: #f2f2f2;">
                 <div class="card-header" style="font-weight: 700; font-size: 20px;">
@@ -125,7 +125,7 @@
                             autocomplete="off" required>
                     </div>
                     <div class="form-group">
-                        <input disabled name="descripton" type="text" id="electric-description" class="form-control" placeholder="Nội dung"
+                        <input disabled name="description" type="text" id="electric-description" class="form-control" placeholder="Nội dung"
                             autocomplete="off">
                     </div>
                     
@@ -147,7 +147,7 @@
                         <input disabled name="description" type="text" id="water-description" class="form-control" placeholder="Nội dung"
                             autocomplete="off">
                     </div>
-                    <input type="hidden" name="name" value="Tiền nước">
+<!--                    <input type="hidden" name="name" value="Tiền nước">-->
                 </div>
             </div>
             <div class="card" style="margin-bottom: 5px; background-color: #f2f2f2;">
@@ -167,7 +167,7 @@
                         <input disabled name="description" type="text" id="other-description" class="form-control" placeholder="Nội dung"
                             autocomplete="off" required>
                     </div>
-                    <input type="hidden" name="name" value="Tiền khác">
+<!--                    <input type="hidden" name="name" value="Tiền khác">-->
                 </div>
             </div>
                 <div class="form-group">
@@ -180,25 +180,89 @@
         </div>
         <div class="popup" id="reportForm">
             <h2>Thông báo cho người thuê</h2>
-            <form class="form form-submit" action="${pageContext.request.contextPath}/landlordnotify">
-                <input name="id" type="hidden" value="${id}">
-                <!--                <div class="form-group">
-                                    <label for="title" class="col-form-label required">Tiêu đề</label>
-                                    <input name="title" type="text" class="form-control" id="title" placeholder="Mô tả ngắn gọn vấn đề của bạn" autocomplete="off" required>
-                                </div>-->
-                <div class="form-group">
-                    <label for="title" class="col-form-label required">Tiêu đề</label>
-                    <input name="title" type="text" class="form-control" id="title" placeholder="Tiêu đề thông báo" autocomplete="off" required>
-                </div>
-                <div class="form-group">
-                    <label for="content" class="col-form-label required">Nội dung thông báo</label>
-                    <textarea name="content" type="text" class="form-control" id="content" placeholder="Nội dung thông báo chi tiết" autocomplete="off" required></textarea>
-                </div>
+                            <form id="bill-form" class="form form-submit"
+                                action="${pageContext.request.contextPath}/landlordnotify">
+                                <input name="id" type="hidden" value="${id}">                           
+                                <div class="card" style="margin-bottom: 5px; background-color: #f2f2f2;">
+                                    <div class="card-header" style="font-weight: 700; font-size: 20px;">
+                                        <label class="float-left">
+                                            <input id="check-home" type="checkbox" name="type" required>
+                                            Tiền nhà
+                                        </label>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <input disabled id="tien-nha" name="amount" type="number" value="200" class="form-control home" placeholder="Số Tiền *"
+                                                autocomplete="off" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input name="description" type="text" class="form-control home" placeholder="Nội dung"
+                                                autocomplete="off">
+                                        </div>
+                                        <input type="hidden" name="name" value="Tiền nhà">
+                                    </div>
+                                </div>
 
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary large icon float-left" style="font-size: 16px; margin: 10px 20px 0px 0px;">Gửi</button>
-                </div>
-            </form>
+                                <div class="card" style="margin-bottom: 5px; background-color: #f2f2f2;">
+                                    <div class="card-header" style="font-weight: 700; font-size: 20px;">
+                                        <label class="float-left">
+                                            <input id="check-electricity" type="checkbox" name="type" value="1"
+                                                required>
+                                            Tiền điện
+                                        </label>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <input name="amount" type="number" class="form-control" placeholder="Số Tiền *"
+                                                autocomplete="off" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input name="descripton" type="text" class="form-control" placeholder="Nội dung"
+                                                autocomplete="off">
+                                        </div>
+                                        <input type="hidden" name="name" value="Tiền điện">
+                                    </div>
+                                </div>
+                                <div class="card" style="margin-bottom: 5px; background-color: #f2f2f2;">
+                                    <div class="card-header" style="font-weight: 700; font-size: 20px;">
+                                        <label class="float-left">
+                                            <input id="check-water" type="checkbox" name="type" value="1" required>
+                                            Tiền nước
+                                        </label>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <input name="amount" type="number" class="form-control" placeholder="Số Tiền *"
+                                                autocomplete="off" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input name="description" type="text" class="form-control" placeholder="Nội dung"
+                                                autocomplete="off">
+                                        </div>
+                                        <input type="hidden" name="name" value="Tiền nước">
+                                    </div>
+                                </div>
+                                <div class="card" style="margin-bottom: 5px; background-color: #f2f2f2;">
+                                    <div class="card-header" style="font-weight: 700; font-size: 20px;">
+                                        <label class="float-left">
+
+                                            <input id="check-other" type="checkbox" name="type" value="1" required>
+                                            Tiền khác
+                                        </label>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <input name="amount" type="text" class="form-control" placeholder="Số Tiền *"
+                                                autocomplete="off" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input name="description" type="text" class="form-control" placeholder="Nội dung"
+                                                autocomplete="off">
+                                        </div>
+                                        <input type="hidden" name="name" value="Tiền khác">
+                                    </div>
+                                </div>
+                            </form>
 
             <button class="btn btn-secondary large icon float-left" style="font-size: 16px; margin: 10px 20px 0px 0px;" onclick="closeForm()">Hủy</button>
         </div>
@@ -329,11 +393,45 @@
                                                                 </div>
                                                             </section> -->
                                 <div class="row" style="justify-content: space-around">
-                                    <div class="col-md-5 box">
+                                    <div class="col-md-5 box" style="height: fit-content">
                                         <h2>Các hóa đơn gần đây</h2>
-                                        <div class="answer">
+                                        <c:if test="${empty bd0}">
+                                            <c:if test="${not empty bd1}">
+                                                <div class="answer">
+                                                    <div style="background-color: #f2f2f2" class="box">
+                                                        <h3>Bill #${bd1[0].billID}</h3>
+                                                        <c:forEach items="${bd1}" var="b">
+                                                            <p>
+                                                                ${b.purpose} - ${b.amount}đ - ${b.description}
+                                                            </p>
+                                                        </c:forEach>
+                                                    </div>
+                                                </div>
+                                            </c:if>
+                                            <c:if test="${not empty bd2}">
+                                                <div class="answer">
+                                                    <div class="box">
+                                                        <h3>Bill #${bd2[0].billID}</h3>
+                                                        <c:forEach items="${bd2}" var="b">
+                                                            <p>
+                                                                ${b.purpose} - ${b.amount}đ - ${b.description}
+                                                            </p>
+                                                        </c:forEach>
+                                                    </div>
+                                                </div>   
+                                            </c:if>
+                                        </c:if>
+                                        <c:if test="${not empty bd0}">
+                                            <div class="answer">
+                                                <div style="background-color: #f2f2f2" class="box">
+                                                    <h3>${bd0}</h3>
+                                                </div>
+                                            </div>   
+                                        </c:if>
+                                            
+<!--                                        <div class="answer">
                                             <div style="background-color: #f2f2f2" class="box">
-                                                <h3>Sed tincidunt vel orci sed fermentum. Nullam nec turpis blandit?</h3>
+                                                <h3>Bill #</h3>
                                                 <p>Ut nec vulputate enim. Nulla faucibus convallis dui. Donec arcu enim,
                                                     scelerisque gravida lacus vel,
                                                     dignissim cursus lectus. Aliquam laoreet purus in iaculis sodales. Morbi
@@ -341,8 +439,7 @@
                                                     placerat. Donec ultrices placerat arcu non accumsan
                                                 </p>
                                             </div>
-
-                                        </div>
+                                        </div>    
                                         <div class="answer">
                                             <div class="box">
                                                 <h3>Sed tincidunt vel orci sed fermentum. Nullam nec turpis blandit?</h3>
@@ -354,16 +451,15 @@
                                                 </p>
                                             </div>
 
-                                        </div>
+                                        </div>-->
                                         <div style="display: inline-block; padding-left: 0;" class="col-md-3">
                                             <button class="btn btn-info btn-framed">Xem tất cả hóa đơn</button>
                                         </div>
                                         <div style="display: inline-block; right:10%; " class="col-md-3 float-right">
                                             <button onclick="openBillForm()" class="btn btn-info btn-framed">Tạo hóa đơn</button>
                                         </div>
-                                        
                                     </div>
-                                    <div class="col-md-5 box">
+                                    <div class="col-md-5 box" style="height: fit-content">
                                         <h2>Các yêu cầu gần đây</h2>
                                         <div class="answer">
                                             <div class="box" style="background-color: #f2f2f2">
@@ -473,7 +569,7 @@
                 //document.getElementById('home').disabled = true;
                 document.getElementById('home-description').disabled = true;    
             }else{
-                //document.getElementById('home').disabled = false;
+                document.getElementById('home').disabled = false;
                 document.getElementById('home-description').disabled = false; 
             }
         })

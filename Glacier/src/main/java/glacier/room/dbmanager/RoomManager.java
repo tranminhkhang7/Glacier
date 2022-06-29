@@ -5,7 +5,7 @@
  */
 package glacier.room.dbmanager;
 
-import glacier.room.model.Bill;
+import glacier.bill.model.Bill;
 import glacier.room.model.Room;
 import glacier.user.model.Landlord;
 import glacier.user.model.Notification_TL;
@@ -287,7 +287,7 @@ public class RoomManager {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = " SELECT [billID], [roomID], [amount], [purpose], [time], [status] "
+                String sql = " SELECT [billID], [roomID], [time], [status] "
                         + " FROM [Bill] "
                         + " WHERE [roomID]=? AND [status]=? "
                         + " ORDER BY [time] DESC ";
@@ -298,12 +298,12 @@ public class RoomManager {
                 ResultSet rs = st.executeQuery();
                 while (rs.next()) {
                     int billId = rs.getInt("billID");
-
-                    int amount = rs.getInt("amount");
-                    String purpose = rs.getString("purpose");
+//                    int amount = rs.getInt("amount");
+//                    String purpose = rs.getString("purpose");
                     Timestamp time = rs.getTimestamp("time");
                     String status = rs.getString("status");
-                    list.add(new Bill(billId, roomId, amount, purpose, time, status));
+//                    list.add(new Bill(billId, roomId, amount, purpose, time, status));
+                    list.add(new Bill(billId, roomId, time, status));
                 }
             }
         } catch (Exception e) {
