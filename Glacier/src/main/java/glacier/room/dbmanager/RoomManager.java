@@ -6,6 +6,7 @@
 package glacier.room.dbmanager;
 
 import glacier.bill.model.Bill;
+import glacier.bill.model.BillDetail;
 import glacier.room.model.Room;
 import glacier.user.model.Landlord;
 import glacier.user.model.Notification_TL;
@@ -312,7 +313,40 @@ public class RoomManager {
         return list;
     }
 
-    public Room getTenantRentedRoom(int id) {
+    //GET BILL DETAILS
+    public List<BillDetail> getBillsDetail(int roomId) {
+        List<BillDetail> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement st = null;
+
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " SELECT bd.[detailID], b.[billID], [purpose], [amount], [description] "
+                        + " FROM [BillDetail] bd join [Bill] b on bd.[billID] = b.[billID] "
+                        + " WHERE [roomID]=? "
+                        + " ORDER BY [billID] ";
+                st = conn.prepareStatement(sql);
+                st.setInt(1, roomId);
+                ResultSet rs = st.executeQuery();
+                while (rs.next()) {
+                    int billId = rs.getInt("billID");
+                    int detailId = rs.getInt("detailID");
+                    String purpose = rs.getString("purpose");
+                    int amount = rs.getInt("amount");
+                    String description = rs.getString("description");
+//                    list.add(new Bill(billId, roomId, amount, purpose, time, status));
+                    list.add(new BillDetail(billId, detailId, purpose, amount, description));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+
+public Room getTenantRentedRoom(int id) {
         Room room = null;
         Connection conn = null;
         PreparedStatement st = null;
@@ -525,8 +559,12 @@ public class RoomManager {
     
     //METHOD THAT GET TOP 2 BILL
 
-//    public static void main(String[] args) {
-//        RoomManager manager = new RoomManager();
+    public static void main(String[] args) {
+        RoomManager manager = new RoomManager();
+        List<BillDetail> list = manager.getBillsDetail(22);
+        for (BillDetail billDetail : list) {
+            System.out.println(billDetail);
+        }
 //        
 ////        Room room = manager.getRoomWhenAssign("123", "456");
 ////        System.out.println(room);
@@ -536,10 +574,10 @@ public class RoomManager {
 ////        for (Room room : list) {
 ////            System.out.println(room);
 ////        }
-////        List<Bill> list = manager.getPaidBillList(10,"paid",1);
-////        for (Bill bill : list) {
-////            System.out.println(bill);
-////        }
+//        List<Bill> list = manager.getPaidBillList(10,"paid",1);
+//        for (Bill bill : list) {
+//            System.out.println(bill);
+//        }
 ////        Room room  = manager.getTenantRentedRoom(10);
 ////        System.out.println(room);
 ////        int count = manager.countTenantRooms("vuvannga@gmail.com");
@@ -550,5 +588,5 @@ public class RoomManager {
 ////        int i = newS.length();
 ////        int j = s.length();
 ////        System.out.println(shortS);
-//    }
+   }
 }
