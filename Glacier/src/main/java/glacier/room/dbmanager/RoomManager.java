@@ -287,7 +287,7 @@ public class RoomManager {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = " SELECT [billID], [roomID], [amount], [purpose], [time], [status] "
+                String sql = " SELECT [billID], [roomID], [time], [status] "
                         + " FROM [Bill] "
                         + " WHERE [roomID]=? AND [status]=? "
                         + " ORDER BY [time] DESC ";
