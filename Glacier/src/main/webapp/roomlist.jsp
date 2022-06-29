@@ -269,6 +269,9 @@
                                         <c:if test="${room.status.trim() eq 'available'}">
                                             <a href="${pageContext.request.contextPath}/editroom?id=${room.roomID}" class="detail text-caps underline">Chỉnh sửa</a>
                                         </c:if>
+                                            <c:if test="${room.status.trim() eq 'verifying'}">
+                                            <a href="${pageContext.request.contextPath}/editroom?id=${room.roomID}" class="detail text-caps underline">Chỉnh sửa</a>
+                                        </c:if>
                                     </div>
                                 </div>
                             </c:forEach>
