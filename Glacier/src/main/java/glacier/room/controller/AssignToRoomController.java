@@ -63,7 +63,7 @@ public class AssignToRoomController extends HttpServlet {
                     boolean checkOwnerShip = landlordManager.checkOwnership(landlordEmail, room.getRoomID());
                     if (checkOwnerShip) {
                         url = SUCCESS;
-//                        boolean check = userManager.acceptDeposit(room.getRoomID(), "unavailable");
+                        boolean check = userManager.acceptDeposit(room.getRoomID(), "unavailable");
 //                        if (check) {
 //                            String notiSender = String.format("Yêu cầu của bạn cho phòng %s đã được chấp thuận", room.getName());
 //                            dao.landlordNotify(room.getRoomID(), acc.getEmail(), "Vui lòng xem lại các thông tin về phòng ở phần thông báo", notiSender);
