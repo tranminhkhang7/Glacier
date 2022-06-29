@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri= "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <html lang="en">
     <head>
@@ -182,7 +183,10 @@
                                         <div class="form-group">
                                             <label for="deposit" class="col-form-label required" >Tiền cọc</label>
                                             <span data-toggle="tooltip" data-placement="top" title="Đây là tiền cọc cho khách hàng muốn giữ phòng của bạn. Sau khi khách hoàn tất việc đặt phòng và đặt cọc này, phòng của bạn sẽ được đưa về trạng thái Đã thuê trong 48h. Trong trường hợp sau 48h và khách chưa đến đặt phòng, bạn được quyền giữ số tiền này. Chúng tôi đã thông báo điều này đến khách hàng của bạn trước khi họ đặt cọc."><i class="fa fa-info-circle"></i></span>
-                                            <input name="deposit" type="text" class="form-control" id="deposit" value="${room.deposit}" required>
+
+                                            <fmt:parseNumber var = "deposit_int" integerOnly = "true" type = "number" value = "${room.deposit}" />
+                                        
+                                            <input name="deposit" type="text" class="form-control" id="deposit" value="${deposit_int}" required>
                                             <span class="input-group-addon" data-toggle="tooltip" data-placement="top" title="Find My Position">VNĐ</span>
                                         </div>
 

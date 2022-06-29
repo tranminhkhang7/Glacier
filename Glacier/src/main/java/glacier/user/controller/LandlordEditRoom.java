@@ -66,7 +66,6 @@ public class LandlordEditRoom extends HttpServlet {
                         RequestDispatcher rd = request.getRequestDispatcher("/editroom.jsp");
                         rd.forward(request, response);
                     } else {
-
                         String name = request.getParameter("name");
                         String description = request.getParameter("details");
                         String city = request.getParameter("city");
@@ -76,13 +75,14 @@ public class LandlordEditRoom extends HttpServlet {
                         int price = Integer.parseInt(request.getParameter("price"));
 
                         int deposit = Integer.parseInt(request.getParameter("deposit"));
-                        System.out.println("hi there");
                         float area = Float.parseFloat(request.getParameter("area"));
 
                         LandlordManager mng = new LandlordManager();
                         mng.updateRoom(roomID, name, description, address, detailAddress, price, deposit, area);
-
-                        RequestDispatcher rd = request.getRequestDispatcher("/success.jsp");
+                        
+                        System.out.println("hiiii");
+                        
+                        RequestDispatcher rd = request.getRequestDispatcher("/roomlist");
                         rd.forward(request, response);
                     }
                 } else {

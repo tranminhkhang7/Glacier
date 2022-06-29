@@ -50,6 +50,26 @@ public class Room {
         this.detailAddress = detailAddress;
     }
 
+    // This constructor has the deposit of Int, not Float.
+    public Room(int roomID, String name, String description, String address, String emailTenant, String emailLandlord, String status,
+            int price, int deposit, float avgRating, int numberRating, Date date_added, Date rentStartDate, float area, String detailAddress) {
+        this.roomID = roomID;
+        this.name = name;
+        this.description = description;
+        this.address = address;
+        this.emailTenant = emailTenant;
+        this.emailLandlord = emailLandlord;
+        this.status = status;
+        this.price = price;
+        this.deposit = deposit;
+        this.avgRating = avgRating;
+        this.numberRating = numberRating;
+        this.date_added = date_added;
+        this.rentStartDate = rentStartDate;
+        this.area = area;
+        this.detailAddress = detailAddress;
+    }
+    
     //This contruction is for Search function.
     //The emailLandlord does not contain email, it contains landlord's name instead.
     public Room(int roomID, String name, String description, String address, String emailLandlord, int price, float avgRating, Date date_added) {
