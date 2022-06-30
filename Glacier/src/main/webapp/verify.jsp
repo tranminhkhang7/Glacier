@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/user.css">
 
-	<title>Craigs - Easy Buy & Sell Listing HTML Template</title>
+	<title>Xác th?c</title>
 
 </head>
 <body onload="myFunction(${requestScope.IS_VERIFIED})">

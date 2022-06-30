@@ -116,7 +116,7 @@ public class UserManager {
                     l.setEmail(email);
                     l.setName(rs.getString("name"));
                     l.setProfilePicture(rs.getString("profile_picture"));
-                    //l.setStatus(rs.getString("status"));
+                    l.setStatus(rs.getString("status"));
                     l.setGender(rs.getString("gender"));
                     l.setPhone(rs.getString("phone"));
                     l.setFacebookLink(rs.getString("facebook_link"));
@@ -443,7 +443,7 @@ public class UserManager {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 String sql = " UPDATE [Room] "
-                        + " SET [status]=?, [rentStartDate]=?, [qr_status] = disable  "
+                        + " SET [status]=?, [rentStartDate]=? "
                         + " WHERE [roomId]=? ";
 
                 st = conn.prepareStatement(sql);
