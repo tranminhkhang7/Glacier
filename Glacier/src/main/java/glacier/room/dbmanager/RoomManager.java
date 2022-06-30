@@ -589,4 +589,28 @@ public Room getTenantRentedRoom(int id) {
 ////        int j = s.length();
 ////        System.out.println(shortS);
    }
+
+    public boolean isLandlordRoom(String email, int roomId) {
+        boolean check=false;
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "  select roomID from Room r join Landlord l on (r.emailLandlord=l.email)\n" +
+"  where r.emailLandlord=? and r.roomID=?";
+                st = conn.prepareStatement(sql);
+                st.setString(1, email);
+                st.setInt(2, roomId);
+                rs=st.executeQuery();
+                while (rs.next()){
+                   if (rs.getInt(1)>0) check=true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return check;
+    }
 }

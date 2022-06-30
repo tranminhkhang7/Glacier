@@ -453,7 +453,7 @@
 
                                         </div>-->
                                         <div style="display: inline-block; padding-left: 0;" class="col-md-3">
-                                            <button class="btn btn-info btn-framed">Xem tất cả hóa đơn</button>
+                                            <a href="/Glacier/AllBills?id=${id}"><button class="btn btn-info btn-framed"> Xem tất cả hóa đơn</button></a>
                                         </div>
                                         <div style="display: inline-block; right:10%; " class="col-md-3 float-right">
                                             <button onclick="openBillForm()" class="btn btn-info btn-framed">Tạo hóa đơn</button>
