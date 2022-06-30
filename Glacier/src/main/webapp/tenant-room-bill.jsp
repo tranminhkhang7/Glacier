@@ -196,8 +196,6 @@
                                                     <div class="box">
                                                         <div class='row'>
                                                             <div class="col-md-9">
-                                                                <h3>${unpaidBill.purpose}</h3>
-                                                                <p><strong>Số tiền:</strong> ${unpaidBill.amount} VNĐ<br>
                                                                 <strong>Hóa đơn được tạo ra vào: ${unpaidBill.time}</strong><br>
                                                                 <strong>Feel free to add thêm thuộc gì đóa nhe</strong></p>
                                                             </div>
@@ -248,8 +246,6 @@
                                                     <div class="box">
                                                         <div class='row'>
                                                             <div class="col-md-12">
-                                                                <h3>${paid.purpose}</h3>
-                                                                <p><strong>Số tiền:</strong> ${paid.amount} VNĐ<br>
                                                                 <strong>Hóa đơn được tạo ra vào: ${paid.time}</strong><br>
                                                                 <strong>Feel free to add thêm thuộc gì đóa nhe</strong></p>
                                                             </div>
