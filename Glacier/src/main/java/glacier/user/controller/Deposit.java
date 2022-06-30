@@ -78,7 +78,7 @@ public class Deposit extends HttpServlet {
 
                 String ip=getIpAddress();
                 System.out.println(ip);
-                String content = "http://"+ip+":8080/Glacier/qrscan?tenant_key="+tenantKey+"&landlord_key="+landlordKey;
+                String content = "http://"+ip+":8080/Glacier/assign?tenant_key="+tenantKey+"&landlord_key="+landlordKey;
                 //room-id.png
                 String imageName = "room-"+roomID+".png";
                 Utils.createQR(content, imageName);
