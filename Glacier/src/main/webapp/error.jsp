@@ -31,7 +31,7 @@
         <c:if test="${errCode==1}">
              <a href="./roomlist"> BACK TO HOME! </a>
         </c:if>
-        <!-- errCode=1 >> WRONG PRIVILLAGE WHEN USING LANDLORD role -->
+        <!-- errCode=2 >> WRONG PRIVILLAGE WHEN USING ADMIN role -->
         <c:if test="${errCode==2}">
              <a href="./manage"> BACK TO HOME! </a>
         </c:if>     
