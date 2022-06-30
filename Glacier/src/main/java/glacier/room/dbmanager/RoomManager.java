@@ -8,6 +8,8 @@ package glacier.room.dbmanager;
 import glacier.bill.model.Bill;
 import glacier.bill.model.BillDetail;
 import glacier.room.model.Room;
+import glacier.room.model.RoomDAO;
+import static glacier.room.model.SingleRoomView.sortByValueCount;
 import glacier.user.model.Landlord;
 import glacier.user.model.Notification_TL;
 import glacier.utils.DBUtils;
@@ -15,9 +17,14 @@ import java.sql.Connection;
 import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -345,8 +352,7 @@ public class RoomManager {
         return list;
     }
 
-
-public Room getTenantRentedRoom(int id) {
+    public Room getTenantRentedRoom(int id) {
         Room room = null;
         Connection conn = null;
         PreparedStatement st = null;
@@ -556,15 +562,104 @@ public Room getTenantRentedRoom(int id) {
         return check;
 
     }
-    
-    //METHOD THAT GET TOP 2 BILL
 
-    public static void main(String[] args) {
-        RoomManager manager = new RoomManager();
-        List<BillDetail> list = manager.getBillsDetail(22);
-        for (BillDetail billDetail : list) {
-            System.out.println(billDetail);
+    //METHOD THAT GET TOP 2 BILL
+    //METHOD RETRIEVE ALL ROOM HAS THE SAME ADDRESS
+    public List<Integer> getRoomsByAddress(String address, int currentRoomID) {
+        List<Integer> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement st = null;
+
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT [roomID] FROM Room WHERE [address]=? AND roomID != ?";
+                st = conn.prepareStatement(sql);
+                st.setNString(1, address);
+                st.setInt(2, currentRoomID);
+                ResultSet rs = st.executeQuery();
+                while (rs.next()) {
+                    list.add(rs.getInt(1));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return list;
+    }
+
+    public List<Integer> getRoomFeatureIds(int roomID) {
+        List<Integer> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement st = null;
+
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT [featureID] FROM RoomFeature WHERE [roomID]=?";
+                st = conn.prepareStatement(sql);
+                st.setInt(1, roomID);
+                ResultSet rs = st.executeQuery();
+                while (rs.next()) {
+                    list.add(rs.getInt(1));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public static Map<Integer, List<Integer>> sortByValueCount(final Map<Integer, List<Integer>> homeListMap) {
+        return homeListMap.entrySet()
+                .stream()
+                .sorted((e1, e2) -> Integer.compare(e2.getValue().size(), e1.getValue().size()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+    }
+
+    public static void main(String[] args) throws SQLException {
+//        RoomManager manager = new RoomManager();
+//        List<Integer> list = manager.getRoomsByAddress("Hoàn Kiếm, Hà Nội, Vietnam", 20);
+//        for (Integer integer : list) {
+//            System.out.println(integer);
+//        }
+//        List<List<Integer>> listInt = new ArrayList<>();
+//        for (Integer integer : list) {
+//            listInt.add(manager.getRoomFeatureIds(integer));
+//        }
+//        for (List<Integer> list1 : listInt) {
+//            System.out.println(list1);
+//        }
+//        Map<Integer, List<Integer>> myMap = new HashMap<>();
+//        for (int i = 0; i < list.size(); i++) {
+//            myMap.put(list.get(i), listInt.get(i));
+//        }
+//        System.out.println("Before retain");
+//        System.out.println(myMap.entrySet());
+//        for (int i = 0; i < list.size(); i++) {
+//            myMap.get(list.get(i)).retainAll(manager.getRoomFeatureIds(20));
+//        }
+//        System.out.println("after sort and retain");
+//        Map<Integer, List<Integer>> roomMapSorted = sortByValueCount(myMap);
+//        System.out.println(roomMapSorted.entrySet());
+//        RoomDAO dao = new RoomDAO();
+//        List<Room> roomsByFeature = new ArrayList<>();
+//        for (Integer roomId : roomMapSorted.keySet()) {
+//            roomsByFeature.add(dao.getRoomById(roomId));
+//        }
+//        for (Room room : roomsByFeature) {
+//            System.out.println(room);
+//        }
+//        System.out.println(roomsByFeature.size());
+//        List<Integer> featureIDs = manager.getRoomFeatureIds(20);
+//        for (Integer integer : featureIDs) {
+//            System.out.println(integer);
+//        }
+
+//        List<BillDetail> list = manager.getBillsDetail(22);
+//        for (BillDetail billDetail : list) {
+//            System.out.println(billDetail);
+//        }
 //        
 ////        Room room = manager.getRoomWhenAssign("123", "456");
 ////        System.out.println(room);
@@ -588,5 +683,5 @@ public Room getTenantRentedRoom(int id) {
 ////        int i = newS.length();
 ////        int j = s.length();
 ////        System.out.println(shortS);
-   }
+    }
 }

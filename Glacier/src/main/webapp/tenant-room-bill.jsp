@@ -207,17 +207,20 @@
                                                         <div class='row'>
                                                             <div class="col-md-9">
                                                                 <h3> Hóa đơn#${unpaidBill.id} </h3>
-                                                                <strong> Thời gian tạo: ${unpaidBill.time}</strong><br>                                                             
+                                                                <strong> Thời gian tạo: ${unpaidBill.time}</strong><br><br>                                                             
                                                                 <c:forEach items="${requestScope.BILL_DETAILS}" var="detail" >
                                                                     <c:if test="${detail.billID  eq unpaidBill.id}">
-                                                                        <strong>${detail.purpose}: &nbsp;&nbsp;</strong>
-                                                                        <strong>${detail.amount} &nbsp;&nbsp;</strong>
-                                                                        <strong>Nội dung tiền: ${detail.description}</strong><br>
+                                                                        <div class="row">
+                                                                            <div class="col-md-3">
+                                                                                <strong style="min-width:73px">${detail.purpose}:</strong>
+                                                                                <strong class="price priceStyle">${detail.amount}</strong>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <strong>Nội dung tiền: ${detail.description}</strong><br>
+                                                                            </div>
+                                                                        </div>
                                                                     </c:if>
                                                                 </c:forEach>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <button class="btn btn-primary large icon float-right"  style="font-size: 16px; top: 25px;">Thanh toán</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -369,13 +372,22 @@
         <script src="assets/js/custom.js"></script>
 
         <script>
-            var latitude = 51.511971;
-            var longitude = -0.137597;
-            var markerImage = "assets/img/map-marker.png";
-            var mapTheme = "light";
-            var mapElement = "simple-map";
-            var markerDrag = true;
-            simpleMap(latitude, longitude, markerImage, mapTheme, mapElement, markerDrag);
+            for (let i = 0; i < document.getElementsByClassName("priceStyle").length; i++) {
+                let priceText = document.getElementsByClassName("priceStyle")[i].textContent.trim();
+                let textReverse = priceText.split("").reverse().join("").trim();
+                var j = 1;
+                var count = 0;
+                while (j < textReverse.length) {
+                    count++;
+                    if (count > 3) {
+                        textReverse = textReverse.slice(0, j) + "." + textReverse.slice(j);
+                        count = 0;
+                    }
+                    j++;
+                }
+                let finalPrice = textReverse.split("").reverse().join("");
+                document.getElementsByClassName("priceStyle")[i].innerHTML = finalPrice;
+            }
         </script>
 
     </body>
