@@ -70,7 +70,7 @@ public class RoomDAO {
                     String emailTenant = rs.getString("emailTenant");
                     String emailLandlord = rs.getString("emailLandlord");
                     int price = Math.round(rs.getFloat("price"));
-                    float deposit = rs.getFloat("deposit");
+                    int deposit = rs.getInt("deposit");
                     float rating = rs.getFloat("avg_rating");
                     int numberRating = rs.getInt("numberRating");
                     Date date_added = rs.getDate("date_added");

@@ -63,7 +63,7 @@ public class LandlordViewRentedRoom extends HttpServlet {
                 Tenant tenant = mng.getTenantInfo(emailTenant);
                 BillManager bm =new BillManager();
                 int[] currentBillID=bm.getCurrent2BillIDByRoom(id);
-                
+
                     ArrayList<BillDetail> bd1 = new ArrayList<>();
                     bd1=bm.getBillDetailByBillId(currentBillID[0]);
                     ArrayList<BillDetail> bd2 = new ArrayList<>();

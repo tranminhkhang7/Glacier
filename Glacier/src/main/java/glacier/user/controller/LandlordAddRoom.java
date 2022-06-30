@@ -49,7 +49,7 @@ public class LandlordAddRoom extends HttpServlet {
                     String district = request.getParameter("district");
                     String address = district + ", " + city;
                     String detailAddress = request.getParameter("location");
-                    String status = "available";
+                    String status = "verifying";
                     int price = Integer.parseInt(request.getParameter("price"));
                     int deposit = Integer.parseInt(request.getParameter("deposit"));
                     float avgRating = 0;
@@ -61,7 +61,7 @@ public class LandlordAddRoom extends HttpServlet {
 
                     LandlordManager mng = new LandlordManager();
                     mng.addRoom(name, description, address, detailAddress, status, price, deposit, avgRating, dateAdded, area, emailLandlord);
-                    RequestDispatcher rd = request.getRequestDispatcher("/success.jsp");
+                    RequestDispatcher rd = request.getRequestDispatcher("/roomlist");
                     rd.forward(request, response);
                 }
             } else {
