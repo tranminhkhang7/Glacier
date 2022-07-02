@@ -6,7 +6,6 @@
 package glacier.user.controller;
 
 import glacier.landlord.dbmanager.LandlordManager;
-import glacier.room.model.LocationsDTO;
 import glacier.user.model.Account;
 import glacier.user.model.Landlord;
 import glacier.user.model.Tenant;
@@ -67,9 +66,6 @@ public class LandlordAddRoom extends HttpServlet {
                     rd.forward(request, response);
                 }
             } else {
-                LocationsDTO locationList = new LocationsDTO();
-
-                request.setAttribute("locationList", locationList);
                 RequestDispatcher rd = request.getRequestDispatcher("/addroom.jsp");
                 rd.forward(request, response);
             }
