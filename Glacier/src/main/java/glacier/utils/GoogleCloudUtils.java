@@ -32,7 +32,8 @@ public class GoogleCloudUtils {
 
         StorageOptions storageOptions = StorageOptions.newBuilder()
                 .setProjectId("glacier-351418")
-                .setCredentials(GoogleCredentials.fromStream(new FileInputStream("D:\\FPTUni\\2022_Semester5_Summer\\SWP391\\glacier-351418-e0da95a32347.json"))).build();
+
+                .setCredentials(GoogleCredentials.fromStream(new FileInputStream("D:\\KEY\\glacier-351418-20aaccaddebf.json"))).build();
         Storage storage = storageOptions.getService();
 
     storage = StorageOptions.newBuilder().setProjectId(projectId).build().getService();

@@ -33,30 +33,29 @@ public class RoomDAO {
             conn.close();
         }
     }
-    
 
     public Room getRoomById(int roomID) throws SQLException {
         Room room = null;
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT [roomID]\n" +
-"      ,[status]\n" +
-"      ,[name]\n" +
-"      ,[description]\n" +
-"      ,[address]\n" +
-"      ,[detailAddress]\n" +
-"      ,[emailTenant]\n" +
-"      ,[emailLandlord]\n" +
-"      ,[price]\n" +
-"      ,[deposit]\n" +
-"      ,[avg_rating]\n" +
-"      ,[numberRating]\n" +
-"      ,[date_added]\n" +
-"      ,[area]\n" +
-"      ,[rentStartDate]\n" +
-"  FROM [Glacier].[dbo].[Room]\n" +
-"  where roomID=?";
+                String sql = "SELECT [roomID]\n"
+                        + "      ,[status]\n"
+                        + "      ,[name]\n"
+                        + "      ,[description]\n"
+                        + "      ,[address]\n"
+                        + "      ,[detailAddress]\n"
+                        + "      ,[emailTenant]\n"
+                        + "      ,[emailLandlord]\n"
+                        + "      ,[price]\n"
+                        + "      ,[deposit]\n"
+                        + "      ,[avg_rating]\n"
+                        + "      ,[numberRating]\n"
+                        + "      ,[date_added]\n"
+                        + "      ,[area]\n"
+                        + "      ,[rentStartDate]\n"
+                        + "  FROM [Glacier].[dbo].[Room]\n"
+                        + "  where roomID=?";
                 pstm = conn.prepareStatement(sql);
                 pstm.setInt(1, roomID);
                 rs = pstm.executeQuery();
@@ -75,10 +74,10 @@ public class RoomDAO {
                     int numberRating = rs.getInt("numberRating");
                     Date date_added = rs.getDate("date_added");
                     float area = rs.getFloat("area");
-                    Date rentStartDate=rs.getDate("rentStartDate");
-                    room = new Room(roomID, name, description, address, emailTenant, 
-                            emailLandlord, status, price, deposit, rating, 
-                            numberRating, date_added, rentStartDate, area, 
+                    Date rentStartDate = rs.getDate("rentStartDate");
+                    room = new Room(roomID, name, description, address, emailTenant,
+                            emailLandlord, status, price, deposit, rating,
+                            numberRating, date_added, rentStartDate, area,
                             detailAddress);
                 }
             }
@@ -113,15 +112,15 @@ public class RoomDAO {
             return ImgList;
         }
     }
-    
-    public ArrayList<String> getRoomFeature(int roomID) throws Exception{
+
+    public ArrayList<String> getRoomFeature(int roomID) throws Exception {
         ArrayList<String> f = new ArrayList<>(10);
         try {
             conn = DBUtils.getConnection();
-            String sql =    "select f.name\n" +
-                            "from Room r join RoomFeature rf on (r.roomID=rf.roomID) \n" +
-                            "join Feature f on (rf.featureID=f.id)\n" +
-                            "where r.roomID=?";
+            String sql = "select f.name\n"
+                    + "from Room r join RoomFeature rf on (r.roomID=rf.roomID) \n"
+                    + "join Feature f on (rf.featureID=f.id)\n"
+                    + "where r.roomID=?";
             if (conn != null) {
                 pstm = conn.prepareStatement(sql);
                 pstm.setInt(1, roomID);
@@ -131,15 +130,14 @@ public class RoomDAO {
                     f.add(feature);
                 }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally{
+        } finally {
             closeConnection();
             return f;
         }
     }
+
     public static void main(String[] args) throws SQLException, Exception {
         RoomDAO dao = new RoomDAO();
         ArrayList<String> f = dao.getRoomFeature(10);

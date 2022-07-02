@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="en">
@@ -191,75 +192,61 @@
                         <section>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-bottom: 25px;">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="one" aria-expanded="true"><strong>CHƯA THANH TOÁN</strong></a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="two"><strong>ĐÃ THANH TOÁN</strong></a>
-                                        </li>
-                                    </ul>
                                     <div class="tab-content" id="myTabContent">
-                                        <div class="tab-pane fade show active" id="one" role="tabpanel" aria-labelledby="one-tab">
-                                            <c:forEach items="${requestScope.UNPAID_BILLS}" var="unpaidBill">
-
+                                            <c:forEach items="${requestScope.BILLS}" var="Bill">
                                                 <div class="answer">
                                                     <div class="box">
                                                         <div class='row'>
                                                             <div class="col-md-9">
-                                                                <h3> Hóa đơn#${unpaidBill.id} </h3>
-                                                                <strong> Thời gian tạo: ${unpaidBill.time}</strong><br><br>                                                             
-                                                                <c:forEach items="${requestScope.BILL_DETAILS}" var="detail" >
-                                                                    <c:if test="${detail.billID  eq unpaidBill.id}">
-                                                                        <div class="row">
-                                                                            <div class="col-md-3">
-                                                                                <strong style="min-width:73px">${detail.purpose}:</strong>
-                                                                                <strong class="price priceStyle">${detail.amount}</strong>
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <strong>Nội dung tiền: ${detail.description}</strong><br>
-                                                                            </div>
-                                                                        </div>
-                                                                    </c:if>
-                                                                </c:forEach>
+                                                                <div style="margin-bottom: auto; font-weight: bold;font-size: 20px"> Hóa đơn #${Bill.id} <div style="float:right;font-size: 15px">RoomID: ${Bill.roomId}</div></div>
+                                                                <div style="float:left"><fmt:formatDate type = "both" dateStyle = "short" timeStyle = "short" value = "${Bill.time}"/></div>
+                                                                <div class="clearfix"></div>
+                                                                <br>
+                                                                <table style=" border:1px solid black">
+                                                                    <c:forEach items="${requestScope.BILL_DETAILS}" var="detail" >
+                                                                            <c:if test="${detail.billID eq Bill.id}">
+                                                                                <tr style=" border:1px solid black">
+                                                                                    <td style="padding-right: 10px;display: inline;border:1px solid black">${detail.purpose}</td>
+                                                                                    <td style="padding-right: 10px;display: inline;border:1px solid black">${detail.amount}đ</td>
+                                                                                    <td style="padding-right: 10px;display: inline;border:1px solid black">Nội dung tiền: ${detail.description}</td>
+                                                                                </tr>
+                                                                            </c:if>
+                                                                    </c:forEach>
+                                                                </table>
+                                                            </div>
+                                                            <div class="col-3 d-flex align-items-center justify-content-center" style="float: right">
+                                                                <button class="btn btn-primary btn-framed"  style="font-size: 16px;">Đã thanh toán</button>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </c:forEach>
-
-
-                                        </div>
-                                        <div class="tab-pane fade" id="two" role="tabpanel" aria-labelledby="two-tab">
-                                            <c:forEach items="${requestScope.PAID_BILLS}" var="paid">
-                                                <div class="answer">
-                                                    <div class="box">
-                                                        <div class='row'>
-                                                            <div class="col-md-12">
-                                                                <strong>Hóa đơn được tạo ra vào: ${paid.time}</strong><br>
-                                                                <strong>Feel free to add thêm thuộc gì đóa nhe</strong></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </c:forEach>
-                                        </div>
-
-
-                                        <!--end page-pagination-->
                                     </div>
-
-
-
                                 </div>
                                 <!--end col-md-6-->
-
                             </div>
                             <!--end row-->
+                            <div class="page-pagination">
+                                <nav aria-label="Pagination">
+                                    <ul class="pagination">
+                                        <c:forEach begin="1" end="${endPage}" step="1" var="i">
+                                            <c:choose>
+                                                <c:when test="${currentPage == i}">
+                                                    <li class="page-item active">
+                                                        <a class="page-link" href="?id=${id}&index=${i}">${i}</a>
+                                                    </li>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="?id=${id}&index=${i}">${i}</a>
+                                                    </li>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </ul>
+                                </nav>
+                            </div>
                         </section>
-
-
-
                     </div>
                     <!--end container-->
                 </section>
@@ -371,26 +358,6 @@
         <script src="assets/js/icheck.min.js"></script>
         <script src="assets/js/jquery.validate.min.js"></script>
         <script src="assets/js/custom.js"></script>
-
-        <script>
-            for (let i = 0; i < document.getElementsByClassName("priceStyle").length; i++) {
-                let priceText = document.getElementsByClassName("priceStyle")[i].textContent.trim();
-                let textReverse = priceText.split("").reverse().join("").trim();
-                var j = 1;
-                var count = 0;
-                while (j < textReverse.length) {
-                    count++;
-                    if (count > 3) {
-                        textReverse = textReverse.slice(0, j) + "." + textReverse.slice(j);
-                        count = 0;
-                    }
-                    j++;
-                }
-                let finalPrice = textReverse.split("").reverse().join("");
-                document.getElementsByClassName("priceStyle")[i].innerHTML = finalPrice;
-            }
-        </script>
-
     </body>
 </html>
 

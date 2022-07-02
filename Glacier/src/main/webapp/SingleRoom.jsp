@@ -608,6 +608,50 @@
                                 </iframe>
                             </div>
                         </section>
+                        <hr>
+                        <section>
+                            <h2>Nhà được gợi ý</h2>
+                            <div class="items list compact">
+                                <c:forEach items="${requestScope.ROOM_BY_FEATURE}" begin="0" end="2" var="roomByFeature">
+                                    <div class="item">                                 
+                                        <!--end ribbon-->
+                                        <div class="wrapper">
+                                            <div class="image">
+                                                <h3>
+                                                    <a href="./SingleRoomView?id=${roomByFeature.roomID}" class="title">${roomByFeature.name}</a>                                                    
+                                                </h3>
+                                                <a href="./SingleRoomView?id=${roomByFeature.roomID}" class="image-wrapper background-image">
+                                                    <img src="assets/img/image-01.jpg" alt="">
+                                                </a>
+                                            </div>
+                                            <!--end image-->
+                                            <h4 class="location">
+                                                <a href="#">${roomByFeature.address}</a>
+                                            </h4>
+                                            <div class="price priceStyle">${roomByFeature.price}<small> VNĐ</small></div>
+                                            <div class="meta">
+                                                <figure>
+                                                    <i class="fa fa-calendar-o"></i>${roomByFeature.date_added}
+                                                </figure>
+                                                <figure>
+                                                    <a href="#">
+                                                        <i class="fa fa-user"></i>${date_added.emailLandlord}
+                                                    </a>
+                                                </figure>
+                                            </div>
+                                            <!--end meta-->
+                                            <div class="description">
+                                                <p>${roomByFeature.description}</p>
+                                            </div>
+                                            <!--end description-->
+                                        </div>
+                                    </div>
+                                </c:forEach>
+                                <!--end item-->
+                            </div>
+                            <!--end items.list.compact-->
+                        </section>
+                        <hr>
                         <section>
                             <h2>Viết đánh giá</h2>
                             <c:if test="${user==null}">
@@ -659,8 +703,11 @@
                         </section>
                         <hr style="margin-top: 10rem">
                         <section>
-                            <h2>Reviews</h2>
+                            <h2>Đánh giá</h2>
                             <div class="comments">
+                                <c:if test="${empty Reviews}">
+                                    <h3>Không có đánh giá</h3>
+                                </c:if>
                                 <c:forEach items="${Reviews}" var="review">
                                     <div class="comment">
                                         <div class="author">

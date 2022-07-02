@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -56,6 +57,58 @@ public class BillManager {
             e.printStackTrace();
         }
         return index+1;
+    }
+    
+    public ArrayList<Bill> getBills(int roomid,int index ){
+        ArrayList<Bill> Bills=new ArrayList<>();
+        String sql="select b.billID,b.roomID,b.status,b.time from Bill b join Room r on (b.roomID=r.roomID)\n" +
+"  where r.roomID=?\n" +
+"  order by b.billID\n" +
+"  offset ? rows fetch next 10 rows only";
+        try{
+            conn=DBUtils.getConnection();
+            if (conn!=null){
+                pstm=conn.prepareStatement(sql);
+                pstm.setInt(1, roomid);
+                pstm.setInt(2, (index-1)*10);
+                rs=pstm.executeQuery();
+                while (rs.next()){
+                    int billID=rs.getInt("billID");
+                    int roomID=rs.getInt("roomID");
+                    String status=rs.getString("status");
+                    Timestamp time=rs.getTimestamp("time");
+                    Bill b=new Bill(billID, roomID, time,status);
+                    Bills.add(b);
+                }
+            }  
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            Bills=null;
+        }
+        return Bills;
+    }
+    
+    public int getNumberOfBills(int roomid){
+        int number=-1;
+        String sql = "  select count(*) from Bill b join Room r on (b.roomID=r.roomID)\n" +
+"  where r.roomID=?\n";
+        try{
+            conn=DBUtils.getConnection();
+            if (conn!=null){
+                pstm=conn.prepareStatement(sql);
+                pstm.setInt(1, roomid);
+                rs=pstm.executeQuery();
+                while (rs.next()){
+                    number=rs.getInt(1);
+                }
+            }
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return number;
     }
     
     public int[] getCurrent2BillIDByRoom (int id){
@@ -217,6 +270,6 @@ public class BillManager {
         BillManager bm = new BillManager();
 //        Timestamp date = new Timestamp(System.currentTimeMillis());
 //        bm.createBill(bm.getNextBillID(),10,date,"unpaid");
-        System.out.println(bm.getCurrent2BillIDByRoom(22).toString());
+//        System.out.println(bm.getCurrent2BillIDByRoom(22).toString());
     }
 }
