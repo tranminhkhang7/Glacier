@@ -33,6 +33,7 @@ public class GoogleCloudUtils {
 
         StorageOptions storageOptions = StorageOptions.newBuilder()
                 .setProjectId("glacier-351418")
+
                 .setCredentials(GoogleCredentials.fromStream(new FileInputStream("D:\\KEY\\glacier-351418-20aaccaddebf.json"))).build();
         Storage storage = storageOptions.getService();
 
@@ -71,6 +72,6 @@ public class GoogleCloudUtils {
     }
     
 //    public static void main(String[] args) throws IOException {
-//        uploadObject(Constant.GOOGLE_CLOUD_PROJECT_ID, Constant.GOOGLE_CLOUD_BUCKET_NAME, "room-11.png", "D:\\Tomcat Glassfish\\apache-tomcat-9.0.56\\bin\\Glacier\\QR\\room-11.png");
+//        uploadObject(Constant.GOOGLE_CLOUD_PROJECT_ID, Constant.GOOGLE_CLOUD_BUCKET_NAME, "cantho.jpg", "D:\\FPTUni\\2022_Semester5_Summer\\SWP391\\cantho.jpg");
 //    }
 }
