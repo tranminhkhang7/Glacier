@@ -63,7 +63,7 @@ public class BillManager {
         ArrayList<Bill> Bills=new ArrayList<>();
         String sql="select b.billID,b.roomID,b.status,b.time from Bill b join Room r on (b.roomID=r.roomID)\n" +
 "  where r.roomID=?\n" +
-"  order by b.billID\n" +
+"  order by b.billID desc\n" +
 "  offset ? rows fetch next 10 rows only";
         try{
             conn=DBUtils.getConnection();
