@@ -6,6 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <html lang="en">
     <head>
@@ -208,7 +209,7 @@
                                                         <div class='row'>
                                                             <div class="col-md-9">
                                                                 <h3> Hóa đơn#${unpaidBill.id} </h3>
-                                                                <strong> Thời gian tạo: ${unpaidBill.time}</strong><br><br>                                                             
+                                                                <strong> Thời gian tạo: <fmt:formatDate type = "both" dateStyle = "short" timeStyle = "short" value = "${unpaidBill.time}"/></strong><br><br>                                                             
                                                                 <c:forEach items="${requestScope.BILL_DETAILS}" var="detail" >
                                                                     <c:if test="${detail.billID  eq unpaidBill.id}">
                                                                         <div class="row">
