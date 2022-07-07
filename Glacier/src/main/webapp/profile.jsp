@@ -285,7 +285,7 @@
                                         <div class="image background-image">
                                             <img src="assets/img/author-09.jpg" alt="">
                                         </div>
-                                        <form action="">
+                                        <form action="./avatar" enctype="multipart/form-data" method="post">
                                             <div class="single-file-input">
                                                 <input type="file" id="user_image" name="user_image">
                                                 <div class="btn btn-framed btn-primary small">Cập nhật ảnh</div>
@@ -293,8 +293,9 @@
                                             <div class="single-file-input">
                                                 <input type="submit" class="btn btn-primary small" value="Lưu ảnh"/>
                                             </div>
+                                        </form>
                                     </div>
-                                    </form>
+                                    
                                 </div>
 
                                 <!--end col-md-3-->

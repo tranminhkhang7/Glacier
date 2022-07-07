@@ -68,7 +68,7 @@ public class UserVerify extends HttpServlet {
                             ss.setAttribute("LOGIN_USER", acc);
                             ss.setAttribute("USER_DETAIL", t);
                             ss.removeAttribute("USER_SESSION");
-                            response.sendRedirect("success.jsp");
+                            response.sendRedirect("home");
                             return;
                         }
                     } else {
@@ -78,7 +78,7 @@ public class UserVerify extends HttpServlet {
                             ss.setAttribute("LOGIN_USER", acc);
                             ss.setAttribute("USER_DETAIL", l);
                             ss.removeAttribute("USER_SESSION");
-                            response.sendRedirect("success.jsp");
+                            response.sendRedirect("home");
                             return;
                         }
                     }
