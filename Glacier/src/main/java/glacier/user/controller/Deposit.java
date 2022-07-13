@@ -72,7 +72,7 @@ public class Deposit extends HttpServlet {
 
                 //-----------------------------------------------------------------------------------------------------------------------
                 //CREATE QR CODE //email + ngay + 1 so ngau nhien
-                //ipv4:8080/Glacier/qrscan?tenant_key=abc
+                //ipv4:8080/Glacier/assign?tenant_key=abc
                 String tenantKey = DigestUtils.md5Hex(emailTenant+Math.random());
                 String landlordKey = DigestUtils.md5Hex(emailLandlord+Math.random());
 

@@ -193,34 +193,42 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="tab-content" id="myTabContent">
-                                            <c:forEach items="${requestScope.BILLS}" var="Bill">
-                                                <div class="answer">
-                                                    <div class="box">
-                                                        <div class='row'>
-                                                            <div class="col-md-9">
-                                                                <div style="margin-bottom: auto; font-weight: bold;font-size: 20px"> Hóa đơn #${Bill.id} <div style="float:right;font-size: 15px">RoomID: ${Bill.roomId}</div></div>
-                                                                <div style="float:left"><fmt:formatDate type = "both" dateStyle = "short" timeStyle = "short" value = "${Bill.time}"/></div>
-                                                                <div class="clearfix"></div>
-                                                                <br>
-                                                                <table style=" border:1px solid black">
-                                                                    <c:forEach items="${requestScope.BILL_DETAILS}" var="detail" >
-                                                                            <c:if test="${detail.billID eq Bill.id}">
-                                                                                <tr style=" border:1px solid black">
-                                                                                    <td style="padding-right: 10px;display: inline;border:1px solid black">${detail.purpose}</td>
-                                                                                    <td style="padding-right: 10px;display: inline;border:1px solid black">${detail.amount}đ</td>
-                                                                                    <td style="padding-right: 10px;display: inline;border:1px solid black">Nội dung tiền: ${detail.description}</td>
-                                                                                </tr>
-                                                                            </c:if>
-                                                                    </c:forEach>
-                                                                </table>
-                                                            </div>
-                                                            <div class="col-3 d-flex align-items-center justify-content-center" style="float: right">
-                                                                <button class="btn btn-primary btn-framed"  style="font-size: 16px;">Đã thanh toán</button>
-                                                            </div>
+                                        <c:forEach items="${requestScope.BILLS}" var="Bill">
+                                            <div class="answer">
+                                                <div class="box">
+                                                    <div class='row'>
+                                                        <div class="col-md-9">
+                                                            <div style="margin-bottom: auto; font-weight: bold;font-size: 20px"> Hóa đơn #${Bill.id} <div style="float:right;font-size: 15px">RoomID: ${Bill.roomId}</div></div>
+                                                            <div style="float:left"><fmt:formatDate type = "both" dateStyle = "short" timeStyle = "short" value = "${Bill.time}"/></div>
+                                                            <div class="clearfix"></div>
+                                                            <br>
+                                                            <table style=" border:1px solid black">
+                                                                <c:forEach items="${requestScope.BILL_DETAILS}" var="detail" >
+                                                                    <c:if test="${detail.billID eq Bill.id}">
+                                                                        <div class="row">
+                                                                            <div class="col-md-3">
+                                                                                <strong>${detail.purpose}: ${detail.amount}</strong>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <strong>Nội dung: ${detail.description}</strong>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!--                                                                                <tr style=" border:1px solid black">
+                                                                                                                                                            <td style="padding-right: 10px;display: inline;border:1px solid black">${detail.purpose}</td>
+                                                                                                                                                            <td style="padding-right: 10px;display: inline;border:1px solid black">${detail.amount}đ</td>
+                                                                                                                                                            <td style="padding-right: 10px;display: inline;border:1px solid black">Nội dung tiền: ${detail.description}</td>
+                                                                                                                                                        </tr>-->
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                            </table>
+                                                        </div>
+                                                        <div class="col-3 d-flex align-items-center justify-content-center" style="float: right">
+                                                            <button class="btn btn-primary btn-framed"  style="font-size: 16px;">Đã thanh toán</button>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </c:forEach>
+                                            </div>
+                                        </c:forEach>
                                     </div>
                                 </div>
                                 <!--end col-md-6-->

@@ -8,6 +8,7 @@ import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -44,6 +45,31 @@ public class GoogleCloudUtils {
         "File " + filePath + " uploaded to bucket " + bucketName + " as " + objectName);
     }
     
+        public static void uploadObjectFromMemory(
+            String projectId, String bucketName, String objectName, byte[] content) throws IOException {
+        // The ID of your GCP project
+        // String projectId = "your-project-id";
+
+        // The ID of your GCS bucket
+        // String bucketName = "your-unique-bucket-name";
+        // The ID of your GCS object
+        // String objectName = "your-object-name";
+        // The string of contents you wish to upload
+        // String contents = "Hello world!";
+        Storage storage = StorageOptions.newBuilder().setProjectId(projectId).build().getService();
+        BlobId blobId = BlobId.of(bucketName, objectName);
+        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("image/png").build();
+        //byte[] content = method(contents);
+        storage.createFrom(blobInfo, new ByteArrayInputStream(content));
+
+        System.out.println(
+                "Object "
+                + objectName
+                + " uploaded to bucket "
+                + bucketName
+                + " with contents "
+                + content);
+    }
     
 //    public static void main(String[] args) throws IOException {
 //        uploadObject(Constant.GOOGLE_CLOUD_PROJECT_ID, Constant.GOOGLE_CLOUD_BUCKET_NAME, "cantho.jpg", "D:\\FPTUni\\2022_Semester5_Summer\\SWP391\\cantho.jpg");
