@@ -77,19 +77,14 @@
                                 <div class="collapse" id="collapseAlternativeSearchForm">
                                     <div class="wrapper">
                                         <div class="form-row">
-                                            <%
-                                                int i = 1;
-                                            %>
                                             <c:forEach items="${requestScope.listFeature}" var="feature">
                                                 <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
                                                     <label>
-                                                        <input type="checkbox" name="<%=i%>">
-                                                        ${feature}
+                                                        <input type="checkbox" name="${feature.id}">
+                                                        ${feature.name}
                                                     </label>
                                                 </div>
-                                                <%
-                                                    i++;
-                                                %>
+                                               
                                             </c:forEach>
                                             <!--end col-xl-6-->
 

@@ -6,6 +6,9 @@
 package glacier.user.controller;
 
 import glacier.landlord.dbmanager.LandlordManager;
+import glacier.model.feature.FeatureDAO;
+import glacier.model.feature.FeatureDTO;
+import glacier.room.dbmanager.RoomManager;
 import glacier.user.model.Account;
 import glacier.user.model.Landlord;
 import glacier.user.model.Tenant;
@@ -56,16 +59,23 @@ public class LandlordAddRoom extends HttpServlet {
                     float avgRating = 0;
                     Date dateAdded = new Date();
                     float area = Float.parseFloat(request.getParameter("area"));
-
+                    
+                    
                     Landlord landlord = (Landlord) session.getAttribute("USER_DETAIL");
                     String emailLandlord = landlord.getEmail();
 
                     LandlordManager mng = new LandlordManager();
                     mng.addRoom(name, description, address, detailAddress, status, price, deposit, avgRating, dateAdded, area, emailLandlord);
-                    RequestDispatcher rd = request.getRequestDispatcher("/roomlist");
-                    rd.forward(request, response);
+                    
+                    
+//                    RequestDispatcher rd = request.getRequestDispatcher("/roomlist");
+//                    rd.forward(request, response);
+                    response.sendRedirect("roomlist");  
                 }
             } else {
+                FeatureDAO mng = new FeatureDAO();
+                List<FeatureDTO> listFeature = mng.loadFeature();
+                request.setAttribute("listFeature", listFeature);
                 RequestDispatcher rd = request.getRequestDispatcher("/addroom.jsp");
                 rd.forward(request, response);
             }

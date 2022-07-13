@@ -103,7 +103,7 @@ public class LandlordManager {
             String sql = "SELECT [roomID], [name], [status], [address], [area], [avg_rating], [date_added], [description], [price]\n"
                     + "FROM [Room]\n"
                     + "WHERE [emailLandlord] = N'" + emailLandlord + "'\n"
-                    + "ORDER BY [roomID]\n"
+                    + "ORDER BY [date_added] DESC\n"
                     + "OFFSET " + (index - 1) * 4 + " ROWS FETCH NEXT 4 ROWS ONLY";
 
             Connection con = DBUtils.getConnection();

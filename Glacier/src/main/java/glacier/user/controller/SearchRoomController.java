@@ -49,7 +49,7 @@ public class SearchRoomController extends HttpServlet {
             }
 
             // LOAD FEATURE ID FOR QUERYING
-            // Yes mates, I know that who wrote like this is worth going to hell.
+            // Yes mates, I know that who writes like this worth going to hell.
             // But compare to the solution of counting how many features there are in the database,
             // this solution is way more productive.
             List<Integer> listFeature;

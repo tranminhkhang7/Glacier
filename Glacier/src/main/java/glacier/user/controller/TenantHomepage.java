@@ -5,7 +5,8 @@
  */
 package glacier.user.controller;
 
-import glacier.room.dbmanager.RoomManager;
+import glacier.model.feature.FeatureDAO;
+import glacier.model.feature.FeatureDTO;
 import glacier.user.model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -48,8 +49,8 @@ public class TenantHomepage extends HttpServlet {
                 RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
                 rd.forward(request, response);
             } else {
-                RoomManager mng = new RoomManager();
-                List<String> listFeature = mng.loadFeature();
+                FeatureDAO mng = new FeatureDAO();
+                List<FeatureDTO> listFeature = mng.loadFeature();
                 request.setAttribute("listFeature", listFeature);
                 RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
                 rd.forward(request, response);

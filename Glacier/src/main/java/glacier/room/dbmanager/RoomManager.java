@@ -468,25 +468,6 @@ public class RoomManager {
         return status;
     }
 
-    public List<String> loadFeature() {
-        try {
-            String sql = "SELECT *\n"
-                    + "FROM [Feature]";
-            Connection con = DBUtils.getConnection();
-            PreparedStatement st = con.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
-
-            List<String> listResult = new ArrayList<>();
-            while (rs.next()) {
-                listResult.add(rs.getString("name").trim());
-            }
-            return listResult;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     //THIS METHOD RETURN A ROOM IF TENANT KEY AND LANDLORD KEY ARE MATCH
     public Room getRoomWhenAssign(String tenantKey, String landlordKey) {
         Room room = null;
