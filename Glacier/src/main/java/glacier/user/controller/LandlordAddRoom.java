@@ -44,42 +44,47 @@ public class LandlordAddRoom extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            if (request.getParameter("name") != null) {
-                HttpSession session = request.getSession(false);
-                if (session != null) {
-                    String name = request.getParameter("name");
-                    String description = request.getParameter("details");
-                    String city = request.getParameter("city");
-                    String district = request.getParameter("district");
-                    String address = district + ", " + city;
-                    String detailAddress = request.getParameter("location");
-                    String status = "verifying";
-                    int price = Integer.parseInt(request.getParameter("price"));
-                    int deposit = Integer.parseInt(request.getParameter("deposit"));
-                    float avgRating = 0;
-                    Date dateAdded = new Date();
-                    float area = Float.parseFloat(request.getParameter("area"));
-                    
-                    
-                    Landlord landlord = (Landlord) session.getAttribute("USER_DETAIL");
-                    String emailLandlord = landlord.getEmail();
+            HttpSession ss = request.getSession();
+            Account user = (Account) ss.getAttribute("LOGIN_USER");
 
-                    LandlordManager mng = new LandlordManager();
-                    mng.addRoom(name, description, address, detailAddress, status, price, deposit, avgRating, dateAdded, area, emailLandlord);
-                    
-                    
+            String role = (user == null) ? "" : user.getRole().trim();
+            if ("landlord".equals(role)) {
+                if (request.getParameter("name") != null) {
+                    HttpSession session = request.getSession(false);
+                    if (session != null) {
+                        String name = request.getParameter("name");
+                        String description = request.getParameter("details");
+                        String city = request.getParameter("city");
+                        String district = request.getParameter("district");
+                        String address = district + ", " + city;
+                        String detailAddress = request.getParameter("location");
+                        String status = "verifying";
+                        int price = Integer.parseInt(request.getParameter("price"));
+                        int deposit = Integer.parseInt(request.getParameter("deposit"));
+                        float avgRating = 0;
+                        Date dateAdded = new Date();
+                        float area = Float.parseFloat(request.getParameter("area"));
+
+                        Landlord landlord = (Landlord) session.getAttribute("USER_DETAIL");
+                        String emailLandlord = landlord.getEmail();
+
+                        LandlordManager mng = new LandlordManager();
+                        mng.addRoom(name, description, address, detailAddress, status, price, deposit, avgRating, dateAdded, area, emailLandlord);
+
 //                    RequestDispatcher rd = request.getRequestDispatcher("/roomlist");
 //                    rd.forward(request, response);
-                    response.sendRedirect("roomlist");  
+                        response.sendRedirect("roomlist");
+                    }
+                } else {
+                    FeatureDAO mng = new FeatureDAO();
+                    List<FeatureDTO> listFeature = mng.loadFeature();
+                    request.setAttribute("listFeature", listFeature);
+                    RequestDispatcher rd = request.getRequestDispatcher("/addroom.jsp");
+                    rd.forward(request, response);
                 }
             } else {
-                FeatureDAO mng = new FeatureDAO();
-                List<FeatureDTO> listFeature = mng.loadFeature();
-                request.setAttribute("listFeature", listFeature);
-                RequestDispatcher rd = request.getRequestDispatcher("/addroom.jsp");
-                rd.forward(request, response);
+                response.sendRedirect("login");
             }
-
         } catch (Exception e) {
             log("Error at LandlordAddRoom: " + e.toString());
         }

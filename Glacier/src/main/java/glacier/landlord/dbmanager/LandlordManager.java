@@ -104,7 +104,7 @@ public class LandlordManager {
                     + "FROM [Room]\n"
                     + "WHERE [emailLandlord] = N'" + emailLandlord + "'\n"
                     + "ORDER BY [date_added] DESC\n"
-                    + "OFFSET " + (index - 1) * 4 + " ROWS FETCH NEXT 4 ROWS ONLY";
+                    + "OFFSET " + (index - 1) * 10 + " ROWS FETCH NEXT 10 ROWS ONLY";
 
             Connection con = DBUtils.getConnection();
             PreparedStatement st = con.prepareStatement(sql);

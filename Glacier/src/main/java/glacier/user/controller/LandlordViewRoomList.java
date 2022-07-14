@@ -63,8 +63,8 @@ public class LandlordViewRoomList extends HttpServlet {
                 List<Room> listResult = mng.listRoom(emailLandlord, currentPage);
 
                 int totalMatched = mng.countMatched(emailLandlord);
-                int endPage = totalMatched / 4;
-                if (totalMatched % 4 != 0) {
+                int endPage = totalMatched / 10;
+                if (totalMatched % 10 != 0) {
                     endPage++;
                 }
                 

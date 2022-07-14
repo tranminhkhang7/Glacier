@@ -227,8 +227,14 @@
                                     <div class="wrapper">
                                         <div class="image">
                                             <h3>
-                                                <a href="single-listing-1.html" class="title">${room.name}</a>
-
+                                                <c:choose>
+                                                    <c:when test="${room.status.trim() eq 'unavailable'}">
+                                                        <a href="${pageContext.request.contextPath}/roomlist/room?id=${room.roomID}">${room.name}</a>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <a href="${pageContext.request.contextPath}/editroom?id=${room.roomID}">${room.name}</a>
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </h3>
                                             <a href="single-listing-1.html" class="image-wrapper background-image">
                                                 <img src="${pageContext.request.contextPath}/assets/img/image-01.jpg" alt="">
@@ -263,15 +269,14 @@
                                             </ul>
                                         </div>
                                         <!--end addition-info-->
-                                        <c:if test="${room.status.trim() eq 'unavailable'}">
-                                            <a href="${pageContext.request.contextPath}/roomlist/room?id=${room.roomID}" class="detail text-caps underline">Quản lý</a>
-                                        </c:if>
-                                        <c:if test="${room.status.trim() eq 'available'}">
-                                            <a href="${pageContext.request.contextPath}/editroom?id=${room.roomID}" class="detail text-caps underline">Chỉnh sửa</a>
-                                        </c:if>
-                                            <c:if test="${room.status.trim() eq 'verifying'}">
-                                            <a href="${pageContext.request.contextPath}/editroom?id=${room.roomID}" class="detail text-caps underline">Chỉnh sửa</a>
-                                        </c:if>
+                                        <c:choose>
+                                            <c:when test="${room.status.trim() eq 'unavailable'}">
+                                                <a href="${pageContext.request.contextPath}/roomlist/room?id=${room.roomID}" class="detail text-caps underline">Quản lý</a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a href="${pageContext.request.contextPath}/editroom?id=${room.roomID}" class="detail text-caps underline">Chỉnh sửa</a>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                 </div>
                             </c:forEach>

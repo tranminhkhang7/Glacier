@@ -6,6 +6,7 @@
 package glacier.user.controller;
 
 import glacier.landlord.dbmanager.LandlordManager;
+import glacier.user.model.Account;
 import glacier.user.model.Landlord;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -37,13 +38,13 @@ public class LandlordDeleteRoom extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
-            HttpSession session = request.getSession(false);
-            if (session == null) {
-                RequestDispatcher rd = request.getRequestDispatcher("/login");
-                rd.forward(request, response);
-            } else {
-                Landlord landlord = (Landlord) session.getAttribute("USER_DETAIL");
+
+            HttpSession ss = request.getSession();
+            Account user = (Account) ss.getAttribute("LOGIN_USER");
+
+            String role = (user == null) ? "" : user.getRole().trim();
+            if ("landlord".equals(role)) {
+                Landlord landlord = (Landlord) ss.getAttribute("USER_DETAIL");
                 String emailLandlord = landlord.getEmail();
 
                 int roomID = Integer.parseInt(request.getParameter("id"));
@@ -51,12 +52,12 @@ public class LandlordDeleteRoom extends HttpServlet {
                 LandlordManager mng = new LandlordManager();
                 if (mng.checkOwnership(emailLandlord, roomID)) {
                     mng.deleteRoom(roomID);
-                    RequestDispatcher rd = request.getRequestDispatcher("/roomlist");
-                    rd.forward(request, response);
+                    response.sendRedirect("roomlist");
                 } else {
-                    RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
-                    rd.forward(request, response);
+                    response.sendRedirect("roomlist");
                 }
+            } else {
+                response.sendRedirect("login");
             }
         } catch (Exception e) {
             log("Error at Landlord Delete Room: " + e.toString());

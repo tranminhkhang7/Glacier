@@ -67,8 +67,7 @@ public class Disconnect extends HttpServlet {
                     rd.forward(request, response);
                 }
             } else {
-                RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
-                rd.forward(request, response);
+                response.sendRedirect("login");
             }
         }
     }

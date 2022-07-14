@@ -131,17 +131,26 @@
                                 <h2>Đặc điểm của phòng</h2>
                                 <ul class="list-unstyled columns-4">
                                     <c:forEach items="${requestScope.listFeature}" var="feature">
-                                    <li>
-                                        <label>
-                                            <input type="checkbox" name="room___features[]" value="${feature.id}">
-                                            ${feature.name}
-                                        </label>
-                                    </li>
+                                        <li>
+                                            <label>
+                                                <input type="checkbox" name="room___features[]" value="${feature.id}">
+                                                ${feature.name}
+                                            </label>
+                                        </li>
                                     </c:forEach>
-                                    
+
                                 </ul>
                             </section>
                             <!--end real_estate.form-slide-->
+
+                            <section>
+                                <h2>Ảnh</h2>
+                                <div class="file-upload-previews"></div>
+                                <div class="file-upload">
+                                    <input type="file" name="files[]" class="file-upload-input with-preview" multiple title="Nhấp để chọn ảnh" maxlength="10" accept="gif|jpg|png">
+                                    <span><i class="fa fa-plus-circle"></i>Chọn hoặc kéo ảnh vào đây</span>
+                                </div>
+                            </section>
 
                             <section>
                                 <h2>Địa điểm</h2>
@@ -150,15 +159,15 @@
                                     <div class="col-md-6">
                                         <label for="city" class="col-form-label required" style="font-size: 13px"><b>Tỉnh/Thành phố</b></label>
                                         <select required name="city" id="city" style="visibility: visible; z-index: 9999; width: 94.5%; padding: 1.7rem;">
-                                            <option>Chọn tỉnh/thành phố</option>-->
+                                            <!--<option>Chọn tỉnh/thành phố</option>-->
+                                            <option value>Chọn tỉnh/thành phố</option>
                                         </select>
                                     </div>
-
-
                                     <div class="col-md-6">
                                         <label required for="district" class="col-form-label required"style="font-size: 13px"><b>Quận/Huyện/Thị xã</b></label>
                                         <select required name="district" id="district" style="visibility: visible; z-index: 9999; width: 94.5%; padding: 1.7rem;">
-                                            <option>Vui lòng chọn tỉnh/thành phố trước</option>
+                                            <!--<option>Vui lòng chọn tỉnh/thành phố trước</option>-->
+                                            <option value>Vui lòng chọn tỉnh/thành phố trước</option>
                                         </select>
                                     </div>
                                 </div>
@@ -170,27 +179,20 @@
                                     <span class="geo-location input-group-addon" data-toggle="tooltip" data-placement="top" title="Find My Position"><i class="fa fa-map-marker"></i></span>
                                 </div>
                                 <!--end form-group-->
-                                <label>Bản đồ</label>
-                                <div class="map height-400px" id="map-submit"></div>
-                                <input name="latitude" type="text" class="form-control" id="latitude" hidden>
-                                <input name="longitude" type="text" class="form-control" id="longitude" hidden>
                             </section>
-
-                            <section>
-                                <h2>Ảnh</h2>
-                                <div class="file-upload-previews"></div>
-                                <div class="file-upload">
-                                    <input type="file" name="files[]" class="file-upload-input with-preview" multiple title="Nhấp để chọn ảnh" maxlength="10" accept="gif|jpg|png">
-                                    <span><i class="fa fa-plus-circle"></i>Chọn hoặc kéo ảnh vào đây</span>
-                                </div>
-                            </section>
-
-                            <div id="demo"></div>
                             <section class="clearfix">
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary large icon float-right">Đăng bài</button>
                                 </div>
                             </section>
+
+                            <section>
+                                <label><b>Vị trí phòng của bạn</b></label>
+                                <div class="map height-400px" id="map-submit"></div>
+                                <input name="latitude" type="text" class="form-control" id="latitude" hidden>
+                                <input name="longitude" type="text" class="form-control" id="longitude" hidden>
+                            </section>
+
                         </form>
                         <!--end form-submit-->
                     </div>
