@@ -4,7 +4,7 @@
     Author     : KHANG
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri= "http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
@@ -14,12 +14,12 @@
         <meta name="author" content="ThemeStarz">
 
         <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Varela+Round" rel="stylesheet">
-        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.css" type="text/css">
-        <link rel="stylesheet" href="assets/fonts/font-awesome.css" type="text/css">
-        <link rel="stylesheet" href="assets/css/selectize.css" type="text/css">
-        <link rel="stylesheet" href="assets/css/owl.carousel.min.css" type="text/css">
-        <link rel="stylesheet" href="assets/css/style.css">
-        <link rel="stylesheet" href="assets/css/user.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/bootstrap/css/bootstrap.css" type="text/css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/fonts/font-awesome.css" type="text/css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/selectize.css" type="text/css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/owl.carousel.min.css" type="text/css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user.css">
 
 
         <title>Thêm phòng mới · Glacier</title>
@@ -64,22 +64,9 @@
                                     <a href="register.html" class="link"><strong>Register</strong></a></p>
                             </div>
                         </section> -->
-                        <form class="form form-submit" action="${pageContext.request.contextPath}/addroom" >
+                        <form class="form form-submit" action="${pageContext.request.contextPath}/addroom" method="get">
                             <section>
                                 <h2>Thông tin cơ bản</h2>
-                                <!-- <div class="form-group" id="type">
-                                    <label for="type" class="required">Type</label>
-                                    <figure>
-                                        <label class="framed">
-                                            <input type="radio" name="status" value="1" required>
-                                            Offer
-                                        </label>
-                                        <label class="framed">
-                                            <input type="radio" name="status" value="2" required>
-                                            Demand
-                                        </label>
-                                    </figure>
-                                </div> -->
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="form-group">
@@ -133,7 +120,7 @@
                                     <c:forEach items="${requestScope.listFeature}" var="feature">
                                         <li>
                                             <label>
-                                                <input type="checkbox" name="room___features[]" value="${feature.id}">
+                                                <input type="checkbox" name="room_features${feature.id}">
                                                 ${feature.name}
                                             </label>
                                         </li>
@@ -141,7 +128,7 @@
 
                                 </ul>
                             </section>
-                            <!--end real_estate.form-slide-->
+                            <!--end Đặc điểm của phòng-->
 
                             <section>
                                 <h2>Ảnh</h2>
@@ -155,18 +142,15 @@
                             <section>
                                 <h2>Địa điểm</h2>
                                 <div class="row">
-
                                     <div class="col-md-6">
                                         <label for="city" class="col-form-label required" style="font-size: 13px"><b>Tỉnh/Thành phố</b></label>
                                         <select required name="city" id="city" style="visibility: visible; z-index: 9999; width: 94.5%; padding: 1.7rem;">
-                                            <!--<option>Chọn tỉnh/thành phố</option>-->
                                             <option value>Chọn tỉnh/thành phố</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6">
                                         <label required for="district" class="col-form-label required"style="font-size: 13px"><b>Quận/Huyện/Thị xã</b></label>
                                         <select required name="district" id="district" style="visibility: visible; z-index: 9999; width: 94.5%; padding: 1.7rem;">
-                                            <!--<option>Vui lòng chọn tỉnh/thành phố trước</option>-->
                                             <option value>Vui lòng chọn tỉnh/thành phố trước</option>
                                         </select>
                                     </div>
@@ -175,14 +159,15 @@
                                 <br>
                                 <div class="form-group">
                                     <label for="input-location" class="col-form-label required">Địa chỉ chính xác</label>
-                                    <input required name="location" type="text" class="form-control" id="input-location" placeholder="Enter Location">
-                                    <span class="geo-location input-group-addon" data-toggle="tooltip" data-placement="top" title="Find My Position"><i class="fa fa-map-marker"></i></span>
+                                    <input required name="location" type="text" class="form-control" id="input-location" placeholder="Nhập địa chỉ chính xác" maxlength="200">
+                                    <span class="geo-location input-group-addon" data-toggle="tooltip" data-placement="top" title="Phòng tôi đang ở đâu"><i class="fa fa-map-marker"></i></span>
                                 </div>
                                 <!--end form-group-->
                             </section>
+                            
                             <section class="clearfix">
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary large icon float-right">Đăng bài</button>
+                                    <button type="submit" class="btn btn-primary large icon float-right">Đăng phòng</button>
                                 </div>
                             </section>
 
@@ -214,27 +199,27 @@
         </div>
         <!--end page-->
 
-        <script src="assets/js/jquery-3.3.1.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/jquery-3.3.1.min.js"></script>
 
-        <script type="text/javascript" src="assets/js/popper.min.js"></script>
-        <script type="text/javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/popper.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/assets/bootstrap/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyBEDfNcQRmKQEyulDN8nGWjLYPm8s4YB58&libraries=places"></script>
 
-        <script src="assets/js/selectize.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/selectize.min.js"></script>
 
-        <script src="assets/js/masonry.pkgd.min.js"></script>
-        <script src="assets/js/icheck.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/masonry.pkgd.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/icheck.min.js"></script>
         <!--<script src="assets/js/jquery.validate.min.js"></script>-->
         <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
-        <script src="assets/js/jquery-validate.bootstrap-tooltip.min.js"></script>
-        <script src="assets/js/jQuery.MultiFile.min.js"></script>
-        <script src="assets/js/owl.carousel.min.js"></script>
-        <script src="assets/js/custom.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/jquery-validate.bootstrap-tooltip.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/jQuery.MultiFile.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/owl.carousel.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/custom.js"></script>
 
         <script>
             var latitude = 51.511971;
             var longitude = -0.137597;
-            var markerImage = "assets/img/map-marker.png";
+            var markerImage = "${pageContext.request.contextPath}/assets/img/map-marker.png";
             var mapTheme = "light";
             var mapElement = "map-submit";
             var markerDrag = true;
@@ -252,24 +237,11 @@
                     subjectSel.options[subjectSel.options.length] = new Option(x, x);
                 }
                 subjectSel.onchange = function () {
-                    topicSel.length = 1;
+                    topicSel.length = 0;
                     for (var y in subjectObject[this.value]) {
                         topicSel.options[topicSel.options.length] = new Option(y, y);
                     }
                 }
-            }
-        </script>
-        <script>
-            function myValidations() {
-                let x = document.getElementById("area").value;
-                // If x is Not a Number or less than one or greater than 10
-                let text;
-                if (isNaN(x) || x < 0 || x > 1000) {
-                    text = "Input not valid";
-                } else {
-                    text = "Input OK";
-                }
-                document.getElementById("demo").innerHTML = text;
             }
         </script>
     </body>

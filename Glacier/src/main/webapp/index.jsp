@@ -84,7 +84,7 @@
                                                         ${feature.name}
                                                     </label>
                                                 </div>
-                                               
+                                                
                                             </c:forEach>
                                             <!--end col-xl-6-->
 

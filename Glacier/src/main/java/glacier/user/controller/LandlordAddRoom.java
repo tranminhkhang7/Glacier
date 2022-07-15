@@ -14,6 +14,7 @@ import glacier.user.model.Landlord;
 import glacier.user.model.Tenant;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -53,6 +54,7 @@ public class LandlordAddRoom extends HttpServlet {
                     HttpSession session = request.getSession(false);
                     if (session != null) {
                         String name = request.getParameter("name");
+                        System.out.println(name);
                         String description = request.getParameter("details");
                         String city = request.getParameter("city");
                         String district = request.getParameter("district");
@@ -65,14 +67,21 @@ public class LandlordAddRoom extends HttpServlet {
                         Date dateAdded = new Date();
                         float area = Float.parseFloat(request.getParameter("area"));
 
+                        List<Integer> listFeature;
+                        listFeature = new ArrayList<>();
+                        for (int i = 1; i <= 50; i++) {
+                            String feature = (String) request.getParameter("room_features" + i);
+                            if (feature != null) {
+                                listFeature.add(i);
+                            }
+                        }
+
                         Landlord landlord = (Landlord) session.getAttribute("USER_DETAIL");
                         String emailLandlord = landlord.getEmail();
 
                         LandlordManager mng = new LandlordManager();
-                        mng.addRoom(name, description, address, detailAddress, status, price, deposit, avgRating, dateAdded, area, emailLandlord);
+                        mng.addRoom(name, description, address, detailAddress, status, price, deposit, avgRating, dateAdded, area, emailLandlord, listFeature);
 
-//                    RequestDispatcher rd = request.getRequestDispatcher("/roomlist");
-//                    rd.forward(request, response);
                         response.sendRedirect("roomlist");
                     }
                 } else {

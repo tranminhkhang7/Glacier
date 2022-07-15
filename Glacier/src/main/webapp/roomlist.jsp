@@ -212,6 +212,7 @@
                                     </div>
                                 </div>
                             </a>
+                                <br>
                             <!--end item-->
                             <c:forEach items="${requestScope.list}" var="room">
                                 <div class="item">

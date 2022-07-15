@@ -12,12 +12,20 @@ package glacier.model.feature;
 public class FeatureDTO {
     private int id;
     private String name;
+    private boolean checked;
 
     public FeatureDTO(int id, String name) {
         this.id = id;
         this.name = name;
+        this.checked = false;
     }
 
+    public FeatureDTO(int id, String name, boolean checked) {
+        this.id = id;
+        this.name = name;
+        this.checked = checked;
+    }
+    
     public int getId() {
         return id;
     }
@@ -34,8 +42,16 @@ public class FeatureDTO {
         this.name = name;
     }
 
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
+
     @Override
     public String toString() {
-        return "FeatureDTO{" + "id=" + id + ", name=" + name + '}';
+        return "FeatureDTO{" + "id=" + id + ", name=" + name + ", checked=" + checked + '}';
     }
 }
