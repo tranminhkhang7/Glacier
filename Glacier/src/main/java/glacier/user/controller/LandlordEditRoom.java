@@ -104,6 +104,8 @@ public class LandlordEditRoom extends HttpServlet {
                         LandlordManager mng = new LandlordManager();
                         mng.updateRoom(roomID, name, description, address, detailAddress, price, deposit, area, listFeature);
 
+                        ss.setAttribute("notify", "updateSuccess");
+                        
                         response.sendRedirect("roomlist");
                     }
                 } else { // not the owner

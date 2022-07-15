@@ -24,6 +24,17 @@
 
         <title>Kết quả tìm kiếm · Glacier</title>
 
+        <style>
+            a.nameTruncation {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 2; /* number of lines to show */
+                line-clamp: 2; 
+                -webkit-box-orient: vertical;
+            }
+        </style>
+
     </head>
     <body style="font-family: 'Varela Round', sans-serif;">
         <c:set var="acc" value="${LOGIN_USER}" />
@@ -193,14 +204,10 @@
 
                             <c:forEach items="${requestScope.list}" var="room">
                                 <div class="item">
-                                    <!--<div class="ribbon-featured">Featured</div>-->
-                                    <!--end ribbon-->
                                     <div class="wrapper">
                                         <div class="image">
                                             <h3>
-                                                <!--<a href="#" class="tag category">Home & Decor</a>-->
                                                 <a href="${pageContext.request.contextPath}/SingleRoomView?id=${room.roomID}" class="title">${room.name}</a>
-                                                <!--<span class="tag">Offer</span>-->
                                                 <span>
                                                     <c:forEach begin="1" end="${room.avgRating}" step="1">
                                                         <i class="fa fa-star"></i>&nbsp;
@@ -208,7 +215,7 @@
                                                     <c:forEach begin="1" end="${5-room.avgRating}" step="1">
                                                         <i class="fa fa-star-o"></i>&nbsp;
                                                     </c:forEach>
-                                                    </span>
+                                                </span>
                                             </h3>
                                             <a href="${pageContext.request.contextPath}/SingleRoomView?id=${room.roomID}" class="image-wrapper background-image">
                                                 <img src="assets/img/image-01.jpg" alt="">

@@ -44,16 +44,14 @@ public class TenantHomepage extends HttpServlet {
 
             String role = (user == null) ? "" : user.getRole().trim();
             
-            if (!"tenant".equals(role) && !"".equals(role)) {
-                
-                RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
-                rd.forward(request, response);
-            } else {
+            if ("tenant".equals(role) || "".equals(role)) {
                 FeatureDAO mng = new FeatureDAO();
                 List<FeatureDTO> listFeature = mng.loadFeature();
                 request.setAttribute("listFeature", listFeature);
                 RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
                 rd.forward(request, response);
+            } else if ("landlord".equals(role)) {
+                response.sendRedirect("roomlist");
             }
         }
     }

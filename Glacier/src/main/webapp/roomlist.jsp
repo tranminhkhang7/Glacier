@@ -20,12 +20,54 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user.css">
 
-        <title>Trang chủ</title>
+        <title>Phòng của bạn</title>
+
+        <style>
+            .notify{
+                z-index: 19;
+                background-color: rgb(235, 244, 251);
+                box-shadow: 0 .1rem 2rem rgba(0, 0, 0, .15);
+                left: 50%;
+                top: 10%;
+                padding: 15px;
+                border: 1px solid rgb(166, 206, 237);
+                border-radius: .3rem;
+                text-align: center;
+                position: fixed;
+                transform: translate(-50%,-50%);
+                display: block;
+            }
+        </style>
 
     </head>
     <body style="font-family: 'Varela Round', sans-serif;">
         <c:set var="acc" value="${LOGIN_USER}" />
         <c:set var="user" value="${USER_DETAIL}" />
+
+        <c:if test="${notify == 'deleteSuccess'}">
+            <div class="notify" id="notifyBox">
+                Đã xóa phòng thành công!
+                &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-close" onclick="closeNotify()"></i>
+            </div>
+            <c:remove var="notify" scope="session" />
+        </c:if>
+        
+        <c:if test="${notify == 'updateSuccess'}">
+            <div class="notify" id="notifyBox">
+                Cập nhật phòng thành công!
+                &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-close" onclick="closeNotify()"></i>
+            </div>
+            <c:remove var="notify" scope="session" />
+        </c:if>
+        
+        <c:if test="${notify == 'addSuccess'}">
+            <div class="notify" id="notifyBox">
+                Thêm phòng thành công!
+                &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-close" onclick="closeNotify()"></i>
+            </div>
+            <c:remove var="notify" scope="session" />
+        </c:if>
+
         <div class="page sub-page">
             <!--*********************************************************************************************************-->
             <!--************ HERO ***************************************************************************************-->
@@ -212,7 +254,7 @@
                                     </div>
                                 </div>
                             </a>
-                                <br>
+                            <br>
                             <!--end item-->
                             <c:forEach items="${requestScope.list}" var="room">
                                 <div class="item">
@@ -340,24 +382,29 @@
         <script src="${pageContext.request.contextPath}/assets/js/jquery.validate.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/custom.js"></script>
         <script>
-            for (let i = 0; i < document.getElementsByClassName("priceStyle").length; i++) {
+                    for (let i = 0; i < document.getElementsByClassName("priceStyle").length; i++) {
 
-                let priceText = document.getElementsByClassName("priceStyle")[i].textContent.trim();
+                        let priceText = document.getElementsByClassName("priceStyle")[i].textContent.trim();
 
-                let textReverse = priceText.split("").reverse().join("").trim();
+                        let textReverse = priceText.split("").reverse().join("").trim();
 
-                var j = 1;
-                var count = 0;
-                while (j < textReverse.length) {
-                    count++;
-                    if (count > 3) {
-                        textReverse = textReverse.slice(0, j) + "." + textReverse.slice(j);
-                        count = 0;
+                        var j = 1;
+                        var count = 0;
+                        while (j < textReverse.length) {
+                            count++;
+                            if (count > 3) {
+                                textReverse = textReverse.slice(0, j) + "." + textReverse.slice(j);
+                                count = 0;
+                            }
+                            j++;
+                        }
+                        let finalPrice = textReverse.split("").reverse().join("");
+                        document.getElementsByClassName("priceStyle")[i].innerHTML = finalPrice;
                     }
-                    j++;
-                }
-                let finalPrice = textReverse.split("").reverse().join("");
-                document.getElementsByClassName("priceStyle")[i].innerHTML = finalPrice;
+        </script>
+        <script>
+            function closeNotify() {
+                document.getElementById("notifyBox").style.display = "none";
             }
         </script>
 

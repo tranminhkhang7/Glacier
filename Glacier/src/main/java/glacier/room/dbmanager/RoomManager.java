@@ -158,8 +158,10 @@ public class RoomManager {
 
             while (rs.next()) {
                 int roomID = rs.getInt("roomID");
-                String nameRoom = rs.getString("nameRoom");
+                String nameRoom = rs.getString("nameRoom").trim();
+//                if (nameRoom.length() <= 40) {
                 nameRoom += "...";
+//                }
                 String cutDescription = rs.getString("cutDescription");
                 String address = rs.getString("address");
                 String nameLandlord = rs.getString("nameLandlord");

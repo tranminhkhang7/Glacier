@@ -52,6 +52,9 @@ public class LandlordDeleteRoom extends HttpServlet {
                 LandlordManager mng = new LandlordManager();
                 if (mng.checkOwnership(emailLandlord, roomID)) {
                     mng.deleteRoom(roomID);
+                    
+                    ss.setAttribute("notify", "deleteSuccess");
+                    
                     response.sendRedirect("roomlist");
                 } else {
                     response.sendRedirect("roomlist");

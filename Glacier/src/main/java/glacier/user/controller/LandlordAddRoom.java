@@ -82,6 +82,8 @@ public class LandlordAddRoom extends HttpServlet {
                         LandlordManager mng = new LandlordManager();
                         mng.addRoom(name, description, address, detailAddress, status, price, deposit, avgRating, dateAdded, area, emailLandlord, listFeature);
 
+                        session.setAttribute("notify", "addSuccess");
+
                         response.sendRedirect("roomlist");
                     }
                 } else {
