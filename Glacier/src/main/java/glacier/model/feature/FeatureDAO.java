@@ -87,6 +87,41 @@ public class FeatureDAO {
         }
         return null;
     }
+    
+    // This method returns a list of features of a room. This method is written by Khang and used for Edit rooms
+    public List<FeatureDTO> loadFeatureGotChecked(List<Integer> listFeature) {
+        try {
+            // Return all the feature have features of the room checked
+            String sql = "SELECT *\n"
+                    + "FROM [Feature]\n"
+                    + "ORDER BY [id] ASC";
+    
+            Connection con = DBUtils.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+
+            List<FeatureDTO> listResult;
+            listResult = new ArrayList<>();
+            int i = 0;
+            while (rs.next()) {
+                int featureID = rs.getInt("id");
+                String featureName = rs.getString("name").trim();
+
+                FeatureDTO feature;
+                if (listFeature != null && i < listFeature.size() && listFeature.get(i) == featureID) {
+                    feature = new FeatureDTO(rs.getInt("id"), rs.getString("name").trim(), true);
+                    i++;
+                } else {
+                    feature = new FeatureDTO(rs.getInt("id"), rs.getString("name").trim());
+                }
+                listResult.add(feature);
+            }
+            return listResult;
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
 
     // This method deletes all the features of a room
     public void deleteFeatureOfARoom(int roomID) {

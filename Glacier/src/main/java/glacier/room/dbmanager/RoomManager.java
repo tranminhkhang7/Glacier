@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 public class RoomManager {
 
     // This method is calculating the total number of rooms that matches the keyword
-    public int countMatched(String searchText, List<Integer> listFeature) { // searchText: the key words user typed; index: page number
+    public int countMatched(String searchText, List<Integer> listFeature, int minPrice, int maxPrice) { // searchText: the key words user typed; index: page number
         try {
             for (int i = 0; i < searchText.length(); i++) {
                 if (searchText.charAt(i) == '\'') { // ki tu '
@@ -41,13 +41,21 @@ public class RoomManager {
                     i++;
                 }
             }
-            String sql = "SELECT COUNT(*)\n"
-                    + "FROM [Room] R\n"
-                    + "WHERE R.[status] = N'available'\n";
+            String sql = "SELECT COUNT (*)\n"
+                    + "FROM [Room] R JOIN [Landlord] L ON R.emailLandlord = L.email\n";
 
             if (searchText != null && !"".equals(searchText)) {
-                sql += "AND FREETEXT((R.[name], R.[description], R.[detailAddress], R.[address]), N'" + searchText + "') \n";
+                sql += "INNER JOIN FREETEXTTABLE([Room], \n"
+                        + "	([name],\n"
+                        + "	 [description],\n"
+                        + "	 [address],\n"
+                        + "	 [detailAddress]),\n"
+                        + "	N'" + searchText + "') AS KEY_TBL \n"
+                        + "	ON R.[roomID] = KEY_TBL.[KEY]\n";
             }
+
+            sql += "WHERE R.[status] = N'available'\n"
+                    + "AND R.[price] >= " + minPrice + " AND R.[price] <= " + maxPrice + "\n";
 
             boolean isFirst = true;
             for (Integer feature : listFeature) {
@@ -67,15 +75,9 @@ public class RoomManager {
             if (!isFirst) {
                 sql += ")\n";
             }
-//            if (rating != null && !rating.equals("all")) {
-//                sql += " AND avgRate >= " + rating + " ";
-//            }
-//            if (genres != null && !genres.equals("all")) {
-//                sql += " AND [ISBN] IN\n"
-//                        + "		(SELECT [ISBN]\n"
-//                        + "		FROM [ProductTag]\n"
-//                        + "		WHERE [tagName] = N'" + genres + "')\n";
-//            }
+            
+            System.out.println(sql + "sql ne");
+            
             Connection con = DBUtils.getConnection();
             PreparedStatement st = con.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -146,9 +148,8 @@ public class RoomManager {
             } else {
                 sql += "ORDER BY [date_added] DESC \n";
             }
-            sql += "OFFSET " + (index - 1) * 16 + " ROWS FETCH NEXT 16 ROWS ONLY";
+            sql += "OFFSET " + (index - 1) * 15 + " ROWS FETCH NEXT 15 ROWS ONLY";
 
-            System.out.println(sql);
 
             Connection con = DBUtils.getConnection();
             PreparedStatement st = con.prepareStatement(sql);

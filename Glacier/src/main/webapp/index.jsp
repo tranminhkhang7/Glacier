@@ -58,7 +58,7 @@
                                     <div class="col-md-10 col-sm-10">
                                         <div class="form-group">
                                             <label for="what" class="col-form-label" style="color: white">Bạn đang đi đến đâu?</label>
-                                            <input name="keyword" type="text" class="form-control" id="what" placeholder="Nhập vị trí, mô tả phòng mà bạn muốn đến...">
+                                            <input name="keyword" type="text" class="form-control" id="what" maxlength="80" placeholder="Nhập vị trí, mô tả phòng mà bạn muốn đến...">
                                         </div>
                                         <!--end form-group-->
                                     </div>

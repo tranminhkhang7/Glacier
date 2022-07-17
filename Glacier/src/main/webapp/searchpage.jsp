@@ -75,14 +75,14 @@
                                         <form class="sidebar-form form" action="${pageContext.request.contextPath}/search">
                                             <div class="form-group">
                                                 <label for="what" class="col-form-label">Tìm kiếm của bạn</label>
-                                                <input name="keyword" type="text" class="form-control" id="what" placeholder="Nhập vị trí, mô tả phòng mà bạn muốn đến..." value="${searchText}">
+                                                <input name="keyword" type="text" class="form-control" id="what" maxlength="80" placeholder="Nhập vị trí, mô tả phòng mà bạn muốn đến..." value="${searchText}">
                                             </div>
                                             <!--end form-group-->
 
                                             <div class="collapse" id="collapseAlternativeSearchForm" style="display: block; visibility: visible;">
                                                 <div class="wrapper">
 
-                                                    <c:forEach items="${requestScope.listAllFeature}" var="feature">
+                                                    <c:forEach items="${requestScope.listFeatureGotChecked}" var="feature">
                                                         <c:choose>
                                                             <c:when test="${not feature.checked}">
                                                                 <label>
@@ -100,12 +100,12 @@
                                                     </c:forEach>
 
                                                     <div class="form-group">
-                                                        <input name="min_price" type="text" class="form-control small" id="min-price" placeholder="Giá tối thiểu" value="${minPrice}">
+                                                        <input name="min_price" type="number" min="100000" max="100000000" step="1" class="form-control small" id="min-price" placeholder="Giá tối thiểu" value="${minPrice}">
                                                         <span class="input-group-addon small">VNĐ</span>
                                                     </div>
                                                     <!--end form-group-->
                                                     <div class="form-group">
-                                                        <input name="max_price" type="text" class="form-control small" id="max-price" placeholder="Giá tối đa" value="${maxPrice}">
+                                                        <input name="max_price" type="number" min="100000" max="100000000" step="1" class="form-control small" id="max-price" placeholder="Giá tối đa" value="${maxPrice}">
                                                         <span class="input-group-addon small">VNĐ</span>
                                                     </div>
                                                     <!--end form-group-->
@@ -114,7 +114,7 @@
                                             </div>
                                             <!--end collapse-->
 
-                                            <button type="submit" class="btn btn-primary width-100">Search</button>
+                                            <button type="submit" class="btn btn-primary width-100">Tìm kiếm</button>
 
                                         </form>
                                         <!--============ End Side Bar Search Form =======================================-->
