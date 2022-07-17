@@ -90,7 +90,7 @@ public class RoomManager {
     }
 
     // This method returns the list of rooms that matches the searchText, on page index
-    public List<Room> search(String searchText, List<Integer> listFeature, int index) { // searchText: the key words user typed; index: page number
+    public List<Room> search(String searchText, List<Integer> listFeature, int minPrice, int maxPrice, int index) { // searchText: the key words user typed; index: page number
         try {
             for (int i = 0; i < searchText.length(); i++) {
                 if (searchText.charAt(i) == '\'') { // ki tu '
@@ -119,7 +119,8 @@ public class RoomManager {
                         + "	ON R.[roomID] = KEY_TBL.[KEY]\n";
             }
 
-            sql += "WHERE R.[status] = N'available'\n";
+            sql += "WHERE R.[status] = N'available'\n"
+                    + "AND R.[price] >= " + minPrice + " AND R.[price] <= " + maxPrice + "\n";
 
             boolean isFirst = true;
             for (Integer feature : listFeature) {

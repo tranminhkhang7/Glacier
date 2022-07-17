@@ -5,6 +5,8 @@
  */
 package glacier.user.controller;
 
+import glacier.model.feature.FeatureDAO;
+import glacier.model.feature.FeatureDTO;
 import glacier.room.dbmanager.RoomManager;
 import glacier.room.model.Room;
 import java.io.IOException;
@@ -47,6 +49,9 @@ public class SearchRoomController extends HttpServlet {
             if (searchText == null) {
                 searchText = "";
             }
+            int minPrice = (request.getParameter("min_price") == null || request.getParameter("min_price").equals("")) ? 1 : Integer.parseInt(request.getParameter("min_price"));
+            int maxPrice = (request.getParameter("max_price") == null || request.getParameter("min_price").equals("")) ? 100000000 : Integer.parseInt(request.getParameter("max_price"));
+
 
             // LOAD FEATURE ID FOR QUERYING
             // Yes mates, I know that who writes like this worth going to hell.
@@ -71,17 +76,25 @@ public class SearchRoomController extends HttpServlet {
             if (currentPage > endPage) {
                 currentPage = endPage;
             }
-            
-            // SEARCH MATCHED ROOMS
-            List<Room> listResult = manager.search(searchText, listFeature, currentPage);
 
+            // SEARCH MATCHED ROOMS
+            List<Room> listResult = manager.search(searchText, listFeature, minPrice, maxPrice, currentPage);
             request.setAttribute("searchText", searchText);
+
+            // LOAD ALL THE FEATURES
+            FeatureDAO mng = new FeatureDAO();
+            List<FeatureDTO> listAllFeature = mng.loadFeature();
+            request.setAttribute("listAllFeature", listAllFeature);
+
             // MOUNT ALL THE SELECTED FEATURE IDs INTO A SET OF PARAMETERS
             String featureParameterSet = "";
-            for (Integer featureID: listFeature) {
+            for (Integer featureID : listFeature) {
                 featureParameterSet += "&" + featureID + "=on";
             }
             request.setAttribute("featureParameterSet", featureParameterSet);
+            
+            request.setAttribute("minPrice", minPrice);
+            request.setAttribute("maxPrice", maxPrice);
             request.setAttribute("endPage", endPage);
             request.setAttribute("currentPage", currentPage);
             request.setAttribute("list", listResult);
