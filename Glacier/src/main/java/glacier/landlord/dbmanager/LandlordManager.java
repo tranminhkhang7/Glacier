@@ -5,6 +5,7 @@
  */
 package glacier.landlord.dbmanager;
 
+import glacier.model.feature.FeatureDAO;
 import glacier.room.model.Room;
 import glacier.user.model.Landlord;
 import glacier.utils.DBUtils;
@@ -51,7 +52,7 @@ public class LandlordManager {
         return l;
     }
     
-    public void addRoom(String name, String description, String address, String detailAddress, String status, int price, int deposit, float avgRating, Date dateAdded, float area, String emailLandlord) {
+    public void addRoom(String name, String description, String address, String detailAddress, String status, int price, int deposit, float avgRating, Date dateAdded, float area, String emailLandlord, List<Integer> listFeature) {
         try {
             Connection con = DBUtils.getConnection();
             PreparedStatement getID = con.prepareStatement("SELECT MAX([RoomID]) as lastID FROM [Room]");
@@ -61,6 +62,7 @@ public class LandlordManager {
 
             SimpleDateFormat simpDate = new SimpleDateFormat("yyyy-MM-dd");
 
+            // Add information except for Room's feature
             String sql = "INSERT INTO [Room] ([roomID], [name], [description], [address], [detailAddress], [emailLandlord], [status], [price], [deposit], [avg_rating], [date_added], [area])\n"
                     + "VALUES (" + newID + ", N'" + name + "', N'" + description + "', N'" + address + "', N'"
                     + detailAddress + "', N'" + emailLandlord + "', N'"
@@ -70,8 +72,18 @@ public class LandlordManager {
                     + simpDate.format(dateAdded) + "', " + area + ")";
 
             PreparedStatement st = con.prepareStatement(sql);
-
             st.executeUpdate();
+            
+            // Add Room's feature
+            sql = "";
+            for (Integer i: listFeature) {
+                sql += "INSERT INTO [RoomFeature] ([roomID], [featureID])\n" +
+                      "VALUES (" + newID + ", " + i + ")\n";
+            }
+            
+            st = con.prepareStatement(sql);
+            st.executeUpdate();
+            
         } catch (Exception ex) {
             System.out.println(ex);
         }
@@ -103,8 +115,8 @@ public class LandlordManager {
             String sql = "SELECT [roomID], [name], [status], [address], [area], [avg_rating], [date_added], [description], [price]\n"
                     + "FROM [Room]\n"
                     + "WHERE [emailLandlord] = N'" + emailLandlord + "'\n"
-                    + "ORDER BY [roomID]\n"
-                    + "OFFSET " + (index - 1) * 4 + " ROWS FETCH NEXT 4 ROWS ONLY";
+                    + "ORDER BY [date_added] DESC\n"
+                    + "OFFSET " + (index - 1) * 10 + " ROWS FETCH NEXT 10 ROWS ONLY";
 
             Connection con = DBUtils.getConnection();
             PreparedStatement st = con.prepareStatement(sql);
@@ -161,14 +173,29 @@ public class LandlordManager {
     }
 
     // This method is for Updating room based on its ID.
-    public void updateRoom(int roomID, String name, String description, String address, String detailAddress, int price, int deposit, float area) {
+    public void updateRoom(int roomID, String name, String description, String address, String detailAddress, int price, int deposit, float area, List<Integer> listFeature) {
         try {
+            // Update information except for Room's features
             String sql = "UPDATE [Room]\n"
                     + "SET [name] = N'" + name + "', [description] = N'" + description + "', [address] = N'" + address + "', [detailAddress] = N'" + detailAddress + "', [price] = " + price + ", [deposit] = " + deposit + ", [area] = " + area + "\n"
                     + "WHERE [roomID] = " + roomID;
 
             Connection con = DBUtils.getConnection();
             PreparedStatement st = con.prepareStatement(sql);
+            st.executeUpdate();
+            
+            // Delete current features
+            FeatureDAO mng = new FeatureDAO();
+            mng.deleteFeatureOfARoom(roomID);
+            
+            // Update features
+            sql = "";
+            for (Integer i: listFeature) {
+                sql += "INSERT INTO [RoomFeature] ([roomID], [featureID])\n" +
+                      "VALUES (" + roomID + ", " + i + ")\n";
+            }
+            
+            st = con.prepareStatement(sql);
             st.executeUpdate();
 
         } catch (Exception ex) {
@@ -179,6 +206,11 @@ public class LandlordManager {
     // This method is for Updating room based on its ID.
     public void deleteRoom(int roomID) {
         try {
+            // Delete current features
+            FeatureDAO mng = new FeatureDAO();
+            mng.deleteFeatureOfARoom(roomID);
+            
+            // Delete the room
             String sql = "DELETE\n"
                     + "FROM [Room]\n"
                     + "WHERE [roomID] = " + roomID;

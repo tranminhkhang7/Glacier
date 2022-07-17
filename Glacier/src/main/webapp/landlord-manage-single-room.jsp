@@ -269,7 +269,7 @@
 
         <div class="popup" id="disconnectConfirm">
             <h2>Xác nhận hủy kết nối</h2>
-            <form class="form form-submit" action="disconnect">
+            <form class="form form-submit" action="${pageContext.request.contextPath}/disconnect">
                 <input name="id" type="hidden" value="${id}">
                 <!--                <div class="form-group">
                                         <label for="title" class="col-form-label required">Tiêu đề</label>
