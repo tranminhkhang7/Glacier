@@ -4,6 +4,8 @@
  */
 package glacier.room.model;
 
+import glacier.model.feature.FeatureDAO;
+import glacier.model.feature.FeatureDTO;
 import glacier.room.dbmanager.CommentManager;
 import glacier.room.dbmanager.FavouriteManager;
 import glacier.room.dbmanager.RoomManager;
@@ -122,6 +124,11 @@ public class SingleRoomView extends HttpServlet {
                 request.setAttribute("Landlord", l);
                 request.setAttribute("endPage", endPage);
                 request.setAttribute("currentPage", currentPage);
+                
+                FeatureDAO mng = new FeatureDAO();
+                List<FeatureDTO> listFeature = mng.loadFeature();
+                request.setAttribute("listFeature", listFeature);
+                
             } else if ((acc.getRole().trim().equals("landlord"))) {                                    // set privillage only tenant can see other room details 
                 url = ERROR;
                 request.setAttribute("errCode", 1);

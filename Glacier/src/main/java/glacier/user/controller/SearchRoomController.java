@@ -61,7 +61,7 @@ public class SearchRoomController extends HttpServlet {
                 request.setAttribute("minPrice", minPrice);
             }
             if (request.getParameter("max_price") == null || request.getParameter("max_price").equals("")) {
-                maxPrice = 1;
+                maxPrice = 100000000;
             } else {
                 maxPrice = Integer.parseInt(request.getParameter("max_price"));
                 request.setAttribute("maxPrice", maxPrice);
@@ -95,7 +95,6 @@ public class SearchRoomController extends HttpServlet {
                 currentPage = endPage;
             }
             request.setAttribute("endPage", endPage);
-            System.out.println(endPage + "endpage ne");
 
             // SEARCH MATCHED ROOMS
             List<Room> listResult = manager.search(searchText, listFeature, minPrice, maxPrice, currentPage);

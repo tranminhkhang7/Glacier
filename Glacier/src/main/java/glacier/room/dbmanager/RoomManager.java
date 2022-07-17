@@ -76,8 +76,6 @@ public class RoomManager {
                 sql += ")\n";
             }
             
-            System.out.println(sql + "sql ne");
-            
             Connection con = DBUtils.getConnection();
             PreparedStatement st = con.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
