@@ -6,9 +6,8 @@
 package glacier.user.controller;
 
 import glacier.moderator.dbmanager.ModeratorManager;
-import glacier.user.model.Reported;
 import java.io.IOException;
-import java.util.List;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,10 +18,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Admin
  */
-@WebServlet(name = "ReportedController", urlPatterns = {"/ReportedController"})
-public class ReportedController extends HttpServlet {
-    private static final String ERROR = "reported.jsp";
-    private static final String SUCCESS = "reported.jsp";
+@WebServlet(name = "RemoveFeatureController", urlPatterns = {"/RemoveFeatureController"})
+public class RemoveFeatureController extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -35,37 +33,24 @@ public class ReportedController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
+        String url = "new-feature.jsp";
         try {
-            int currentPage = Integer.parseInt(request.getParameter("index"));
-            String type = request.getParameter("type");
+            String featureID = request.getParameter("featureID");
             ModeratorManager dao = new ModeratorManager();
-            List<Reported> listReported = null;
-            int totalMatched = dao.countMatched2(type);
-            int endPage = totalMatched / 10;
-            if (totalMatched % 10 != 0) {
-                endPage++;
-            }
-            if (type.equals("all")) {
-                listReported = dao.getListReported(currentPage);
+            boolean check = dao.deleteFeature(featureID);
+            String msg = null;
+            if(check){
+                msg = "Xóa Feature thành công!!!";
             } else {
-                if (type.equals("room")) {
-                    listReported = dao.getListRPRoom(currentPage);
-                } else {
-                    listReported = dao.getListRPComment(currentPage);
-                }
+                msg = "Xóa Feature không thành công!!!";
             }
-            request.setAttribute("END_PAGE", endPage);
-            request.setAttribute("CURRENT_PAGE", currentPage);
-            request.setAttribute("LIST_REPORTED", listReported);
-            url = SUCCESS;
+            request.setAttribute("MESSAGE", msg);
         } catch (Exception e) {
             log("Error at SearchController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

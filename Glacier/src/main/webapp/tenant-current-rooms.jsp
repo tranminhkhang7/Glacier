@@ -24,7 +24,7 @@
 
         <title>Craigs - Easy Buy & Sell Listing HTML Template</title>
         <style>
-            
+
             .popup{
                 z-index: 20;
                 background-color: #ffffff;
@@ -70,7 +70,7 @@
                 display: block;
             }
             #close-qr{
-                
+
             }
             #close-qr:hover{
                 cursor:pointer;
@@ -103,12 +103,12 @@
 
             <button class="btn btn-secondary large icon float-left" style="font-size: 16px; margin: 10px 20px 0px 0px;" onclick="closeForm()">Hủy</button>
         </div>
-                <div style="width:400px; height:400px;" class="popup" id="popup-image">
-                    
-                        <a id="close-qr" style="display:block;font-weight: 700;margin-left: auto;font-size: x-large" class="float-right mb-2" onclick="closeImage()">X</a>
-                        <img style="margin: auto;display:block;margin-top: 20%" src="" alt="hehe" id="qr-image"/>
-                    
-                </div>
+        <div style="width:400px; height:400px;" class="popup" id="popup-image">
+
+            <a id="close-qr" style="display:block;font-weight: 700;margin-left: auto;font-size: x-large" class="float-right mb-2" onclick="closeImage()">X</a>
+            <img style="margin: auto;display:block;margin-top: 20%" src="" alt="hehe" id="qr-image"/>
+
+        </div>
         <div class="page sub-page">
             <!--*********************************************************************************************************-->
             <!--************ HERO ***************************************************************************************-->
@@ -351,36 +351,36 @@
                                                 <!--end addition-info-->
 
 
-                                            <div class="admin-controls">
-                                                <c:choose>
-                                                    <c:when test="${room.status eq 'unavailable'}">
-                                                        <a href="your-rooms?id=${room.roomID}" class="ad-hide pb-2" ><i class="fa fa-pencil"></i>CHI TIẾT</a>
-                                                    </c:when>
-                                                </c:choose>
-                                                                                                    
-                                                <c:choose>
-                                                    <c:when test="${room.status eq 'unavailable'}">
-                                                        <a href="bills?id=${room.roomID}" class="ad-hide pb-2" ><i class="fa fa-file-text-o" aria-hidden="true"></i>Xem hóa đơn</a>                                            
-                                                    </c:when>
-                                                </c:choose>
-                                                        
-                                                <c:choose>
-                                                    <c:when test="${room.status eq 'unavailable'}">
-                                                        <a href="#" style="cursor:pointer" onclick="openForm()" class="ad-hide pb-2 noti" ><p hidden="" id="emailLandlord">${room.emailLandlord}</p><i class="fa fa-bell-o" aria-hidden="true"></i>Tạo thông báo</a>
-                                                        
-                                                    </c:when>
-                                                </c:choose>
-                                                <c:choose>
-                                                    <c:when test="${room.status eq 'pending'}">
-                                                        <a class="ad-hide hehe"  style="cursor:pointer;line-height:8"><p id="image" hidden="">${room.qrImage}</p><i class="fa fa-qrcode fa-2x" aria-hidden="true"></i> Xem mã QR</a>
-<!--                                                        <img hidden="" id="qrImage" src="${room.qrImage}" alt="" />-->
-                                                        
-                                                    </c:when>
-                                                </c:choose>
+                                                <div class="admin-controls">
+                                                    <c:choose>
+                                                        <c:when test="${room.status eq 'unavailable'}">
+                                                            <a href="your-rooms?id=${room.roomID}" class="ad-hide pb-2" ><i class="fa fa-pencil"></i>CHI TIẾT</a>
+                                                        </c:when>
+                                                    </c:choose>
+
+                                                    <c:choose>
+                                                        <c:when test="${room.status eq 'unavailable'}">
+                                                            <a href="bills?id=${room.roomID}" class="ad-hide pb-2" ><i class="fa fa-file-text-o" aria-hidden="true"></i>Xem hóa đơn</a>                                            
+                                                        </c:when>
+                                                    </c:choose>
+
+                                                    <c:choose>
+                                                        <c:when test="${room.status eq 'unavailable'}">
+                                                            <a href="#" style="cursor:pointer" onclick="openForm()" class="ad-hide pb-2 noti" ><p hidden="" id="emailLandlord">${room.emailLandlord}</p><i class="fa fa-bell-o" aria-hidden="true"></i>Tạo thông báo</a>
+
+                                                        </c:when>
+                                                    </c:choose>
+                                                    <c:choose>
+                                                        <c:when test="${room.status eq 'pending'}">
+                                                            <a class="ad-hide hehe"  style="cursor:pointer;line-height:8"><p id="image" hidden="">${room.qrImage}</p><i class="fa fa-qrcode fa-2x" aria-hidden="true"></i> Xem mã QR</a>
+    <!--                                                        <img hidden="" id="qrImage" src="${room.qrImage}" alt="" />-->
+
+                                                        </c:when>
+                                                    </c:choose>
+                                                </div>
                                             </div>
+
                                         </div>
-                                                        
-                                    </div>
                                         <!--end item-->
                                     </c:forEach>
                                 </div>
@@ -431,8 +431,7 @@
                                     <img src="assets/img/logo.png" alt="">
                                 </a>
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec tincidunt arcu, sit amet
-                                    fermentum sem. Class aptent taciti sociosqu ad litora torquent per conubia nostra.
+                                    Glacier là nền tảng kết nối người thuê nhà và các chủ trọ. Sẵn sàng sát cánh bến bạn trên mỗi hành trình mà bạn bước đi!
                                 </p>
                             </div>
                             <!--end col-md-5-->
@@ -524,52 +523,52 @@
         <script src="assets/js/jquery.validate.min.js"></script>
         <script src="assets/js/custom.js"></script>
         <script>
-                function openForm() {
-                    document.getElementsByClassName("page")[0].style.filter = "blur(8px)";
-                    document.getElementById("requestForm").style.display = "block";
-                    let emailLandlord = document.getElementById("emailLandlord").innerHTML;
-                    document.getElementById("emailLandlordSend").value = emailLandlord;
-                }
+                                                                function openForm() {
+                                                                    document.getElementsByClassName("page")[0].style.filter = "blur(8px)";
+                                                                    document.getElementById("requestForm").style.display = "block";
+                                                                    let emailLandlord = document.getElementById("emailLandlord").innerHTML;
+                                                                    document.getElementById("emailLandlordSend").value = emailLandlord;
+                                                                }
 
-                function closeForm() {
-                    document.getElementsByClassName("page")[0].style.filter = "none";
-                    document.getElementById("requestForm").style.display = "none";
-                    document.getElementById("emailLandlordSend").value = "";
-                }
-                function openImage(){
-                    document.getElementById("popup-image").style.display = "block";
-                    let imageSrc = document.getElementById("image").innerHTML;
-                    console.log(imageSrc);
-                    document.getElementById("qr-image").src = imageSrc;
-                }
-                function closeImage(){
-                    document.getElementById("popup-image").style.display = "none";
-                    document.getElementById("qr-image").value = "";
-                }
-                $(".hehe").click(function() {
-                    
-                    var clickBtn = $(this).val();
-                    console.log(clickBtn);
-                    let imageSrc = $(this).find("#image").html();
-                    console.log(imageSrc);
+                                                                function closeForm() {
+                                                                    document.getElementsByClassName("page")[0].style.filter = "none";
+                                                                    document.getElementById("requestForm").style.display = "none";
+                                                                    document.getElementById("emailLandlordSend").value = "";
+                                                                }
+                                                                function openImage() {
+                                                                    document.getElementById("popup-image").style.display = "block";
+                                                                    let imageSrc = document.getElementById("image").innerHTML;
+                                                                    console.log(imageSrc);
+                                                                    document.getElementById("qr-image").src = imageSrc;
+                                                                }
+                                                                function closeImage() {
+                                                                    document.getElementById("popup-image").style.display = "none";
+                                                                    document.getElementById("qr-image").value = "";
+                                                                }
+                                                                $(".hehe").click(function () {
+
+                                                                    var clickBtn = $(this).val();
+                                                                    console.log(clickBtn);
+                                                                    let imageSrc = $(this).find("#image").html();
+                                                                    console.log(imageSrc);
 //                    var imageSrc = clickBtn.innerHTML;
 //                    console.log(clickBtn.innerHTML);
-                    document.getElementById("qr-image").src = imageSrc;
-                    document.getElementById("popup-image").style.display = "block";
+                                                                    document.getElementById("qr-image").src = imageSrc;
+                                                                    document.getElementById("popup-image").style.display = "block";
 //                    alert(fired_button);
-                });
-                $(".noti").click(function() {
-                    
-                    var clickBtn = $(this).val();
-                    console.log(clickBtn);
-                    let imageSrc = $(this).find("#emailLandlord").html();
-                    console.log(imageSrc);
+                                                                });
+                                                                $(".noti").click(function () {
+
+                                                                    var clickBtn = $(this).val();
+                                                                    console.log(clickBtn);
+                                                                    let imageSrc = $(this).find("#emailLandlord").html();
+                                                                    console.log(imageSrc);
 //                    var imageSrc = clickBtn.innerHTML;
 //                    console.log(clickBtn.innerHTML);
-                    document.getElementById("emailLandlordSend").value = imageSrc;
-                    document.getElementById("requestForm").style.display = "block";
+                                                                    document.getElementById("emailLandlordSend").value = imageSrc;
+                                                                    document.getElementById("requestForm").style.display = "block";
 //                    alert(fired_button);
-                });
+                                                                });
         </script>
     </body>
 </html>

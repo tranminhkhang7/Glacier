@@ -6,12 +6,12 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-    <!doctype html>
-    <html lang="en">
+<!doctype html>
+<html lang="en">
     <head>
-    	<meta charset="UTF-8">
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    	<meta name="author" content="ThemeStarz">
+        <meta name="author" content="ThemeStarz">
 
         <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Varela+Round" rel="stylesheet">
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.css" type="text/css">
@@ -20,7 +20,7 @@
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/user.css">
 
-    	<title>Hóa đơn của bạn</title>
+        <title>Hóa đơn của bạn</title>
 
     </head>
     <body style="font-family: 'Varela Round', sans-serif;">
@@ -177,7 +177,7 @@
             <section class="content">
                 <section class="block">
                     <div class="container">
-                                                                                                    
+
                         <section>
                             <div class="row">
                                 <div class="col-md-12">
@@ -190,16 +190,16 @@
                                         </li>
                                     </ul>
                                     <div class="tab-content" id="myTabContent">
-                                            <div class="tab-pane fade show active" id="one" role="tabpanel" aria-labelledby="one-tab">
-                                                <c:forEach items="${requestScope.UNPAID_BILLS}" var="unpaidBill">
-                                                    <div class="answer">
+                                        <div class="tab-pane fade show active" id="one" role="tabpanel" aria-labelledby="one-tab">
+                                            <c:forEach items="${requestScope.UNPAID_BILLS}" var="unpaidBill">
+                                                <div class="answer">
                                                     <div class="box">
                                                         <div class='row'>
                                                             <div class="col-md-9">
                                                                 <h3>${unpaidBill.purpose}</h3>
                                                                 <p><strong>Số tiền:</strong> ${unpaidBill.amount} VNĐ<br>
-                                                                <strong>Hóa đơn được tạo ra vào: ${unpaidBill.time}</strong><br>
-                                                                <strong>Feel free to add thêm thuộc gì đóa nhe</strong></p>
+                                                                    <strong>Hóa đơn được tạo ra vào: ${unpaidBill.time}</strong><br>
+                                                                    <strong>Feel free to add thêm thuộc gì đóa nhe</strong></p>
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <button class="btn btn-primary large icon float-left"  style="font-size: 16px; top: 25px;">Thanh toán</button>
@@ -207,41 +207,41 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                </c:forEach>
-<!--                                                <div class="answer">
-                                                    <div class="box">
-                                                        <div class='row'>
-                                                            <div class="col-md-9">
-                                                                <h3>Đây là purpose của payment nè</h3>
-                                                                <p><strong>Số tiền:</strong> 3.000.000 VNĐ<br>
-                                                                <strong>Hóa đơn được tạo ra vào:</strong><br>
-                                                                <strong>Feel free to add thêm thuộc gì đóa nhe</strong></p>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <button class="btn btn-primary large icon float-left"  style="font-size: 16px; top: 25px;">Thanh toán</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            </c:forEach>
+                                            <!--                                                <div class="answer">
+                                                                                                <div class="box">
+                                                                                                    <div class='row'>
+                                                                                                        <div class="col-md-9">
+                                                                                                            <h3>Đây là purpose của payment nè</h3>
+                                                                                                            <p><strong>Số tiền:</strong> 3.000.000 VNĐ<br>
+                                                                                                            <strong>Hóa đơn được tạo ra vào:</strong><br>
+                                                                                                            <strong>Feel free to add thêm thuộc gì đóa nhe</strong></p>
+                                                                                                        </div>
+                                                                                                        <div class="col-md-3">
+                                                                                                            <button class="btn btn-primary large icon float-left"  style="font-size: 16px; top: 25px;">Thanh toán</button>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                            
+                                                                                            <div class="answer">
+                                                                                                <div class="box">
+                                                                                                    <div class='row'>
+                                                                                                        <div class="col-md-9">
+                                                                                                            <h3>Đây là purpose của payment nè</h3>
+                                                                                                            <p><strong>Số tiền:</strong> 3.000.000 VNĐ<br>
+                                                                                                            <strong>Hóa đơn được tạo ra vào:</strong><br>
+                                                                                                            <strong>Feel free to add thêm thuộc gì đóa nhe</strong></p>
+                                                                                                        </div>
+                                                                                                        <div class="col-md-3">
+                                                                                                            <button class="btn btn-primary large icon float-left"  style="font-size: 16px; top: 25px;">Thanh toán</button>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>-->
 
-                                                <div class="answer">
-                                                    <div class="box">
-                                                        <div class='row'>
-                                                            <div class="col-md-9">
-                                                                <h3>Đây là purpose của payment nè</h3>
-                                                                <p><strong>Số tiền:</strong> 3.000.000 VNĐ<br>
-                                                                <strong>Hóa đơn được tạo ra vào:</strong><br>
-                                                                <strong>Feel free to add thêm thuộc gì đóa nhe</strong></p>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <button class="btn btn-primary large icon float-left"  style="font-size: 16px; top: 25px;">Thanh toán</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>-->
 
-
-                                            </div>
+                                        </div>
                                         <div class="tab-pane fade" id="two" role="tabpanel" aria-labelledby="two-tab">
                                             <c:forEach items="${requestScope.PAID_BILLS}" var="paid">
                                                 <div class="answer">
@@ -250,84 +250,84 @@
                                                             <div class="col-md-12">
                                                                 <h3>${paid.purpose}</h3>
                                                                 <p><strong>Số tiền:</strong> ${paid.amount} VNĐ<br>
-                                                                <strong>Hóa đơn được tạo ra vào: ${paid.time}</strong><br>
-                                                                <strong>Feel free to add thêm thuộc gì đóa nhe</strong></p>
+                                                                    <strong>Hóa đơn được tạo ra vào: ${paid.time}</strong><br>
+                                                                    <strong>Feel free to add thêm thuộc gì đóa nhe</strong></p>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </c:forEach>
-<!--                                            <div class="answer">
-                                                    <div class="box">
-                                                        <div class='row'>
-                                                            <div class="col-md-12">
-                                                                <h3>Đây là purpose của payment nè</h3>
-                                                                <p><strong>Số tiền:</strong> 3.000.000 VNĐ<br>
-                                                                <strong>Hóa đơn được tạo ra vào:</strong><br>
-                                                                <strong>Feel free to add thêm thuộc gì đóa nhe</strong></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="answer">
-                                                    <div class="box">
-                                                        <div class='row'>
-                                                            <div class="col-md-12">
-                                                                <h3>Đây là purpose của payment nè</h3>
-                                                                <p><strong>Số tiền:</strong> 3.000.000 VNĐ<br>
-                                                                <strong>Hóa đơn được tạo ra vào:</strong><br>
-                                                                <strong>Feel free to add thêm thuộc gì đóa nhe</strong></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>-->
+                                            <!--                                            <div class="answer">
+                                                                                                <div class="box">
+                                                                                                    <div class='row'>
+                                                                                                        <div class="col-md-12">
+                                                                                                            <h3>Đây là purpose của payment nè</h3>
+                                                                                                            <p><strong>Số tiền:</strong> 3.000.000 VNĐ<br>
+                                                                                                            <strong>Hóa đơn được tạo ra vào:</strong><br>
+                                                                                                            <strong>Feel free to add thêm thuộc gì đóa nhe</strong></p>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                            
+                                                                                            <div class="answer">
+                                                                                                <div class="box">
+                                                                                                    <div class='row'>
+                                                                                                        <div class="col-md-12">
+                                                                                                            <h3>Đây là purpose của payment nè</h3>
+                                                                                                            <p><strong>Số tiền:</strong> 3.000.000 VNĐ<br>
+                                                                                                            <strong>Hóa đơn được tạo ra vào:</strong><br>
+                                                                                                            <strong>Feel free to add thêm thuộc gì đóa nhe</strong></p>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>-->
                                         </div>
 
-<!--                                        <div class="page-pagination">
-                                            <nav aria-label="Pagination">
-                                                <ul class="pagination">
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="#" aria-label="Previous">
-                                                    <span aria-hidden="true">
-                                                        <i class="fa fa-chevron-left"></i>
-                                                    </span>
-                                                            <span class="sr-only">Previous</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="page-item active">
-                                                        <a class="page-link" href="#">1</a>
-                                                    </li>
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="#">2</a>
-                                                    </li>
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="#">3</a>
-                                                    </li>
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="#" aria-label="Next">
-                                                    <span aria-hidden="true">
-                                                        <i class="fa fa-chevron-right"></i>
-                                                    </span>
-                                                            <span class="sr-only">Next</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </nav>
-                                        </div>-->
-                            <!--end page-pagination-->
+                                        <!--                                        <div class="page-pagination">
+                                                                                    <nav aria-label="Pagination">
+                                                                                        <ul class="pagination">
+                                                                                            <li class="page-item">
+                                                                                                <a class="page-link" href="#" aria-label="Previous">
+                                                                                            <span aria-hidden="true">
+                                                                                                <i class="fa fa-chevron-left"></i>
+                                                                                            </span>
+                                                                                                    <span class="sr-only">Previous</span>
+                                                                                                </a>
+                                                                                            </li>
+                                                                                            <li class="page-item active">
+                                                                                                <a class="page-link" href="#">1</a>
+                                                                                            </li>
+                                                                                            <li class="page-item">
+                                                                                                <a class="page-link" href="#">2</a>
+                                                                                            </li>
+                                                                                            <li class="page-item">
+                                                                                                <a class="page-link" href="#">3</a>
+                                                                                            </li>
+                                                                                            <li class="page-item">
+                                                                                                <a class="page-link" href="#" aria-label="Next">
+                                                                                            <span aria-hidden="true">
+                                                                                                <i class="fa fa-chevron-right"></i>
+                                                                                            </span>
+                                                                                                    <span class="sr-only">Next</span>
+                                                                                                </a>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </nav>
+                                                                                </div>-->
+                                        <!--end page-pagination-->
                                     </div>
 
-                                    
+
 
                                 </div>
                                 <!--end col-md-6-->
-                                
+
                             </div>
                             <!--end row-->
                         </section>
 
-                        
+
 
                     </div>
                     <!--end container-->
@@ -348,8 +348,7 @@
                                     <img src="assets/img/logo.png" alt="">
                                 </a>
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec tincidunt arcu, sit amet
-                                    fermentum sem. Class aptent taciti sociosqu ad litora torquent per conubia nostra.
+                                    Glacier là nền tảng kết nối người thuê nhà và các chủ trọ. Sẵn sàng sát cánh bến bạn trên mỗi hành trình mà bạn bước đi!
                                 </p>
                             </div>
                             <!--end col-md-5-->
@@ -431,15 +430,15 @@
         </div>
         <!--end page-->
 
-    	<script src="assets/js/jquery-3.3.1.min.js"></script>
+        <script src="assets/js/jquery-3.3.1.min.js"></script>
         <script type="text/javascript" src="assets/js/popper.min.js"></script>
-    	<script type="text/javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyBEDfNcQRmKQEyulDN8nGWjLYPm8s4YB58&libraries=places"></script>
-    	<script src="assets/js/selectize.min.js"></script>
-    	<script src="assets/js/masonry.pkgd.min.js"></script>
-    	<script src="assets/js/icheck.min.js"></script>
-    	<script src="assets/js/jquery.validate.min.js"></script>
-    	<script src="assets/js/custom.js"></script>
+        <script src="assets/js/selectize.min.js"></script>
+        <script src="assets/js/masonry.pkgd.min.js"></script>
+        <script src="assets/js/icheck.min.js"></script>
+        <script src="assets/js/jquery.validate.min.js"></script>
+        <script src="assets/js/custom.js"></script>
 
         <script>
             var latitude = 51.511971;
@@ -452,5 +451,5 @@
         </script>
 
     </body>
-    </html>
+</html>
 

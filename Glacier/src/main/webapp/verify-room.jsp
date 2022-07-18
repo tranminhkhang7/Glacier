@@ -34,9 +34,9 @@
             <header class="hero">
                 <div class="hero-wrapper">
 
-                   
+
                     <jsp:include page="header/navigation-admin.jsp" />
-                    
+
 
                     <!--============ Page Title =========================================================================-->
                     <div class="page-title">
@@ -58,7 +58,7 @@
             <!--*********************************************************************************************************-->
             <!--************ CONTENT ************************************************************************************-->
             <!--*********************************************************************************************************-->
-            
+
 
             <!-- Modal -->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -86,6 +86,8 @@
                         <%--Bảng thông tin report --%>
                         <div class="center">
                             <%
+                                int currentPage = (int) request.getAttribute("CURRENT_PAGE");
+                                int endPage = (int) request.getAttribute("END_PAGE");
                                 List<VerifyingRoom> listRoom = (List<VerifyingRoom>) request.getAttribute("LIST_VERIFY_ROOM");
                                 if (listRoom != null) {
                                     if (listRoom.size() > 0) {
@@ -116,12 +118,12 @@
                                         <td style="height:10px;padding:5px 10px; text-align: right"><%= room.getEmailLandlord()%></td>
                                         <td style="height:10px;padding:5px 10px; text-align: right"><%= room.getPhone()%></td>
                                         <td style="height:10px;padding:5px 10px">    
-                                            <button type="button" data-href="VerifyingController?roomID=<%= room.getRoomID() %>&action=no" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                            <button type="button" data-href="VerifyingController?roomID=<%= room.getRoomID()%>&action=no" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                                                 Bỏ qua
                                             </button>
                                         </td>
                                         <td style="height:10px;padding:5px 10px">    
-                                            <button type="button" data-href="VerifyingController?roomID=<%= room.getRoomID() %>&action=yes" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                            <button type="button" data-href="VerifyingController?roomID=<%= room.getRoomID()%>&action=yes" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                                                 Duyệt
                                             </button>
                                         </td>
@@ -133,7 +135,6 @@
                                 %>
                             </table>
                             <%
-                                    }
                                 }
                             %>
 
@@ -144,18 +145,6 @@
                         <nav aria-label="Pagination">
                             <ul class="pagination">
                                 <%
-                                    int currentPage = (int) request.getAttribute("CURRENT_PAGE");
-                                    int endPage = (int) request.getAttribute("END_PAGE");
-                                    if (currentPage != 1) {
-                                %>
-                                <a class="page-link" href="?index=<%=currentPage - 1%>" aria-label="Previous">
-                                    <span aria-hidden="true">
-                                        <i class="fa fa-chevron-left"></i>
-                                    </span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                                <%
-                                    }
                                     for (int i = 1; i <= endPage; i++) {
                                         if (currentPage == i) {
                                 %>
@@ -169,17 +158,8 @@
                                     <a class="page-link" href="?index=<%=i%>"><%=i%></a>
                                 </li> 
                                 <%
+                                            }
                                         }
-                                    }
-                                    if (currentPage != endPage) {
-                                %>
-                                <a class="page-link" href="?index=<%=currentPage + 1%>" aria-label="Next">
-                                    <span aria-hidden="true">
-                                        <i class="fa fa-chevron-right"></i>
-                                    </span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-                                <%
                                     }
                                 %>                                
                             </ul>
@@ -193,7 +173,7 @@
             <!--*********************************************************************************************************-->
             <!--************ FOOTER *************************************************************************************-->
             <!--*********************************************************************************************************-->
-            
+
             <jsp:include page="header/footer-admin.jsp" />
             <!--end footer-->
         </div>

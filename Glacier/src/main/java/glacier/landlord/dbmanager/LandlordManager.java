@@ -11,6 +11,7 @@ import glacier.utils.DBUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -288,15 +289,148 @@ public class LandlordManager {
         }
     }
     
-    public static void main(String[] args) {
+    private static String GET_LIST = "SELECT SUM(amount) as sum FROM BillDetail d JOIN Bill b ON d.billID = b.billID WHERE status LIKE '%paid%' AND roomID IN (SELECT roomID FROM Room WHERE emailLandlord LIKE ? ) AND YEAR(time) = ?" ;
+    private static String GET_LIST_2 = GET_LIST + " AND MONTH(time) = ?" ;
+    private static String GET_LIST2 = "SELECT SUM(amount) as sum FROM BillDetail WHERE billID IN (SELECT billID FROM Bill WHERE roomID LIKE ? AND YEAR(time) = ?" ;
+    private static String GET_LIST2_2 = GET_LIST2 + " AND MONTH(time) = ? )";
+
+    
+    public int getResult(String temp, int year, String t) throws SQLException {
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        int value = 0;
+        String sql = null;
+        if(t.equals("all")){
+            sql = GET_LIST;
+        } else sql = GET_LIST2 +")";
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(sql);
+                ptm.setString(1, "%" + temp + "%");
+                ptm.setInt(2, year);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    value = rs.getInt("sum");
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return value;
+    }
+    
+    public List getListAllTime(String temp, String t) throws SQLException {
+        LandlordManager dao = new LandlordManager();
+        List list = new ArrayList();
+        for (int i = 2020; i <= 2022; i++) {
+            list.add(dao.getResult(temp, i, t));
+        }
+        return list;
+    }
+    
+    public int getResultByYear(String temp, int year, int month , String t) throws SQLException {
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        int value = 0;
+        String sql = null;
+        if(t.equals("all")){
+            sql = GET_LIST_2;
+        } else sql = GET_LIST2_2;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(sql);
+                ptm.setString(1, "%" + temp + "%");
+                ptm.setInt(2, year);
+                ptm.setInt(3, month);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    value = rs.getInt("sum");
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return value;
+    }
+
+    public List getListByYear(String temp,int year, String t) throws SQLException {
+        LandlordManager dao = new LandlordManager();
+        List list = new ArrayList();
+        for (int i = 1; i <= 12; i++) {
+            list.add(dao.getResultByYear(temp, year, i, t));
+        }
+        return list;
+    }
+    
+    public List<String> getRoomId(String email) throws SQLException {
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        List<String> list = new ArrayList<>();
+        String sql = "SELECT roomID FROM Room WHERE emailLandlord LIKE ?";
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(sql);
+                ptm.setString(1, "%" + email + "%");
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String id = rs.getString("roomID");
+                    list.add(id);
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return list;
+    }
+    
+    public static void main(String[] args) throws SQLException {
         LandlordManager manager = new LandlordManager();
 //        int i = manager.countAllPendingRooms("dangngocduong@gmail.com");
 //        System.out.println(i);
-        List<Room> list = manager.getLandlordPendingRooms("dangngocduong@gmail.com", 1);
-        for (Room room : list) {
-            System.out.println(room);
-        }
+//        List<Room> list = manager.getLandlordPendingRooms("dangngocduong@gmail.com", 1);
+//        for (Room room : list) {
+//            System.out.println(room);
+//        }
 //        String s = manager.roomStatus(10);
 //        System.out.println(s);
+//        System.out.println(manager.getListAllTime("21", "21"));
+//        System.out.println(manager.getListByYear("21", 2022, "21"));
+//            System.out.println(manager.getRoomId("nguyenhoangngan@gmail.com"));
     }
 }
