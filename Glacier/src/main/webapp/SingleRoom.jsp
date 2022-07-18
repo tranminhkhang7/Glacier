@@ -106,49 +106,25 @@
             <header class="hero">
                 <div class="hero-wrapper">
 
-                    <jsp:include page="header/navigation.jsp" />
+                    <jsp:include page="header/navigation-with-search-header.jsp" />
 
                     <!--============ Hero Form ==========================================================================-->
-                    <div class="collapse" id="collapseMainSearchForm">
-                        <form class="hero-form form">
+                    <div class="collapse" id="collapseMainSearchForm" style="">
+                        <form class="hero-form form" action="${pageContext.request.contextPath}/search">
                             <div class="container">
                                 <!--Main Form-->
                                 <div class="main-search-form">
                                     <div class="form-row">
-                                        <div class="col-md-3 col-sm-3">
+                                        <div class="col-md-10 col-sm-10">
                                             <div class="form-group">
-                                                <label for="what" class="col-form-label">What?</label>
-                                                <input name="keyword" type="text" class="form-control small" id="what" placeholder="What are you looking for?">
+                                                <label for="what" class="col-form-label">Bạn đang đi đến đâu?</label>
+                                                <input name="keyword" type="text" class="form-control" id="what" maxlength="80" placeholder="Nhập vị trí, mô tả phòng mà bạn muốn đến...">
                                             </div>
                                             <!--end form-group-->
                                         </div>
                                         <!--end col-md-3-->
-                                        <div class="col-md-3 col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-location" class="col-form-label">Where?</label>
-                                                <input name="location" type="text" class="form-control small" id="input-location" placeholder="Enter Location">
-                                                <span class="geo-location input-group-addon" data-toggle="tooltip" data-placement="top" title="Find My Position"><i class="fa fa-map-marker"></i></span>
-                                            </div>
-                                            <!--end form-group-->
-                                        </div>
-                                        <!--end col-md-3-->
-                                        <div class="col-md-3 col-sm-3">
-                                            <div class="form-group">
-                                                <label for="category" class="col-form-label">Category?</label>
-                                                <select name="category" id="category" class="small" data-placeholder="Select Category">
-                                                    <option value="">Select Category</option>
-                                                    <option value="1">Computers</option>
-                                                    <option value="2">Real Estate</option>
-                                                    <option value="3">Cars & Motorcycles</option>
-                                                    <option value="4">Furniture</option>
-                                                    <option value="5">Pets & Animals</option>
-                                                </select>
-                                            </div>
-                                            <!--end form-group-->
-                                        </div>
-                                        <!--end col-md-3-->
-                                        <div class="col-md-3 col-sm-3">
-                                            <button type="submit" class="btn btn-primary width-100 small">Search</button>
+                                        <div class="col-md-2 col-sm-2">
+                                            <button type="submit" class="btn btn-primary width-100">Tìm kiếm</button>
                                         </div>
                                         <!--end col-md-3-->
                                     </div>
@@ -157,79 +133,43 @@
                                 <!--end main-search-form-->
                                 <!--Alternative Form-->
                                 <div class="alternative-search-form">
-                                    <a href="#collapseAlternativeSearchForm" class="icon" data-toggle="collapse"  aria-expanded="false" aria-controls="collapseAlternativeSearchForm"><i class="fa fa-plus"></i>More Options</a>
+                                    <a href="#collapseAlternativeSearchForm" class="icon" data-toggle="collapse"  aria-expanded="false" aria-controls="collapseAlternativeSearchForm"><i class="fa fa-plus"></i><strong>Thêm bộ lọc</strong></a>
                                     <div class="collapse" id="collapseAlternativeSearchForm">
                                         <div class="wrapper">
                                             <div class="form-row">
-                                                <div class="col-xl-6 col-lg-5 col-md-12 col-sm-12">
-                                                    <div class="form-row">
-                                                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-                                                            <label>
-                                                                <input type="checkbox" name="new">
-                                                                New
-                                                            </label>
-                                                        </div>
-                                                        <!--end col-md-3-->
-                                                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-                                                            <label>
-                                                                <input type="checkbox" name="used">
-                                                                Used
-                                                            </label>
-                                                        </div>
-                                                        <!--end col-md-3-->
-                                                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-                                                            <label>
-                                                                <input type="checkbox" name="with_photo">
-                                                                With Photo
-                                                            </label>
-                                                        </div>
-                                                        <!--end col-md-3-->
-                                                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-                                                            <label>
-                                                                <input type="checkbox" name="featured">
-                                                                Featured
-                                                            </label>
-                                                        </div>
-                                                        <!--end col-md-3-->
-                                                    </div>
+                                                <div class="col-md-3 col-sm-0">
                                                 </div>
-                                                <!--end col-md-6-->
-                                                <div class="col-xl-6 col-lg-7 col-md-12 col-sm-12">
-                                                    <div class="form-row">
-                                                        <div class="col-md-4 col-sm-4">
-                                                            <div class="form-group">
-                                                                <input name="min_price" type="text" class="form-control small" id="min-price" placeholder="Minimal Price">
-                                                                <span class="input-group-addon small">$</span>
-                                                            </div>
-                                                            <!--end form-group-->
-                                                        </div>
-                                                        <!--end col-md-4-->
-                                                        <div class="col-md-4 col-sm-4">
-                                                            <div class="form-group">
-                                                                <input name="max_price" type="text" class="form-control small" id="max-price" placeholder="Maximal Price">
-                                                                <span class="input-group-addon small">$</span>
-                                                            </div>
-                                                            <!--end form-group-->
-                                                        </div>
-                                                        <!--end col-md-4-->
-                                                        <div class="col-md-4 col-sm-4">
-                                                            <div class="form-group">
-                                                                <select name="distance" id="distance" class="small" data-placeholder="Distance" >
-                                                                    <option value="">Distance</option>
-                                                                    <option value="1">1km</option>
-                                                                    <option value="2">5km</option>
-                                                                    <option value="3">10km</option>
-                                                                    <option value="4">50km</option>
-                                                                    <option value="5">100km</option>
-                                                                </select>
-                                                            </div>
-                                                            <!--end form-group-->
-                                                        </div>
-                                                        <!--end col-md-3-->
+                                                <div class="col-md-3 col-sm-12">
+                                                    <div class="form-group">
+                                                        <input name="min_price" type="number" min="100000" max="100000000" step="1" class="form-control small" id="min-price" placeholder="Giá tối thiểu">
+                                                        <span class="input-group-addon small">VNĐ</span>
                                                     </div>
+                                                    <!--end form-group-->
                                                 </div>
+                                                <!--end col-md-4-->
+                                                <div class="col-md-3 col-sm-12">
+                                                    <div class="form-group">
+                                                        <input name="max_price" type="number" min="100000" max="100000000" step="1" class="form-control small" id="max-price" placeholder="Giá tối đa">
+                                                        <span class="input-group-addon small">VNĐ</span>
+                                                    </div>
+                                                    <!--end form-group-->
+                                                </div>
+                                                <!--end col-md-4-->
+                                            </div>
+                                            <div class="form-row">
+                                                <c:forEach items="${requestScope.listFeature}" var="feature">
+                                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                                        <label>
+                                                            <input type="checkbox" name="${feature.id}">
+                                                            ${feature.name}
+                                                        </label>
+                                                    </div>
+
+                                                </c:forEach>
+                                                <!--end col-xl-6-->
                                             </div>
                                             <!--end row-->
+
                                         </div>
                                         <!--end wrapper-->
                                     </div>
@@ -239,11 +179,10 @@
                             </div>
                             <!--end container-->
                         </form>
-                        <!--end hero-form-->
                     </div>
-                    <!--end collapse-->
                     <!--============ End Hero Form ======================================================================-->
                     <!--============ Page Title =========================================================================-->
+
                     <div class="page-title">
                         <div class="container clearfix" >
                             <div class="float-left float-xs-none" style="width: 100%">
@@ -608,6 +547,50 @@
                                 </iframe>
                             </div>
                         </section>
+                        <hr>
+                        <section>
+                            <h2>Nhà được gợi ý</h2>
+                            <div class="items list compact">
+                                <c:forEach items="${requestScope.ROOM_BY_FEATURE}" begin="0" end="2" var="roomByFeature">
+                                    <div class="item">                                 
+                                        <!--end ribbon-->
+                                        <div class="wrapper">
+                                            <div class="image">
+                                                <h3>
+                                                    <a href="./SingleRoomView?id=${roomByFeature.roomID}" class="title">${roomByFeature.name}</a>                                                    
+                                                </h3>
+                                                <a href="./SingleRoomView?id=${roomByFeature.roomID}" class="image-wrapper background-image">
+                                                    <img src="assets/img/image-01.jpg" alt="">
+                                                </a>
+                                            </div>
+                                            <!--end image-->
+                                            <h4 class="location">
+                                                <a href="#">${roomByFeature.address}</a>
+                                            </h4>
+                                            <div class="price priceStyle">${roomByFeature.price}<small> VNĐ</small></div>
+                                            <div class="meta">
+                                                <figure>
+                                                    <i class="fa fa-calendar-o"></i>${roomByFeature.date_added}
+                                                </figure>
+                                                <figure>
+                                                    <a href="#">
+                                                        <i class="fa fa-user"></i>${date_added.emailLandlord}
+                                                    </a>
+                                                </figure>
+                                            </div>
+                                            <!--end meta-->
+                                            <div class="description">
+                                                <p>${roomByFeature.description}</p>
+                                            </div>
+                                            <!--end description-->
+                                        </div>
+                                    </div>
+                                </c:forEach>
+                                <!--end item-->
+                            </div>
+                            <!--end items.list.compact-->
+                        </section>
+                        <hr>
                         <section>
                             <h2>Viết đánh giá</h2>
                             <c:if test="${user==null}">
@@ -659,8 +642,11 @@
                         </section>
                         <hr style="margin-top: 10rem">
                         <section>
-                            <h2>Reviews</h2>
+                            <h2>Đánh giá</h2>
                             <div class="comments">
+                                <c:if test="${empty Reviews}">
+                                    <h3>Không có đánh giá</h3>
+                                </c:if>
                                 <c:forEach items="${Reviews}" var="review">
                                     <div class="comment">
                                         <div class="author">

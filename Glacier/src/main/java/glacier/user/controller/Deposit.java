@@ -22,6 +22,8 @@ import javax.servlet.http.HttpSession;
 import glacier.utils.Utils;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.nio.file.FileSystems;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -50,6 +52,7 @@ public class Deposit extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, WriterException {
         response.setContentType("text/html;charset=UTF-8");
@@ -67,22 +70,26 @@ public class Deposit extends HttpServlet {
                 UserManager mng = new UserManager();
                 mng.deposit(emailTenant, roomID);
 
-                
+                //-----------------------------------------------------------------------------------------------------------------------
                 //CREATE QR CODE //email + ngay + 1 so ngau nhien
-                
-                //ipv4:8080/Glacier/qrscan?tenant_key=abc
+                //ipv4:8080/Glacier/assign?tenant_key=abc
                 String tenantKey = DigestUtils.md5Hex(emailTenant+Math.random());
                 String landlordKey = DigestUtils.md5Hex(emailLandlord+Math.random());
-                String ip = getIpAddress();
-                String content = "http://192.168.27.61:8080/Glacier/assign?tenant_key="+tenantKey+"&landlord_key="+landlordKey;
+
+                String ip=getIpAddress();
+                System.out.println(ip);
+                String content = "http://"+ip+":8080/Glacier/assign?tenant_key="+tenantKey+"&landlord_key="+landlordKey;
                 //room-id.png
                 String imageName = "room-"+roomID+".png";
                 Utils.createQR(content, imageName);
-                String QrLocalPath = "D:\\FPT\\SP2022\\PRJ301\\apache-tomcat-8.5.73\\bin\\Glacier\\QR\\"+imageName;
+                String QrLocalPath = FileSystems.getDefault().getPath("").toAbsolutePath().toString() + "\\Glacier\\QR\\" + imageName;
+
                 
+                //-----------------------------------------------------------------------------------------------------------------------
                 //UP HÌNH LÊN CLOUD
                 GoogleCloudUtils.uploadObject(Constant.GOOGLE_CLOUD_PROJECT_ID, Constant.GOOGLE_CLOUD_BUCKET_NAME, imageName,QrLocalPath);
                 
+                //-----------------------------------------------------------------------------------------------------------------------
                 //UPDATE CÁI qr_image TRONG ROOM    
                 String QRCloudPath = "https://storage.cloud.google.com/glacier-bucket/Room_QR/"+imageName;
                 RoomManager rm = new RoomManager();

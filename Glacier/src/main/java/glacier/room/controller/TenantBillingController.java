@@ -6,7 +6,8 @@
 package glacier.room.controller;
 
 import glacier.room.dbmanager.RoomManager;
-import glacier.room.model.Bill;
+import glacier.bill.model.Bill;
+import glacier.bill.model.BillDetail;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -42,8 +43,10 @@ public class TenantBillingController extends HttpServlet {
 
             List<Bill> paidBillList = manager.getPaidBillList(Integer.parseInt(roomId), "paid");
             List<Bill> unpaidBillList = manager.getPaidBillList(Integer.parseInt(roomId), "unpaid");
-
-
+            
+            List<BillDetail> billDetail = manager.getBillsDetail(Integer.parseInt(roomId));
+            
+            request.setAttribute("BILL_DETAILS", billDetail);
             request.setAttribute("PAID_BILLS", paidBillList);
             request.setAttribute("UNPAID_BILLS", unpaidBillList);
             request.getRequestDispatcher("tenant-room-bill.jsp").forward(request, response);

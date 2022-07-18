@@ -29,5 +29,5 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
-
+/Glacier/src/main/java/glacier/utils/DBUtils.java
 # End of https://www.toptal.com/developers/gitignore/api/netbeans,maven

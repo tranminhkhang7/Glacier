@@ -37,14 +37,13 @@
             <header class="hero">
                 <div class="hero-wrapper">
 
-                    <jsp:include page="header/navigation.jsp" />
+                    <jsp:include page="header/navigation-tenant-home.jsp" />
 
                     <!--============ Page Title =========================================================================-->
-                    <div class="page-title">
+                    <div class="page-title" style="color: white">
                         <div class="container">
-                            <h1 class="opacity-60 center">
-                                <a href="#">Thuê</a> bất cứ đâu bạn muốn!
-
+                            <h1 class="opacity-100 center">
+                                <a href="#" style="color: white">Thuê</a> bất cứ đâu bạn muốn!
                             </h1>
                         </div>
                         <!--end container-->
@@ -58,8 +57,8 @@
                                 <div class="form-row">
                                     <div class="col-md-10 col-sm-10">
                                         <div class="form-group">
-                                            <label for="what" class="col-form-label">Bạn đang đi đến đâu?</label>
-                                            <input name="keyword" type="text" class="form-control" id="what" placeholder="Nhập vị trí, mô tả phòng mà bạn muốn đến...">
+                                            <label for="what" class="col-form-label" style="color: white">Bạn đang đi đến đâu?</label>
+                                            <input name="keyword" type="text" class="form-control" id="what" maxlength="80" placeholder="Nhập vị trí, mô tả phòng mà bạn muốn đến...">
                                         </div>
                                         <!--end form-group-->
                                     </div>
@@ -74,28 +73,43 @@
                             <!--end main-search-form-->
                             <!--Alternative Form-->
                             <div class="alternative-search-form">
-                                <a href="#collapseAlternativeSearchForm" class="icon" data-toggle="collapse"  aria-expanded="false" aria-controls="collapseAlternativeSearchForm"><i class="fa fa-plus"></i>Thêm bộ lọc</a>
+                                <a href="#collapseAlternativeSearchForm" class="icon" data-toggle="collapse"  aria-expanded="false" aria-controls="collapseAlternativeSearchForm" style="color: white"><i class="fa fa-plus"></i><strong>Thêm bộ lọc</strong></a>
                                 <div class="collapse" id="collapseAlternativeSearchForm">
                                     <div class="wrapper">
                                         <div class="form-row">
-                                            <%
-                                                int i = 1;
-                                            %>
+                                            <div class="col-md-3 col-sm-0">
+                                            </div>
+                                            <div class="col-md-3 col-sm-12">
+                                                <div class="form-group">
+                                                    <input name="min_price" type="number" min="100000" max="100000000" step="1" class="form-control small" id="min-price" placeholder="Giá tối thiểu">
+                                                    <span class="input-group-addon small">VNĐ</span>
+                                                </div>
+                                                <!--end form-group-->
+                                            </div>
+                                            <!--end col-md-4-->
+                                            <div class="col-md-3 col-sm-12">
+                                                <div class="form-group">
+                                                    <input name="max_price" type="number" min="100000" max="100000000" step="1" class="form-control small" id="max-price" placeholder="Giá tối đa">
+                                                    <span class="input-group-addon small">VNĐ</span>
+                                                </div>
+                                                <!--end form-group-->
+                                            </div>
+                                            <!--end col-md-4-->
+                                        </div>
+                                        <div class="form-row">
                                             <c:forEach items="${requestScope.listFeature}" var="feature">
                                                 <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
                                                     <label>
-                                                        <input type="checkbox" name="<%=i%>">
-                                                        ${feature}
+                                                        <input type="checkbox" name="${feature.id}">
+                                                        ${feature.name}
                                                     </label>
                                                 </div>
-                                                <%
-                                                    i++;
-                                                %>
+
                                             </c:forEach>
                                             <!--end col-xl-6-->
-
                                         </div>
                                         <!--end row-->
+                                        
                                     </div>
                                     <!--end wrapper-->
                                 </div>
@@ -108,7 +122,7 @@
                     <!--============ End Hero Form ======================================================================-->
                     <div class="background">
                         <div class="background-image">
-                            <img src="${pageContext.request.contextPath}/assets/img/hero-background-image-02.jpg" alt="">
+                            <img src="${pageContext.request.contextPath}/assets/img/hero-background-image-01.jpg" alt="">
                         </div>
                         <!--end background-image-->
                     </div>
@@ -125,139 +139,81 @@
                 <!--============ Featured Ads ===========================================================================-->
                 <section class="block">
                     <div class="container">
-                        <h2>Khám phá những vùng đất mới!</h2>
-                        <div class="items grid grid-xl-3-items grid-lg-3-items grid-md-2-items">
-                            <div class="item">
+                        <h2>Xu hướng tìm kiếm</h2>
+                        <div class="items grid grid-xl-4-items grid-lg-4-items grid-md-4-items">
+                            <div class="item" style="height: 260px">
                                 <div class="wrapper">
                                     <div class="image">
-                                        <a href="single-listing-1.html" class="image-wrapper background-image">
-                                            <img src="${pageContext.request.contextPath}/assets/images/HCMC.jpg" alt="">
+                                        <a href="${pageContext.request.contextPath}/search?keyword=Hà+Nội" class="image-wrapper background-image">
+                                            <img src="https://live.staticflickr.com/65535/52177527358_384c3bdf02_b.jpg" alt="">
                                         </a>
                                     </div>
                                     <!--end image-->
-                                    <h4 class="location">
-                                        <a href="#">VietNam</a>
-                                    </h4>
-                                    <div class="price">HCM city</div>
+                                    <!--                                    <div class="price">Hà Nội</div>-->
 
                                     <!--end meta-->
                                     <div class="description">
-                                        <p>Ho Chi Minh City is the largest city, business and financial hub of Vietnam. Also known as Saigon, it has a prominent history going back hundreds of years. There are plenty of museums showcasing the country's dark wartime history and classic colonial architecture built by former French rulers.</p>
+                                        <!--<p>Ho Chi Minh City is the largest city, business and financial hub of Vietnam. Also known as Saigon, it has a prominent history going back hundreds of years. There are plenty of museums showcasing the country's dark wartime history and classic colonial architecture built by former French rulers.</p>-->
                                     </div>
                                     <!--end description-->
                                 </div>
                             </div>
                             <!--end item-->
-                            <div class="item">
+                            <div class="item" style="height: 260px">
                                 <div class="wrapper">
                                     <div class="image">
-                                        <a href="single-listing-1.html" class="image-wrapper background-image">
-                                            <img src="${pageContext.request.contextPath}/assets/images/LNDN.jpg" alt="">
+                                        <a href="${pageContext.request.contextPath}/search?keyword=Đà+Nẵng" class="image-wrapper background-image">
+                                            <img src="https://live.staticflickr.com/65535/52177733981_1d9210211d_b.jpg" alt="">
                                         </a>
                                     </div>
                                     <!--end image-->
-                                    <h4 class="location">
-                                        <a href="#">England, UK</a>
-                                    </h4>
-                                    <div class="price">London</div>
+                                    <!--                                    <div class="price">Đà Nẵng</div>-->
 
                                     <!--end meta-->
                                     <div class="description">
-                                        <p>London is famous for Big Ben, Buckingham Palace, British Museum, and Tower Bridge. London is also known for its rich history, double-decker buses, red phone booths, world-class museums and galleries, gigantic lush parks, financial districts, and cosmopolitan vibes.</p>
+                                        <!--<p>Ho Chi Minh City is the largest city, business and financial hub of Vietnam. Also known as Saigon, it has a prominent history going back hundreds of years. There are plenty of museums showcasing the country's dark wartime history and classic colonial architecture built by former French rulers.</p>-->
                                     </div>
                                     <!--end description-->
                                 </div>
                             </div>
                             <!--end item-->
-                            <div class="item">
+                            <div class="item" style="height: 260px">
                                 <div class="wrapper">
                                     <div class="image">
-                                        <a href="single-listing-1.html" class="image-wrapper background-image">
-                                            <img src="${pageContext.request.contextPath}/assets/images/France.jpg" alt="">
+                                        <a href="${pageContext.request.contextPath}/search?keyword=Hồ+Chí+Minh" class="image-wrapper background-image">
+                                            <img src="https://live.staticflickr.com/65535/52177965574_de3b148c41_b.jpg" alt="">
                                         </a>
                                     </div>
                                     <!--end image-->
-                                    <h4 class="location">
-                                        <a href="#">France</a>
-                                    </h4>
-                                    <div class="price">Paris</div>
+                                    <!--                                    <div class="price">TP. Hồ Chí Minh</div>-->
 
                                     <!--end meta-->
                                     <div class="description">
-                                        <p>Nam eget ullamcorper massa. Morbi fringilla lectus nec lorem tristique gravida</p>
+                                        <!--<p>Ho Chi Minh City is the largest city, business and financial hub of Vietnam. Also known as Saigon, it has a prominent history going back hundreds of years. There are plenty of museums showcasing the country's dark wartime history and classic colonial architecture built by former French rulers.</p>-->
+                                    </div>
+                                    <!--end description-->
+                                </div>
+                            </div>
+                            <!--end item-->
+                            <div class="item" style="height: 260px">
+                                <div class="wrapper">
+                                    <div class="image">
+                                        <a href="${pageContext.request.contextPath}/search?keyword=Cần+Thơ" class="image-wrapper background-image">
+                                            <img src="https://live.staticflickr.com/65535/52177743711_3939711600_b.jpg" alt="">
+                                        </a>
+                                    </div>
+                                    <!--end image-->
+                                    <!--                                    <div class="price">Cần Thơ</div>-->
+
+                                    <!--end meta-->
+                                    <div class="description">
+                                        <!--<p>Ho Chi Minh City is the largest city, business and financial hub of Vietnam. Also known as Saigon, it has a prominent history going back hundreds of years. There are plenty of museums showcasing the country's dark wartime history and classic colonial architecture built by former French rulers.</p>-->
                                     </div>
                                     <!--end description-->
                                 </div>
                             </div>
                             <!--end item-->
                         </div>
-                        <div class="items grid grid-xl-3-items grid-lg-3-items grid-md-2-items">
-                            <div class="item">
-                                <div class="wrapper">
-                                    <div class="image">
-                                        <a href="single-listing-1.html" class="image-wrapper background-image">
-                                            <img src="${pageContext.request.contextPath}/assets/images/WDC.jpg" alt="">
-                                        </a>
-                                    </div>
-                                    <!--end image-->
-                                    <h4 class="location">
-                                        <a href="#">USA</a>
-                                    </h4>
-                                    <div class="price">Washington DC</div>
-
-                                    <!--end meta-->
-                                    <div class="description">
-                                        <p>Nam eget ullamcorper massa. Morbi fringilla lectus nec lorem tristique gravida</p>
-                                    </div>
-                                    <!--end description-->
-                                </div>
-                            </div>
-                            <!--end item-->
-                            <div class="item">
-                                <div class="wrapper">
-                                    <div class="image">
-                                        <a href="single-listing-1.html" class="image-wrapper background-image">
-                                            <img src="${pageContext.request.contextPath}/assets/images/Rio.jpg" alt="">
-                                        </a>
-                                    </div>
-                                    <!--end image-->
-                                    <h4 class="location">
-                                        <a href="#">Brazil</a>
-                                    </h4>
-                                    <div class="price">Rio De Janeiro</div>
-
-                                    <!--end meta-->
-                                    <div class="description">
-                                        <p>Nam eget ullamcorper massa. Morbi fringilla lectus nec lorem tristique gravida</p>
-                                    </div>
-                                    <!--end description-->
-                                </div>
-                            </div>
-                            <!--end item-->
-                            <div class="item">
-                                <div class="wrapper">
-                                    <div class="image">
-                                        <a href="single-listing-1.html" class="image-wrapper background-image">
-                                            <img src="${pageContext.request.contextPath}/assets/images/Bei.jpg" alt="">
-                                        </a>
-                                    </div>
-                                    <!--end image-->
-                                    <h4 class="location">
-                                        <a href="#">China</a>
-                                    </h4>
-                                    <div class="price">Beijing</div>
-
-                                    <!--end meta-->
-                                    <div class="description">
-                                        <p>Nam eget ullamcorper massa. Morbi fringilla lectus nec lorem tristique gravida</p>
-                                    </div>
-                                    <!--end description-->
-                                </div>
-                            </div>
-                            <!--end item-->
-
-                        </div>
-
                     </div>
                     <div class="background" data-background-color="#fff"></div>
                     <!--end background-->

@@ -6,12 +6,16 @@
 package glacier.user.controller;
 
 import glacier.landlord.dbmanager.LandlordManager;
+import glacier.model.feature.FeatureDAO;
+import glacier.model.feature.FeatureDTO;
 import glacier.room.model.Room;
 import glacier.room.model.RoomDAO;
+import glacier.user.model.Account;
 import glacier.user.model.Landlord;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -43,52 +47,72 @@ public class LandlordEditRoom extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
 
-            HttpSession session = request.getSession(false);
+            HttpSession ss = request.getSession();
+            Account user = (Account) ss.getAttribute("LOGIN_USER");
 
-            if (session == null) {
-                RequestDispatcher rd = request.getRequestDispatcher("/login");
-                rd.forward(request, response);
-            } else {
-                Landlord landlord = (Landlord) session.getAttribute("USER_DETAIL");
+            String role = (user == null) ? "" : user.getRole().trim();
+            if ("landlord".equals(role)) {
+                Landlord landlord = (Landlord) ss.getAttribute("USER_DETAIL");
                 String emailLandlord = landlord.getEmail();
 
                 int roomID = Integer.parseInt(request.getParameter("id"));
 
                 LandlordManager landlordMng = new LandlordManager();
-                if (landlordMng.checkOwnership(emailLandlord, roomID)) {
+                if (landlordMng.checkOwnership(emailLandlord, roomID)) { // is the owner
 
-                    if (request.getParameter("name") == null) {
-                        RoomDAO mng = new RoomDAO();
-                        Room room = mng.getRoomById(roomID);
-
+                    if (request.getParameter("name") == null) { // not submitted yet
+                        // Load room information except for features
+                        RoomDAO roomMng = new RoomDAO();
+                        Room room = roomMng.getRoomById(roomID);
                         request.setAttribute("room", room);
+                        
+                        // Split address to city and district (the whole address saved in dtb is these both combination
+                        String address = room.getAddress().trim();
+                        String[] parts = address.split(", ");
+                        String city = parts[0];
+                        String district = parts[1];
+                        request.setAttribute("city", city);
+                        request.setAttribute("district", district);
+                        
+                        // Load features of the room with id
+                        FeatureDAO featureMng = new FeatureDAO();
+                        List<FeatureDTO> listRoomFeature = featureMng.getFeature(roomID);
+                        request.setAttribute("listRoomFeature", listRoomFeature);
 
                         RequestDispatcher rd = request.getRequestDispatcher("/editroom.jsp");
                         rd.forward(request, response);
-                    } else {
-
+                    } else { // submitted
                         String name = request.getParameter("name");
                         String description = request.getParameter("details");
                         String city = request.getParameter("city");
                         String district = request.getParameter("district");
-                        String address = district + ", " + city;
+                        String address = district + ", " + city; // Combine district and city as addredd, and saved
                         String detailAddress = request.getParameter("location");
                         int price = Integer.parseInt(request.getParameter("price"));
-
                         int deposit = Integer.parseInt(request.getParameter("deposit"));
-                        System.out.println("hi there");
                         float area = Float.parseFloat(request.getParameter("area"));
 
+                        List<Integer> listFeature;
+                        listFeature = new ArrayList<>();
+                        for (int i = 1; i <= 50; i++) {
+                            String feature = (String) request.getParameter("room_features" + i);
+                            if (feature != null) {
+                                listFeature.add(i);
+                            }
+                        }
+                        
                         LandlordManager mng = new LandlordManager();
-                        mng.updateRoom(roomID, name, description, address, detailAddress, price, deposit, area);
+                        mng.updateRoom(roomID, name, description, address, detailAddress, price, deposit, area, listFeature);
 
-                        RequestDispatcher rd = request.getRequestDispatcher("/success.jsp");
-                        rd.forward(request, response);
+                        ss.setAttribute("notify", "updateSuccess");
+                        
+                        response.sendRedirect("roomlist");
                     }
-                } else {
-                    RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
-                    rd.forward(request, response);
+                } else { // not the owner
+                    response.sendRedirect("roomlist");
                 }
+            } else {
+                response.sendRedirect("login");
             }
         } catch (Exception e) {
             System.out.println("Error at Landlord Edit Room List" + e);

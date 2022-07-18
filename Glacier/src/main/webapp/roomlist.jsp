@@ -20,12 +20,54 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user.css">
 
-        <title>Trang chủ</title>
+        <title>Phòng của bạn</title>
+
+        <style>
+            .notify{
+                z-index: 19;
+                background-color: rgb(235, 244, 251);
+                box-shadow: 0 .1rem 2rem rgba(0, 0, 0, .15);
+                left: 50%;
+                top: 10%;
+                padding: 15px;
+                border: 1px solid rgb(166, 206, 237);
+                border-radius: .3rem;
+                text-align: center;
+                position: fixed;
+                transform: translate(-50%,-50%);
+                display: block;
+            }
+        </style>
 
     </head>
     <body style="font-family: 'Varela Round', sans-serif;">
         <c:set var="acc" value="${LOGIN_USER}" />
         <c:set var="user" value="${USER_DETAIL}" />
+
+        <c:if test="${notify == 'deleteSuccess'}">
+            <div class="notify" id="notifyBox">
+                Đã xóa phòng thành công!
+                &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-close" onclick="closeNotify()"></i>
+            </div>
+            <c:remove var="notify" scope="session" />
+        </c:if>
+        
+        <c:if test="${notify == 'updateSuccess'}">
+            <div class="notify" id="notifyBox">
+                Cập nhật phòng thành công!
+                &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-close" onclick="closeNotify()"></i>
+            </div>
+            <c:remove var="notify" scope="session" />
+        </c:if>
+        
+        <c:if test="${notify == 'addSuccess'}">
+            <div class="notify" id="notifyBox">
+                Thêm phòng thành công!
+                &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-close" onclick="closeNotify()"></i>
+            </div>
+            <c:remove var="notify" scope="session" />
+        </c:if>
+
         <div class="page sub-page">
             <!--*********************************************************************************************************-->
             <!--************ HERO ***************************************************************************************-->
@@ -212,6 +254,7 @@
                                     </div>
                                 </div>
                             </a>
+                            <br>
                             <!--end item-->
                             <c:forEach items="${requestScope.list}" var="room">
                                 <div class="item">
@@ -227,8 +270,14 @@
                                     <div class="wrapper">
                                         <div class="image">
                                             <h3>
-                                                <a href="single-listing-1.html" class="title">${room.name}</a>
-
+                                                <c:choose>
+                                                    <c:when test="${room.status.trim() eq 'unavailable'}">
+                                                        <a href="${pageContext.request.contextPath}/roomlist/room?id=${room.roomID}">${room.name}</a>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <a href="${pageContext.request.contextPath}/editroom?id=${room.roomID}">${room.name}</a>
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </h3>
                                             <a href="single-listing-1.html" class="image-wrapper background-image">
                                                 <img src="${pageContext.request.contextPath}/assets/img/image-01.jpg" alt="">
@@ -263,12 +312,14 @@
                                             </ul>
                                         </div>
                                         <!--end addition-info-->
-                                        <c:if test="${room.status.trim() eq 'unavailable'}">
-                                            <a href="${pageContext.request.contextPath}/roomlist/room?id=${room.roomID}" class="detail text-caps underline">Quản lý</a>
-                                        </c:if>
-                                        <c:if test="${room.status.trim() eq 'available'}">
-                                            <a href="${pageContext.request.contextPath}/editroom?id=${room.roomID}" class="detail text-caps underline">Chỉnh sửa</a>
-                                        </c:if>
+                                        <c:choose>
+                                            <c:when test="${room.status.trim() eq 'unavailable'}">
+                                                <a href="${pageContext.request.contextPath}/roomlist/room?id=${room.roomID}" class="detail text-caps underline">Quản lý</a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a href="${pageContext.request.contextPath}/editroom?id=${room.roomID}" class="detail text-caps underline">Chỉnh sửa</a>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                 </div>
                             </c:forEach>
@@ -290,12 +341,12 @@
                                         <c:choose>
                                             <c:when test="${currentPage == i}">
                                                 <li class="page-item active">
-                                                    <a class="page-link" href="?index=${i}">${i}</a>
+                                                    <a class="page-link" href="${pageContext.request.contextPath}/roomlist?index=${i}">${i}</a>
                                                 </li>
                                             </c:when>
                                             <c:otherwise>
                                                 <li class="page-item">
-                                                    <a class="page-link" href="?index=${i}">${i}</a>
+                                                    <a class="page-link" href="${pageContext.request.contextPath}/roomlist?index=${i}">${i}</a>
                                                 </li>
                                             </c:otherwise>
                                         </c:choose>
@@ -331,24 +382,29 @@
         <script src="${pageContext.request.contextPath}/assets/js/jquery.validate.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/custom.js"></script>
         <script>
-            for (let i = 0; i < document.getElementsByClassName("priceStyle").length; i++) {
+                    for (let i = 0; i < document.getElementsByClassName("priceStyle").length; i++) {
 
-                let priceText = document.getElementsByClassName("priceStyle")[i].textContent.trim();
+                        let priceText = document.getElementsByClassName("priceStyle")[i].textContent.trim();
 
-                let textReverse = priceText.split("").reverse().join("").trim();
+                        let textReverse = priceText.split("").reverse().join("").trim();
 
-                var j = 1;
-                var count = 0;
-                while (j < textReverse.length) {
-                    count++;
-                    if (count > 3) {
-                        textReverse = textReverse.slice(0, j) + "." + textReverse.slice(j);
-                        count = 0;
+                        var j = 1;
+                        var count = 0;
+                        while (j < textReverse.length) {
+                            count++;
+                            if (count > 3) {
+                                textReverse = textReverse.slice(0, j) + "." + textReverse.slice(j);
+                                count = 0;
+                            }
+                            j++;
+                        }
+                        let finalPrice = textReverse.split("").reverse().join("");
+                        document.getElementsByClassName("priceStyle")[i].innerHTML = finalPrice;
                     }
-                    j++;
-                }
-                let finalPrice = textReverse.split("").reverse().join("");
-                document.getElementsByClassName("priceStyle")[i].innerHTML = finalPrice;
+        </script>
+        <script>
+            function closeNotify() {
+                document.getElementById("notifyBox").style.display = "none";
             }
         </script>
 

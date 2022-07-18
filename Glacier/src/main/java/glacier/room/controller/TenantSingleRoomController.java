@@ -6,7 +6,7 @@
 package glacier.room.controller;
 
 import glacier.room.dbmanager.RoomManager;
-import glacier.room.model.Bill;
+import glacier.bill.model.Bill;
 import glacier.room.model.Room;
 import glacier.room.model.RoomDAO;
 import glacier.user.model.Account;

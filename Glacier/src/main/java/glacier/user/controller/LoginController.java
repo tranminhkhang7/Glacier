@@ -57,7 +57,7 @@ public class LoginController extends HttpServlet {
                 if ("tenant".equals(role)) {
                     Tenant t = manager.getTenantInfo(email);
                     if (t != null) {
-                        if (!"disabled".equals(t.getStatus())) {
+                        if (!"disabled".equals(t.getStatus().trim())) {
                             ss.setAttribute("LOGIN_USER", acc);
                             ss.setAttribute("USER_DETAIL", t);
                             response.sendRedirect("./home");
@@ -67,7 +67,7 @@ public class LoginController extends HttpServlet {
                 } else if ("landlord".equals(role)) {
                     Landlord l = manager.getLandlordInfo(email);
                     if (l != null) {
-                        if (!"disabled".equals(l.getStatus())) {
+                        if (!"disabled".equals(l.getStatus().trim())) {
                             ss.setAttribute("LOGIN_USER", acc);
                             ss.setAttribute("USER_DETAIL", l);
                             response.sendRedirect("./roomlist");

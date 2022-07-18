@@ -12,10 +12,10 @@
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/user.css">
 
-        <title>Craigs - Easy Buy & Sell Listing HTML Template</title>
+        <title>Xác th?c</title>
 
     </head>
-    <body onload="myFunction(${requestScope.IS_VERIFIED})">
+    <body>
         <div class="page sub-page">
             <!--*********************************************************************************************************-->
             <!--************ HERO ***************************************************************************************-->
@@ -46,6 +46,7 @@
                     <!--end background-->
                 </div>
                 <!--end hero-wrapper-->
+
             </section>
             <!--end hero-->
 
@@ -84,7 +85,7 @@
                     </div>
 
                     <!--end row-->
-                    </div>
+                    
                     <!--end container-->
                 </section>
                 <!--end block-->
@@ -92,6 +93,7 @@
             <!--end content-->
 
             <!--*********************************************************************************************************-->
+
             <!--************ FOOTER *************************************************************************************-->
             <!--*********************************************************************************************************-->
             <section class="footer">
@@ -103,7 +105,9 @@
                                     <img src="assets/img/logo.png" alt="">
                                 </a>
                                 <p>
+
                                     Glacier là n?n t?ng k?t n?i ng??i thuê nhà và các ch? tr?. S?n sàng sát cánh b?n b?n trên m?i hành trình mà b?n b??c ?i!
+
                                 </p>
                             </div>
                             <!--end col-md-5-->
@@ -196,7 +200,9 @@
         <script src="assets/js/custom.js"></script>
         <script>
         function myFunction(check) {
-            if (check == true) {
+
+            if (check === true) {
+
                 var box1 = document.getElementById("box1");
                 var box2 = document.getElementById("box2");
                 box1.style.display = "block";
@@ -208,6 +214,7 @@
                 box2.style.display = "block";
             }
         }
+        window.addEventListener('load',myFunction(${requestScope.IS_VERIFIED}));
         </script>
     </body>
 </html>
