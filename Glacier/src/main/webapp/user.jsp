@@ -32,7 +32,7 @@
                 <div class="hero-wrapper">
 
                     <jsp:include page="header/navigation-admin.jsp" />
-                    
+
                     <!--============ Page Title =========================================================================-->
                     <div class="page-title">
                         <div class="container">
@@ -139,11 +139,25 @@
                                         <td style="height:10px;padding:5px 10px; text-align: right"><%= user.getPhone()%></td>
                                         <td style="height:10px;padding:5px 10px; text-align: left"><%= user.getRole()%></td>
                                         <td style="height:10px;padding:5px 10px"><%=user.getStatus()%></td>
+                                        <%
+                                            if (user.getStatus().trim().equals("active")) {
+                                        %>
                                         <td style="height:10px;padding:5px 10px">    
                                             <button type="button" data-href="BanUserController?userPhone=<%=user.getPhone().trim()%>&userRole=<%= user.getRole()%>&status=<%=user.getStatus()%>" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                                                Ban/Unban
+                                                Ban
                                             </button>
                                         </td>
+                                        <%
+                                        } else {
+                                        %>
+                                        <td style="height:10px;padding:5px 10px">    
+                                            <button type="button" data-href="BanUserController?userPhone=<%=user.getPhone().trim()%>&userRole=<%= user.getRole()%>&status=<%=user.getStatus()%>" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                                Unban
+                                            </button>
+                                        </td>
+                                        <%
+                                            }
+                                        %>
                                     </tr> 
                                 </tbody>
                                 <%
@@ -165,16 +179,6 @@
                                 <%
                                     int currentPage = (int) request.getAttribute("CURRENT_PAGE");
                                     int endPage = (int) request.getAttribute("END_PAGE");
-                                    if (currentPage != 1) {
-                                %>
-                                <a class="page-link" href="?role=<%=role%>&keyword=<%=search%>&index=<%=currentPage - 1%>" aria-label="Previous">
-                                    <span aria-hidden="true">
-                                        <i class="fa fa-chevron-left"></i>
-                                    </span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                                <%
-                                    }
                                     for (int i = 1; i <= endPage; i++) {
                                         if (currentPage == i) {
                                 %>
@@ -189,16 +193,6 @@
                                 </li> 
                                 <%
                                         }
-                                    }
-                                    if (currentPage != endPage) {
-                                %>
-                                <a class="page-link" href="?role=<%=role%>&keyword=<%=search%>&index=<%=currentPage + 1%>" aria-label="Next">
-                                    <span aria-hidden="true">
-                                        <i class="fa fa-chevron-right"></i>
-                                    </span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-                                <%
                                     }
                                 %>                                
                             </ul>

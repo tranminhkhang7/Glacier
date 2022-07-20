@@ -104,10 +104,10 @@
                                 <div class="wrapper" style="text-align: center">
                                     <h1 style="margin: 20px">Chức năng khác</h1>
                                     <div class="picback" style="background-image: url(assets/images/Landlord.jpg)">
-                                        <a href="SearchUserController?keyword=&role=landlord&index=1" class="btn" style="margin: 50px"><h2>Quản lý feature</h2></a><br>
+                                        <a href="new-feature.jsp" class="btn" style="margin: 50px"><h2>Quản lý feature</h2></a><br>
                                     </div>
                                     <div class="picback" style="background-image: url(assets/images/Tenant.jpg)">
-                                        <a href="SearchUserController?keyword=&role=tenant&index=1" class="btn" style="margin: 50px"><h2>Xét duyệt phòng mới</h2></a>
+                                        <a href="VerifyRoomController?index=1" class="btn" style="margin: 50px"><h2>Xét duyệt phòng mới</h2></a>
                                     </div>
                                 </div>
                             </div>

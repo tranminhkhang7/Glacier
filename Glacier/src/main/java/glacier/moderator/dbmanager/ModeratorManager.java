@@ -431,10 +431,10 @@ public class ModeratorManager {
         }
         return check;
     }
-    
-    public boolean deleteFeature(String id) throws SQLException {
+
+    public boolean deleteRoomFeature(String id) throws SQLException {
         boolean check = false;
-        String sql = "DELETE FROM Feature WHERE" + id;
+        String sql = "DELETE FROM RoomFeature WHERE featureID = " + id;
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
@@ -445,6 +445,36 @@ public class ModeratorManager {
                 check = ptm.executeUpdate() != 0;
             }
 
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+
+    public boolean deleteFeature(String id) throws SQLException {
+        boolean check = false;
+        String sql = "DELETE FROM Feature WHERE id =" + id;
+        ModeratorManager dao = new ModeratorManager();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(sql);
+                dao.deleteRoomFeature(id);
+                check = ptm.executeUpdate() != 0;
+                
+            }
         } catch (Exception e) {
         } finally {
             if (rs != null) {
@@ -578,7 +608,7 @@ public class ModeratorManager {
 
     public static void main(String[] args) throws SQLException {
         ModeratorManager dao = new ModeratorManager();
-        List list = new ArrayList<>();
+        System.out.println(dao.deleteFeature("11"));
 //        System.out.println(dao.getListAllTime("nguyenhoangngan@gmail.com"));
 //        System.out.println(dao.getListByYear("nguyenhoangngan@gmail.com", 2021));
 
