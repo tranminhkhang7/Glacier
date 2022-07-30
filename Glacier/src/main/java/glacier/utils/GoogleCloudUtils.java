@@ -71,6 +71,7 @@ public class GoogleCloudUtils {
                 + content);
     }
     
+
 //    public static void main(String[] args) throws IOException {
 //        uploadObject(Constant.GOOGLE_CLOUD_PROJECT_ID, Constant.GOOGLE_CLOUD_BUCKET_NAME, "cantho.jpg", "D:\\FPTUni\\2022_Semester5_Summer\\SWP391\\cantho.jpg");
 //    }

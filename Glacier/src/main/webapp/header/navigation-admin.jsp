@@ -46,7 +46,7 @@
                 <!--Main navigation list-->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="new-feature.jsp">Thêm feature</a>
+                        <a class="nav-link" href="new-feature.jsp">Quản lý feature</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="VerifyRoomController?index=1">Xét duyệt phòng mới</a>
@@ -63,7 +63,7 @@
                         </ul>
                     </li>
                     <li class="nav-item has-child">
-                        <a class="nav-link" href="ReportedController?index=1&type=all">Bị báo cáo</a>
+                        <a class="nav-link" href="ReportedController?index=1&type=all">Báo cáo</a>
                         <!-- 1st level -->
                         <ul class="child">
                             <li class="nav-item">

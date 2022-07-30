@@ -35,7 +35,7 @@
                                         <a href="SearchUserController?keyword=&index=1&role=all">Người dùng</a>
                                     </li>
                                     <li>
-                                        <a href="new-feature.jsp">Thêm feature</a>
+                                        <a href="new-feature.jsp">Quản lý feature</a>
                                     </li>
 
                                 </ul>
@@ -45,7 +45,7 @@
                             <nav>
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="ReportedController?index=1&type=all">Bị báo cáo</a>
+                                        <a href="ReportedController?index=1&type=all">Báo cáo</a>
                                     </li>
                                     <li>
                                         <a href="#">Liên hệ</a>

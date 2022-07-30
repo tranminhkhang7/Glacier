@@ -84,7 +84,7 @@
                             </div>
                             <div class="item">                           
                                 <div class="wrapper" style="text-align: center">
-                                    <a href="ReportedController?index=1&type=all" style="color: black; font-size-adjust: 0.5"><h1 style="margin: 20px">Bị báo cáo</h1></a>   
+                                    <a href="ReportedController?index=1&type=all" style="color: black; font-size-adjust: 0.5"><h1 style="margin: 20px">Báo cáo</h1></a>   
                                     <div class="picback" style="background-image: url(assets/images/Rooms.jpg)">
                                         <a href="ReportedController?index=1&type=room" class="btn" style="margin: 50px"><h2>Phòng</h2></a><br>
                                     </div>
@@ -94,15 +94,24 @@
 
                             </div>
                             <!--end item-->
-
-
-
-
                         </div>
                         <!--============ End Items ======================================================================-->
 
                         <!--end page-pagination-->
                     </div>
+                        <div class="items grid grid-xl-2-items grid-lg-2-items grid-md-2-items">
+                            <div class="item" style="margin: 0px 300px">                       
+                                <div class="wrapper" style="text-align: center">
+                                    <h1 style="margin: 20px">Chức năng khác</h1>
+                                    <div class="picback" style="background-image: url(assets/images/Landlord.jpg)">
+                                        <a href="new-feature.jsp" class="btn" style="margin: 50px"><h2>Quản lý feature</h2></a><br>
+                                    </div>
+                                    <div class="picback" style="background-image: url(assets/images/Tenant.jpg)">
+                                        <a href="VerifyRoomController?index=1" class="btn" style="margin: 50px"><h2>Xét duyệt phòng mới</h2></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     <!--end container-->
                 </section>
                 <!--end block-->

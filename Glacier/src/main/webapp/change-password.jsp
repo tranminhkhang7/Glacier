@@ -197,6 +197,9 @@
                                     <a class="nav-link active icon" href="changepassword">
                                         <i class="fa fa-recycle"></i>Thay đổi mật khẩu
                                     </a>
+                                    <a class="nav-link icon" href="IncomeReportController?room=all&time=all">
+                                        <i class="fa fa-bar-chart"></i>Biểu đồ thống kê
+                                    </a>
                             </nav>
                         </div>
                         <!--end col-md-3-->

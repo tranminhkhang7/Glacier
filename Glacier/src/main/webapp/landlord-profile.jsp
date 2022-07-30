@@ -29,17 +29,17 @@
         <c:set var="detail" value="${USER_DETAIL}"/>
         <c:if test="${detail.gender.trim() eq 'male'}"><c:set var="male" value="selected"/></c:if>
         <c:if test="${detail.gender.trim() eq 'female'}"><c:set var="female" value="selected"/></c:if>
-        
-        
-        <div class="page sub-page">
-            <!--*********************************************************************************************************-->
-            <!--************ HERO ***************************************************************************************-->
-            <!--*********************************************************************************************************-->
-            <header class="hero">
-                <div class="hero-wrapper">
-                    
+
+
+            <div class="page sub-page">
+                <!--*********************************************************************************************************-->
+                <!--************ HERO ***************************************************************************************-->
+                <!--*********************************************************************************************************-->
+                <header class="hero">
+                    <div class="hero-wrapper">
+
                     <jsp:include page="header/navigation-landlord.jsp" />
-                    
+
                     <!--============ Hero Form ==========================================================================-->
                     <div class="collapse" id="collapseMainSearchForm">
                         <form class="hero-form form">
@@ -187,17 +187,20 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <nav class="nav flex-column side-nav">
-                                    <a class="nav-link active icon" href="my-profile.html">
+                                    <a class="nav-link active icon" href="landlord-profile.jsp">
                                         <i class="fa fa-user"></i>Thông tin cá nhận
                                     </a>
-<!--                                    <a class="nav-link icon" href="my-ads.html">
-                                        <i class="fa fa-heart"></i>My Rooms Listing
-                                    </a>-->
+                                    <!--                                    <a class="nav-link icon" href="my-ads.html">
+                                                                            <i class="fa fa-heart"></i>My Rooms Listing
+                                                                        </a>-->
                                     <a class="nav-link icon" href="bookmarks.html">
                                         <i class="fa fa-star"></i>Phòng yêu thích
                                     </a>
                                     <a class="nav-link icon" href="changepassword">
                                         <i class="fa fa-recycle"></i>Thay đổi mật khẩu
+                                    </a>
+                                    <a class="nav-link icon" href="IncomeReportController?room=all&time=all">
+                                        <i class="fa fa-bar-chart"></i>Biểu đồ thống kê
                                     </a>
                                 </nav>
                             </div>

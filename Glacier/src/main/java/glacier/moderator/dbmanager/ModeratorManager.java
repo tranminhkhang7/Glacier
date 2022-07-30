@@ -5,10 +5,8 @@
  */
 package glacier.moderator.dbmanager;
 
-import glacier.room.model.Room;
 import glacier.user.model.Reported;
 import glacier.user.model.User;
-
 import glacier.utils.DBUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -376,7 +374,7 @@ public class ModeratorManager {
     }
 
     public int newID() throws SQLException {
-        String sql = "SELECT Count(id) as total from Feature";
+        String sql = "SELECT Max(id) as total From Feature";
         int id = 0;
         Connection con = null;
         PreparedStatement ptm = null;
@@ -434,12 +432,102 @@ public class ModeratorManager {
         return check;
     }
 
+    public boolean deleteRoomFeature(String id) throws SQLException {
+        boolean check = false;
+        String sql = "DELETE FROM RoomFeature WHERE featureID = " + id;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(sql);
+                check = ptm.executeUpdate() != 0;
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+
+    public boolean deleteFeature(String id) throws SQLException {
+        boolean check = false;
+        String sql = "DELETE FROM Feature WHERE id =" + id;
+        ModeratorManager dao = new ModeratorManager();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(sql);
+                dao.deleteRoomFeature(id);
+                check = ptm.executeUpdate() != 0;
+                
+            }
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+
+    public List<Feature> listFeature() throws SQLException {
+        String sql = "SELECT id, name FROM Feature";
+        List<Feature> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(sql);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String id = rs.getString("id");
+                    String name = rs.getString("name");
+                    list.add(new Feature(id, name));
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
     public List<VerifyingRoom> verifyingRoomList(int index) throws SQLException {
-        String sql= "SELECT roomID, r.name, address, date_added, phone, emailLandlord " +
-                    "FROM Room r JOIN Landlord l ON r.emailLandlord = l.email " +
-                    "WHERE r.status LIKE '%verifying%' " +
-                    "ORDER BY roomID " +
-                    "OFFSET " + (index - 1) * 10 + " ROWS FETCH NEXT 10 ROWS ONLY";
+        String sql = "SELECT roomID, r.name, address, date_added, phone, emailLandlord "
+                + "FROM Room r JOIN Landlord l ON r.emailLandlord = l.email "
+                + "WHERE r.status LIKE '%verifying%' "
+                + "ORDER BY roomID "
+                + "OFFSET " + (index - 1) * 10 + " ROWS FETCH NEXT 10 ROWS ONLY";
         List<VerifyingRoom> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -504,7 +592,7 @@ public class ModeratorManager {
         }
         return check;
     }
-    
+
     public boolean notVerified(String id) {
         boolean check = false;
         String sql = "UPDATE Room SET status = 'verifiedFail' WHERE roomID =" + id;
@@ -520,7 +608,9 @@ public class ModeratorManager {
 
     public static void main(String[] args) throws SQLException {
         ModeratorManager dao = new ModeratorManager();
-        System.out.println(dao.verifyingRoomList(1));
-        
+        System.out.println(dao.deleteFeature("11"));
+//        System.out.println(dao.getListAllTime("nguyenhoangngan@gmail.com"));
+//        System.out.println(dao.getListByYear("nguyenhoangngan@gmail.com", 2021));
+
     }
 }

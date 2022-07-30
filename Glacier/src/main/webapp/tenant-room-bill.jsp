@@ -22,6 +22,7 @@
         <link rel="stylesheet" href="assets/css/user.css">
 
         <title>Hóa đơn của bạn</title>
+
         <style>
             .box::after{
                 box-shadow: none !important;
@@ -33,6 +34,7 @@
                 border-color: transparent !important;
             }
         </style>
+
     </head>
     <body style="font-family: 'Varela Round', sans-serif;">
         <div class="page sub-page">
@@ -203,11 +205,11 @@
                                     <div class="tab-content" id="myTabContent">
                                         <div class="tab-pane fade show active" id="one" role="tabpanel" aria-labelledby="one-tab">
                                             <c:forEach items="${requestScope.UNPAID_BILLS}" var="unpaidBill">
-
                                                 <div class="answer">
                                                     <div class="box">
                                                         <div class='row'>
                                                             <div class="col-md-9">
+
                                                                 <h3> Hóa đơn#${unpaidBill.id} </h3>
                                                                 <strong> Thời gian tạo: <fmt:formatDate type = "both" dateStyle = "short" timeStyle = "short" value = "${unpaidBill.time}"/></strong><br><br>                                                             
                                                                 <c:forEach items="${requestScope.BILL_DETAILS}" var="detail" >
@@ -223,6 +225,7 @@
                                                                         </div>
                                                                     </c:if>
                                                                 </c:forEach>
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -237,6 +240,7 @@
                                                     <div class="box">
                                                         <div class='row'>
                                                             <div class="col-md-12">
+
                                                                 <strong>Hóa đơn được tạo ra vào: ${paid.time}</strong><br>
                                                                 <strong>Feel free to add thêm thuộc gì đóa nhe</strong></p>
                                                             </div>
@@ -244,8 +248,6 @@
                                                     </div>
                                                 </div>
                                             </c:forEach>
-                                        </div>
-
 
                                         <!--end page-pagination-->
                                     </div>
@@ -280,8 +282,7 @@
                                     <img src="assets/img/logo.png" alt="">
                                 </a>
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec tincidunt arcu, sit amet
-                                    fermentum sem. Class aptent taciti sociosqu ad litora torquent per conubia nostra.
+                                    Glacier là nền tảng kết nối người thuê nhà và các chủ trọ. Sẵn sàng sát cánh bến bạn trên mỗi hành trình mà bạn bước đi!
                                 </p>
                             </div>
                             <!--end col-md-5-->

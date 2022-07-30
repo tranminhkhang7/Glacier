@@ -167,8 +167,7 @@
                                     <img src="assets/img/logo.png" alt="">
                                 </a>
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec tincidunt arcu, sit amet
-                                    fermentum sem. Class aptent taciti sociosqu ad litora torquent per conubia nostra.
+                                    Glacier là nền tảng kết nối người thuê nhà và các chủ trọ. Sẵn sàng sát cánh bến bạn trên mỗi hành trình mà bạn bước đi!
                                 </p>
                             </div>
                             <!--end col-md-5-->
