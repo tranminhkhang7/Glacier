@@ -10,7 +10,7 @@
 <%@page import="glacier.landlord.dbmanager.LandlordManager"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri= "http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+<%@taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!doctype html>
 <html lang="en">
     <head>
@@ -90,6 +90,36 @@
                             </div>
                             <!--end col-md-3-->
                             <div class="col-md-9">
+                                <div class="items list">
+                                    <div class="item">
+                                        <div class="wrapper">
+                                            <table border="0" class="center">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 1000px; padding: 10px; color: red"><h2>Tổng số lượt thuê</h2></th>
+                                                        <th style="width: 1000px; padding: 10px; color: red"><h2>Phòng được thuê nhiều nhất</h2></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <%
+                                                            LandlordManager dao = new LandlordManager();
+                                                            String email = (String) request.getAttribute("EMAIL");
+                                                        %>
+                                                        <td style="width: 50%; padding: 5px"><h2><%= dao.getRentingTimes(email)%></h2></td>
+                                                        <td style="width: 50%; padding: 5px"><h2><%= dao.getMostRented(email)%></h2></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                    <!--end item-->
+                                </div>
                                 <form action="IncomeReportController">
                                     <div class="col-md-3 col-sm-3 float-right">
                                         <button type="submit" class="btn btn-primary width-70">Xác nhận</button>
@@ -108,8 +138,6 @@
                                             <option value="">Phòng</option>
                                             <option value="all">Tất cả</option>
                                             <%
-                                                String email = (String) request.getAttribute("EMAIL");
-                                                LandlordManager dao = new LandlordManager();
                                                 List<String> list = dao.getRoomId(email);
                                                 for (String id : list) {
                                             %>
@@ -120,7 +148,7 @@
                                         </select>
                                     </div>
                                 </form>
-                                
+
                                 <br><br><hr>
                                 <canvas id="myChart" style="width:100%;max-width:800px"></canvas>
                                 <!--end col-md-8-->
@@ -156,10 +184,10 @@
         <script>
         function myFunc(values, typ) {
             var type = Object.values(typ);
-            if(type == "all"){
-            var xValues = ["2020", "2021", "2022"];
+            if (type == "all") {
+                var xValues = ["2020", "2021", "2022"];
             } else {
-            var xValues = ["January","February","March","April","May","June","July","August","September","October","November","December"];   
+                var xValues = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
             }
             var yValues = Object.values(values);
             new Chart("myChart", {

@@ -40,7 +40,7 @@
                     <div class="page-title">
                         <div class="container">
                             <h1 class="opacity-80 center" style="color: red">
-                                Thông tin tố cáo
+                                Thông tin báo cáo
                             </h1>
                         </div>
                         <!--end container-->
@@ -113,7 +113,7 @@
                                     <tr>
                                         <td style="height:10px;padding:5px 10px; text-align: right"><%= reported.getId()%></td>
                                         <td style="height:10px;padding:5px 10px; text-align: left"><%= reported.getUserEmail()%></td>
-                                        <td style="height:10px;padding:5px 10px; text-align: left"><%= reported.getDetail()%></td>
+                                        <td style="height:10px;padding:5px 10px; text-align: left"><a href="ReportedSingleRoomController?id=<%=reported.getId()%>"><%= reported.getDetail()%></a></td>
                                         <td style="height:10px;padding:5px 10px; text-align: right"><%= reported.getDate()%></td>
                                         <td style="height:10px;padding:5px 10px; text-align: left"><%= reported.getType()%></td>
                                         <td style="height:10px;padding:5px 10px">    

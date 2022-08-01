@@ -451,8 +451,71 @@ public class LandlordManager {
         return list;
     }
     
+    public int getRentingTimes(String email) throws SQLException {
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        int times = 0;
+        String sql = "SELECT COUNT(detailID) as times FROM BillDetail WHERE purpose = 'rent' AND billID IN (SELECT billID FROM Room r JOIN Bill b ON r.roomID = b.roomID WHERE emailLandlord LIKE ?) ";
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(sql);
+                ptm.setString(1, "%" + email + "%");
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    times = rs.getInt("times");
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return times;
+    }
+    
+    public String getMostRented(String email) throws SQLException {
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        String name = null;
+        String sql = "SELECT TOP 1 name FROM Room r JOIN Bill b ON r.roomID = b.roomID WHERE emailLandlord LIKE ? GROUP BY b.roomID, name ORDER BY COUNT(b.roomID) desc";
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(sql);
+                ptm.setString(1, "%" + email + "%");
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    name = rs.getString("name");
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return name;
+    }
+    
     public static void main(String[] args) throws SQLException {
         LandlordManager manager = new LandlordManager();
+        System.out.println(manager.getMostRented("nguyenhoangngan@gmail.com"));
 //        int i = manager.countAllPendingRooms("dangngocduong@gmail.com");
 //        System.out.println(i);
 //        List<Room> list = manager.getLandlordPendingRooms("dangngocduong@gmail.com", 1);
