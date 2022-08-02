@@ -41,7 +41,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
         maxRequestSize = 1024 * 1024 * 100 // 100 MB
 )
 public class LandlordAddRoom extends HttpServlet {
-
+    private static String CLOUD_BASE_PICTURE_FOLDER = "Room_Pictures/";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -55,6 +55,7 @@ public class LandlordAddRoom extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
+            request.setCharacterEncoding("UTF-8");
             HttpSession ss = request.getSession();
             Account user = (Account) ss.getAttribute("LOGIN_USER");
 
@@ -64,7 +65,7 @@ public class LandlordAddRoom extends HttpServlet {
                     HttpSession session = request.getSession(false);
                     if (session != null) {
                         String name = request.getParameter("name");
-                        System.out.println(name);
+//                        System.out.println(name);
                         String description = request.getParameter("details");
                         String city = request.getParameter("city");
                         String district = request.getParameter("district");
@@ -85,27 +86,24 @@ public class LandlordAddRoom extends HttpServlet {
                                 listFeature.add(i);
                             }
                         }
-                        
                         LandlordManager mng = new LandlordManager();
-                        Collection<Part> fileParts = request.getParts();     
-                        int i = 1;
-                        for (Part part : fileParts) {
-//                            System.out.println(part.getContentType());
-                            if (part.getContentType()!=null){
-                                InputStream filecontent = part.getInputStream();
-                                byte[] fileAsByteArray = IOUtils.toByteArray(filecontent);
-                                GoogleCloudUtils.uploadObjectFromMemory(GOOGLE_CLOUD_PROJECT_ID, GOOGLE_CLOUD_BUCKET_NAME, mng.getNextRoomID()+"_"+i+".PNG", fileAsByteArray);
-                                i++;
-                            }
-                        }
-        
                         Landlord landlord = (Landlord) session.getAttribute("USER_DETAIL");
                         String emailLandlord = landlord.getEmail();
-
-                        mng.addRoom(name, description, address, detailAddress, status, price, deposit, avgRating, dateAdded, area, emailLandlord, listFeature);
-
+                        if(mng.addRoom(name, description, address, detailAddress, status, price, deposit, avgRating, dateAdded, area, emailLandlord, listFeature)){
+                            Collection<Part> fileParts = request.getParts();
+                            int i = 1;
+                            for (Part part : fileParts) {
+                                if (part.getContentType() != null) {
+                                    InputStream filecontent = part.getInputStream();
+                                    byte[] fileAsByteArray = IOUtils.toByteArray(filecontent);
+                                    String picDir = CLOUD_BASE_PICTURE_FOLDER + mng.getCurrentRoomID()+ "_" + i + ".PNG";
+                                    GoogleCloudUtils.uploadObjectFromMemory(GOOGLE_CLOUD_PROJECT_ID, GOOGLE_CLOUD_BUCKET_NAME, picDir, fileAsByteArray);
+                                    if(!mng.saveRoomImage(mng.getCurrentRoomID(), picDir)) throw new ImageSaveException();
+                                    i++;
+                                }
+                            }
+                        } 
                         session.setAttribute("notify", "addSuccess");
-
                         response.sendRedirect("roomlist");
                     }
                 } else {
@@ -118,7 +116,11 @@ public class LandlordAddRoom extends HttpServlet {
             } else {
                 response.sendRedirect("login");
             }
-        } catch (Exception e) {
+        } 
+        catch (ImageSaveException e){
+            log("Error when uploading picture");
+        }
+        catch (Exception e) {
             log("Error at LandlordAddRoom: " + e.toString());
         }
     }
@@ -161,5 +163,8 @@ public class LandlordAddRoom extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private static class ImageSaveException extends ServletException{
+    }
 
 }

@@ -53,7 +53,7 @@ public class LandlordManager {
         return l;
     }
     
-    public int getNextRoomID(){
+    public int getCurrentRoomID(){
         int ID=-1;
         String sql="SELECT MAX([RoomID]) as lastID FROM [Room]";
         try{
@@ -61,7 +61,7 @@ public class LandlordManager {
             PreparedStatement pstm = conn.prepareStatement(sql);
             ResultSet rs =pstm.executeQuery();
             rs.next();
-            ID = Integer.parseInt(rs.getString("lastID")) + 1;
+            ID = Integer.parseInt(rs.getString("lastID"));
         }
         catch (Exception e){
             e.printStackTrace();
@@ -69,14 +69,15 @@ public class LandlordManager {
         return ID;
     }
     
-    public void addRoom(String name, String description, String address, String detailAddress, String status, int price, int deposit, float avgRating, Date dateAdded, float area, String emailLandlord, List<Integer> listFeature) {
+    public boolean addRoom(String name, String description, String address, String detailAddress, String status, int price, int deposit, float avgRating, Date dateAdded, float area, String emailLandlord, List<Integer> listFeature) {
+        boolean check=false;
         try {
             Connection con = DBUtils.getConnection();
 //            PreparedStatement getID = con.prepareStatement("SELECT MAX([RoomID]) as lastID FROM [Room]");
 //            ResultSet rs = getID.executeQuery();
 //            rs.next();
 //            int newID = Integer.parseInt(rs.getString("lastID")) + 1;
-            int newID = getNextRoomID();
+            int newID = getCurrentRoomID()+1;
             SimpleDateFormat simpDate = new SimpleDateFormat("yyyy-MM-dd");
 
             // Add information except for Room's feature
@@ -100,10 +101,11 @@ public class LandlordManager {
             
             st = con.prepareStatement(sql);
             st.executeUpdate();
-            
+            check=true;
         } catch (Exception ex) {
             System.out.println(ex);
         }
+        return check;
     }
 
     // This method is calculating the total number of rooms that owned by a landlord whose email is emailLandlord
@@ -241,6 +243,22 @@ public class LandlordManager {
         }
     }
 
+    public boolean deleteImageLink(int roomID){
+        boolean check=false;
+        try{
+            String sql="delete from ImagesRoom\n" +
+                        "where roomID=?";
+            Connection con = DBUtils.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, roomID);
+            if(st.executeUpdate()>0) check=true;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return check;
+    }
+    
     //METHOD RETURNS A STATUS OF A ROOM
     public String roomStatus(int id) {
         String status = "";
@@ -527,6 +545,28 @@ public class LandlordManager {
             }
         }
         return name;
+    }
+    public boolean saveRoomImage(int roomID,String link){
+        boolean check=false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        String name = null;
+        String sql =    "insert into ImagesRoom \n" +
+                        "values (?,?)";
+        try{
+            conn = DBUtils.getConnection();
+            if (conn != null){
+                ptm = conn.prepareStatement(sql);
+                ptm.setInt(1, roomID);
+                ptm.setString(2, link);
+                if (ptm.executeUpdate()>0) check=true;
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return check;
     }
     
     public static void main(String[] args) throws SQLException {
