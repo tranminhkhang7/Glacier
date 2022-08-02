@@ -28,7 +28,7 @@ public class ModeratorManager {
         ResultSet rs = null;
         String GET_LISTUSER = "SELECT tl.[email], [name], [gender], [phone], [role], [status] "
                 + "FROM [Account] a JOIN (SELECT [email], [name], [gender], [phone], [status] FROM [Landlord] UNION SELECT [email], [name], [gender], [phone], [status] FROM [Tenant]) tl ON a.[email] = tl.[email] "
-                + "WHERE (a.[email] LIKE ? OR [name] LIKE ?)"
+                + "WHERE (a.[email] LIKE ? OR [name] LIKE ?) AND a.[email] IN (SELECT [email] FROM Account EXCEPT SELECT [emailTenant] FROM Room) "
                 + "ORDER BY [name] "
                 + "OFFSET " + (index - 1) * 10 + " ROWS FETCH NEXT 10 ROWS ONLY";
         try {
@@ -71,7 +71,7 @@ public class ModeratorManager {
         ResultSet rs = null;
         String GET_TENANT = "SELECT [email], [name], [gender], [phone], [status] "
                 + "FROM Tenant "
-                + "WHERE ([email] LIKE ? OR [name] LIKE ?) "
+                + "WHERE ([email] LIKE ? OR [name] LIKE ?) AND [email] IN (SELECT [email] FROM Account EXCEPT SELECT [emailTenant] FROM Room)"
                 + "ORDER BY [name] "
                 + "OFFSET " + (index - 1) * 10 + " ROWS FETCH NEXT 10 ROWS ONLY";
         try {
@@ -608,7 +608,8 @@ public class ModeratorManager {
 
     public static void main(String[] args) throws SQLException {
         ModeratorManager dao = new ModeratorManager();
-        System.out.println(dao.deleteFeature("11"));
+        System.out.println(dao.getListTenant("a", 1));
+//        System.out.println(dao.deleteFeature("11"));
 //        System.out.println(dao.getListAllTime("nguyenhoangngan@gmail.com"));
 //        System.out.println(dao.getListByYear("nguyenhoangngan@gmail.com", 2021));
 
