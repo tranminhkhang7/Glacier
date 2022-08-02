@@ -9,7 +9,7 @@
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<%@page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%--<%@page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>--%>
 <%@ taglib prefix="c" uri= "http://java.sun.com/jsp/jstl/core" %>
 
 <!doctype html>
@@ -70,7 +70,7 @@
                                     <a href="register.html" class="link"><strong>Register</strong></a></p>
                             </div>
                         </section> -->
-                        <form class="form form-submit" action="${pageContext.request.contextPath}/addroom" method="get">
+                        <form class="form form-submit " enctype="multipart/form-data" action="${pageContext.request.contextPath}/addroom" method="POST">
                             <section>
                                 <h2>Thông tin cơ bản</h2>
                                 <div class="row">
@@ -140,7 +140,9 @@
                                 <h2>Ảnh</h2>
                                 <div class="file-upload-previews"></div>
                                 <div class="file-upload">
-                                    <input type="file" name="files" class="file-upload-input with-preview" multiple title="Nhấp để chọn ảnh" maxlength="10" accept="gif|jpg|png">
+
+                                    <input type="file" name="files[]" class="file-upload-input with-preview ignore" multiple title="Nhấp để chọn ảnh" maxlength="5" accept="jpg|png">
+
                                     <span><i class="fa fa-plus-circle"></i>Chọn hoặc kéo ảnh vào đây</span>
                                 </div>
                             </section>
@@ -215,8 +217,8 @@
 
         <script src="${pageContext.request.contextPath}/assets/js/masonry.pkgd.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/icheck.min.js"></script>
-        <!--<script src="assets/js/jquery.validate.min.js"></script>-->
-        <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+<!--        <script src="assets/js/jquery.validate.min.js"></script>-->
+<!--        <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>-->
         <script src="${pageContext.request.contextPath}/assets/js/jquery-validate.bootstrap-tooltip.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/jQuery.MultiFile.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/owl.carousel.min.js"></script>

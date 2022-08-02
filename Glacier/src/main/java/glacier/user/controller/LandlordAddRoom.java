@@ -8,12 +8,11 @@ package glacier.user.controller;
 import glacier.landlord.dbmanager.LandlordManager;
 import glacier.model.feature.FeatureDAO;
 import glacier.model.feature.FeatureDTO;
-import glacier.room.dbmanager.RoomManager;
 import glacier.user.model.Account;
 import glacier.user.model.Landlord;
-import glacier.user.model.Tenant;
+import glacier.utils.GoogleCloudUtils;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,14 +23,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import org.apache.commons.io.IOUtils;
+import static glacier.utils.Constant.*;
+import javax.servlet.annotation.MultipartConfig;
+import java.util.Collection;
+import javax.servlet.http.Part;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 /**
  *
  * @author KHANG
  */
 @WebServlet(name = "LandlordAddRoom", urlPatterns = {"/addroom"})
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
+        maxFileSize = 1024 * 1024 * 10, // 10 MB
+        maxRequestSize = 1024 * 1024 * 100 // 100 MB
+)
 public class LandlordAddRoom extends HttpServlet {
-
+    private static String CLOUD_BASE_PICTURE_FOLDER = "Room_Pictures/";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -45,6 +55,7 @@ public class LandlordAddRoom extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
+            request.setCharacterEncoding("UTF-8");
             HttpSession ss = request.getSession();
             Account user = (Account) ss.getAttribute("LOGIN_USER");
 
@@ -54,7 +65,7 @@ public class LandlordAddRoom extends HttpServlet {
                     HttpSession session = request.getSession(false);
                     if (session != null) {
                         String name = request.getParameter("name");
-                        System.out.println(name);
+//                        System.out.println(name);
                         String description = request.getParameter("details");
                         String city = request.getParameter("city");
                         String district = request.getParameter("district");
@@ -75,15 +86,24 @@ public class LandlordAddRoom extends HttpServlet {
                                 listFeature.add(i);
                             }
                         }
-
+                        LandlordManager mng = new LandlordManager();
                         Landlord landlord = (Landlord) session.getAttribute("USER_DETAIL");
                         String emailLandlord = landlord.getEmail();
-
-                        LandlordManager mng = new LandlordManager();
-                        mng.addRoom(name, description, address, detailAddress, status, price, deposit, avgRating, dateAdded, area, emailLandlord, listFeature);
-
+                        if(mng.addRoom(name, description, address, detailAddress, status, price, deposit, avgRating, dateAdded, area, emailLandlord, listFeature)){
+                            Collection<Part> fileParts = request.getParts();
+                            int i = 1;
+                            for (Part part : fileParts) {
+                                if (part.getContentType() != null) {
+                                    InputStream filecontent = part.getInputStream();
+                                    byte[] fileAsByteArray = IOUtils.toByteArray(filecontent);
+                                    String picDir = CLOUD_BASE_PICTURE_FOLDER + mng.getCurrentRoomID()+ "_" + i + ".PNG";
+                                    //GoogleCloudUtils.uploadObjectFromMemory(GOOGLE_CLOUD_PROJECT_ID, GOOGLE_CLOUD_BUCKET_NAME, picDir, fileAsByteArray);
+                                    if(!mng.saveRoomImage(mng.getCurrentRoomID(), picDir)) throw new ImageSaveException();
+                                    i++;
+                                }
+                            }
+                        } 
                         session.setAttribute("notify", "addSuccess");
-
                         response.sendRedirect("roomlist");
                     }
                 } else {
@@ -96,7 +116,11 @@ public class LandlordAddRoom extends HttpServlet {
             } else {
                 response.sendRedirect("login");
             }
-        } catch (Exception e) {
+        } 
+        catch (ImageSaveException e){
+            log("Error when uploading picture");
+        }
+        catch (Exception e) {
             log("Error at LandlordAddRoom: " + e.toString());
         }
     }
@@ -139,5 +163,8 @@ public class LandlordAddRoom extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private static class ImageSaveException extends ServletException{
+    }
 
 }
