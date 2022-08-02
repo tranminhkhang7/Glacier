@@ -40,7 +40,7 @@ public class UserVerify extends HttpServlet {
         try {
             String action = request.getParameter("action");
             String id = request.getParameter("id");
-            String key = request.getParameter("key");
+            //String key = request.getParameter("key");
 
             HttpSession ss = request.getSession();
             UserManager manager = new UserManager();
@@ -57,7 +57,7 @@ public class UserVerify extends HttpServlet {
             String refKey = user.getKey();
 
             boolean checkInsertUser = false;
-            if (id.equals(refId) && key.equals(refKey)) {
+            if (id.equals(refId)) {
                 Account acc = new Account(email, password, role);
                 boolean checkInsert = manager.insertAccount(acc);
                 if (checkInsert) {

@@ -254,9 +254,9 @@
                                     <label for="Gender" class="col-form-label required">Giới tính</label>
                                     <div id="Gender"></div>
                                     <span style="padding-right: 20px;">Nam</span><input name="gender"
-                                        type="radio" class="form-control" id="Male" checked>
+                                        type="radio" class="form-control" id="Male" checked value="male">
                                     <span style="padding-right: 20px;">Nữ</span><input name="gender"
-                                        type="radio" class="form-control" id="Female">
+                                        type="radio" class="form-control" id="Female" value="female">
                                 </div>
                                 <!--end form-group-->
                                 <div class="d-flex justify-content-between align-items-baseline">

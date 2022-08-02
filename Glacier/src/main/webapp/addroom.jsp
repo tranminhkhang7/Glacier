@@ -168,11 +168,11 @@
                                 <div class="form-group">
                                     <label for="input-location" class="col-form-label required">Địa chỉ chính xác</label>
                                     <input required name="location" type="text" class="form-control" id="input-location" placeholder="Nhập địa chỉ chính xác" maxlength="200">
-                                    <span class="geo-location input-group-addon" data-toggle="tooltip" data-placement="top" title="Phòng tôi đang ở đâu"><i class="fa fa-map-marker"></i></span>
+                                    <span class="geo-location input-group-addon" data-toggle="tooltip" data-placement="top" title="Phòng tôi đang ở đâu"><i id="location-marker" class="fa fa-map-marker"></i></span>
                                 </div>
                                 <!--end form-group-->
                             </section>
-                            
+
                             <section class="clearfix">
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary large icon float-right">Đăng phòng</button>
@@ -180,10 +180,17 @@
                             </section>
 
                             <section>
-                                <label><b>Vị trí phòng của bạn</b></label>
-                                <div class="map height-400px" id="map-submit"></div>
-                                <input name="latitude" type="text" class="form-control" id="latitude" hidden>
-                                <input name="longitude" type="text" class="form-control" id="longitude" hidden>
+                                <h2>Vị trí phòng của bạn</h2>
+                                <div class="map height-300px" id="map-small">
+                                    <iframe id="map"
+                                            width="450"
+                                            height="250"
+                                            style="width: 100%; height: 100%"
+                                            frameborder="0" style="border:0"
+                                            referrerpolicy="no-referrer-when-downgrade"
+                                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCCYLuixh0QamoPxzrTZTCNGOtd0fwYQoQ&q=TP HCM" allowfullscreen>
+                                    </iframe>
+                                </div>
                             </section>
 
                         </form>
@@ -217,8 +224,8 @@
 
         <script src="${pageContext.request.contextPath}/assets/js/masonry.pkgd.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/icheck.min.js"></script>
-<!--        <script src="assets/js/jquery.validate.min.js"></script>-->
-<!--        <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>-->
+        <!--        <script src="assets/js/jquery.validate.min.js"></script>-->
+        <!--        <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>-->
         <script src="${pageContext.request.contextPath}/assets/js/jquery-validate.bootstrap-tooltip.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/jQuery.MultiFile.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/owl.carousel.min.js"></script>
@@ -249,8 +256,22 @@
                     for (var y in subjectObject[this.value]) {
                         topicSel.options[topicSel.options.length] = new Option(y, y);
                     }
+                };
+            };
+        </script>
+        <script type="text/javascript">
+            let locationMarker = document.querySelector('#location-marker');
+            let myMap = document.querySelector('#map');
+            console.log(location);
+            console.log(myMap.src);
+            locationMarker.addEventListener('click', () => {
+
+                let newLocation = document.querySelector('#input-location');
+                if (newLocation.value.length > 0) {
+                    //console.log(myMap.src);
+                    myMap.src = "https://www.google.com/maps/embed/v1/place?key=AIzaSyCCYLuixh0QamoPxzrTZTCNGOtd0fwYQoQ&q=" + newLocation.value;
                 }
-            }
+            });
         </script>
     </body>
 </html>

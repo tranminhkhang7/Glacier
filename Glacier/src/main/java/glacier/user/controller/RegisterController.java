@@ -47,10 +47,10 @@ public class RegisterController extends HttpServlet {
             String rePass = request.getParameter("repeat_password");
             String gender = request.getParameter("gender");
             String role = request.getParameter("role").toLowerCase();
-            String phone = request.getParameter("phone");
+            String phone = request.getParameter("phone_number");
             String status = "active";
-            String id = DigestUtils.md5Hex(email);
-            String key = DigestUtils.md5Hex(password);
+//            String id = DigestUtils.md5Hex(email);
+//            String key = DigestUtils.md5Hex(password);
             String token = UUID.randomUUID().toString();
             //boolean checkInsertUser = false;
             //HashMap<String,String> errors = new HashMap<String,String>();
@@ -62,8 +62,8 @@ public class RegisterController extends HttpServlet {
                 //errors.put("duplicate", "Email has existed");
                 request.setAttribute("ERROR_REGISTER", "Email has existed");
             } else {
-//                UserSession userSession = new UserSession(email, name, password, role, gender, phone, status, id, key);
-//                ss.setAttribute("USER_SESSION", userSession);
+                UserSession userSession = new UserSession(email, name, password, role, gender, phone, status, token, "");
+                ss.setAttribute("USER_SESSION", userSession);
                 //create instance object of the SendEmail Class
                 SendEmail sm = new SendEmail();
 
@@ -74,15 +74,15 @@ public class RegisterController extends HttpServlet {
 
                 //check if the email send successfully
                 if (test) {
-                    Account acc = new Account(email, password, role);
-                    boolean checkInsert = manager.insertAccount(acc);
-                    if (checkInsert) {
+//                    Account acc = new Account(email, password, role);
+//                    boolean checkInsert = manager.insertAccount(acc);
+                   
                         //session.setAttribute("authcode", user);
                         request.setAttribute("IS_VERIFIED", true);
                         request.getRequestDispatcher("verify.jsp").forward(request, response);
-                    } else {
-                        request.getRequestDispatcher("error.jsp").forward(request, response);
-                    }
+                   
+//                        request.getRequestDispatcher("error.jsp").forward(request, response);
+               
                     return;
 //                response.sendRedirect("verify.jsp");
                 } else {

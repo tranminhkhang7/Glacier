@@ -232,15 +232,15 @@
                                     </div>
                                 </form>
                                 <hr>
-                                <p>
+                                <p style="text-align: center;">
                                     Bạn quên mật khẩu? Nhấp <a href="forgot.jsp" class="link">vào đây</a>
                                 </p>
 
                                 <hr>
-                                <p>
+                                <p style="text-align: center;">
                                     Bạn chưa có tài khoản? Đăng ký <a href="${pageContext.request.contextPath}/register" class="link">tại đây.</a>
                                 </p>
-                                <hr><p style="font-size:medium; text-align: center;">Hoặc đăng nhập bằng tài khoản Google: </p>
+                                <hr><p style="font-size:14px; text-align: center;">Hoặc đăng nhập bằng tài khoản Google: </p>
                                 <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=http://localhost:8080/Glacier/LoginGoogleHandler&response_type=code&client_id=312274839783-ikrqeojtbm6kq3r83i6hgkbee8uib7co.apps.googleusercontent.com&approval_prompt=force">
                                     <img style="display: block; margin-left: auto; margin-right: auto;" src="https://salt.tikicdn.com/ts/upload/1c/ac/e8/141c68302262747f5988df2aae7eb161.png" width="50" height="50" /></a>
 
