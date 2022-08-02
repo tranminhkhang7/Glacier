@@ -37,12 +37,12 @@
             <header class="hero">
                 <div class="hero-wrapper">
 
-                    
+
                     <!--============ End Secondary Navigation ===========================================================-->
 
-                    
+
                     <jsp:include page="header/navigation-admin.jsp" />
-                    
+
 
                     <!--============ Page Title =========================================================================-->
                     <div class="page-title">
@@ -64,7 +64,7 @@
             <!--*********************************************************************************************************-->
             <!--************ CONTENT ************************************************************************************-->
             <!--*********************************************************************************************************-->
-            
+
             <section class="content">
                 <section class="block">
                     <div class="container" >
@@ -73,7 +73,7 @@
                             <div class="item">                       
                                 <div class="wrapper" style="text-align: center">
                                     <a href="SearchUserController?keyword=&index=1&role=all" style="color: black; font-size-adjust: 0.5"><h1 style="margin: 20px">Người dùng</h1></a>
-                                    
+
                                     <div class="picback" style="background-image: url(assets/images/Landlord.jpg)">
                                         <a href="SearchUserController?keyword=&role=landlord&index=1" class="btn" style="margin: 50px"><h2>Người cho thuê</h2></a><br>
                                     </div>
@@ -90,29 +90,28 @@
                                     </div>
                                     <div class="picback" style="background-image: url(assets/images/Comments.jpg)">
                                         <a href="ReportedController?index=1&type=comment" class="btn" style="margin: 50px"><h2>Bình luận</h2></a>
-                                </div>
-
-                            </div>
-                            <!--end item-->
-                        </div>
-                        <!--============ End Items ======================================================================-->
-
-                        <!--end page-pagination-->
-                    </div>
-                        <div class="items grid grid-xl-2-items grid-lg-2-items grid-md-2-items">
-                            <div class="item" style="margin: 0px 300px">                       
-                                <div class="wrapper" style="text-align: center">
-                                    <h1 style="margin: 20px">Chức năng khác</h1>
-                                    <div class="picback" style="background-image: url(assets/images/Landlord.jpg)">
-                                        <a href="new-feature.jsp" class="btn" style="margin: 50px"><h2>Quản lý feature</h2></a><br>
                                     </div>
-                                    <div class="picback" style="background-image: url(assets/images/Tenant.jpg)">
-                                        <a href="VerifyRoomController?index=1" class="btn" style="margin: 50px"><h2>Xét duyệt phòng mới</h2></a>
-                                    </div>
+
                                 </div>
+                                <!--end item-->
                             </div>
+                            <!--============ End Items ======================================================================-->
+
+                            <!--end page-pagination-->
+                        </div>    
+                        <div class="wrapper" style="text-align: center">
+                            <h1 style="margin: 20px">Chức năng khác</h1>
+
+                            <a href="new-feature.jsp" class="btn btn-danger"><h1>Quản lý feature</h1></a>                
+
+
+                            <a href="VerifyRoomController?index=1" class="btn btn-danger"><h1>Xét duyệt phòng mới</h1></a>
+
+
                         </div>
-                    <!--end container-->
+
+
+                        <!--end container-->
                 </section>
                 <!--end block-->
             </section>

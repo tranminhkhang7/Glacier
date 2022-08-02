@@ -96,11 +96,11 @@
                             <table border="2"style="text-align: center">
                                 <thead>
                                     <tr style="background-color:red">
-                                        <th style="width:10%">ID</th>
-                                        <th style="width:30%">Email người dùng</th>
-                                        <th style="width:50%">Chi tiết</th>
-                                        <th style="width:20%">Thời gian</th>
-                                        <th style="width:20%">Loại</th>                           
+                                        <th style="width:5%">ID</th>
+                                        <th style="width:25%">Email người dùng</th>
+                                        <th style="width:35%">Chi tiết</th>
+                                        <th style="width:10%">Thời gian</th>
+                                        <th style="width:10%">Loại</th>                           
                                         <th></th>
                                         <th></th>
                                     </tr>
@@ -115,7 +115,7 @@
                                         <td style="height:10px;padding:5px 10px; text-align: left"><%= reported.getUserEmail()%></td>
                                         <td style="height:10px;padding:5px 10px; text-align: left"><a href="ReportedSingleRoomController?id=<%=reported.getId()%>"><%= reported.getDetail()%></a></td>
                                         <td style="height:10px;padding:5px 10px; text-align: right"><%= reported.getDate()%></td>
-                                        <td style="height:10px;padding:5px 10px; text-align: left"><%= reported.getType()%></td>
+                                        <td style="height:10px;padding:5px 10px; text-align: left"><%= "room".equals(reported.getType().trim())?"phòng":"bình luận"%></td>
                                         <td style="height:10px;padding:5px 10px">    
                                             <button type="button" data-href="DeleteReportedController?id=<%= reported.getId()%>&type=<%= reported.getType()%>&action=ignore" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                                                 Bỏ qua

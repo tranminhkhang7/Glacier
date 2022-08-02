@@ -114,13 +114,13 @@
                             <table border="2"style="text-align: center">
                                 <thead>
                                     <tr style="background-color:red">
-                                        <th style="width:10%">STT</th>
-                                        <th style="width:30%">Email</th>
-                                        <th style="width:30%">Tên</th>
+                                        <th >STT</th>
+                                        <th style="width:20%">Email</th>
+                                        <th style="width:20%">Tên</th>
                                         <th style="width:10%">Giới tính</th>
                                         <th style="width:10%">Số điện thoại</th>
-                                        <th style="width:30%">Vai trò</th>
-                                        <th style="width:30%">Tình trạng</th> 
+                                        <th style="width:15%">Vai trò</th>
+                                        <th style="width:15%">Tình trạng</th> 
                                         <th style="width:30%"></th>
 
                                     </tr>
@@ -137,22 +137,22 @@
                                         <td style="height:10px;padding:5px 10px; text-align: left"><%= user.getName()%></td>
                                         <td style="height:10px;padding:5px 10px; text-align: left"><%= user.getGender()%></td>
                                         <td style="height:10px;padding:5px 10px; text-align: right"><%= user.getPhone()%></td>
-                                        <td style="height:10px;padding:5px 10px; text-align: left"><%= user.getRole()%></td>
-                                        <td style="height:10px;padding:5px 10px"><%=user.getStatus()%></td>
+                                        <td style="height:10px;padding:5px 10px; text-align: left"><%= "landlord".equals(user.getRole().trim()) ?"Người cho thuê":"Người thuê"%></td>
+                                        <td style="height:10px;padding:5px 10px; text-align: left"><%= "active".equals(user.getStatus().trim())?"Hoạt động":"Đã vô hiệu hóa"%></td>
                                         <%
                                             if (user.getStatus().trim().equals("active")) {
                                         %>
                                         <td style="height:10px;padding:5px 10px">    
-                                            <button type="button" data-href="BanUserController?userPhone=<%=user.getPhone().trim()%>&userRole=<%= user.getRole()%>&status=<%=user.getStatus()%>" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                                                Ban
+                                            <button type="button" style="width: 100px" data-href="BanUserController?userPhone=<%=user.getPhone().trim()%>&userRole=<%= user.getRole()%>&status=<%=user.getStatus()%>" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                                Cấm
                                             </button>
                                         </td>
                                         <%
                                         } else {
                                         %>
                                         <td style="height:10px;padding:5px 10px">    
-                                            <button type="button" data-href="BanUserController?userPhone=<%=user.getPhone().trim()%>&userRole=<%= user.getRole()%>&status=<%=user.getStatus()%>" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                                                Unban
+                                            <button type="button" style="width: 100px" data-href="BanUserController?userPhone=<%=user.getPhone().trim()%>&userRole=<%= user.getRole()%>&status=<%=user.getStatus()%>" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                                Hủy Cấm
                                             </button>
                                         </td>
                                         <%
