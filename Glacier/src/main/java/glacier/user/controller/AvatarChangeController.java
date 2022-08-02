@@ -6,6 +6,8 @@
 package glacier.user.controller;
 
 import glacier.user.model.Account;
+import glacier.user.model.Landlord;
+import glacier.user.model.Tenant;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -29,6 +31,7 @@ import javax.servlet.http.Part;
 import org.apache.commons.io.IOUtils;
 import glacier.utils.GoogleCloudUtils;
 import static glacier.utils.Constant.*;
+
 /**
  *
  * @author ASUS
@@ -40,7 +43,9 @@ import static glacier.utils.Constant.*;
         maxRequestSize = 1024 * 1024 * 100 // 100 MB
 )
 public class AvatarChangeController extends HttpServlet {
-private final String PATH = "D:\\upload\\";
+
+    private final String PATH = "D:\\upload\\";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -58,7 +63,7 @@ private final String PATH = "D:\\upload\\";
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AvatarChangeController</title>");            
+            out.println("<title>Servlet AvatarChangeController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet AvatarChangeController at " + request.getContextPath() + "</h1>");
@@ -96,26 +101,51 @@ private final String PATH = "D:\\upload\\";
         ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory());
         Part filePart = request.getPart("user_image");
         /*Nếu bạn muốn up nhiều file*/
-        /**Collection<Part> fileParts = request.getParts();     
-        /**int i = 1;
-        /**for (Part part : fileParts) {          
-        /**    InputStream filecontent = part.getInputStream();
-        /**    byte[] fileAsByteArray = IOUtils.toByteArray(filecontent);
-        /**    GoogleCloudUtils.uploadObjectFromMemory(GOOGLE_CLOUD_PROJECT_ID, GOOGLE_CLOUD_BUCKET_NAME, "TEST"+i+".PNG", fileAsByteArray);
-        /**    i++;
-        /**}
-        
-        */
+        /**
+         * Collection<Part> fileParts = request.getParts(); /**int i = 1; /**for
+         * (Part part : fileParts) { /** InputStream filecontent =
+         * part.getInputStream(); /** byte[] fileAsByteArray =
+         * IOUtils.toByteArray(filecontent); /**
+         * GoogleCloudUtils.uploadObjectFromMemory(GOOGLE_CLOUD_PROJECT_ID,
+         * GOOGLE_CLOUD_BUCKET_NAME, "TEST"+i+".PNG", fileAsByteArray); /** i++;
+         * /**}
+         *
+         */
         /*Nếu bạn muốn up 1 file*/
         InputStream filecontent = filePart.getInputStream();
         byte[] fileAsByteArray = IOUtils.toByteArray(filecontent);
 //        for (byte b : fileAsByteArray) {
 //            System.out.println(b);
 //        }
-
-        GoogleCloudUtils.uploadObjectFromMemory(GOOGLE_CLOUD_PROJECT_ID, GOOGLE_CLOUD_BUCKET_NAME, "TEST.PNG", fileAsByteArray);
-
-        response.sendRedirect("success.jsp");
+        UserManager manager = new UserManager();
+        String[] fileName = filePart.getSubmittedFileName().split("\\.");
+        HttpSession ss = request.getSession();
+        Account acc = (Account) ss.getAttribute("LOGIN_USER");
+        String email = acc.getEmail();
+        String role = acc.getRole();
+        role = role.substring(0, 1).toUpperCase() + role.substring(1);
+        System.out.println(role);
+        String uploadFileName = email + "-avatar" + "." + fileName[1];
+        GoogleCloudUtils.uploadObjectFromMemory(
+                GOOGLE_CLOUD_PROJECT_ID,
+                GOOGLE_CLOUD_BUCKET_NAME,
+                uploadFileName,
+                fileAsByteArray,
+                "image/png");
+        String imageUrl = "https://storage.cloud.google.com/glacier-bucket/Avatar/" + uploadFileName.replace("@", "%40");
+        System.out.println(imageUrl);
+        boolean check = manager.changeUserAvatar(email, imageUrl, role);
+        System.out.println(check);
+        if ("tenant".equals(role.toLowerCase())) {
+            Tenant t = (Tenant) ss.getAttribute("USER_DETAIL");
+            t.setProfilePicture(imageUrl);
+            ss.setAttribute("USER_DETAIL", t);
+        } else {
+            Landlord l = (Landlord) ss.getAttribute("USER_DETAIL");
+            l.setProfilePicture(imageUrl);
+            ss.setAttribute("USER_DETAIL", l);
+        }
+        response.sendRedirect("account");
     }
 
     /**

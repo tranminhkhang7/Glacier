@@ -46,7 +46,7 @@ public class GoogleCloudUtils {
     }
     
         public static void uploadObjectFromMemory(
-            String projectId, String bucketName, String objectName, byte[] content) throws IOException {
+            String projectId, String bucketName, String objectName, byte[] content, String contentType) throws IOException {
         // The ID of your GCP project
         // String projectId = "your-project-id";
 
@@ -57,8 +57,8 @@ public class GoogleCloudUtils {
         // The string of contents you wish to upload
         // String contents = "Hello world!";
         Storage storage = StorageOptions.newBuilder().setProjectId(projectId).build().getService();
-        BlobId blobId = BlobId.of(bucketName, objectName);
-        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("image/png").build();
+        BlobId blobId = BlobId.of(bucketName, "Avatar/"+objectName);
+        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType(contentType).build();
         //byte[] content = method(contents);
         storage.createFrom(blobInfo, new ByteArrayInputStream(content));
 

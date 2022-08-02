@@ -18,7 +18,7 @@
     <filter-mapping>
         <filter-name>LandlordFilter</filter-name>
         <url-pattern>/roomlist/*</url-pattern>
-        <url-pattern>/addroom</url-pattern>
+<!--        <url-pattern>/addroom</url-pattern>-->
         <url-pattern>/LandlordConfirmRentPayment</url-pattern>
         <url-pattern>/deleteroom</url-pattern>
         <url-pattern>/editroom</url-pattern>

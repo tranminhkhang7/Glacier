@@ -283,7 +283,7 @@
                                 <div class="col-md-4">
                                     <div class="profile-image">
                                         <div class="image background-image">
-                                            <img src="assets/img/author-09.jpg" alt="">
+                                            <img src="${detail.profilePicture}" alt="">
                                         </div>
                                         <form action="./avatar" enctype="multipart/form-data" method="post">
                                             <div class="single-file-input">

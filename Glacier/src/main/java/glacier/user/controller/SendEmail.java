@@ -32,7 +32,7 @@ public class SendEmail {
     }
 
     //send email to the user email
-    public boolean sendEmail(String id, String key, String email) {
+    public boolean sendEmail(String token, String email) {
         boolean test = false;
 
         String toEmail = email;
@@ -53,7 +53,7 @@ public class SendEmail {
         });
         
         //Link for redirect to verify
-        String link = "http://localhost:8080/Glacier/verify?id=" + id + "&key="+key ;
+        String link = "http://localhost:8080/Glacier/verify?id="+token ;
         
         //html form for mail
         try {

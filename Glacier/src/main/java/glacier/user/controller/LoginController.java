@@ -62,6 +62,8 @@ public class LoginController extends HttpServlet {
                             ss.setAttribute("USER_DETAIL", t);
                             response.sendRedirect("./home");
                             return;
+                        }else{
+                            request.setAttribute("ERROR_MSG", "Tài khoản của bạn đang tạm thời bị khóa");
                         }
                     }
                 } else if ("landlord".equals(role)) {
@@ -72,6 +74,8 @@ public class LoginController extends HttpServlet {
                             ss.setAttribute("USER_DETAIL", l);
                             response.sendRedirect("./roomlist");
                             return;
+                        }else{
+                            request.setAttribute("ERROR_MSG", "Tài khoản của bạn đang tạm thời bị khóa");
                         }
                     }
 
@@ -82,7 +86,7 @@ public class LoginController extends HttpServlet {
                 }
 
             } else {
-                request.setAttribute("ERROR_MSG", "Invalid email or password");
+                request.setAttribute("ERROR_MSG", "Email hoặc mật khẩu không đúng");
                 request.getRequestDispatcher("access/login.jsp").forward(request, response);
                 return;
             }

@@ -4,7 +4,7 @@
     Author     : KHANG
 --%>
 
-<%@page import="glacier.room.model.LocationsDTO"%>
+
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
@@ -187,7 +187,7 @@
                                 <h2>Ảnh</h2>
                                 <div class="file-upload-previews"></div>
                                 <div class="file-upload">
-                                    <input type="file" name="files[]" class="file-upload-input with-preview" multiple title="Nhấp để chọn ảnh" maxlength="10" accept="gif|jpg|png">
+                                    <input type="file" name="files" class="file-upload-input with-preview" multiple title="Nhấp để chọn ảnh" maxlength="10" accept="gif|jpg|png">
                                     <span><i class="fa fa-plus-circle"></i>Chọn hoặc kéo ảnh vào đây</span>
                                 </div>
                             </section>
