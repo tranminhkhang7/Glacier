@@ -58,7 +58,7 @@ public class GoogleCloudUtils {
         // The string of contents you wish to upload
         // String contents = "Hello world!";
         Storage storage = StorageOptions.newBuilder().setProjectId(projectId).build().getService();
-        BlobId blobId = BlobId.of(bucketName, "Avatar/"+objectName);
+        BlobId blobId = BlobId.of(bucketName, objectName);
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType(contentType).build();
         //byte[] content = method(contents);
         storage.createFrom(blobInfo, new ByteArrayInputStream(content));                            // upload

@@ -200,7 +200,8 @@ public class RoomManager {
                     String name = rs.getString("name").trim();
                     int price = rs.getInt("price");
                     String address = rs.getString("address").trim();
-                    String des = rs.getString("description").trim().substring(0, Math.min(rs.getString("description").length(), 101));
+                    String des = rs.getString("description").trim();
+                            //.substring(0, Math.min(rs.getString("description").length(), 101));
                     String landlordEmail = rs.getString("emailLandlord");
                     String qrImage = rs.getString("qr_image");
                     Date rentStartDate = rs.getDate("rentStartDate");
@@ -601,7 +602,9 @@ public class RoomManager {
     }
 
     public static void main(String[] args) throws SQLException {
-//        RoomManager manager = new RoomManager();
+        RoomManager manager = new RoomManager();
+        int i = manager.countTenantRooms("khoabmse161751@fpt.edu.vn");
+        System.out.println(i);
 //        List<Integer> list = manager.getRoomsByAddress("Hoàn Kiếm, Hà Nội, Vietnam", 20);
 //        for (Integer integer : list) {
 //            System.out.println(integer);
@@ -694,4 +697,5 @@ public class RoomManager {
         return check;
 
     }
+
 }
