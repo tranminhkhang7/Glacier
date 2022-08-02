@@ -55,6 +55,7 @@ public class RoomManager {
             }
 
             sql += "WHERE R.[status] = N'available'\n"
+                    + "AND L.[status] = N'active'\n"
                     + "AND R.[price] >= " + minPrice + " AND R.[price] <= " + maxPrice + "\n";
 
             boolean isFirst = true;
@@ -92,6 +93,7 @@ public class RoomManager {
     // This method returns the list of rooms that matches the searchText, on page index
     public List<Room> search(String searchText, List<Integer> listFeature, int minPrice, int maxPrice, int index) { // searchText: the key words user typed; index: page number
         try {
+            
             for (int i = 0; i < searchText.length(); i++) {
                 if (searchText.charAt(i) == '\'') { // ki tu '
                     searchText = searchText.substring(0, i) + "'" + searchText.substring(i);
@@ -120,6 +122,7 @@ public class RoomManager {
             }
 
             sql += "WHERE R.[status] = N'available'\n"
+                    + "AND L.[status] = N'active'\n"
                     + "AND R.[price] >= " + minPrice + " AND R.[price] <= " + maxPrice + "\n";
 
             boolean isFirst = true;
@@ -140,7 +143,6 @@ public class RoomManager {
             if (!isFirst) {
                 sql += ")\n";
             }
-
             if (searchText != null && !"".equals(searchText)) {
                 sql += "ORDER BY RANK DESC \n";
             } else {
@@ -148,7 +150,7 @@ public class RoomManager {
             }
             sql += "OFFSET " + (index - 1) * 15 + " ROWS FETCH NEXT 15 ROWS ONLY";
 
-
+            
             Connection con = DBUtils.getConnection();
             PreparedStatement st = con.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
