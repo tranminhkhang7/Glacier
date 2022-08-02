@@ -46,6 +46,7 @@
                     <!--end background-->
                 </div>
                 <!--end hero-wrapper-->
+
             </section>
             <!--end hero-->
 
@@ -92,6 +93,7 @@
             <!--end content-->
 
             <!--*********************************************************************************************************-->
+
             <!--************ FOOTER *************************************************************************************-->
             <!--*********************************************************************************************************-->
             <section class="footer">
@@ -103,8 +105,9 @@
                                     <img src="assets/img/logo.png" alt="">
                                 </a>
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec tincidunt arcu, sit amet
-                                    fermentum sem. Class aptent taciti sociosqu ad litora torquent per conubia nostra.
+
+                                    Glacier là n?n t?ng k?t n?i ng??i thuê nhà và các ch? tr?. S?n sàng sát cánh b?n b?n trên m?i hành trình mà b?n b??c ?i!
+
                                 </p>
                             </div>
                             <!--end col-md-5-->
@@ -197,7 +200,9 @@
         <script src="assets/js/custom.js"></script>
         <script>
         function myFunction(check) {
+
             if (check === true) {
+
                 var box1 = document.getElementById("box1");
                 var box2 = document.getElementById("box2");
                 box1.style.display = "block";

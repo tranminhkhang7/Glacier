@@ -5,6 +5,8 @@
  */
 package glacier.user.controller;
 
+import glacier.model.feature.FeatureDAO;
+import glacier.model.feature.FeatureDTO;
 import glacier.room.dbmanager.RoomManager;
 import glacier.room.model.Room;
 import java.io.IOException;
@@ -43,13 +45,30 @@ public class SearchRoomController extends HttpServlet {
                 indexPage = "1";
             }
             int currentPage = Integer.parseInt(indexPage);
+            request.setAttribute("currentPage", currentPage);
+
             String searchText = (String) request.getParameter("keyword");
             if (searchText == null) {
                 searchText = "";
             }
+            request.setAttribute("searchText", searchText);
+
+            int minPrice, maxPrice;
+            if (request.getParameter("min_price") == null || request.getParameter("min_price").equals("")) {
+                minPrice = 1;
+            } else {
+                minPrice = Integer.parseInt(request.getParameter("min_price"));
+                request.setAttribute("minPrice", minPrice);
+            }
+            if (request.getParameter("max_price") == null || request.getParameter("max_price").equals("")) {
+                maxPrice = 100000000;
+            } else {
+                maxPrice = Integer.parseInt(request.getParameter("max_price"));
+                request.setAttribute("maxPrice", maxPrice);
+            }
 
             // LOAD FEATURE ID FOR QUERYING
-            // Yes mates, I know that who wrote like this is worth going to hell.
+            // Yes mates, I know that who writes like this worth going to hell.
             // But compare to the solution of counting how many features there are in the database,
             // this solution is way more productive.
             List<Integer> listFeature;
@@ -60,31 +79,33 @@ public class SearchRoomController extends HttpServlet {
                     listFeature.add(i);
                 }
             }
+            // LOAD ALL THE FEATURES WITH THE CHOSEN ONES GOT CHECKED
+            FeatureDAO mng = new FeatureDAO();
+            List<FeatureDTO> listFeatureGotChecked = mng.loadFeatureGotChecked(listFeature);
+            request.setAttribute("listFeatureGotChecked", listFeatureGotChecked);
 
             // COUNT HOW MANY MATCHES THERE ARE
             RoomManager manager = new RoomManager();
-            int totalMatched = manager.countMatched(searchText, listFeature);
-            int endPage = totalMatched / 16;
-            if (totalMatched % 16 != 0) {
+            int totalMatched = manager.countMatched(searchText, listFeature, minPrice, maxPrice);
+            int endPage = totalMatched / 15;
+            if (totalMatched % 15 != 0) {
                 endPage++;
             }
             if (currentPage > endPage) {
                 currentPage = endPage;
             }
-            
-            // SEARCH MATCHED ROOMS
-            List<Room> listResult = manager.search(searchText, listFeature, currentPage);
+            request.setAttribute("endPage", endPage);
 
-            request.setAttribute("searchText", searchText);
+            // SEARCH MATCHED ROOMS
+            List<Room> listResult = manager.search(searchText, listFeature, minPrice, maxPrice, currentPage);
+            request.setAttribute("list", listResult);
+
             // MOUNT ALL THE SELECTED FEATURE IDs INTO A SET OF PARAMETERS
             String featureParameterSet = "";
-            for (Integer featureID: listFeature) {
+            for (Integer featureID : listFeature) {
                 featureParameterSet += "&" + featureID + "=on";
             }
             request.setAttribute("featureParameterSet", featureParameterSet);
-            request.setAttribute("endPage", endPage);
-            request.setAttribute("currentPage", currentPage);
-            request.setAttribute("list", listResult);
 
             RequestDispatcher rd = request.getRequestDispatcher("/searchpage.jsp");
             rd.forward(request, response);

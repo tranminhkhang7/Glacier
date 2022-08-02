@@ -58,7 +58,7 @@
                                     <div class="col-md-10 col-sm-10">
                                         <div class="form-group">
                                             <label for="what" class="col-form-label" style="color: white">Bạn đang đi đến đâu?</label>
-                                            <input name="keyword" type="text" class="form-control" id="what" placeholder="Nhập vị trí, mô tả phòng mà bạn muốn đến...">
+                                            <input name="keyword" type="text" class="form-control" id="what" maxlength="80" placeholder="Nhập vị trí, mô tả phòng mà bạn muốn đến...">
                                         </div>
                                         <!--end form-group-->
                                     </div>
@@ -77,24 +77,39 @@
                                 <div class="collapse" id="collapseAlternativeSearchForm">
                                     <div class="wrapper">
                                         <div class="form-row">
-                                            <%
-                                                int i = 1;
-                                            %>
+                                            <div class="col-md-3 col-sm-0">
+                                            </div>
+                                            <div class="col-md-3 col-sm-12">
+                                                <div class="form-group">
+                                                    <input name="min_price" type="number" min="100000" max="100000000" step="1" class="form-control small" id="min-price" placeholder="Giá tối thiểu">
+                                                    <span class="input-group-addon small">VNĐ</span>
+                                                </div>
+                                                <!--end form-group-->
+                                            </div>
+                                            <!--end col-md-4-->
+                                            <div class="col-md-3 col-sm-12">
+                                                <div class="form-group">
+                                                    <input name="max_price" type="number" min="100000" max="100000000" step="1" class="form-control small" id="max-price" placeholder="Giá tối đa">
+                                                    <span class="input-group-addon small">VNĐ</span>
+                                                </div>
+                                                <!--end form-group-->
+                                            </div>
+                                            <!--end col-md-4-->
+                                        </div>
+                                        <div class="form-row">
                                             <c:forEach items="${requestScope.listFeature}" var="feature">
                                                 <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
                                                     <label>
-                                                        <input type="checkbox" name="<%=i%>">
-                                                        ${feature}
+                                                        <input type="checkbox" name="${feature.id}">
+                                                        ${feature.name}
                                                     </label>
                                                 </div>
-                                                <%
-                                                    i++;
-                                                %>
+
                                             </c:forEach>
                                             <!--end col-xl-6-->
-
                                         </div>
                                         <!--end row-->
+                                        
                                     </div>
                                     <!--end wrapper-->
                                 </div>
@@ -134,7 +149,7 @@
                                         </a>
                                     </div>
                                     <!--end image-->
-<!--                                    <div class="price">Hà Nội</div>-->
+                                    <!--                                    <div class="price">Hà Nội</div>-->
 
                                     <!--end meta-->
                                     <div class="description">
@@ -152,7 +167,7 @@
                                         </a>
                                     </div>
                                     <!--end image-->
-<!--                                    <div class="price">Đà Nẵng</div>-->
+                                    <!--                                    <div class="price">Đà Nẵng</div>-->
 
                                     <!--end meta-->
                                     <div class="description">
@@ -170,7 +185,7 @@
                                         </a>
                                     </div>
                                     <!--end image-->
-<!--                                    <div class="price">TP. Hồ Chí Minh</div>-->
+                                    <!--                                    <div class="price">TP. Hồ Chí Minh</div>-->
 
                                     <!--end meta-->
                                     <div class="description">
@@ -188,7 +203,7 @@
                                         </a>
                                     </div>
                                     <!--end image-->
-<!--                                    <div class="price">Cần Thơ</div>-->
+                                    <!--                                    <div class="price">Cần Thơ</div>-->
 
                                     <!--end meta-->
                                     <div class="description">
