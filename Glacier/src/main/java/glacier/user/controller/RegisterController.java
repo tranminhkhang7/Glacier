@@ -5,11 +5,14 @@
  */
 package glacier.user.controller;
 
-
+import glacier.user.model.Account;
+import glacier.user.model.Landlord;
+import glacier.user.model.Tenant;
 import glacier.user.model.UserSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.UUID;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -44,10 +47,11 @@ public class RegisterController extends HttpServlet {
             String rePass = request.getParameter("repeat_password");
             String gender = request.getParameter("gender");
             String role = request.getParameter("role").toLowerCase();
-            String phone = request.getParameter("phone");
+            String phone = request.getParameter("phone_number");
             String status = "active";
-            String id = DigestUtils.md5Hex(email);
-            String key = DigestUtils.md5Hex(password);    
+//            String id = DigestUtils.md5Hex(email);
+//            String key = DigestUtils.md5Hex(password);
+            String token = UUID.randomUUID().toString();
             //boolean checkInsertUser = false;
             //HashMap<String,String> errors = new HashMap<String,String>();
             HttpSession ss = request.getSession();
@@ -58,27 +62,32 @@ public class RegisterController extends HttpServlet {
                 //errors.put("duplicate", "Email has existed");
                 request.setAttribute("ERROR_REGISTER", "Email has existed");
             } else {
-                UserSession userSession = new UserSession(email, name, password, role, gender, phone, status, id, key);
+                UserSession userSession = new UserSession(email, name, password, role, gender, phone, status, token, "");
                 ss.setAttribute("USER_SESSION", userSession);
                 //create instance object of the SendEmail Class
                 SendEmail sm = new SendEmail();
-                            
 
                 //craete new user using all information
                 //User user = new User(name, email, code);
                 //call the send email method
-                boolean test = sm.sendEmail(id,key,email);
+                boolean test = sm.sendEmail(token, email);
 
                 //check if the email send successfully
                 if (test) {
-                    
-                    //session.setAttribute("authcode", user);
-                    request.setAttribute("IS_VERIFIED", true);
-                    request.getRequestDispatcher("verify.jsp").forward(request, response);
+//                    Account acc = new Account(email, password, role);
+//                    boolean checkInsert = manager.insertAccount(acc);
+                   
+                        //session.setAttribute("authcode", user);
+                        request.setAttribute("IS_VERIFIED", true);
+                        request.getRequestDispatcher("verify.jsp").forward(request, response);
+                   
+//                        request.getRequestDispatcher("error.jsp").forward(request, response);
+               
                     return;
 //                response.sendRedirect("verify.jsp");
                 } else {
-                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                    request.setAttribute("IS_VERIFIED", true);
+                    request.getRequestDispatcher("verify.jsp").forward(request, response);
                     return;
                     //out.println("Failed to send verification email");
                 }

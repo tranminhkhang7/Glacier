@@ -190,12 +190,14 @@
                                     <a class="nav-link active icon" href="landlord-profile.jsp">
                                         <i class="fa fa-user"></i>Thông tin cá nhận
                                     </a>
+
                                     <!--                                    <a class="nav-link icon" href="my-ads.html">
                                                                             <i class="fa fa-heart"></i>My Rooms Listing
                                                                         </a>-->
                                     <a class="nav-link icon" href="bookmarks.html">
                                         <i class="fa fa-star"></i>Phòng yêu thích
                                     </a>
+
                                     <a class="nav-link icon" href="changepassword">
                                         <i class="fa fa-recycle"></i>Thay đổi mật khẩu
                                     </a>

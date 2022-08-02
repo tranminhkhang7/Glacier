@@ -591,6 +591,30 @@ public class UserManager {
         }
         return check;
     }
+    
+        public boolean changeUserAvatar(String email, String imageUrl, String typeOfUser) {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement st = null;
+
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " UPDATE ["+typeOfUser+"]"
+                        + " SET [profile_picture] = ?  "
+                        + " WHERE [email]=? ";
+
+                st = conn.prepareStatement(sql);
+                st.setString(1, imageUrl);
+                st.setString(2, email);
+
+                check = st.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return check;
+    }
 
     public static void main(String[] args) {
 
