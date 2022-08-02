@@ -4,6 +4,7 @@
  */
 package glacier.utils;
 import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.storage.Acl;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
@@ -46,7 +47,7 @@ public class GoogleCloudUtils {
     }
     
         public static void uploadObjectFromMemory(
-            String projectId, String bucketName, String objectName, byte[] content) throws IOException {
+            String projectId, String bucketName, String objectName, byte[] content, String contentType) throws IOException {
         // The ID of your GCP project
         // String projectId = "your-project-id";
 
@@ -58,10 +59,10 @@ public class GoogleCloudUtils {
         // String contents = "Hello world!";
         Storage storage = StorageOptions.newBuilder().setProjectId(projectId).build().getService();
         BlobId blobId = BlobId.of(bucketName, objectName);
-        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("image/png").build();
+        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType(contentType).build();
         //byte[] content = method(contents);
-        storage.createFrom(blobInfo, new ByteArrayInputStream(content));
-
+        storage.createFrom(blobInfo, new ByteArrayInputStream(content));                            // upload
+//        storage.createAcl(blobId, Acl.of(Acl.User.ofAllUsers(), Acl.Role.READER));                  //make object public readable
         System.out.println(
                 "Object "
                 + objectName
@@ -70,6 +71,18 @@ public class GoogleCloudUtils {
                 + " with contents "
                 + content);
     }
+        
+//    public static void makeObjectPublic(String projectId, String bucketName, String objectName) {
+//        // String projectId = "your-project-id";
+//        // String bucketName = "your-bucket-name";
+//        // String objectName = "your-object-name";
+//        Storage storage = StorageOptions.newBuilder().setProjectId(projectId).build().getService();
+//        BlobId blobId = BlobId.of(bucketName, objectName);
+//        storage.createAcl(blobId, Acl.of(Acl.User.ofAllUsers(), Acl.Role.READER));
+//
+//        System.out.println(
+//                "Object " + objectName + " in bucket " + bucketName + " was made publicly readable");
+//    }
     
 //    public static void main(String[] args) throws IOException {
 //        uploadObject(Constant.GOOGLE_CLOUD_PROJECT_ID, Constant.GOOGLE_CLOUD_BUCKET_NAME, "cantho.jpg", "D:\\FPTUni\\2022_Semester5_Summer\\SWP391\\cantho.jpg");

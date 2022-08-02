@@ -5,8 +5,8 @@
  */
 package glacier.user.controller;
 
-import glacier.moderator.dbmanager.ModeratorManager;
-import glacier.user.model.Reported;
+import glacier.landlord.dbmanager.LandlordManager;
+import glacier.user.model.Landlord;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -14,15 +14,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Admin
  */
-@WebServlet(name = "ReportedController", urlPatterns = {"/ReportedController"})
-public class ReportedController extends HttpServlet {
-    private static final String ERROR = "reported.jsp";
-    private static final String SUCCESS = "reported.jsp";
+@WebServlet(name = "IncomeReportController", urlPatterns = {"/IncomeReportController"})
+public class IncomeReportController extends HttpServlet {
+
+    private static final String ERROR = "error.jsp";
+    private static final String SUCCESS = "view-income-report.jsp";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,27 +40,27 @@ public class ReportedController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            int currentPage = Integer.parseInt(request.getParameter("index"));
-            String type = request.getParameter("type");
-            ModeratorManager dao = new ModeratorManager();
-            List<Reported> listReported = null;
-            int totalMatched = dao.countMatched2(type);
-            int endPage = totalMatched / 10;
-            if (totalMatched % 10 != 0) {
-                endPage++;
-            }
-            if (type.equals("all")) {
-                listReported = dao.getListReported(currentPage);
+            String room = request.getParameter("room");
+            String time = request.getParameter("time");
+            String temp = null;
+            List list = null;
+            LandlordManager dao = new LandlordManager();
+            HttpSession ss = request.getSession();
+            Landlord user = (Landlord) ss.getAttribute("USER_DETAIL");
+            String email = user.getEmail();
+            if (room.equals("all")) {
+                temp = email;
             } else {
-                if (type.equals("room")) {
-                    listReported = dao.getListRPRoom(currentPage);
-                } else {
-                    listReported = dao.getListRPComment(currentPage);
-                }
+                temp = room;
             }
-            request.setAttribute("END_PAGE", endPage);
-            request.setAttribute("CURRENT_PAGE", currentPage);
-            request.setAttribute("LIST_REPORTED", listReported);
+            if (time.equals("all")) {
+                list = dao.getListAllTime(temp, room);
+            } else {
+                list = dao.getListByYear(temp, Integer.parseInt(time), room);
+            }
+            request.setAttribute("EMAIL", email);
+            request.setAttribute("LIST", list);
+            request.setAttribute("TYPE", time);
             url = SUCCESS;
         } catch (Exception e) {
             log("Error at SearchController: " + e.toString());

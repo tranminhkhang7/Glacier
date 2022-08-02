@@ -187,10 +187,6 @@
                                     </a>
                                     <!--                                    <a class="nav-link icon" href="my-ads.html">
                                                                             <i class="fa fa-heart"></i>My Rooms Listing
-                                                                        </a>-->
-                                    <a class="nav-link icon" href="bookmarks.html">
-                                        <i class="fa fa-star"></i>Phòng yêu thích
-                                    </a>
                                     <a class="nav-link active icon" href="changepassword">
                                         <i class="fa fa-recycle"></i>Thay đổi mật khẩu
                                     </a>

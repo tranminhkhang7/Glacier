@@ -10,6 +10,7 @@ import glacier.bill.model.BillDetail;
 import glacier.notification.model.NotificationDAO;
 import glacier.room.dbmanager.CommentManager;
 import glacier.room.model.Comment;
+import glacier.room.model.RoomDAO;
 import glacier.user.model.Account;
 import glacier.user.model.Tenant;
 import java.io.IOException;
@@ -71,25 +72,11 @@ public class LandlordViewRentedRoom extends HttpServlet {
                     request.setAttribute("bd1", bd1);
                     request.setAttribute("bd2", bd2);
                 
-                if ((bd1.size()==0)&&(bd2.size()==0)) request.setAttribute("bd0", "No bill created yet");
+                if ((bd1.size()==0)&&(bd2.size()==0)) request.setAttribute("bd0", "Danh sách hóa đơn trống");
+                RoomDAO rD = new RoomDAO();
+                request.setAttribute("deposit",rD.getRoomById(id).getDeposit());
                 
-//                int currentBillID=bm.getNextBillID()-1;
-//                if (currentBillID>=2){
-//                    ArrayList<BillDetail> bd1 = new ArrayList<>();
-//                    bd1=bm.getBillDetailByBillId(currentBillID);
-//                    ArrayList<BillDetail> bd2 = new ArrayList<>();
-//                    bd2=bm.getBillDetailByBillId(currentBillID-1);
-//                    request.setAttribute("bd1", bd1);
-//                    request.setAttribute("bd2", bd2);
-//                }
-//                if (currentBillID==1){
-//                    ArrayList<BillDetail> bd1 = new ArrayList<>();
-//                    bd1=bm.getBillDetailByBillId(currentBillID);
-//                    request.setAttribute("bd1", bd1);
-//                }
-//                if (currentBillID<0){
-//                    request.setAttribute("bd0", "No bill created yet");
-//                }
+                
                 request.setAttribute("tenant", tenant);
                 request.setAttribute("rentStartDate", rentStartDate);
                 RequestDispatcher rd = request.getRequestDispatcher("/landlord-manage-single-room.jsp");

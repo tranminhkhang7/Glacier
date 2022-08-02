@@ -57,6 +57,7 @@ public class BillManager {
         return index + 1;
     }
 
+
     public ArrayList<Bill> getBills(int roomid, int index) {
         ArrayList<Bill> Bills = new ArrayList<>();
         String sql = "select b.billID,b.roomID,b.status,b.time from Bill b join Room r on (b.roomID=r.roomID)\n"

@@ -207,7 +207,7 @@
 
                             <div class="col-md-4">
                                 <c:if test="${not empty requestScope.ERROR_MSG}">
-                                    <div class="" style="color: red; background-color: rgb(242, 242, 109); height: 50px; line-height: 50px; text-align: center;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Your email or password is not correct</div>
+                                    <div class="" style="color: red; background-color: rgb(242, 242, 109); height: 50px; line-height: 50px; text-align: center;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Email hoặc mật khẩu không đúng</div>
                                 </c:if>
                                 <c:if test="${not empty sessionScope.ERROR_MSG}">
                                     <div class="" style="color: red; background-color: rgb(242, 242, 109); height: 50px; line-height: 50px; text-align: center;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ${sessionScope.ERROR_MSG}</div>
@@ -215,32 +215,32 @@
                                 <form class="form clearfix" action="${pageContext.request.contextPath}/login" method="post">
                                     <div class="form-group">
                                         <label for="email" class="col-form-label required">Email</label>
-                                        <input name="email" type="email" class="form-control" id="email" placeholder="Your Email" value="${username}" required style="width: 100%">
+                                        <input name="email" type="email" class="form-control" id="email" placeholder="Email" value="${username}" required style="width: 100%">
                                     </div>
                                     <!--end form-group-->
                                     <div class="form-group">
                                         <label for="password" class="col-form-label required" style="display: block">Mật khẩu</label>
-                                        <input name="password" type="password" class="form-control" id="password" placeholder="Password" value="${password}" required style="display: inline-block; width: 100%"><i class="fa fa-eye" id="visibilityBtn" style="margin-left: -30px; position: relative; cursor: pointer" onclick="myFunction()"></i>
+                                        <input name="password" type="password" class="form-control" id="password" placeholder="Mật khẩu" value="${password}" required style="display: inline-block; width: 100%"><i class="fa fa-eye" id="visibilityBtn" style="margin-left: -30px; position: relative; cursor: pointer" onclick="myFunction()"></i>
                                     </div> 
                                     <!--end form-group-->
                                     <div class="d-flex justify-content-between align-items-baseline">
                                         <label>
                                             <input type="checkbox" name="remember" value="1">
-                                            Remember Me
+                                            Nhớ tài khoản
                                         </label>
                                         <button type="submit" class="btn btn-primary">Đăng nhập</button>
                                     </div>
                                 </form>
                                 <hr>
-                                <p>
+                                <p style="text-align: center;">
                                     Bạn quên mật khẩu? Nhấp <a href="forgot.jsp" class="link">vào đây</a>
                                 </p>
 
                                 <hr>
-                                <p>
-                                    Bạn chưa tài khoản? Đăng ký <a href="${pageContext.request.contextPath}/register" class="link">tại đây.</a>
+                                <p style="text-align: center;">
+                                    Bạn chưa có tài khoản? Đăng ký <a href="${pageContext.request.contextPath}/register" class="link">tại đây.</a>
                                 </p>
-                                <hr><p style="font-size:large; text-align: center;">Hoặc đăng nhập bằng tài khoản Google: </p>
+                                <hr><p style="font-size:14px; text-align: center;">Hoặc đăng nhập bằng tài khoản Google: </p>
                                 <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=http://localhost:8080/Glacier/LoginGoogleHandler&response_type=code&client_id=312274839783-ikrqeojtbm6kq3r83i6hgkbee8uib7co.apps.googleusercontent.com&approval_prompt=force">
                                     <img style="display: block; margin-left: auto; margin-right: auto;" src="https://salt.tikicdn.com/ts/upload/1c/ac/e8/141c68302262747f5988df2aae7eb161.png" width="50" height="50" /></a>
 
