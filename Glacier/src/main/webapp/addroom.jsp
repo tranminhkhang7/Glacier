@@ -64,7 +64,7 @@
                                     <a href="register.html" class="link"><strong>Register</strong></a></p>
                             </div>
                         </section> -->
-                        <form class="form form-submit" action="${pageContext.request.contextPath}/addroom" method="get">
+                        <form class="form form-submit " enctype="multipart/form-data" action="${pageContext.request.contextPath}/addroom" method="POST">
                             <section>
                                 <h2>Thông tin cơ bản</h2>
                                 <div class="row">
@@ -134,7 +134,7 @@
                                 <h2>Ảnh</h2>
                                 <div class="file-upload-previews"></div>
                                 <div class="file-upload">
-                                    <input type="file" name="files[]" class="file-upload-input with-preview" multiple title="Nhấp để chọn ảnh" maxlength="10" accept="gif|jpg|png">
+                                    <input type="file" name="files[]" class="file-upload-input with-preview ignore" multiple title="Nhấp để chọn ảnh" maxlength="5" accept="jpg|png">
                                     <span><i class="fa fa-plus-circle"></i>Chọn hoặc kéo ảnh vào đây</span>
                                 </div>
                             </section>

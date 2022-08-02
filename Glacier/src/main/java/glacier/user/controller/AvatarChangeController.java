@@ -95,6 +95,7 @@ private final String PATH = "D:\\upload\\";
             throws ServletException, IOException {
         ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory());
         Part filePart = request.getPart("user_image");
+        
         /*Nếu bạn muốn up nhiều file*/
         /**Collection<Part> fileParts = request.getParts();     
         /**int i = 1;

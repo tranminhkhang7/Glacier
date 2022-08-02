@@ -53,14 +53,30 @@ public class LandlordManager {
         return l;
     }
     
+    public int getNextRoomID(){
+        int ID=-1;
+        String sql="SELECT MAX([RoomID]) as lastID FROM [Room]";
+        try{
+            Connection conn=DBUtils.getConnection();
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            ResultSet rs =pstm.executeQuery();
+            rs.next();
+            ID = Integer.parseInt(rs.getString("lastID")) + 1;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return ID;
+    }
+    
     public void addRoom(String name, String description, String address, String detailAddress, String status, int price, int deposit, float avgRating, Date dateAdded, float area, String emailLandlord, List<Integer> listFeature) {
         try {
             Connection con = DBUtils.getConnection();
-            PreparedStatement getID = con.prepareStatement("SELECT MAX([RoomID]) as lastID FROM [Room]");
-            ResultSet rs = getID.executeQuery();
-            rs.next();
-            int newID = Integer.parseInt(rs.getString("lastID")) + 1;
-
+//            PreparedStatement getID = con.prepareStatement("SELECT MAX([RoomID]) as lastID FROM [Room]");
+//            ResultSet rs = getID.executeQuery();
+//            rs.next();
+//            int newID = Integer.parseInt(rs.getString("lastID")) + 1;
+            int newID = getNextRoomID();
             SimpleDateFormat simpDate = new SimpleDateFormat("yyyy-MM-dd");
 
             // Add information except for Room's feature

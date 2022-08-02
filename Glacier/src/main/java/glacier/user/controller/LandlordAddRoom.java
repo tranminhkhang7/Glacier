@@ -8,12 +8,11 @@ package glacier.user.controller;
 import glacier.landlord.dbmanager.LandlordManager;
 import glacier.model.feature.FeatureDAO;
 import glacier.model.feature.FeatureDTO;
-import glacier.room.dbmanager.RoomManager;
 import glacier.user.model.Account;
 import glacier.user.model.Landlord;
-import glacier.user.model.Tenant;
+import glacier.utils.GoogleCloudUtils;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,12 +23,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import org.apache.commons.io.IOUtils;
+import static glacier.utils.Constant.*;
+import javax.servlet.annotation.MultipartConfig;
+import java.util.Collection;
+import javax.servlet.http.Part;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 /**
  *
  * @author KHANG
  */
 @WebServlet(name = "LandlordAddRoom", urlPatterns = {"/addroom"})
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
+        maxFileSize = 1024 * 1024 * 10, // 10 MB
+        maxRequestSize = 1024 * 1024 * 100 // 100 MB
+)
 public class LandlordAddRoom extends HttpServlet {
 
     /**
@@ -75,11 +85,23 @@ public class LandlordAddRoom extends HttpServlet {
                                 listFeature.add(i);
                             }
                         }
-
+                        
+                        LandlordManager mng = new LandlordManager();
+                        Collection<Part> fileParts = request.getParts();     
+                        int i = 1;
+                        for (Part part : fileParts) {
+//                            System.out.println(part.getContentType());
+                            if (part.getContentType()!=null){
+                                InputStream filecontent = part.getInputStream();
+                                byte[] fileAsByteArray = IOUtils.toByteArray(filecontent);
+                                GoogleCloudUtils.uploadObjectFromMemory(GOOGLE_CLOUD_PROJECT_ID, GOOGLE_CLOUD_BUCKET_NAME, mng.getNextRoomID()+"_"+i+".PNG", fileAsByteArray);
+                                i++;
+                            }
+                        }
+        
                         Landlord landlord = (Landlord) session.getAttribute("USER_DETAIL");
                         String emailLandlord = landlord.getEmail();
 
-                        LandlordManager mng = new LandlordManager();
                         mng.addRoom(name, description, address, detailAddress, status, price, deposit, avgRating, dateAdded, area, emailLandlord, listFeature);
 
                         session.setAttribute("notify", "addSuccess");
