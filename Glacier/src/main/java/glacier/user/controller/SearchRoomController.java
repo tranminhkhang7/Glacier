@@ -9,6 +9,8 @@ import glacier.model.feature.FeatureDAO;
 import glacier.model.feature.FeatureDTO;
 import glacier.room.dbmanager.RoomManager;
 import glacier.room.model.Room;
+import glacier.room.model.RoomDAO;
+import glacier.user.model.ImageDTO;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +41,7 @@ public class SearchRoomController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
+            RoomDAO dao = new RoomDAO();
             // FIRST VALIDATIONS
             String indexPage = request.getParameter("index");
             if (indexPage == null) {
@@ -82,6 +85,7 @@ public class SearchRoomController extends HttpServlet {
             // LOAD ALL THE FEATURES WITH THE CHOSEN ONES GOT CHECKED
             FeatureDAO mng = new FeatureDAO();
             List<FeatureDTO> listFeatureGotChecked = mng.loadFeatureGotChecked(listFeature);
+//            List<ImageDTO> imageList = dao.getRoomImages(id);
             request.setAttribute("listFeatureGotChecked", listFeatureGotChecked);
 
             // COUNT HOW MANY MATCHES THERE ARE
@@ -99,7 +103,7 @@ public class SearchRoomController extends HttpServlet {
             // SEARCH MATCHED ROOMS
             List<Room> listResult = manager.search(searchText, listFeature, minPrice, maxPrice, currentPage);
             request.setAttribute("list", listResult);
-
+            
             // MOUNT ALL THE SELECTED FEATURE IDs INTO A SET OF PARAMETERS
             String featureParameterSet = "";
             for (Integer featureID : listFeature) {

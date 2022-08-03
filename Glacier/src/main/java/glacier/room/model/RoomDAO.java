@@ -4,6 +4,7 @@
  */
 package glacier.room.model;
 
+import glacier.user.model.ImageDTO;
 import glacier.utils.DBUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -138,30 +139,53 @@ public class RoomDAO {
             return f;
         }
     }
-    
-    public int[] getImageCount(int roomID){
-       int count[] = new int[5];
-       int i=0;
-       try{
-            String sql="  select roomID, picID from ImagesRoom where roomID=?";
+
+    public int[] getImageCount(int roomID) {
+        int count[] = new int[5];
+        int i = 0;
+        try {
+            String sql = "  select roomID, picID from ImagesRoom where roomID=?";
             Connection con = DBUtils.getConnection();
             PreparedStatement st = con.prepareStatement(sql);
             st.setInt(1, roomID);
             ResultSet rs = st.executeQuery();
-            while(rs.next()){
-                count[i]=rs.getInt("picID");
+            while (rs.next()) {
+                count[i] = rs.getInt("picID");
                 i++;
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-       return count;
+        return count;
     }
-    
+
+    public List<ImageDTO> getRoomImages(int roomId) throws SQLException {
+        List<ImageDTO> imageList = new ArrayList<>();
+        try {
+            conn = DBUtils.getConnection();
+            String sql = "SELECT * FROM ImagesRoom WHERE roomID = ?";
+            if (conn != null) {
+                pstm = conn.prepareStatement(sql);
+                pstm.setInt(1, roomId);
+                rs = pstm.executeQuery();
+                while (rs.next()) {
+                    int roomID = rs.getInt("roomID");
+                    int picID = rs.getInt("picID");
+                    imageList.add(new ImageDTO(roomID, picID));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+            return imageList;
+        }
+    }
+
     public static void main(String[] args) throws SQLException, Exception {
         RoomDAO dao = new RoomDAO();
-        ArrayList<String> f = dao.getRoomFeature(10);
-        System.out.println(f);
+        System.out.println(dao.getRoomImages(56));
+//        ArrayList<String> f = dao.getRoomFeature(10);
+//        System.out.println(f);
     }
 }

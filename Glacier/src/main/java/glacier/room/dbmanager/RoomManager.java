@@ -146,7 +146,7 @@ public class RoomManager {
             if (searchText != null && !"".equals(searchText)) {
                 sql += "ORDER BY RANK DESC \n";
             } else {
-                sql += "ORDER BY [date_added] DESC \n";
+                sql += "ORDER BY R.[roomID] ASC \n";
             }
             sql += "OFFSET " + (index - 1) * 15 + " ROWS FETCH NEXT 15 ROWS ONLY";
 
@@ -432,7 +432,7 @@ public class RoomManager {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "  SELECT  l.[name], [email], [phone], [gender]  FROM Room r join Landlord l ON r.emailLandlord = l.email WHERE roomID = ?";
+                String sql = "  SELECT  l.[name], [email], [phone], [gender], [profile_picture]  FROM Room r join Landlord l ON r.emailLandlord = l.email WHERE roomID = ?";
                 st = conn.prepareStatement(sql);
                 st.setInt(1, roomId);
                 rs = st.executeQuery();
@@ -441,7 +441,8 @@ public class RoomManager {
                     String email = rs.getString("email").trim();
                     String gender = rs.getString("gender").trim();
                     String phone = rs.getString("phone").trim();
-                    landlord = new Landlord(email, name, gender, phone);
+                    String profilePicture = rs.getString("profile_picture");
+                    landlord = new Landlord(email, name, gender, phone, profilePicture);
                 }
             }
         } catch (Exception e) {
@@ -664,10 +665,7 @@ public class RoomManager {
 
     public static void main(String[] args) throws SQLException {
         RoomManager manager = new RoomManager();
-        List<Room> list = manager.get4LatestRooms();
-        for (Room room : list) {
-            System.out.println(room);
-        }
+        System.out.println(manager.getLandLordInfoInSingleRoom(14));
 //        List<Integer> list = manager.getRoomsByAddress("Hoàn Kiếm, Hà Nội, Vietnam", 20);
 //        for (Integer integer : list) {
 //            System.out.println(integer);

@@ -222,337 +222,311 @@
                     <!--************ CONTENT ************************************************************************************-->
                     <!--*********************************************************************************************************-->
                     <section class="content">
-                        <section class="block">
-                            <div class="container">
-                                <!--Gallery Carousel-->
-                                <section>
-                                    <div class="gallery-carousel owl-carousel">
-                                        <img src="assets/img/image-20.jpg" alt="" data-hash="1">
-                                        <img src="assets/img/image-01.jpg" alt="" data-hash="2">
-                                        <img src="assets/img/image-21.jpg" alt="" data-hash="3">
-                                        <img src="assets/img/image-22.jpg" alt="" data-hash="4">
-                                        <img src="assets/img/image-23.jpg" alt="" data-hash="5">
-                                        <img src="assets/img/image-14.jpg" alt="" data-hash="6">
-                                    </div>
-                                    <div class="gallery-carousel-thumbs owl-carousel">
-                                        <a href="#1" class="owl-thumb active-thumb background-image">
-                                            <img src="assets/img/image-20.jpg" alt="">
-                                        </a>
-                                        <a href="#2" class="owl-thumb background-image">
-                                            <img src="assets/img/image-01.jpg" alt="">
-                                        </a>
-                                        <a href="#3" class="owl-thumb background-image">
-                                            <img src="assets/img/image-21.jpg" alt="">
-                                        </a>
-                                        <a href="#4" class="owl-thumb background-image">
-                                            <img src="assets/img/image-22.jpg" alt="">
-                                        </a>
-                                        <a href="#5" class="owl-thumb background-image">
-                                            <img src="assets/img/image-23.jpg" alt="">
-                                        </a>
-                                        <a href="#6" class="owl-thumb background-image">
-                                            <img src="assets/img/image-14.jpg" alt="">
-                                        </a>
-                                    </div>
-                                </section>
-                                <!--end Gallery Carousel-->
-                                <div class="row flex-column-reverse flex-md-row">
-
-                                    <!--============ Listing Detail =============================================================-->
-                                    <div class="col-md-8">
-
-                                        <!--Description-->
-                                        <section style="margin-bottom: 0;">
-                                        <h2>Description</h2>
-                                        <p style="white-space: pre-line;">
-                                            ${SINGLE_ROOM.description}                         
-                                        </p>
-                                        <hr>
-                                    </section>
-                                    <c:if test="${not empty f}">
-                                        <section>
-                                            <h2 style="">Features</h2>
-                                            <ul class="features-checkboxes columns-4">
-                                                <c:forEach items="${f}" var="feature">
-                                                    <c:if test="${not empty feature}">
-                                                        <li style="font-weight: bold">${feature}</li>       
-                                                            </c:if>
-                                                        </c:forEach>
-                                                </ul>
-                                            </section>
-                                        </c:if>
-                                        <!--end Description-->
-                                        <!--Details-->
-                                        <!-- <section>
-                                            <h2>Details</h2>
-                                            <dl class="columns-3">
-                                                <dt>Date Added</dt>
-                                                <dd>05.04.2017</dd>
-                                                <dt>Type</dt>
-                                                <dd>Offer</dd>
-                                                <dt>Status</dt>
-                                                <dd>Used</dd>
-                                                <dt>First Owner</dt>
-                                                <dd>Yes</dd>
-                                                <dt>Material</dt>
-                                                <dd>Wood, Leather</dd>
-                                                <dt>Color</dt>
-                                                <dd>White, Grey</dd>
-                                                <dt>Height</dt>
-                                                <dd>47cm</dd>
-                                                <dt>Width</dt>
-                                                <dd>203cm</dd>
-                                                <dt>Length</dt>
-                                                <dd>54cm</dd>
-                                            </dl>
-                                        </section> -->
-                                        <!--end Details-->
-                                        <!--Location-->
-
-                                        <!--end Features-->
-
-
-
-                                        <!--Similar Ads-->
-                                        <!--                            <section>
-                                                                        <h2>Send your request</h2>
-                                                                        <form action="tenantnotify" method="POST" class="form">
-                                                                            <input type="hidden" id="emailTenantForm" name="emailTenant" value="${SINGLE_ROOM.emailTenant}"/>
-                                                                            <input type="hidden" id="emailLandlordForm" name="emailLandlord" value="${SINGLE_ROOM.emailLandlord}"/>
-                                                                            <input type="hidden" id="roomIDForm" name="roomID" value="${SINGLE_ROOM.roomID}"/>
-                                                                            <div class="row">
-                                                                                <div class="col-md-12">
-                                                                                    <div class="form-group">
-                                                                                        <label for="subject" class="col-form-label">Subject</label>
-                                                                                        <input name="subject" type="text" class="form-control" id="subject"
-                                                                                               placeholder="Did you like a deal?">
-                                                                                    </div>
-                                                                                    end form-group
-                                                                                </div>
-                                                                                end col-md-8
-                                        
-                                                                                end col-md-4
-                                                                                <div class="col-md-12">
-                                                                                    <div class="form-group">
-                                                                                        <label for="review" class="col-form-label">Your Request</label>
-                                                                                        <textarea name="content" id="review" class="form-control" rows="6"
-                                                                                            placeholder="Good seller, I am satisfied."></textarea>
-                                                                                    </div>
-                                                                                    end form-group
-                                                                                </div>
-                                                                                end col-md-12
-                                                                            </div>
-                                                                            <div class="d-flex justify-content-between align-items-baseline">
-                                                                                <label>
-                                        
-                                                                                </label>
-                                                                                <button id="btn_submit" type="submit" class="btn btn-danger">Send request</button>
-                                                                            </div>
-                                                                            end row
-                                                                        </form>
-                                                                        end items.list.compact
-                                                                    </section>-->
-                                        <!--end Similar Ads-->
-                                    </div>
-
-                                    <!--============ End Listing Detail =========================================================-->
-                                    <!--============ Sidebar ====================================================================-->
-                                    <div class="col-md-4">
-                                        <aside class="sidebar">
-                                            <!--Author-->
-                                            <section>
-                                                <h2>Details</h2>
-                                                <dl class="columns-1">
-                                                    <dt>Date Added</dt>
-                                                    <dd>${SINGLE_ROOM.date_added}</dd>
-                                                    <dt>Type</dt>
-                                                    <dd>Offer</dd>
-                                                    <dt>Status</dt>
-                                                    <dd>Used</dd>
-                                                    <dt>First Owner</dt>
-                                                    <dd>Yes</dd>
-                                                    <dt>Material</dt>
-                                                    <dd>Wood, Leather</dd>
-                                                    <dt>Color</dt>
-                                                    <dd>White, Grey</dd>
-                                                </dl>
-                                                <!--end box-->
-                                            </section>
-                                            <section>
-                                                <h2>Người cho thuê</h2>
-                                                <div class="box">
-                                                    <div class="author">
-                                                        <div class="author-image">
-                                                            <div class="background-image">
-                                                                <img src="assets/img/author-01.jpg" alt="">
-                                                            </div>
-                                                        </div>
-                                                        <!--end author-image-->
-                                                        <div class="author-description">
-                                                            <h3>${Landlord.name}</h3>
-
-                                                            <div class="rating" data-rating="4"></div>
-                                                            <a href="seller-detail-1.html" class="text-uppercase">Show My Listings
-                                                                <span class="appendix">(12)</span>
-                                                            </a>
-                                                        </div>
-                                                        <!--end author-description-->
-                                                    </div>
-                                                    <hr>
-                                                    <dl>
-                                                        <dt>Phone</dt>
-                                                        <dd>${Landlord.phone}</dd>
-                                                        <dt>Email</dt>
-                                                        <dd>${Landlord.email}</dd>
-                                                    </dl>
-                                                    <!--end author-->            
-                                                </div>
-                                                <!--end box-->
-                                            </section>
-                                            <!--End Author-->
-                                        </aside>
-
-                                    </div>
-
-                                    <!--============ End Sidebar ================================================================-->
-                                </div>
-
+                        <section>
+                            <div class="gallery-carousel owl-carousel">
+                                <% int key = 1;%>
+                                <c:forEach items="${requestScope.ROOM_IMAGES}" var="image">
+                                    <img src="https://storage.googleapis.com/glacier-bucket/Room_Pictures/${image.roomId}_${image.picId}.PNG" alt="" data-hash="<%=key%>">
+                                    <%key++;%>
+                                </c:forEach>
                             </div>
-                            <!--end container-->
-                        </section>
-                        <!--end block-->
-                    </section>
-                    <!--end content-->
-
-                    <!--*********************************************************************************************************-->
-                    <!--************ FOOTER *************************************************************************************-->
-                    <!--*********************************************************************************************************-->
-                    <footer class="footer">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <a href="#" class="brand">
-                                        <img src="assets/img/logo.png" alt="">
+                            <div class="gallery-carousel-thumbs owl-carousel">
+                                <% int key1 = 1; %>
+                                <c:forEach items="${requestScope.ROOM_IMAGES}" var="image">
+                                    <%if (key1 == 1) {%>
+                                    <a href="#<%=key1%>" class="owl-thumb active-thumb background-image">
+                                        <img src="https://storage.googleapis.com/glacier-bucket/Room_Pictures/${image.roomId}_${image.picId}.PNG" alt="">
                                     </a>
-                                    <p>
-                                        Glacier là nền tảng kết nối người thuê nhà và các chủ trọ. Sẵn sàng sát cánh bến bạn trên mỗi hành trình mà bạn bước đi!
-                                    </p>
-                                </div>
-                                <!--end col-md-5-->
-                                <div class="col-md-3">
-                                    <h2>Navigation</h2>
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-6">
-                                            <nav>
-                                                <ul class="list-unstyled">
-                                                    <li>
-                                                        <a href="#">Home</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Listing</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Pages</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Extras</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Contact</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Submit Ad</a>
-                                                    </li>
-                                                </ul>
-                                            </nav>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6">
-                                            <nav>
-                                                <ul class="list-unstyled">
-                                                    <li>
-                                                        <a href="#">My Ads</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Sign In</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Register</a>
-                                                    </li>
-                                                </ul>
-                                            </nav>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end col-md-3-->
-                                <div class="col-md-4">
-                                    <h2>Contact</h2>
-                                    <address>
-                                        <figure>
-                                            124 Abia Martin Drive<br>
-                                            New York, NY 10011
-                                        </figure>
-                                        <br>
-                                        <strong>Email:</strong> <a href="#">hello@example.com</a>
-                                        <br>
-                                        <strong>Skype: </strong> Craigs
-                                        <br>
-                                        <br>
-                                        <a href="contact.html" class="btn btn-primary text-caps btn-framed">Contact Us</a>
-                                    </address>
-                                </div>
-                                <!--end col-md-4-->
+                                    <%key1++;%>
+                                    <%} else {%>
+                                    <a href="#<%=key1%>" class="owl-thumb background-image">
+                                        <img src="https://storage.googleapis.com/glacier-bucket/Room_Pictures/${image.roomId}_${image.picId}.PNG" alt="">
+                                    </a>
+                                    <%key1++;%>
+                                    <%}%>
+                                </c:forEach>      
                             </div>
-                            <!--end row-->
-                        </div>
-                        <div class="background">
-                            <div class="background-image original-size">
-                                <img src="assets/img/footer-background-icons.jpg" alt="">
+                        </section>
+                        <!--end Gallery Carousel-->
+                        <div class="row flex-column-reverse flex-md-row">
+
+                            <!--============ Listing Detail =============================================================-->
+                            <div class="col-md-8">
+
+                                <!--Description-->
+                                <section style="margin-bottom: 0;">
+                                <h2>Mô tả</h2>
+                                <p style="white-space: pre-line;">
+                                    ${SINGLE_ROOM.description}                         
+                                </p>
+                                <hr>
+                            </section>
+                            <c:if test="${not empty f}">
+                                <section>
+                                    <h2 style="">Phòng chúng tôi có gì</h2>
+                                    <ul class="features-checkboxes columns-4">
+                                        <c:forEach items="${f}" var="feature">
+                                            <c:if test="${not empty feature}">
+                                                <li style="font-weight: bold">${feature}</li>       
+                                                    </c:if>
+                                                </c:forEach>
+                                        </ul>
+                                    </section>
+                                </c:if>
+                                <!--end Description-->
+                                <!--Details-->
+                                <!-- <section>
+                                    <h2>Details</h2>
+                                    <dl class="columns-3">
+                                        <dt>Date Added</dt>
+                                        <dd>05.04.2017</dd>
+                                        <dt>Type</dt>
+                                        <dd>Offer</dd>
+                                        <dt>Status</dt>
+                                        <dd>Used</dd>
+                                        <dt>First Owner</dt>
+                                        <dd>Yes</dd>
+                                        <dt>Material</dt>
+                                        <dd>Wood, Leather</dd>
+                                        <dt>Color</dt>
+                                        <dd>White, Grey</dd>
+                                        <dt>Height</dt>
+                                        <dd>47cm</dd>
+                                        <dt>Width</dt>
+                                        <dd>203cm</dd>
+                                        <dt>Length</dt>
+                                        <dd>54cm</dd>
+                                    </dl>
+                                </section> -->
+                                <!--end Details-->
+                                <!--Location-->
+
+                                <!--end Features-->
+
+
+
+                                <!--Similar Ads-->
+                                <!--                            <section>
+                                                                <h2>Send your request</h2>
+                                                                <form action="tenantnotify" method="POST" class="form">
+                                                                    <input type="hidden" id="emailTenantForm" name="emailTenant" value="${SINGLE_ROOM.emailTenant}"/>
+                                                                    <input type="hidden" id="emailLandlordForm" name="emailLandlord" value="${SINGLE_ROOM.emailLandlord}"/>
+                                                                    <input type="hidden" id="roomIDForm" name="roomID" value="${SINGLE_ROOM.roomID}"/>
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <label for="subject" class="col-form-label">Subject</label>
+                                                                                <input name="subject" type="text" class="form-control" id="subject"
+                                                                                       placeholder="Did you like a deal?">
+                                                                            </div>
+                                                                            end form-group
+                                                                        </div>
+                                                                        end col-md-8
+                                
+                                                                        end col-md-4
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <label for="review" class="col-form-label">Your Request</label>
+                                                                                <textarea name="content" id="review" class="form-control" rows="6"
+                                                                                    placeholder="Good seller, I am satisfied."></textarea>
+                                                                            </div>
+                                                                            end form-group
+                                                                        </div>
+                                                                        end col-md-12
+                                                                    </div>
+                                                                    <div class="d-flex justify-content-between align-items-baseline">
+                                                                        <label>
+                                
+                                                                        </label>
+                                                                        <button id="btn_submit" type="submit" class="btn btn-danger">Send request</button>
+                                                                    </div>
+                                                                    end row
+                                                                </form>
+                                                                end items.list.compact
+                                                            </section>-->
+                                <!--end Similar Ads-->
                             </div>
-                            <!--end background-image-->
+
+                            <!--============ End Listing Detail =========================================================-->
+                            <!--============ Sidebar ====================================================================-->
+                            <div class="col-md-4">
+                                <aside class="sidebar">
+                                    <!--Author-->
+                                    <section>
+                                        <h2>Người cho thuê</h2>
+                                        <div class="box">
+                                            <div class="author">
+                                                <div class="author-image">
+                                                    <div class="background-image">
+                                                        <img src="assets/img/author-01.jpg" alt="">
+                                                    </div>
+                                                </div>
+                                                <!--end author-image-->
+                                                <div class="author-description">
+                                                    <h3>${Landlord.name}</h3>
+                                                    <a href="${pageContext.request.contextPath}/TenantViewLandlordRoomList?email=${Landlord.email}" class="text-uppercase">XEM DANH SÁCH PHÒNG
+                                                    </a>
+                                                </div>
+                                                <!--end author-description-->
+                                            </div>
+                                            <hr>
+                                            <dl>
+                                                <dt>Số điện thoại</dt>
+                                                <dd>${Landlord.phone}</dd>
+                                                <dt>Email</dt>
+                                                <dd>${Landlord.email}</dd>
+                                            </dl>
+                                            <!--end author-->            
+                                        </div>
+                                        <!--end box-->
+                                    </section>
+
+                                    <!--End Author-->
+
+                                </aside>
+
+                            </div>
+
+                            <!--============ End Sidebar ================================================================-->
                         </div>
-                        <!--end background-->
-                    </footer>
-                    <!--end footer-->
+
+
+                        <!--end container-->
+                    </section>
+                    <!--end block-->
+                
+            </div>
+            <!--end content-->
+
+            <!--*********************************************************************************************************-->
+            <!--************ FOOTER *************************************************************************************-->
+            <!--*********************************************************************************************************-->
+            <footer class="footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <a href="#" class="brand">
+                                <img src="assets/img/logo.png" alt="">
+                            </a>
+                            <p>
+                                Glacier là nền tảng kết nối người thuê nhà và các chủ trọ. Sẵn sàng sát cánh bến bạn trên mỗi hành trình mà bạn bước đi!
+                            </p>
+                        </div>
+                        <!--end col-md-5-->
+                        <div class="col-md-3">
+                            <h2>Navigation</h2>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6">
+                                    <nav>
+                                        <ul class="list-unstyled">
+                                            <li>
+                                                <a href="#">Home</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Listing</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Pages</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Extras</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Contact</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Submit Ad</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <nav>
+                                        <ul class="list-unstyled">
+                                            <li>
+                                                <a href="#">My Ads</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Sign In</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Register</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end col-md-3-->
+                        <div class="col-md-4">
+                            <h2>Contact</h2>
+                            <address>
+                                <figure>
+                                    124 Abia Martin Drive<br>
+                                    New York, NY 10011
+                                </figure>
+                                <br>
+                                <strong>Email:</strong> <a href="#">hello@example.com</a>
+                                <br>
+                                <strong>Skype: </strong> Craigs
+                                <br>
+                                <br>
+                                <a href="contact.html" class="btn btn-primary text-caps btn-framed">Contact Us</a>
+                            </address>
+                        </div>
+                        <!--end col-md-4-->
+                    </div>
+                    <!--end row-->
                 </div>
-                <!--end page-->
+                <div class="background">
+                    <div class="background-image original-size">
+                        <img src="assets/img/footer-background-icons.jpg" alt="">
+                    </div>
+                    <!--end background-image-->
+                </div>
+                <!--end background-->
+            </footer>
+            <!--end footer-->
+        </div>
+        <!--end page-->
 
-                <script src="assets/js/jquery-3.3.1.min.js"></script>
-                <script type="text/javascript" src="assets/js/popper.min.js"></script>
-                <script type="text/javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>
-                <script type="text/javascript"
-                src="http://maps.google.com/maps/api/js?key=AIzaSyBEDfNcQRmKQEyulDN8nGWjLYPm8s4YB58&libraries=places"></script>
-                <script src="assets/js/selectize.min.js"></script>
-                <script src="assets/js/icheck.min.js"></script>
-                <script src="assets/js/owl.carousel.min.js"></script>
-                <script src="assets/js/jquery.validate.min.js"></script>
-                <script src="assets/js/custom.js"></script>
-                <script type="text/javascript">
+        <script src="assets/js/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="assets/js/popper.min.js"></script>
+        <script type="text/javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript"
+        src="http://maps.google.com/maps/api/js?key=AIzaSyBEDfNcQRmKQEyulDN8nGWjLYPm8s4YB58&libraries=places"></script>
+        <script src="assets/js/selectize.min.js"></script>
+        <script src="assets/js/icheck.min.js"></script>
+        <script src="assets/js/owl.carousel.min.js"></script>
+        <script src="assets/js/jquery.validate.min.js"></script>
+        <script src="assets/js/custom.js"></script>
+        <script type="text/javascript">
 
-                    //            $(document).ready(function () {
-                    //                $('#btn_submit').click(function () {
-                    //
-                    //                    var emailTenant = $('#emailTenantForm').val();
-                    //                    var emailLandlord = $('#emailLandlordForm').val();
-                    //                    var roomID = $('#roomID').val();
-                    //                    var subject = $('#subject').val();
-                    //                    var review = $('#review').val();
-                    //
-                    //                        $.ajax({
-                    //                            url: 'tenantnotify',
-                    //                            type: 'POST',
-                    //                            data: {emailTenant: emailTenant, emailLandlord: emailLandlord,
-                    //                                roomID: roomID, subject: subject, review: review},
-                    //                            success: function (response)
-                    //                            {
-                    //                                alert("success");
-                    //                                $('#formID')[0].reset();
-                    //                            }
-                    //                        });
-                    //                    
-                    //
-                    //                });
-                    //            });
-                </script>
-            </body>
+            //            $(document).ready(function () {
+            //                $('#btn_submit').click(function () {
+            //
+            //                    var emailTenant = $('#emailTenantForm').val();
+            //                    var emailLandlord = $('#emailLandlordForm').val();
+            //                    var roomID = $('#roomID').val();
+            //                    var subject = $('#subject').val();
+            //                    var review = $('#review').val();
+            //
+            //                        $.ajax({
+            //                            url: 'tenantnotify',
+            //                            type: 'POST',
+            //                            data: {emailTenant: emailTenant, emailLandlord: emailLandlord,
+            //                                roomID: roomID, subject: subject, review: review},
+            //                            success: function (response)
+            //                            {
+            //                                alert("success");
+            //                                $('#formID')[0].reset();
+            //                            }
+            //                        });
+            //                    
+            //
+            //                });
+            //            });
+        </script>
+    </body>
 
-        </html>
+</html>

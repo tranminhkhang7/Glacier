@@ -93,6 +93,7 @@
             </div>
 
             <section class="content">
+
                 <section class="block">
                     <div class="container">
                         <div class="row">
@@ -101,6 +102,9 @@
                                     <h1>Không có khách nào cần được duyệt</h1>
                                 </div>
                             </c:if>
+                            <div class="col-md-12 my-5" style="text-align: center">
+                                <h1 style="color:#ff0000">ĐỂ XÁC NHẬN VUI LÒNG QUÉT MÃ QR CỦA NGƯỜI THUÊ</h1>
+                            </div>
                             <!--                            <div  id="container">
                                                             <a id="btn-scan-qr">
                                                                 <img width="100" src="https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/07/1499401426qr_icon.svg">
@@ -126,21 +130,17 @@
                                             <div class="author">
                                                 <div class="author-image">
                                                     <div class="background-image">
-                                                        <img src="assets/img/author-09.jpg" alt="">
+                                                        <img src="${room.profilePicture}" alt="">
                                                     </div>
                                                 </div>
                                                 <!--end author-image-->
                                                 <div class="author-description">
                                                     <div class="section-title">
-                                                        <a href="<!-- Link tenant profile -->"><h2>Tên tenant</h2><span style="font-size: 12px">${room.emailTenant}</span></a>
+                                                        <a href="<!-- Link tenant profile -->"><h2>${room.tenantName}</h2><span style="font-size: 12px">${room.emailTenant}</span></a>
                                                     </div>
-
                                                     <div class="modal-footer">
                                                         <button data-href="./accept?action=decline&roomId=${room.roomID}" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">
                                                             Hủy cọc
-                                                        </button>
-                                                        <button data-href="./accept?action=accept&roomId=${room.roomID}" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                                                            Xác nhận thuê nhà
                                                         </button>
                                                     </div>
                                                 </div>

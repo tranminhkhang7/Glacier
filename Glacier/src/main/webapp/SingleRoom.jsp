@@ -194,7 +194,16 @@
                                 </div>
                             </div>
                             <div class="float-left float-xs-none" style="width: 75%">
-                                <div style="font-size: 18px;color:#ff0000" class="active"><i style="" class="fa fa-star" aria-hidden="true"></i><i style="" class="fa fa-star" aria-hidden="true"></i><i style="" class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i></div>
+                                <div style="font-size: 18px;color:#ff0000" class="active">
+                                    <span>
+                                        <c:forEach begin="1" end="${room.avgRating}" step="1">
+                                            <i class="fa fa-star"></i>&nbsp;
+                                        </c:forEach>
+                                        <c:forEach begin="1" end="${5-room.avgRating+1}" step="1">
+                                            <i class="fa fa-star-o"></i>&nbsp;
+                                        </c:forEach>
+                                    </span>
+                                </div>
 
                                 <h4 class="location">
                                     <a href="#">${room.address}</a>
@@ -252,32 +261,27 @@
                         <!--Gallery Carousel-->
                         <section>
                             <div class="gallery-carousel owl-carousel">
-                                <img src="assets/img/image-20.jpg" alt="" data-hash="1">
-                                <img src="assets/img/image-01.jpg" alt="" data-hash="2">
-                                <img src="assets/img/image-21.jpg" alt="" data-hash="3">
-                                <img src="assets/img/image-22.jpg" alt="" data-hash="4">
-                                <img src="assets/img/image-23.jpg" alt="" data-hash="5">
-                                <img src="assets/img/image-14.jpg" alt="" data-hash="6">
+                                <% int key = 1;%>
+                                <c:forEach items="${requestScope.ROOM_IMAGES}" var="image">
+                                    <img src="https://storage.googleapis.com/glacier-bucket/Room_Pictures/${image.roomId}_${image.picId}.PNG" alt="" data-hash="<%=key%>">
+                                    <%key++;%>
+                                </c:forEach>
                             </div>
                             <div class="gallery-carousel-thumbs owl-carousel">
-                                <a href="#1" class="owl-thumb active-thumb background-image">
-                                    <img src="assets/img/image-20.jpg" alt="">
-                                </a>
-                                <a href="#2" class="owl-thumb background-image">
-                                    <img src="assets/img/image-01.jpg" alt="">
-                                </a>
-                                <a href="#3" class="owl-thumb background-image">
-                                    <img src="assets/img/image-21.jpg" alt="">
-                                </a>
-                                <a href="#4" class="owl-thumb background-image">
-                                    <img src="assets/img/image-22.jpg" alt="">
-                                </a>
-                                <a href="#5" class="owl-thumb background-image">
-                                    <img src="assets/img/image-23.jpg" alt="">
-                                </a>
-                                <a href="#6" class="owl-thumb background-image">
-                                    <img src="assets/img/image-14.jpg" alt="">
-                                </a>
+                                <% int key1 = 1; %>
+                                <c:forEach items="${requestScope.ROOM_IMAGES}" var="image">
+                                    <%if (key1 == 1) {%>
+                                    <a href="#<%=key1%>" class="owl-thumb active-thumb background-image">
+                                        <img src="https://storage.googleapis.com/glacier-bucket/Room_Pictures/${image.roomId}_${image.picId}.PNG" alt="">
+                                    </a>
+                                    <%key1++;%>
+                                    <%} else {%>
+                                    <a href="#<%=key1%>" class="owl-thumb background-image">
+                                        <img src="https://storage.googleapis.com/glacier-bucket/Room_Pictures/${image.roomId}_${image.picId}.PNG" alt="">
+                                    </a>
+                                    <%key1++;%>
+                                    <%}%>
+                                </c:forEach>      
                             </div>
                         </section>
                         <!--end Gallery Carousel-->
@@ -490,7 +494,7 @@
                                             <div class="author">
                                                 <div class="author-image">
                                                     <div class="background-image">
-                                                        <img src="assets/img/author-01.jpg" alt="">
+                                                        <img src="${Landlord.profilePicture}" alt="">
                                                     </div>
                                                 </div>
                                                 <!--end author-image-->
@@ -571,7 +575,7 @@
                                                 </figure>
                                                 <figure>
                                                     <a href="#">
-                                                        <i class="fa fa-user"></i>${date_added.emailLandlord}
+                                                        <i class="fa fa-user"></i>${Landlord.name}
                                                     </a>
                                                 </figure>
                                             </div>

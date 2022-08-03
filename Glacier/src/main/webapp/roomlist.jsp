@@ -279,8 +279,8 @@
                                                     </c:otherwise>
                                                 </c:choose>
                                             </h3>
-                                            <a href="single-listing-1.html" class="image-wrapper background-image">
-                                                <img src="${pageContext.request.contextPath}/assets/img/image-01.jpg" alt="">
+                                            <a href="" class="image-wrapper background-image">
+                                                <img src="https://storage.googleapis.com/glacier-bucket/Room_Pictures/${room.roomID}_1.PNG" alt="">
                                             </a>
                                         </div>
                                         <!--end image-->

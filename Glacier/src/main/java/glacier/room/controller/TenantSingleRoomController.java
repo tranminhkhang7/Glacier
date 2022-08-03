@@ -10,6 +10,7 @@ import glacier.bill.model.Bill;
 import glacier.room.model.Room;
 import glacier.room.model.RoomDAO;
 import glacier.user.model.Account;
+import glacier.user.model.ImageDTO;
 import glacier.user.model.Landlord;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -44,30 +45,33 @@ public class TenantSingleRoomController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-        try{
-        String id = request.getParameter("id");
-        HttpSession ss = request.getSession(false);
-        Account acc = (Account) ss.getAttribute("LOGIN_USER");
-        RoomManager manager = new RoomManager();
-        RoomDAO dao = new RoomDAO();
-        
-        Room room = manager.getTenantRentedRoom(Integer.parseInt(id));
-        if(acc.getEmail().equals(room.getEmailTenant().trim())){
-            ArrayList<String> f = dao.getRoomFeature(Integer.parseInt(id));
-            Landlord l = manager.getLandLordInfoInSingleRoom(Integer.parseInt(id));
+        try {
+            String id = request.getParameter("id");
+            HttpSession ss = request.getSession(false);
+            Account acc = (Account) ss.getAttribute("LOGIN_USER");
+            RoomManager manager = new RoomManager();
+            RoomDAO dao = new RoomDAO();
+
+            Room room = manager.getTenantRentedRoom(Integer.parseInt(id));
+            if (acc.getEmail().equals(room.getEmailTenant().trim())) {
+                ArrayList<String> f = dao.getRoomFeature(Integer.parseInt(id));
+                Landlord l = manager.getLandLordInfoInSingleRoom(Integer.parseInt(id));
+                //GET ROOM IMAGES BY ROOMID
+                List<ImageDTO> imageList = dao.getRoomImages(Integer.parseInt(id));
 //            List<Bill> listOfBill = manager.getBillList(Integer.parseInt(id));
 //            request.setAttribute("BILL_LIST", listOfBill);
-            request.setAttribute("f", f);
-            request.setAttribute("Landlord", l);
-            request.setAttribute("SINGLE_ROOM", room);
-            request.getRequestDispatcher("tenant-single-rented.jsp").forward(request, response);
-            return;
-        }else{
-            response.sendRedirect("error.jsp");
-            return;
-        }
-        }catch(Exception e){
-            log("Error at TenantSingleRoomController: "+e.toString());
+                request.setAttribute("f", f);
+                request.setAttribute("Landlord", l);
+                request.setAttribute("SINGLE_ROOM", room);
+                request.setAttribute("ROOM_IMAGES", imageList);
+                request.getRequestDispatcher("tenant-single-rented.jsp").forward(request, response);
+                return;
+            } else {
+                response.sendRedirect("error.jsp");
+                return;
+            }
+        } catch (Exception e) {
+            log("Error at TenantSingleRoomController: " + e.toString());
         }
         response.sendRedirect("error.jsp");
     }

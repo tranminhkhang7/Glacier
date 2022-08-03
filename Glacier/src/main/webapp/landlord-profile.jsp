@@ -209,27 +209,27 @@
                                             <h2>Thông tin cá nhân</h2>
                                             <section>
                                                 <div class="row">
-                                                    
+
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label for="name" class="col-form-label required">Tên của bạn</label>
                                                             <input name="newName" type="text" class="form-control" id="name" placeholder="Your Name" value="${fn:trim(detail.name)}" required>
                                                         </div>
                                                         <!--end form-group-->
-                                                    
-                                                    <!--end col-md-8-->
-                                                </div>
-                                                <!--end row-->
-                                                <!-- <div class="form-group">
-                                                    <label for="location" class="col-form-label required">Your Location</label>
-                                                    <input name="location" type="text" class="form-control" id="input-location2" placeholder="Your Location" value="Manhattan, NY" required>
-                                                </div> -->
-                                                <!--end form-group-->
-                                                <!-- <div class="form-group">
-                                                    <label for="about" class="col-form-label">More About You</label>
-                                                    <textarea name="about" id="about" class="form-control" rows="4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec tincidunt arcu, sit amet fermentum sem. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</textarea>
-                                                </div> -->
-                                                <!--end form-group-->
+
+                                                        <!--end col-md-8-->
+                                                    </div>
+                                                    <!--end row-->
+                                                    <!-- <div class="form-group">
+                                                        <label for="location" class="col-form-label required">Your Location</label>
+                                                        <input name="location" type="text" class="form-control" id="input-location2" placeholder="Your Location" value="Manhattan, NY" required>
+                                                    </div> -->
+                                                    <!--end form-group-->
+                                                    <!-- <div class="form-group">
+                                                        <label for="about" class="col-form-label">More About You</label>
+                                                        <textarea name="about" id="about" class="form-control" rows="4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec tincidunt arcu, sit amet fermentum sem. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</textarea>
+                                                    </div> -->
+                                                    <!--end form-group-->
                                             </section>
 
                                             <section>
@@ -267,21 +267,23 @@
                                 </form>
 
                                 <!--end col-md-8-->
+                                <!--end col-md-8-->
                                 <div class="col-md-4">
                                     <div class="profile-image">
                                         <div class="image background-image">
-                                            <img src="assets/img/author-09.jpg" alt="">
+                                            <img src="${detail.profilePicture}" alt="">
                                         </div>
-                                        <form action="">
+                                        <form action="./avatar" enctype="multipart/form-data" method="post">
                                             <div class="single-file-input">
-                                                <input type="file" id="user_image" name="user_image">
+                                                <input required type="file" id="user_image" name="user_image">
                                                 <div class="btn btn-framed btn-primary small">Cập nhật ảnh</div>
                                             </div>
                                             <div class="single-file-input">
                                                 <input type="submit" class="btn btn-primary small" value="Lưu ảnh"/>
                                             </div>
+                                        </form>
                                     </div>
-                                    </form>
+
                                 </div>
 
                                 <!--end col-md-3-->

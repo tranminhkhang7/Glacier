@@ -26,7 +26,9 @@ public class Room {
     private String detailAddress;
     private String qrStatus;
     private String qrImage;
-
+    
+    private String profilePicture;
+    private String tenantName;
     public Room() {
     }
 
@@ -153,6 +155,17 @@ public class Room {
         this.price = price;
         this.emailTenant = emailTenant;
     }
+    
+        //Landlord waiting room display
+    public Room(int roomID, String name, String address, int price, String emailTenant, String profilePicture, String tenantName) {
+        this.roomID = roomID;
+        this.name = name;
+        this.address = address;
+        this.price = price;
+        this.emailTenant = emailTenant;
+        this.profilePicture = profilePicture;
+        this.tenantName = tenantName;
+    }
        
 
     //CHECK ASSIGN ROOM
@@ -163,6 +176,22 @@ public class Room {
         this.rentStartDate = rentStartDate;
         this.qrStatus = qrStatus;
         this.status = status;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
+    public String getTenantName() {
+        return tenantName;
+    }
+
+    public void setTenantName(String tenantName) {
+        this.tenantName = tenantName;
     }
 
     public int getNumberRating() {
@@ -303,8 +332,10 @@ public class Room {
 
     @Override
     public String toString() {
-        return "Room{" + "roomID=" + roomID + ", name=" + name + ", description=" + description + ", address=" + address + ", emailTenant=" + emailTenant + ", emailLandlord=" + emailLandlord + ", status=" + status + ", price=" + price + ", deposit=" + deposit + ", avgRating=" + avgRating + ", numberRating=" + numberRating + ", date_added=" + date_added + ", rentStartDate=" + rentStartDate + ", area=" + area + ", detailAddress=" + detailAddress + ", qrStatus=" + qrStatus + ", qrImage=" + qrImage + '}';
+        return "Room{" + "roomID=" + roomID + ", name=" + name + ", description=" + description + ", address=" + address + ", emailTenant=" + emailTenant + ", emailLandlord=" + emailLandlord + ", status=" + status + ", price=" + price + ", deposit=" + deposit + ", avgRating=" + avgRating + ", numberRating=" + numberRating + ", date_added=" + date_added + ", rentStartDate=" + rentStartDate + ", area=" + area + ", detailAddress=" + detailAddress + ", qrStatus=" + qrStatus + ", qrImage=" + qrImage + ", profilePicture=" + profilePicture + ", tenantName=" + tenantName + '}';
     }
+
+
     
     
 

@@ -126,19 +126,7 @@
 
                             <div class="col-md-9 col-sm-12"> 
                                 <!--============ Section Title===================================================================-->
-                                <div class="section-title clearfix">
-                                    <div class="float-right float-xs-none">
-                                        <label class="mr-3 align-text-bottom">Sắp xếp theo </label>
-                                        <select name="sorting" id="sorting" class="small width-200px" data-placeholder="Default Sorting" >
-                                            <option value="">Default Sorting</option>
-                                            <option value="1">Newest First</option>
-                                            <option value="2">Oldest First</option>
-                                            <option value="3">Lowest Price First</option>
-                                            <option value="4">Highest Price First</option>
-                                        </select>
 
-                                    </div>
-                                </div>
                                 <!--============ Items ==========================================================================-->
                                 <div class="items grid grid-xl-3-items grid-lg-3-items grid-md-3-items">
 
@@ -158,7 +146,7 @@
                                                         </span>
                                                     </h3>
                                                     <a href="${pageContext.request.contextPath}/SingleRoomView?id=${room.roomID}" class="image-wrapper background-image">
-                                                        <img src="${pageContext.request.contextPath}/assets/img/image-04.jpg" alt="">
+                                                        <img src="https://storage.googleapis.com/glacier-bucket/Room_Pictures/${room.roomID}_1.PNG" alt="">
                                                     </a>
 
                                                 </div>

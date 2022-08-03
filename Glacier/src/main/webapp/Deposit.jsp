@@ -60,7 +60,7 @@
                         <section>
                             <div class="row flex-column flex-md-row">
                                 <div style="width: 60%;margin-left: auto;margin-right: auto;margin-bottom: auto" class="col-md-8">
-                                    <img src="assets/img/image-20.jpg" alt="" width="100%">
+                                    <img src="https://storage.googleapis.com/glacier-bucket/Room_Pictures/${room.roomID}_1.PNG" alt="" width="100%">
                                     <!--                                            <div class="gallery-carousel owl-carousel" >
                                                                                    
                                                                                     <img src="assets/img/image-01.jpg" alt="" data-hash="2">
@@ -97,7 +97,7 @@
                                             <div class="author">
                                                 <div class="author-image">
                                                     <div class="background-image">
-                                                        <img src="assets/img/author-01.jpg" alt=""> <!-- pictur not yet available -->
+                                                        <img src="${landlord.profilePicture}" alt=""> <!-- pictur not yet available -->
                                                     </div>
                                                 </div>
                                                 <!--end author-image-->
@@ -113,7 +113,7 @@
                                             </div>
                                             <hr>
                                             <dl>
-                                                <dt>Phone</dt>
+                                                <dt>Điện thoại</dt>
                                                 <dd>${landlord.phone}</dd>
                                                 <dt>Email</dt>
                                                 <dd>${landlord.email}</dd>
@@ -123,8 +123,6 @@
                                         <!--end box-->
                                     </section>
                                     <dl style="font-size: 17px">
-                                        <dt>Loại</dt>
-                                        <dd>Offer</dd>
                                         <dt>Trạng thái</dt>
                                         <dd>${room.status}</dd>
                                         <dt>Địa chỉ</dt>

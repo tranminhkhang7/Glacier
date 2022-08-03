@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri= "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <!doctype html>
 <html lang="en">
@@ -88,7 +89,7 @@
 
     <body style="font-family: 'Varela Round', sans-serif;">
 
-        <div class="popup" id="billForm" style="top: 40%">
+        <div class="popup" id="billForm" style="top: 50%">
             <h2>Hóa đơn cho người thuê</h2>
             <form id="bill-form" class="form form-submit" action="CreateBillController">
                 <input name="id" type="hidden" value="${id}">
@@ -101,7 +102,8 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <input readonly disabled id="home" name="amount" type="text" value="" class="form-control home"
+                            <fmt:parseNumber var = "deposit_int" integerOnly = "true" type = "number" value = "${deposit}" />
+                            <input readonly disabled id="home" name="amount" type="text" value="${deposit_int}" class="form-control home"
                                    placeholder="Số Tiền *" autocomplete="off" required>
                         </div>
                         <div class="form-group">

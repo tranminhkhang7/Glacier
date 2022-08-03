@@ -48,7 +48,7 @@
                         <br>
                         <strong>Email:</strong> <a href="#">glacier.hostel@gmail.com</a>
                         <br>
-                        <strong>Phone: </strong>  +1 123 456 789
+                        <strong>Phone: </strong>  +84 123 456 789
                         <br>
                         <br>
                         <a href="contact.html" class="btn btn-primary text-caps btn-framed">LIÊN HỆ</a>

@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="en">
@@ -63,15 +64,15 @@
 
             <section class="content center">
                 <section class="block">
-                    <h1>Có vấn đề gì đó rồi... </h1>
+                    <h1>Có vấn đề gì đó rồi... </h1>                    
                     <h2 style="color: red">${error}</h2>
-                    <c:if test="${LOGIN_USER.role=='admin'}">
+                    <c:if test=" ${fn:trim(LOGIN_USER.role) eq 'admin'}">
                         <a href="./manage" class="btn btn-danger btn-framed"> Quay về Trang chủ! </a>
                     </c:if>
-                    <c:if test="${LOGIN_USER.role=='tenant'}">
+                    <c:if test=" ${(fn:trim(LOGIN_USER.role) eq 'tenant')} ">
                         <a href="./home" class="btn btn-danger btn-framed"> Quay về Trang chủ! </a>
                     </c:if>
-                    <c:if test="${LOGIN_USER.role=='landlord'}">
+                    <c:if test="${fn:trim(LOGIN_USER.role) eq 'landlord'}">
                         <a href="./roomlist" class="btn btn-danger btn-framed"> Quay về Trang chủ! </a>
                     </c:if>
                 </section>

@@ -323,7 +323,7 @@
 
                                                     </h3>
                                                     <a href="single-listing-1.html" class="image-wrapper background-image">
-                                                        <img src="assets/img/image-02.jpg" alt="">
+                                                        <img src="https://storage.googleapis.com/glacier-bucket/Room_Pictures/${room.roomID}_1.PNG" alt="">
                                                     </a>
                                                 </div>
                                                 <!--end image-->

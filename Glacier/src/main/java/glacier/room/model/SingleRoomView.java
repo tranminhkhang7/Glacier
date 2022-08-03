@@ -10,6 +10,7 @@ import glacier.room.dbmanager.CommentManager;
 import glacier.room.dbmanager.FavouriteManager;
 import glacier.room.dbmanager.RoomManager;
 import glacier.user.model.Account;
+import glacier.user.model.ImageDTO;
 import glacier.user.model.Landlord;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -68,6 +69,12 @@ public class SingleRoomView extends HttpServlet {
                 // GET ROOM
                 RoomDAO dao = new RoomDAO();
                 Room room = dao.getRoomById(id);
+                if(!room.getStatus().trim().equalsIgnoreCase("available")){
+                url = ERROR;
+                request.setAttribute("errCode", 1);
+                request.setAttribute("ERROR", "PHÒNG KHÔNG THỂ XEM");
+                return;
+                }
                 ArrayList<String> ImgList = dao.getRoomImgById(id);
 
                 //GET ROOM FEATURE
@@ -113,9 +120,12 @@ public class SingleRoomView extends HttpServlet {
                 for (Integer roomId : roomMapSorted.keySet()) {
                     roomsByFeature.add(dao.getRoomById(roomId));
                 }
+                //GET ROOM IMAGES BY ROOMID
+                List<ImageDTO> imageList = dao.getRoomImages(id);
                 //FINSIH
                 url = SUCCESS;
                 request.setAttribute("ROOM_BY_FEATURE", roomsByFeature);
+                request.setAttribute("ROOM_IMAGES", imageList);
                 request.setAttribute("room", room);
                 request.setAttribute("f", f);
                 request.setAttribute("ImgList", ImgList);

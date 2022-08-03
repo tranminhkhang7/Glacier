@@ -374,7 +374,7 @@ public class LandlordManager {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT [roomID], r.[name], r.[emailTenant], r.[price], r.[address], t.[name] "
+                String sql = "SELECT [roomID], r.[name], r.[emailTenant], r.[price], r.[address], t.[name], t.[profile_picture] "
                         + " FROM [Room] r join [Tenant] t on r.[emailTenant] = t.[email] "
                         + " WHERE emailLandlord=? AND r.[status]='pending' "
                         + " ORDER BY [roomID] "
@@ -389,8 +389,9 @@ public class LandlordManager {
                     int price = rs.getInt("price");
                     String address = rs.getString("address").trim();
                     String emailTenant = rs.getString("emailTenant");
-                    
-                    list.add(new Room(roomId, name, address, price, emailTenant));
+                    String profilePicture = rs.getString("profile_picture");
+                    String tenantName = rs.getString(6);
+                    list.add(new Room(roomId, name, address, price, emailTenant, profilePicture, tenantName));
 
                 }
             }

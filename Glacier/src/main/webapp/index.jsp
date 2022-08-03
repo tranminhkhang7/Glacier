@@ -237,14 +237,14 @@
                                                     <a href="${pageContext.request.contextPath}/SingleRoomView?id=${room.roomID}" class="title">${room.name}</a>                                              
                                                 </h3>
                                                 <a href="${pageContext.request.contextPath}/SingleRoomView?id=${room.roomID}" class="image-wrapper background-image">
-                                                    <img src="assets/img/image-01.jpg" alt="">
+                                                    <img src="https://storage.googleapis.com/glacier-bucket/Room_Pictures/${room.roomID}_1.PNG" alt="">
                                                 </a>
                                             </div>
                                             <!--end image-->
                                             <h4 class="location">
                                                 <a href="#">${room.address}</a>
                                             </h4>
-                                            <div class="price">${room.price}</div>
+                                            <div class="price">${room.price}đ</div>
                                             <div class="meta">
                                                 <figure>
                                                     <i class="fa fa-calendar-o"></i>${room.date_added}
@@ -284,14 +284,14 @@
                                                     <a href="${pageContext.request.contextPath}/SingleRoomView?id=${room.roomID}" class="title">${room.name}</a>                                              
                                                 </h3>
                                                 <a href="${pageContext.request.contextPath}/SingleRoomView?id=${room.roomID}" class="image-wrapper background-image">
-                                                    <img src="assets/img/image-01.jpg" alt="">
+                                                    <img src="https://storage.googleapis.com/glacier-bucket/Room_Pictures/${room.roomID}_1.PNG" alt="">
                                                 </a>
                                             </div>
                                             <!--end image-->
                                             <h4 class="location">
                                                 <a href="#">${room.address}</a>
                                             </h4>
-                                            <div class="price">${room.price}</div>
+                                            <div class="price">${room.price}đ</div>
                                             <div class="meta">
                                                 <figure>
                                                     <i class="fa fa-calendar-o"></i>${room.date_added}
@@ -339,7 +339,28 @@
         <script src="${pageContext.request.contextPath}/assets/js/icheck.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/jquery.validate.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/custom.js"></script>
+                <script>
+            for (let i = 0; i < document.getElementsByClassName("price").length; i++) {
 
+                let priceText = document.getElementsByClassName("price")[i].textContent.trim();
+
+                let textReverse = priceText.split("").reverse().join("").trim();
+
+                var j = 1;
+                var count = 0;
+                while (j < textReverse.length) {
+                    count++;
+                    if (count > 3) {
+                        textReverse = textReverse.slice(0, j) + "." + textReverse.slice(j);
+                        count = 0;
+                    }
+                    j++;
+                }
+
+                let finalPrice = textReverse.split("").reverse().join("");
+                document.getElementsByClassName("price")[i].innerHTML = finalPrice;
+            }
+        </script>
     </body>
 
 </html>
