@@ -140,9 +140,7 @@
                                 <h2>Ảnh</h2>
                                 <div class="file-upload-previews"></div>
                                 <div class="file-upload">
-
                                     <input type="file" name="files[]" class="file-upload-input with-preview ignore" multiple title="Nhấp để chọn ảnh" maxlength="5" accept="jpg|png">
-
                                     <span><i class="fa fa-plus-circle"></i>Chọn hoặc kéo ảnh vào đây</span>
                                 </div>
                             </section>

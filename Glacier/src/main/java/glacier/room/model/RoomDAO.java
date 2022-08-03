@@ -139,16 +139,18 @@ public class RoomDAO {
         }
     }
     
-    public int getImageCount(int roomID){
-       int count=0;
+    public int[] getImageCount(int roomID){
+       int count[] = new int[5];
+       int i=0;
        try{
-            String sql="  select count(*) from ImagesRoom where roomID=?";
+            String sql="  select roomID, picID from ImagesRoom where roomID=?";
             Connection con = DBUtils.getConnection();
             PreparedStatement st = con.prepareStatement(sql);
             st.setInt(1, roomID);
             ResultSet rs = st.executeQuery();
             while(rs.next()){
-                count=rs.getInt(1);
+                count[i]=rs.getInt("picID");
+                i++;
             }
         }
         catch(Exception e){

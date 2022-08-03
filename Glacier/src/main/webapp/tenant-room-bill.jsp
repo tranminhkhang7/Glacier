@@ -220,7 +220,7 @@
                                                                                 <strong class="price priceStyle">${detail.amount}</strong>
                                                                             </div>
                                                                             <div class="col-md-6">
-                                                                                <strong>Nội dung tiền: ${detail.description}</strong><br>
+                                                                                <strong>Lời nhắn: ${detail.description}</strong><br>
                                                                             </div>
                                                                         </div>
                                                                     </c:if>
@@ -241,7 +241,7 @@
                                                         <div class='row'>
                                                             <div class="col-md-9">
 
-                                                                <h3> Hóa đơn#${unpaidBill.id} </h3>
+                                                                <h3> Hóa đơn #${paidBill.id} </h3>
                                                                 <strong> Thời gian tạo: <fmt:formatDate type = "both" dateStyle = "short" timeStyle = "short" value = "${paidBill.time}"/></strong><br><br>                                                             
                                                                 <c:forEach items="${requestScope.BILL_DETAILS}" var="detail" >
                                                                     <c:if test="${detail.billID  eq paidBill.id}">
@@ -251,7 +251,7 @@
                                                                                 <strong class="price priceStyle">${detail.amount}</strong>
                                                                             </div>
                                                                             <div class="col-md-6">
-                                                                                <strong>Nội dung tiền: ${detail.description}</strong><br>
+                                                                                <strong>Lời nhắn: ${detail.description}</strong><br>
                                                                             </div>
                                                                         </div>
                                                                     </c:if>

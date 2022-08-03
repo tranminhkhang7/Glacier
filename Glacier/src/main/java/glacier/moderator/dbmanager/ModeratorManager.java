@@ -527,7 +527,9 @@ public class ModeratorManager {
         String sql = "SELECT roomID, r.name, address, date_added, phone, emailLandlord "
                 + "FROM Room r JOIN Landlord l ON r.emailLandlord = l.email "
                 + "WHERE r.status LIKE '%verifying%' "
+
                 + "ORDER BY date_added  desc "
+
                 + "OFFSET " + (index - 1) * 10 + " ROWS FETCH NEXT 10 ROWS ONLY";
         List<VerifyingRoom> list = new ArrayList<>();
         Connection conn = null;
