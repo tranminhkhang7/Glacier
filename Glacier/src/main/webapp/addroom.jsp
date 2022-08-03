@@ -70,7 +70,7 @@
                                     <a href="register.html" class="link"><strong>Register</strong></a></p>
                             </div>
                         </section> -->
-                        <form class="form form-submit " enctype="multipart/form-data" action="${pageContext.request.contextPath}/addroom" method="POST">
+                        <form class="form form-submit" enctype="multipart/form-data" action="${pageContext.request.contextPath}/addroom" method="POST">
                             <section>
                                 <h2>Thông tin cơ bản</h2>
                                 <div class="row">
