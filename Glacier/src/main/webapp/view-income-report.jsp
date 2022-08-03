@@ -77,14 +77,14 @@
                                     <!--<a class="nav-link icon" href="my-ads.html">
                                     <i class="fa fa-heart"></i>My Rooms Listing
                                     </a>-->
-                                    <a class="nav-link icon" href="bookmarks.html">
-                                        <i class="fa fa-star"></i>Phòng yêu thích
+                                    <a class="nav-link icon" href="rooms">
+                                        <i class="fa fa-heart"></i>Phòng của tôi
+                                    </a>
+                                    <a class="nav-link icon" href="IncomeReportController?room=all&time=all">
+                                        <i class="fa fa-bar-chart"></i>Thống kê
                                     </a>
                                     <a class="nav-link icon" href="changepassword">
                                         <i class="fa fa-recycle"></i>Thay đổi mật khẩu
-                                    </a>
-                                    <a class="nav-link icon" href="IncomeReportController?room=all&time=all">
-                                        <i class="fa fa-bar-chart"></i>Biểu đồ thống kê
                                     </a>
                                 </nav>
                             </div>
@@ -107,7 +107,7 @@
                                                             String email = (String) request.getAttribute("EMAIL");
                                                         %>
                                                         <td style="width: 50%; padding: 5px"><h2><%= dao.getRentingTimes(email)%></h2></td>
-                                                        <td style="width: 50%; padding: 5px"><h2><%= dao.getMostRented(email)%></h2></td>
+                                                        <td style="width: 50%; padding: 5px"><h2><%= dao.getMostRented(email)!=null?dao.getMostRented(email):"Không có"%></h2></td>
                                                     </tr>
                                                     <tr>
                                                         <td></td>

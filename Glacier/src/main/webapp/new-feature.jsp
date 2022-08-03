@@ -124,7 +124,7 @@
                                 <thead>
                                     <tr style="background-color:red">
                                         <th style="width : 10%">ID</th>
-                                        <th style="width : 90%">Name</th>
+                                        <th style="width : 90%">Tên</th>
                                         <th style="width : 10%"></th>
                                     </tr>
                                 </thead>
@@ -137,8 +137,8 @@
                                     <tr>
                                         <td style="height:10px;padding:5px 10px; text-align: right"><%= item.getId()%></td>
                                         <td style="height:10px;padding:5px 10px; text-align: left"><%= item.getNameFeature()%></td>
-                                        <td style="height:10px;padding:5px 10px"><button type="button" data-href="RemoveFeatureController?featureID=<%=item.getId().trim()%>" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="padding : 10px">
-                                                Delete
+                                        <td style="height:10px;padding:5px 10px"><button type="button" data-href="RemoveFeatureController?featureID=<%=item.getId().trim()%>" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="padding : 10px; width: 70px">
+                                                Xóa
                                             </button>
                                         </td>
                                     </tr>

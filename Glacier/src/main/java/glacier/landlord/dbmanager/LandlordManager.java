@@ -279,6 +279,44 @@ public class LandlordManager {
         return check;
     }
     
+    public boolean deleteImageLink(int roomID,int picID){
+        boolean check=false;
+        try{
+            String sql="delete from ImagesRoom\n" +
+                        "where roomID=?, picID=?";
+            Connection con = DBUtils.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, roomID);
+            st.setInt(2, picID);
+            if(st.executeUpdate()>0) check=true;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return check;
+    }
+    
+    public int getNextImgID(int roomID){
+        int id=-1;
+        try{
+            String sql="  select top 1 picID from ImagesRoom\n" +
+"  where roomID=?\n" +
+"  order by picID DESC";
+            Connection con = DBUtils.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, roomID);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                id=rs.getInt(1);
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return id;
+    }
+    
+    
     
     
     //METHOD RETURNS A STATUS OF A ROOM
@@ -568,7 +606,7 @@ public class LandlordManager {
         }
         return name;
     }
-    public boolean saveRoomImage(int roomID,String link){
+    public boolean saveRoomImage(int roomID,int picID){
         boolean check=false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -581,7 +619,7 @@ public class LandlordManager {
             if (conn != null){
                 ptm = conn.prepareStatement(sql);
                 ptm.setInt(1, roomID);
-                ptm.setString(2, link);
+                ptm.setInt(2, picID);
                 if (ptm.executeUpdate()>0) check=true;
             }
         }

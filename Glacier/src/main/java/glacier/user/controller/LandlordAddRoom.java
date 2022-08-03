@@ -98,7 +98,7 @@ public class LandlordAddRoom extends HttpServlet {
                                     byte[] fileAsByteArray = IOUtils.toByteArray(filecontent);
                                     String picDir = CLOUD_BASE_PICTURE_FOLDER + mng.getCurrentRoomID()+ "_" + i + ".PNG";
                                     GoogleCloudUtils.uploadObjectFromMemory(GOOGLE_CLOUD_PROJECT_ID, GOOGLE_CLOUD_BUCKET_NAME, picDir, fileAsByteArray,"image/png");
-                                    if(!mng.saveRoomImage(mng.getCurrentRoomID(), picDir)) throw new ImageSaveException();
+                                    if(!mng.saveRoomImage(mng.getCurrentRoomID(), i)) throw new ImageSaveException();
                                     i++;
                                 }
                             }
