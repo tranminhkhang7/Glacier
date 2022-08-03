@@ -74,7 +74,7 @@ public class BillManager {
                 while (rs.next()) {
                     int billID = rs.getInt("billID");
                     int roomID = rs.getInt("roomID");
-                    String status = rs.getString("status");
+                    String status = rs.getString("status").trim();
                     Timestamp time = rs.getTimestamp("time");
                     Bill b = new Bill(billID, roomID, time, status);
                     Bills.add(b);

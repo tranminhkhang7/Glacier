@@ -58,13 +58,13 @@ public class LandlordViewNotification extends HttpServlet {
                 }
                 int currentPage = Integer.parseInt(indexPage);
 
-                int totalMatched = mng.countMatched(emailLandlord);
+                int totalMatched = mng.countMatchedNotiLandlordReceived(emailLandlord);
                 int endPage = totalMatched / 10;
                 if (totalMatched % 10 != 0) {
                     endPage++;
                 }
-                
-                if (currentPage > endPage) currentPage = endPage;
+                System.out.println(currentPage + "hi" + endPage);
+                if (currentPage > endPage) currentPage = endPage; 
                 List<NotificationDTO> listResult = mng.view(emailLandlord, currentPage);
                 
                 request.setAttribute("endPage", endPage);
