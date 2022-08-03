@@ -186,36 +186,36 @@
                             <div class="col-xl-4 col-lg-5 col-md-6 col-sm-8">
                                 <form class="form clearfix" action="${pageContext.request.contextPath}/information" method="post">
                                     <div class="form-group">
-                                        <label for="name" class="col-form-label required">Your Name</label>
-                                        <input name="name" type="text" class="form-control" id="name" placeholder="Your Name" value="${sessionScope.GOOGLE_USER.name}" required onkeyup="nameLengthCheck()">
+                                        <label for="name" class="col-form-label required">Tên của bạn</label>
+                                        <input name="name" type="text" class="form-control" id="name" placeholder="Tên của bạn" value="${sessionScope.GOOGLE_USER.name}" required onkeyup="nameLengthCheck()">
                                         <span id="name_message" style="text-align: right;"></span>
                                     </div>
                                     <!--end form-group-->
                                     <div class="form-group">
                                         <label for="email" class="col-form-label required">Email</label>
-                                        <input name="email" type="email" class="form-control" id="email" value="${sessionScope.GOOGLE_USER.email}" placeholder="Your Email" readonly="" required>
+                                        <input name="email" type="email" class="form-control" id="email" value="${sessionScope.GOOGLE_USER.email}" placeholder="Email" readonly="" required>
                                     </div>
                                     
                                     <!--end form-group-->
                                     <div class="form-group">
-                                        <label for="phone" class="col-form-label required">Phone number</label>
+                                        <label for="phone" class="col-form-label required">Số điện thoại</label>
                                         <input name="phone" type="tel" class="form-control" id="phone" placeholder="Phone number" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" required>
                                         
                                     </div>
                                     <!--end form-group-->
                                     <div class="form-group">
-                                        <label for="hehe" class="col-form-label required">Who do you want to be</label>
+                                        <label for="hehe" class="col-form-label required">Bạn muốn trở thành ?</label>
                                         <select id="hehe" name="role">
-                                            <option value="Tenant">Tenant</option>
-                                            <option value="Landlord">Landlord</option>
+                                            <option value="Tenant">Người thuê nhà</option>
+                                            <option value="Landlord">Người cho thuê</option>
                                         </select>
                                     </div>
                                     <!--end form-group-->
                                     <div class="form-group">
                                         <label for="Gender" class="col-form-label required">Gender</label>
                                         <div id="Gender"></div>
-                                        <span style="padding-right: 20px;">Male</span><input name="gender" value="male" type="radio" class="form-control" id="Male" checked>
-                                        <span style="padding-right: 20px;">Female</span><input name="gender" value="female" type="radio" class="form-control" id="Female">
+                                        <span style="padding-right: 20px;">Nam</span><input name="gender" value="male" type="radio" class="form-control" id="Male" checked>
+                                        <span style="padding-right: 20px;">Nữ</span><input name="gender" value="female" type="radio" class="form-control" id="Female">
             
                                     </div>
                                     

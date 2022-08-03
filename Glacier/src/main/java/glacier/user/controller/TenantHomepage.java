@@ -7,6 +7,8 @@ package glacier.user.controller;
 
 import glacier.model.feature.FeatureDAO;
 import glacier.model.feature.FeatureDTO;
+import glacier.room.dbmanager.RoomManager;
+import glacier.room.model.Room;
 import glacier.user.model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -41,13 +43,17 @@ public class TenantHomepage extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             HttpSession ss = request.getSession();
             Account user = (Account) ss.getAttribute("LOGIN_USER");
-
+            RoomManager manager = new RoomManager();
             String role = (user == null) ? "" : user.getRole().trim();
             
             if ("tenant".equals(role) || "".equals(role)) {
                 FeatureDAO mng = new FeatureDAO();
                 List<FeatureDTO> listFeature = mng.loadFeature();
+                List<Room> listRoomOrderByDate = manager.get4LatestRooms();
+                List<Room> listRoomOrderByRating = manager.get4HighestRateRooms();
                 request.setAttribute("listFeature", listFeature);
+                request.setAttribute("LIST_ROOMS_ORDER_BY_DATE", listRoomOrderByDate);
+                request.setAttribute("LIST_ROOMS_ORDER_BY_RATING", listRoomOrderByRating);
                 RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
                 rd.forward(request, response);
             } else if ("landlord".equals(role)) {

@@ -5,6 +5,7 @@
  */
 package glacier.moderator.dbmanager;
 
+import glacier.room.model.Room;
 import glacier.user.model.Reported;
 import glacier.user.model.User;
 import glacier.utils.DBUtils;
@@ -526,7 +527,7 @@ public class ModeratorManager {
         String sql = "SELECT roomID, r.name, address, date_added, phone, emailLandlord "
                 + "FROM Room r JOIN Landlord l ON r.emailLandlord = l.email "
                 + "WHERE r.status LIKE '%verifying%' "
-                + "ORDER BY date_added  desc"
+                + "ORDER BY date_added  desc "
                 + "OFFSET " + (index - 1) * 10 + " ROWS FETCH NEXT 10 ROWS ONLY";
         List<VerifyingRoom> list = new ArrayList<>();
         Connection conn = null;
@@ -608,7 +609,12 @@ public class ModeratorManager {
 
     public static void main(String[] args) throws SQLException {
         ModeratorManager dao = new ModeratorManager();
-        System.out.println(dao.getListTenant("a", 1));
+//        System.out.println(dao.getListTenant("a", 1));
+        List<VerifyingRoom> list = dao.verifyingRoomList(1);
+        System.out.println(list.size());
+        for (VerifyingRoom verifyingRoom : list) {
+            System.out.println(verifyingRoom);
+        }
 //        System.out.println(dao.deleteFeature("11"));
 //        System.out.println(dao.getListAllTime("nguyenhoangngan@gmail.com"));
 //        System.out.println(dao.getListByYear("nguyenhoangngan@gmail.com", 2021));

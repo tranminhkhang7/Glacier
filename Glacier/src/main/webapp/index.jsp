@@ -109,7 +109,7 @@
                                             <!--end col-xl-6-->
                                         </div>
                                         <!--end row-->
-                                        
+
                                     </div>
                                     <!--end wrapper-->
                                 </div>
@@ -222,11 +222,100 @@
 
                 <section class="block">
                     <div class="container">
-                        <div class="d-flex align-items-center justify-content-around">
+                        <div class="d-flex align-items-center justify-content-around my-5">
+
+                            <div class="items grid grid-xl-4-items grid-lg-4-items grid-md-4-items">
+                                <h2 class="text-center">PHÒNG ĐƯỢC YÊU THÍCH</h2>
+                                <c:forEach items="${requestScope.LIST_ROOMS_ORDER_BY_RATING}" var="room">
+                                    <div class="item">                                     
+                                        <!--end ribbon-->
+                                        <div class="wrapper">
+                                            <div class="image">
+                                                <div class="">
+                                                </div>
+                                                <h3>                                                  
+                                                    <a href="${pageContext.request.contextPath}/SingleRoomView?id=${room.roomID}" class="title">${room.name}</a>                                              
+                                                </h3>
+                                                <a href="${pageContext.request.contextPath}/SingleRoomView?id=${room.roomID}" class="image-wrapper background-image">
+                                                    <img src="assets/img/image-01.jpg" alt="">
+                                                </a>
+                                            </div>
+                                            <!--end image-->
+                                            <h4 class="location">
+                                                <a href="#">${room.address}</a>
+                                            </h4>
+                                            <div class="price">${room.price}</div>
+                                            <div class="meta">
+                                                <figure>
+                                                    <i class="fa fa-calendar-o"></i>${room.date_added}
+                                                </figure>
+                                                <figure>
+                                                    <a href="#">
+                                                        <i class="fa fa-user"></i>${room.emailLandlord}
+                                                    </a>
+                                                </figure>
+                                            </div>
+                                            <!--end meta-->
+                                            <div class="description">
+                                                <p>${room.description}}</p>
+                                            </div>
+                                            <!--end description-->
+                                            <a href="${pageContext.request.contextPath}/SingleRoomView?id=${room.roomID}" class="detail text-caps underline">Chi tiết</a>
+                                        </div>
+                                    </div>
+                                    <!--end item-->
+                                </c:forEach>
+
+                            </div>
 
                         </div>
-                    </div>
+                        <div class="d-flex align-items-center justify-content-around my-5">
 
+                            <div class="items grid grid-xl-4-items grid-lg-4-items grid-md-4-items">
+                                <h2 class="text-center">PHÒNG MỚI</h2>
+                                <c:forEach items="${requestScope.LIST_ROOMS_ORDER_BY_DATE}" var="room">
+                                    <div class="item">                                     
+                                        <!--end ribbon-->
+                                        <div class="wrapper">
+                                            <div class="image">
+                                                <div class="">
+                                                </div>
+                                                <h3>                                                  
+                                                    <a href="${pageContext.request.contextPath}/SingleRoomView?id=${room.roomID}" class="title">${room.name}</a>                                              
+                                                </h3>
+                                                <a href="${pageContext.request.contextPath}/SingleRoomView?id=${room.roomID}" class="image-wrapper background-image">
+                                                    <img src="assets/img/image-01.jpg" alt="">
+                                                </a>
+                                            </div>
+                                            <!--end image-->
+                                            <h4 class="location">
+                                                <a href="#">${room.address}</a>
+                                            </h4>
+                                            <div class="price">${room.price}</div>
+                                            <div class="meta">
+                                                <figure>
+                                                    <i class="fa fa-calendar-o"></i>${room.date_added}
+                                                </figure>
+                                                <figure>
+                                                    <a href="#">
+                                                        <i class="fa fa-user"></i>${room.emailLandlord}
+                                                    </a>
+                                                </figure>
+                                            </div>
+                                            <!--end meta-->
+                                            <div class="description">
+                                                <p>${room.description}}</p>
+                                            </div>
+                                            <!--end description-->
+                                            <a href="${pageContext.request.contextPath}/SingleRoomView?id=${room.roomID}" class="detail text-caps underline">Chi tiết</a>
+                                        </div>
+                                    </div>
+                                    <!--end item-->
+                                </c:forEach>
+
+                            </div>
+
+                        </div>
                 </section>
 
             </section>

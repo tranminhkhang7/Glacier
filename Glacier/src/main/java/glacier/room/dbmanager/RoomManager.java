@@ -602,11 +602,72 @@ public class RoomManager {
                 .sorted((e1, e2) -> Integer.compare(e2.getValue().size(), e1.getValue().size()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
     }
+    
+    public List<Room> get4LatestRooms (){
+        List<Room> listRoom = new ArrayList<>();
+                Connection conn = null;
+        PreparedStatement st = null;
+
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT top 4 * FROM ROOM WHERE status='available' ORDER BY date_added desc";
+                st = conn.prepareStatement(sql);
+                
+                ResultSet rs = st.executeQuery();
+                while (rs.next()) {
+                    int roomId = rs.getInt("roomID");
+                    int price = rs.getInt("price");
+                    String name = rs.getString("name");
+                    String description = rs.getString("description");
+                    String address = rs.getString("address");
+                    Date dateAdded = rs.getDate("date_added");
+                    String emailLandlord = rs.getString("emailLandlord");
+                    Room room = new Room(roomId, name, description, address, emailLandlord, price, dateAdded);
+                    listRoom.add(room);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listRoom;
+    }
+        public List<Room> get4HighestRateRooms (){
+        List<Room> listRoom = new ArrayList<>();
+                Connection conn = null;
+        PreparedStatement st = null;
+
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT top 4 * FROM ROOM WHERE status='available' ORDER BY avg_rating desc";
+                st = conn.prepareStatement(sql);
+                
+                ResultSet rs = st.executeQuery();
+                while (rs.next()) {
+                    int roomId = rs.getInt("roomID");
+                    int price = rs.getInt("price");
+                    String name = rs.getString("name");
+                    String description = rs.getString("description");
+                    String address = rs.getString("address");
+                    Date dateAdded = rs.getDate("date_added");
+                    String emailLandlord = rs.getString("emailLandlord");
+                    Room room = new Room(roomId, name, description, address, emailLandlord, price, dateAdded);
+                    listRoom.add(room);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listRoom;
+    }
 
     public static void main(String[] args) throws SQLException {
         RoomManager manager = new RoomManager();
-        int i = manager.countTenantRooms("khoabmse161751@fpt.edu.vn");
-        System.out.println(i);
+        List<Room> list = manager.get4LatestRooms();
+        for (Room room : list) {
+            System.out.println(room);
+        }
 //        List<Integer> list = manager.getRoomsByAddress("Hoàn Kiếm, Hà Nội, Vietnam", 20);
 //        for (Integer integer : list) {
 //            System.out.println(integer);
