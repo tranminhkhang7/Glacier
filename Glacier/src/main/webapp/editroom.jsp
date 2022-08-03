@@ -215,34 +215,6 @@
                                 </ul>
                             </section>
                             <!--end Đặc điểm của phòng-->
-
-                            <section>
-                                <h2>Ảnh</h2>
-<!--                                <div class="file-upload">
-                                    <input type="file" name="files[]" class="file-upload-input with-preview" multiple title="Nhấp để chọn ảnh" maxlength="10" accept="jpg|png">
-                                    <span><i class="fa fa-plus-circle"></i>Chọn hoặc kéo ảnh vào đây</span>
-                                </div>-->
-                                <div class="file-upload-previews">
-                                    <c:if test="${picNum!=0}">
-                                    <div class="MultiFile-label" style="width: 100%">
-                                        <c:forEach begin="1" var="i" end="${picNum}">
-                                            <span id="pic_${i}">
-                                                <span class="MultiFile-label" title="File selected: #${i}">
-                                                    <div id="close${i}" style="cursor: pointer;width:fit-content;padding: 2px" onclick="closePic(${i})">x</div>
-                                                    <span class="MultiFile-title">#${i}</span>
-                                                    <img class="MultiFile-preview" style="max-height:100px; max-width:100px;" src="https://storage.googleapis.com/glacier-bucket/Room_Pictures/${room.roomID}_${i}.PNG" alt="alt" style="width: 100%; height: 100%">
-                                                </span>
-                                            </span>
-                                        </c:forEach>
-                                    </div>
-                                    </c:if>
-                                </div>
-                                <div class="file-upload">
-                                    <input type="file" name="files[]" id="input-pic" class="file-upload-input with-preview" multiple title="Nhấp để chọn ảnh" maxlength="${5-picNum}" accept="jpg|png">
-                                    <span><i class="fa fa-plus-circle"></i>Chọn hoặc kéo ảnh vào đây</span>
-                                </div>
-                            </section>
-
                             <section>
                                 <h2>Địa điểm</h2>
                                 <div class="row">
@@ -277,7 +249,45 @@
                             </section>
                         </form>
                         <!--end form-submit-->
-
+                        <form action="${pageContext.request.contextPath}/imgupdate" method="POST" enctype="multipart/form-data" class="form form-submit">
+                            <section>
+                                <h2>Cập nhật ảnh của phòng</h2>
+                                <!--                                <div class="file-upload">
+                                                                    <input type="file" name="files[]" class="file-upload-input with-preview" multiple title="Nhấp để chọn ảnh" maxlength="10" accept="jpg|png">
+                                                                    <span><i class="fa fa-plus-circle"></i>Chọn hoặc kéo ảnh vào đây</span>
+                                                                </div>-->
+                                <div class="file-upload-previews">
+                                    
+                                    
+                                        <div class="MultiFile-label" style="width: 100%">
+                                            <c:forEach items="${picNum}" var="i" >
+                                                <c:if test="${i!=0}">
+                                                    <span id="pic_${i}">
+                                                        <span class="MultiFile-label" title="#${i}">
+                                                            <div id="close${i}" style="cursor: pointer;width:fit-content;padding: 2px" onclick="closePic(${i})">x</div>
+                                                            <span class="MultiFile-title">#${i}</span>
+                                                            <img class="MultiFile-preview" style="max-height:100px; max-width:100px;" src="https://storage.googleapis.com/glacier-bucket/Room_Pictures/${room.roomID}_${i}.PNG" alt="alt" style="width: 100%; height: 100%">
+                                                        </span>
+                                                    </span>
+                                                </c:if>
+                                            </c:forEach>
+                                        </div>
+                                    
+                                </div>
+                                <div class="file-upload">
+                                    <input type="file" name="files[]" id="input-pic" class="file-upload-input with-preview" multiple title="Nhấp để chọn ảnh" accept="jpg|png">
+                                    <span><i class="fa fa-plus-circle"></i>Chọn hoặc kéo ảnh vào đây</span>
+                                </div>
+                                <input id="pic_deleted" name="pic_deleted" type="hidden" value="${room.roomID}">
+                            </section>
+                            <section class="clearfix">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary large icon float-right">Cập nhật</button>
+                                </div>
+                            </section>
+                        </form>
+                                    
+                                    
                         <section>
                             <label><b>Vị trí phòng của bạn</b></label>
                             <div class="map height-400px" id="map-submit"></div>
@@ -338,15 +348,6 @@
                                         var markerDrag = true;
                                         simpleMap(latitude, longitude, markerImage, mapTheme, mapElement, markerDrag);
         </script>
-        <script>
-            function submit(){
-                const form=document.getElememtById("form");
-                form.addEventListener('submit',(event)=>{
-                    event.preventDefault();
-                    
-                })
-            }
-        </script>
 
         <script>
             function openForm() {
@@ -360,12 +361,11 @@
             }
         </script>
         <script>
-            let count=${5-picNum}
-            
-            function closePic(i){
+            function closePic(int i){
                 console.log("close pic_"+i)
-                document.getElementById("pic_"+i).style.display='none';
-                document.getElementById("pic_"+i).className="closed";
+                var pic=document.getElementById("pic_"+i);
+                pic.parentNode.removeChild(pic);
+                document.getElementById("pic_deleted").value+=i+",";
             }
         </script>
         <script>
