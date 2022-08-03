@@ -209,8 +209,17 @@
                                             <h2>Thông tin cá nhân</h2>
                                             <section>
                                                 <div class="row">
-                                                    
-                                                    <div class="col-md-12">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="title" class="col-form-label">Giới tính</label>
+                                                            <select name="newGender" id="title" data-placeholder="Title">                                                              
+                                                                <option value="female" ${female}>Nữ</option>
+                                                                <option value="male" ${male}>Nam</option>
+                                                            </select>
+                                                        </div>
+                                                        <!--end form-group-->
+                                                    </div>
+                                                    <div class="col-md-8">
                                                         <div class="form-group">
                                                             <label for="name" class="col-form-label required">Tên của bạn</label>
                                                             <input name="newName" type="text" class="form-control" id="name" placeholder="Your Name" value="${fn:trim(detail.name)}" required>
