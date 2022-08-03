@@ -39,10 +39,10 @@
                         <jsp:include page="header/navigation-admin.jsp" />
                     </c:if>
                     <c:if test="${LOGIN_USER.role=='tenant'}">
-                        <jsp:include page="header/navigation-landlord.jsp" />
+                        <jsp:include page="header/navigation-tenant-home.jsp" />
                     </c:if>
                     <c:if test="${LOGIN_USER.role=='landlord'}">
-                        <jsp:include page="header/navigation-tenant-home.jsp" />
+                        <jsp:include page="header/navigation-landlord.jsp" />
                     </c:if>
 
                     <!--============ Page Title =========================================================================-->
@@ -70,18 +70,15 @@
                 <section class="block">
                     <h1>Có vấn đề gì đó rồi... </h1>
                     <h2 style="color: red">${error}</h2>
-                    <!-- errCode=null >> no error code for all other error when using tenant role -->
-                    <c:if test="${errCode==null}">
+                    <c:if test="${LOGIN_USER.role=='admin'}">
+                        <a href="./manage" class="btn btn-danger btn-framed"> Quay về Trang chủ! </a>
+                    </c:if>
+                    <c:if test="${LOGIN_USER.role=='tenant'}">
                         <a href="./home" class="btn btn-danger btn-framed"> Quay về Trang chủ! </a>
                     </c:if>
-                    <!-- errCode=1 >> WRONG PRIVILLAGE WHEN USING LANDLORD role -->
-                    <c:if test="${errCode==1}">
+                    <c:if test="${LOGIN_USER.role=='landlord'}">
                         <a href="./roomlist" class="btn btn-danger btn-framed"> Quay về Trang chủ! </a>
                     </c:if>
-                    <!-- errCode=2 >> WRONG PRIVILLAGE WHEN USING ADMIN role -->
-                    <c:if test="${errCode==2}">
-                        <a href="./manage" class="btn btn-danger btn-framed"> Quay về Trang chủ! </a>
-                    </c:if>    
                 </section>
             </section>
             <!--end content-->
@@ -115,7 +112,7 @@
                                                     <li>
                                                         <a href="admin.jsp">Trang chủ</a>
                                                     </li>
-                                                    
+
 
                                                 </ul>
                                             </nav>

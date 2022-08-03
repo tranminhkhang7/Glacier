@@ -22,10 +22,10 @@
         <title>Trang chủ · Glacier</title>
         <style>
             .picback {
-                height: 180px;
-                background-origin:content-box;
-                background-size:cover;
-                opacity: 0.9;
+                height: 100px;
+                width : 500px;
+                margin: 20px;
+                padding-top: 25px;
             }
         </style>
     </head>
@@ -70,42 +70,29 @@
                     <div class="container" >
                         <!--============ Items ==========================================================================-->
                         <div class="items grid grid-xl-2-items grid-lg-2-items grid-md-2-items">
-                            <div class="item">                       
+                                                 
                                 <div class="wrapper" style="text-align: center">
-                                    <a href="SearchUserController?keyword=&index=1&role=all" style="color: black; font-size-adjust: 0.5"><h1 style="margin: 20px">Người dùng</h1></a>
-
-                                    <div class="picback" style="background-image: url(assets/images/Landlord.jpg)">
-                                        <a href="SearchUserController?keyword=&role=landlord&index=1" class="btn" style="margin: 50px"><h2>Người cho thuê</h2></a><br>
-                                    </div>
-                                    <div class="picback" style="background-image: url(assets/images/Tenant.jpg)">
-                                        <a href="SearchUserController?keyword=&role=tenant&index=1" class="btn" style="margin: 50px"><h2>Người thuê</h2></a>
-                                    </div>
+                                    <a href="SearchUserController?keyword=&index=1&role=all" style="color: black; font-size-adjust: 0.5"><h1 style="margin: 20px">Người dùng</h1></a><hr>
+                                        <a href="SearchUserController?keyword=&role=landlord&index=1" class="picback btn btn-danger"><h1>Người cho thuê</h1></a>
+                                        <a href="SearchUserController?keyword=&role=tenant&index=1" class="picback btn btn-danger"><h1>Người thuê</h1></a>
                                 </div>
-                            </div>
-                            <div class="item">                           
+                            
+                                                      
                                 <div class="wrapper" style="text-align: center">
-                                    <a href="ReportedController?index=1&type=all" style="color: black; font-size-adjust: 0.5"><h1 style="margin: 20px">Báo cáo</h1></a>   
-                                    <div class="picback" style="background-image: url(assets/images/Rooms.jpg)">
-                                        <a href="ReportedController?index=1&type=room" class="btn" style="margin: 50px"><h2>Phòng</h2></a><br>
-                                    </div>
-                                    <div class="picback" style="background-image: url(assets/images/Comments.jpg)">
-                                        <a href="ReportedController?index=1&type=comment" class="btn" style="margin: 50px"><h2>Bình luận</h2></a>
-                                    </div>
+                                    <a href="ReportedController?index=1&type=all" style="color: black; font-size-adjust: 0.5"><h1 style="margin: 20px">Báo cáo</h1></a><hr>                            
+                                        <a href="ReportedController?index=1&type=room" class="picback btn btn-danger"><h1>Phòng</h1></a>                                    
+                                        <a href="ReportedController?index=1&type=comment" class="picback btn btn-danger"><h1>Bình luận</h1></a>
+                                    
 
                                 </div>
                                 <!--end item-->
                             </div>
                             <!--============ End Items ======================================================================-->
-
-                            <!--end page-pagination-->
-                        </div>    
+                            <!--end page-pagination-->       
                         <div class="wrapper" style="text-align: center">
-                            <h1 style="margin: 20px">Chức năng khác</h1>
-
-                            <a href="new-feature.jsp" class="btn btn-danger"><h1>Quản lý feature</h1></a>                
-
-
-                            <a href="VerifyRoomController?index=1" class="btn btn-danger"><h1>Xét duyệt phòng mới</h1></a>
+                            <h1 style="margin: 20px">Chức năng khác</h1><hr>
+                            <a href="new-feature.jsp" class="picback btn btn-danger" ><h1>Quản lý feature</h1></a>                
+                            <a href="VerifyRoomController?index=1" class="picback btn btn-danger"><h1>Xét duyệt phòng mới</h1></a>
 
 
                         </div>

@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 public class BanUserController extends HttpServlet {
     
     private static final String ERROR = "error.jsp";
-    private static final String SUCCESS = "SearchUserController?keyword=&role=all&index=1";
+    private static String SUCCESS = "SearchUserController?keyword=&index=1&role=";
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,7 +47,7 @@ public class BanUserController extends HttpServlet {
                 check = dao.banUser(userPhone, userRole);
             } else check = dao.unbanUser(userPhone, userRole); 
             if(check){
-                url = SUCCESS;
+                url = SUCCESS.concat("userRole");
             }
         } catch (Exception e) {
             log("Error at SearchController: " + e.toString());
