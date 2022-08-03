@@ -296,6 +296,27 @@ public class LandlordManager {
         return check;
     }
     
+    public int getNextImgID(int roomID){
+        int id=-1;
+        try{
+            String sql="  select top 1 picID from ImagesRoom\n" +
+"  where roomID=?\n" +
+"  order by picID DESC";
+            Connection con = DBUtils.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, roomID);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                id=rs.getInt(1);
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return id;
+    }
+    
+    
     
     
     //METHOD RETURNS A STATUS OF A ROOM

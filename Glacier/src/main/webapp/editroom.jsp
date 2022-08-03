@@ -264,7 +264,6 @@
                                                 <c:if test="${i!=0}">
                                                     <span id="pic_${i}">
                                                         <span class="MultiFile-label" title="#${i}">
-                                                            <div id="close${i}" style="cursor: pointer;width:fit-content;padding: 2px" onclick="closePic(${i})">x</div>
                                                             <span class="MultiFile-title">#${i}</span>
                                                             <img class="MultiFile-preview" style="max-height:100px; max-width:100px;" src="https://storage.googleapis.com/glacier-bucket/Room_Pictures/${room.roomID}_${i}.PNG" alt="alt" style="width: 100%; height: 100%">
                                                         </span>
@@ -278,7 +277,7 @@
                                     <input type="file" name="files[]" id="input-pic" class="file-upload-input with-preview" multiple title="Nhấp để chọn ảnh" accept="jpg|png">
                                     <span><i class="fa fa-plus-circle"></i>Chọn hoặc kéo ảnh vào đây</span>
                                 </div>
-                                <input id="pic_deleted" name="pic_deleted" type="hidden" value="${room.roomID}">
+                                <input id="roomID" name="roomID" type="hidden" value="${room.roomID}">
                             </section>
                             <section class="clearfix">
                                 <div class="form-group">
@@ -358,14 +357,6 @@
             function closeForm() {
                 document.getElementsByClassName("page")[0].style.filter = "none";
                 document.getElementById("deleteConfirmation").style.display = "none";
-            }
-        </script>
-        <script>
-            function closePic(int i){
-                console.log("close pic_"+i)
-                var pic=document.getElementById("pic_"+i);
-                pic.parentNode.removeChild(pic);
-                document.getElementById("pic_deleted").value+=i+",";
             }
         </script>
         <script>

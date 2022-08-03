@@ -11,6 +11,8 @@ import glacier.utils.GoogleCloudUtils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -21,6 +23,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -81,43 +85,37 @@ public class LandlordUpdateImages extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         try{
-            DiskFileItemFactory factory = new DiskFileItemFactory();
-            ServletFileUpload upload = new ServletFileUpload(factory);
-            List<FileItem> items = upload.parseRequest(request);
+            HttpSession ss = request.getSession();
             LandlordManager mng = new LandlordManager();
-            for (FileItem item: items){
-                String name="";
-                String value="";
-                String[] split = new String[6];
-                if (item.isFormField()){
-                    name = item.getFieldName();
-                    value = item.getString();
-                    System.out.println(name + " " +value);          //text field
-                    split = value.split(","); 
-                    for (int i = 1; i < split.length; i++) {
-                        mng.deleteImageLink(Integer.parseInt(split[0]), Integer.parseInt(split[i]));
-                    }
+            Collection<Part> fileParts = request.getParts();
+            int i = 1;
+            String roomID="";
+            for (Part part : fileParts) {
+                if ("roomID".equals(part.getName())){
+                    StringWriter writer = new StringWriter();
+                    IOUtils.copy(part.getInputStream(), writer, "UTF-8");
+                    roomID= writer.toString();
+                    mng.deleteImageLink(Integer.parseInt(roomID));
                 }
-                else{
-                    int i =Integer.parseInt(split[split.length]) ;
-                    System.out.println("file");                     //update hinh
-                    InputStream filecontent = item.getInputStream();
+            }
+            for (Part part : fileParts) {
+                if (part.getContentType() != null) {
+                    InputStream filecontent = part.getInputStream();
                     byte[] fileAsByteArray = IOUtils.toByteArray(filecontent);
-                    String picDir = CLOUD_BASE_PICTURE_FOLDER + mng.getCurrentRoomID() + "_" + i + ".PNG";
+                    String picDir = CLOUD_BASE_PICTURE_FOLDER + roomID + "_" + i + ".PNG";
                     GoogleCloudUtils.uploadObjectFromMemory(GOOGLE_CLOUD_PROJECT_ID, GOOGLE_CLOUD_BUCKET_NAME, picDir, fileAsByteArray, "image/png");
                     if (!mng.saveRoomImage(mng.getCurrentRoomID(), i)) {
                         throw new ImageSaveException();
                     }
                     i++;
                 }
-                
             }
-        }
-        catch (ImageSaveException e){
+            ss.setAttribute("notify", "updateSuccess");
+            response.sendRedirect("/Glacier/roomlist");
+        } catch (ImageSaveException e) {
             log("Error when uploading picture");
-        }
-        catch (Exception e) {
-            log("Error at LandlordAddRoom: " + e.toString());
+        } catch (Exception e) {
+            log("Error at LandlordUpdateImage: " + e.toString());
         }
     }
 
@@ -130,6 +128,6 @@ public class LandlordUpdateImages extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    private static class ImageSaveException extends ServletException{
-        }
+        private static class ImageSaveException extends ServletException{
+    }
 }
