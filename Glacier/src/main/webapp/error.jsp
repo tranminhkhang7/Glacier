@@ -1,12 +1,7 @@
 <%-- 
     Document   : error
-<<<<<<< HEAD
-    Created on : May 31, 2022, 1:46:54 PM
-    Author     : Admin
-=======
     Created on : May 28, 2022, 12:51:44 PM
     Author     : ASUS
->>>>>>> dc88e9094f7bd57c4d3a69c34569754f0eac11a2
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
