@@ -79,9 +79,9 @@
                             <div class="col-md-9">
                                 <section>
                                     <form action="./notifications" id="searchForm" class="form inputs-underline">
-                                        <h3>Search in Answers</h3>
+                                        <h3>Tìm kiếm thông báo</h3>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" name="search" id="name" placeholder="Enter your search">
+                                            <input type="text" class="form-control" name="search" id="name" placeholder="Tìm kiếm...">
                                         </div>
                                         <!--end form-group-->
                                     </form>
@@ -138,7 +138,7 @@
                             <!--end col-md-9-->
                             <div class="col-md-3">
                                 <!--============ Side Bar ===============================================================-->
-                                <button style="margin-top: 40px; margin-left: 20px" type="submit" class="btn btn-primary width-100" form="searchForm">Search</button>
+                                <button style="margin-top: 40px; margin-left: 20px" type="submit" class="btn btn-primary width-100" form="searchForm">Tìm</button>
                                 <!--============ End Side Bar ===========================================================-->
                             </div>
                             <!--end col-md-3-->

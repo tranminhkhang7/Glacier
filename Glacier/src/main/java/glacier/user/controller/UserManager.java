@@ -401,7 +401,7 @@ public class UserManager {
     }
 
     //RETURN A TENANT NOTIFICATIONS LIST WITH THE SEARCH CONTENT
-    public List<NotificationDTO> searchNotificationsTenant(String search, int index) {
+    public List<NotificationDTO> searchNotificationsTenant(String email, String search, int index) {
         List<NotificationDTO> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement st = null;
@@ -410,21 +410,24 @@ public class UserManager {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 String sql = "SELECT * FROM [Notification_LT] "
-                        + " WHERE FREETEXT(title,?) OR FREETEXT(content,?) "
+                        + " WHERE (title LIKE ? OR content LIKE ?) AND emailTenant = ? "
                         + " ORDER BY [notificationID] "
                         + " OFFSET ? ROWS FETCH NEXT 8 ROWS ONLY ";
                 st = conn.prepareStatement(sql);
-                st.setString(1, search);
-                st.setString(2, search);
-                st.setInt(3, (index - 1) * 4);
+                st.setNString(1, "%"+search+"%");
+                st.setNString(2, "%"+search+"%");
+                st.setString(3, email);
+                st.setInt(4, (index - 1) * 4);
                 rs = st.executeQuery();
                 while (rs.next()) {
                     int id = rs.getInt("notificationID");
+                    int roomId = rs.getInt("roomID");
                     String emailTenant = rs.getString("emailTenant");
                     String title = rs.getString("title");
                     String content = rs.getString("content");
                     Timestamp time = rs.getTimestamp("time");
-                    list.add(new NotificationDTO(id, emailTenant, "", title, content, time));
+                    String type = rs.getString("type").trim();
+                    list.add(new NotificationDTO(id, emailTenant, "", roomId, title, content, time, type));
                 }
             }
         } catch (Exception e) {

@@ -88,7 +88,7 @@
 
     <body style="font-family: 'Varela Round', sans-serif;">
 
-        <div class="popup" id="billForm" style="top: 40%">
+        <div style="overflow-y: scroll; top: 40%" class="popup" id="billForm">
             <h2>Hóa đơn cho người thuê</h2>
             <form id="bill-form" class="form form-submit" action="CreateBillController">
                 <input name="id" type="hidden" value="${id}">
