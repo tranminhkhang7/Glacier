@@ -194,13 +194,12 @@
                                     <a class="nav-link icon" href="Favourite">
                                         <i class="fa fa-star"></i>Phòng yêu thích
                                     </a>
-                                    <a class="nav-link active icon" href="changepassword">
+                                    <a class="nav-link active icon" href="change-password.jsp">
                                         <i class="fa fa-recycle"></i>Thay đổi mật khẩu
                                     </a>
-
-                            </nav>
-                        </div>
-                        <!--end col-md-3-->
+                                </nav>
+                            </div>
+                            <!--end col-md-3-->
                             <!--end col-md-3-->
                             <div class="col-md-9">
                                 <form class="form" action="changepassword" method="POST">

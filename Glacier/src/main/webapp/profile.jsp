@@ -187,20 +187,16 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <nav class="nav flex-column side-nav">
-
-                                    
-
-                                    <a class="nav-link active icon" href="account">
+                                    <a class="nav-link active icon" href="profile.jsp">
                                         <i class="fa fa-user"></i>Thông tin cá nhận
                                     </a>
-                                   <a class="nav-link icon" href="rooms">
-
+                                    <a class="nav-link icon" href="rooms">
                                         <i class="fa fa-heart"></i>Phòng của tôi
                                     </a>
                                     <a class="nav-link icon" href="Favourite">
                                         <i class="fa fa-star"></i>Phòng yêu thích
                                     </a>
-                                    <a class="nav-link icon" href="changepassword">
+                                    <a class="nav-link icon" href="change-password.jsp">
                                         <i class="fa fa-recycle"></i>Thay đổi mật khẩu
                                     </a>
                                 </nav>
@@ -213,17 +209,8 @@
                                             <h2>Thông tin cá nhân của bạn</h2>
                                             <section>
                                                 <div class="row">
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label for="title" class="col-form-label">Giới tính</label>
-                                                            <select name="newGender" id="title" data-placeholder="Title">                                                              
-                                                                <option value="female" ${female}>Nữ</option>
-                                                                <option value="male" ${male}>Nam</option>
-                                                            </select>
-                                                        </div>
-                                                        <!--end form-group-->
-                                                    </div>
-                                                    <div class="col-md-8">
+                                                    
+                                                    <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label for="name" class="col-form-label required">Tên</label>
                                                             <input name="newName" type="text" class="form-control" id="name" placeholder="Your Name" value="${fn:trim(detail.name)}" required>
