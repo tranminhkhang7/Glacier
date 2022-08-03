@@ -235,14 +235,28 @@
 
                                         </div>
                                         <div class="tab-pane fade" id="two" role="tabpanel" aria-labelledby="two-tab">
-                                            <c:forEach items="${requestScope.PAID_BILLS}" var="paid">
+                                            <c:forEach items="${requestScope.PAID_BILLS}" var="paidBill">
                                                 <div class="answer">
                                                     <div class="box">
                                                         <div class='row'>
-                                                            <div class="col-md-12">
+                                                            <div class="col-md-9">
 
-                                                                <strong>Hóa đơn được tạo ra vào: ${paid.time}</strong><br>
-                                                                <strong>Feel free to add thêm thuộc gì đóa nhe</strong></p>
+                                                                <h3> Hóa đơn#${unpaidBill.id} </h3>
+                                                                <strong> Thời gian tạo: <fmt:formatDate type = "both" dateStyle = "short" timeStyle = "short" value = "${paidBill.time}"/></strong><br><br>                                                             
+                                                                <c:forEach items="${requestScope.BILL_DETAILS}" var="detail" >
+                                                                    <c:if test="${detail.billID  eq paidBill.id}">
+                                                                        <div class="row">
+                                                                            <div class="col-md-3">
+                                                                                <strong style="min-width:73px">${detail.purpose}:</strong>
+                                                                                <strong class="price priceStyle">${detail.amount}</strong>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <strong>Nội dung tiền: ${detail.description}</strong><br>
+                                                                            </div>
+                                                                        </div>
+                                                                    </c:if>
+                                                                </c:forEach>
+
                                                             </div>
                                                         </div>
                                                     </div>
