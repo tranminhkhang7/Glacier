@@ -54,25 +54,38 @@ public class LoginGoogleHandler extends HttpServlet {
             boolean isAccountExist = manager.checkDuplicate(user.getEmail());
             System.out.println(isAccountExist);
             HttpSession ss = request.getSession();
-           
+
             if (!isAccountExist) {
                 ss.setAttribute("GOOGLE_USER", user);
                 response.sendRedirect("detail.jsp");
             } else {
                 Account acc = manager.checkLogin(user.getEmail(), null);
                 if (acc == null) {
-                    //request.setAttribute("ERROR_MSG", "Email is already used for another account");
+                    ss.setAttribute("ERROR_MSG", "Email đã được sử dụng");
                     //request.getRequestDispatcher("login").forward(request, response);
                     response.sendRedirect("login");
                 } else {
+
                     ss.setAttribute("LOGIN_USER", acc);
                     String role = acc.getRole();
                     if ("tenant".equals(role)) {
                         Tenant t = manager.getTenantInfo(acc.getEmail());
+                        if (t.getStatus().equals("díabled")) {
+                            ss.invalidate();
+                            ss.setAttribute("ERROR_MSG", "Tài khoảng đang tạm thơi bị khóa");
+                            response.sendRedirect("login");
+                            return;
+                        }
                         ss.setAttribute("USER_DETAIL", t);
-                        response.sendRedirect("home");                        
-                    }else{
+                        response.sendRedirect("home");
+                    } else {
                         Landlord l = manager.getLandlordInfo(acc.getEmail());
+                        if (l.getStatus().equals("díabled")) {
+                            ss.invalidate();
+                            ss.setAttribute("ERROR_MSG", "Tài khoảng đang tạm thơi bị khóa");
+                            response.sendRedirect("login");
+                            return;
+                        }
                         ss.setAttribute("USER_DETAIL", l);
                         response.sendRedirect("home");
                     }

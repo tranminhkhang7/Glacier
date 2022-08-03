@@ -486,7 +486,7 @@
 
                                         </div>
                                         <div style="display: inline-block; padding-left: 0;" class="col-md-3">
-                                            <button class="btn btn-info btn-framed">Xem tất cả thông báo</button>
+                                            <a href="/Glacier/landlordnotification"><button class="btn btn-info btn-framed"> Xem tất cả hóa đơn</button></a>
                                         </div>
                                         <div style="display: inline-block; right:10%" class="col-md-3 float-right">
                                             <button onclick="openForm()" type="submit" class="btn btn-info btn-framed">Tạo thông báo</button>

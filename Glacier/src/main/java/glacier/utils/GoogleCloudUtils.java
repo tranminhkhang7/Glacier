@@ -62,7 +62,7 @@ public class GoogleCloudUtils {
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType(contentType).build();
         //byte[] content = method(contents);
         storage.createFrom(blobInfo, new ByteArrayInputStream(content));                            // upload
-//        storage.createAcl(blobId, Acl.of(Acl.User.ofAllUsers(), Acl.Role.READER));                  //make object public readable
+        storage.createAcl(blobId, Acl.of(Acl.User.ofAllUsers(), Acl.Role.READER));                  //make object public readable
         System.out.println(
                 "Object "
                 + objectName

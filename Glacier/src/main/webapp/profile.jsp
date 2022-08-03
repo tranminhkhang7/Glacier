@@ -287,7 +287,7 @@
                                         </div>
                                         <form action="./avatar" enctype="multipart/form-data" method="post">
                                             <div class="single-file-input">
-                                                <input type="file" id="user_image" name="user_image">
+                                                <input required type="file" id="user_image" name="user_image">
                                                 <div class="btn btn-framed btn-primary small">Cập nhật ảnh</div>
                                             </div>
                                             <div class="single-file-input">
@@ -295,7 +295,7 @@
                                             </div>
                                         </form>
                                     </div>
-                                    
+                                      
                                 </div>
 
                                 <!--end col-md-3-->

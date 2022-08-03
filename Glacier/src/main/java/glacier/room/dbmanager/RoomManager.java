@@ -697,5 +697,30 @@ public class RoomManager {
         return check;
 
     }
+    
+//    public List<Notification_TL> get2LatestNotification(int roomId){
+//        List<Notification_TL> notificationList = null;
+//                boolean check = false;
+//        Connection conn = null;
+//        PreparedStatement st = null;
+//        ResultSet rs = null;
+//        try {
+//            conn = DBUtils.getConnection();
+//            if (conn != null) {
+//                String sql = "  select roomID from Room r join Landlord l on (r.emailLandlord=l.email)\n"
+//                        + "  where r.emailLandlord=? and r.roomID=?";
+//                st = conn.prepareStatement(sql);
+//                st.setString(1, roomId);
+//              
+//                rs = st.executeQuery();
+//                while (rs.next()) {
+//                    
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return notificationList;
+//    }
 
 }

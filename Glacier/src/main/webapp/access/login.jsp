@@ -207,7 +207,7 @@
 
                             <div class="col-md-4">
                                 <c:if test="${not empty requestScope.ERROR_MSG}">
-                                    <div class="" style="color: red; background-color: rgb(242, 242, 109); height: 50px; line-height: 50px; text-align: center;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Email hoặc mật khẩu không đúng</div>
+                                    <div class="" style="color: red; background-color: rgb(242, 242, 109); height: 50px; line-height: 50px; text-align: center;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ${requestScope.ERROR_MSG}</div>
                                 </c:if>
                                 <c:if test="${not empty sessionScope.ERROR_MSG}">
                                     <div class="" style="color: red; background-color: rgb(242, 242, 109); height: 50px; line-height: 50px; text-align: center;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ${sessionScope.ERROR_MSG}</div>

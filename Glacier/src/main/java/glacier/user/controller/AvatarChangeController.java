@@ -133,7 +133,7 @@ public class AvatarChangeController extends HttpServlet {
                 uploadFileName,
                 fileAsByteArray,
                 "image/png");
-        String imageUrl = "https://storage.cloud.google.com/glacier-bucket/Avatar/" + uploadFileName.replace("@", "%40");
+        String imageUrl = "https://storage.cloud.google.com/glacier-bucket/" + uploadFileName.replace("@", "%40");
         System.out.println(imageUrl);
         boolean check = manager.changeUserAvatar(email, imageUrl, role);
         System.out.println(check);
