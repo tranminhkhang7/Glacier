@@ -75,6 +75,9 @@ public class LandlordEditRoom extends HttpServlet {
                             request.setAttribute("city", city);
                             request.setAttribute("district", district);
 
+                            //Load number of Picture
+                            request.setAttribute("picNum", roomMng.getImageCount(roomID));
+
                             // Load features of the room with id
                             FeatureDAO featureMng = new FeatureDAO();
                             List<FeatureDTO> listRoomFeature = featureMng.getFeature(roomID);
@@ -112,6 +115,7 @@ public class LandlordEditRoom extends HttpServlet {
                     } else { // the room is not available. this could be pending, verifying, or unavailable
                         RequestDispatcher rd = request.getRequestDispatcher("/temporary-block-edit-room.jsp");
                         rd.forward(request, response);
+
                     }
                 } else { // the person who operate is not the owner
                     response.sendRedirect("roomlist");
@@ -150,7 +154,35 @@ public class LandlordEditRoom extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            request.setCharacterEncoding("UTF-8");
+            HttpSession ss = request.getSession();
+            int roomID = Integer.parseInt(request.getParameter("id"));
+            String name = request.getParameter("name");
+            String description = request.getParameter("details");
+            String city = request.getParameter("city");
+            String district = request.getParameter("district");
+            String address = district + ", " + city; // Combine district and city as addredd, and saved
+            String detailAddress = request.getParameter("location");
+            int price = Integer.parseInt(request.getParameter("price"));
+            int deposit = Integer.parseInt(request.getParameter("deposit"));
+            float area = Float.parseFloat(request.getParameter("area"));
+            List<Integer> listFeature;
+            listFeature = new ArrayList<>();
+            for (int i = 1; i <= 50; i++) {
+                String feature = (String) request.getParameter("room_features" + i);
+                if (feature != null) {
+                    listFeature.add(i);
+                }
+            }
+            LandlordManager mng = new LandlordManager();
+            mng.updateRoom(roomID, name, description, address, detailAddress, price, deposit, area, listFeature);
+            ss.setAttribute("notify", "updateSuccess");
+            response.sendRedirect("roomlist");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**

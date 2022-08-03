@@ -279,6 +279,8 @@ public class LandlordManager {
         return check;
     }
     
+    
+    
     //METHOD RETURNS A STATUS OF A ROOM
     public String roomStatus(int id) {
         String status = "";
