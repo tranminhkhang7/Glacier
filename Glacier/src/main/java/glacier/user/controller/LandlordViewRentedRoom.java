@@ -57,26 +57,27 @@ public class LandlordViewRentedRoom extends HttpServlet {
             } else {
                 int id = Integer.parseInt(request.getParameter("id"));
                 request.setAttribute("id", id);
-                
+
                 UserManager mng = new UserManager();
                 String emailTenant = mng.getEmailTenantByRoomID(id);
                 String rentStartDate = mng.getStartRentDateByRoomID(id);
                 Tenant tenant = mng.getTenantInfo(emailTenant);
-                BillManager bm =new BillManager();
-                int[] currentBillID=bm.getCurrent2BillIDByRoom(id);
+                BillManager bm = new BillManager();
+                int[] currentBillID = bm.getCurrent2BillIDByRoom(id);
 
-                    ArrayList<BillDetail> bd1 = new ArrayList<>();
-                    bd1=bm.getBillDetailByBillId(currentBillID[0]);
-                    ArrayList<BillDetail> bd2 = new ArrayList<>();
-                    bd2=bm.getBillDetailByBillId(currentBillID[1]);
-                    request.setAttribute("bd1", bd1);
-                    request.setAttribute("bd2", bd2);
-                
-                if ((bd1.size()==0)&&(bd2.size()==0)) request.setAttribute("bd0", "Danh sách hóa đơn trống");
+                ArrayList<BillDetail> bd1 = new ArrayList<>();
+                bd1 = bm.getBillDetailByBillId(currentBillID[0]);
+                ArrayList<BillDetail> bd2 = new ArrayList<>();
+                bd2 = bm.getBillDetailByBillId(currentBillID[1]);
+                request.setAttribute("bd1", bd1);
+                request.setAttribute("bd2", bd2);
+
+                if ((bd1.size() == 0) && (bd2.size() == 0)) {
+                    request.setAttribute("bd0", "Danh sách hóa đơn trống");
+                }
                 RoomDAO rD = new RoomDAO();
-                request.setAttribute("deposit",rD.getRoomById(id).getDeposit());
-                
-                
+                request.setAttribute("deposit", rD.getRoomById(id).getDeposit());
+
                 request.setAttribute("tenant", tenant);
                 request.setAttribute("rentStartDate", rentStartDate);
                 RequestDispatcher rd = request.getRequestDispatcher("/landlord-manage-single-room.jsp");

@@ -55,8 +55,8 @@ public class LandlordConfirmRentPayment extends HttpServlet {
                     // UPDATE THE STATUS OF THE BILL
                     mng.confirmRentPayment(billID);
                     // REDIRECT TO HOME PAGE WITH A MESSAGE
-                    request.setAttribute("notify", "paid success");
-                    response.sendRedirect("AllBills?id=" + billID);
+//                    ss.setAttribute("notify", "paid success");
+                    response.sendRedirect("roomlist");
                 } else {
                     response.sendRedirect("roomlist");
                 }
