@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 public class DeleteReportedController extends HttpServlet {
 
     private static final String ERROR = "error.jsp";
-    private static final String SUCCESS = "ReportedController?index=1&type=all";
+    private static String SUCCESS = "ReportedController?index=1&type=";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,7 +49,7 @@ public class DeleteReportedController extends HttpServlet {
                 check = dao.deleteReported(id, type);
             } 
             if(check){
-                url = SUCCESS;
+                url = SUCCESS.concat(type);
             }
         } catch (Exception e) {
             log("Error at SearchController: " + e.toString());

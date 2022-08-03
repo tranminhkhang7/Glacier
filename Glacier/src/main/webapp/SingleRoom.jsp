@@ -496,10 +496,7 @@
                                                 <!--end author-image-->
                                                 <div class="author-description">
                                                     <h3>${Landlord.name}</h3>
-
-                                                    <div class="rating" data-rating="4"></div>
-                                                    <a href="seller-detail-1.html" class="text-uppercase">Show My Listings
-                                                        <span class="appendix">(12)</span>
+                                                    <a href="${pageContext.request.contextPath}/TenantViewLandlordRoomList?email=${Landlord.email}" class="text-uppercase">XEM DANH SÁCH PHÒNG
                                                     </a>
                                                 </div>
                                                 <!--end author-description-->

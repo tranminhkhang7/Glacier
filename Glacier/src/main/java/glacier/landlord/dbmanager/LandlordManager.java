@@ -69,6 +69,26 @@ public class LandlordManager {
         return ID;
     }
     
+    // This method returns ID of the room which contains the bill with billID
+    public int getRoomIDByBillID(int billID) { 
+        try {
+            String sql = "SELECT [roomID]\n"
+                    + "FROM [Bill]\n"
+                    + "WHERE [billID] = N'" + billID + "'";
+
+            Connection con = DBUtils.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return 0;
+    }
+    
     public boolean addRoom(String name, String description, String address, String detailAddress, String status, int price, int deposit, float avgRating, Date dateAdded, float area, String emailLandlord, List<Integer> listFeature) {
         boolean check=false;
         try {
@@ -135,7 +155,7 @@ public class LandlordManager {
                     + "FROM [Room]\n"
                     + "WHERE [emailLandlord] = N'" + emailLandlord + "'\n"
                     + "ORDER BY [date_added] DESC\n"
-                    + "OFFSET " + (index - 1) * 10 + " ROWS FETCH NEXT 10 ROWS ONLY";
+                    + "OFFSET " + (index - 1) * 16 + " ROWS FETCH NEXT 16 ROWS ONLY";
 
             Connection con = DBUtils.getConnection();
             PreparedStatement st = con.prepareStatement(sql);
@@ -258,6 +278,8 @@ public class LandlordManager {
         }
         return check;
     }
+    
+    
     
     //METHOD RETURNS A STATUS OF A ROOM
     public String roomStatus(int id) {

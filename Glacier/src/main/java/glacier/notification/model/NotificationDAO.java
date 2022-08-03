@@ -45,7 +45,7 @@ public class NotificationDAO {
     public List<NotificationDTO> view(String emailLandlord, int index) {
         try {
             String sql = "SELECT [title], [content], [time]\n"
-                    + "FROM [Notification_LT]\n"
+                    + "FROM [Notification_TL]\n"
                     + "WHERE [emailLandlord] = N'" + emailLandlord + "'\n"
                     + "ORDER BY [time] DESC\n"
                     + "OFFSET " + (index - 1) * 10 + " ROWS FETCH NEXT 10 ROWS ONLY";

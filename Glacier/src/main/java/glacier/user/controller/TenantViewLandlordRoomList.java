@@ -5,11 +5,13 @@
  */
 package glacier.user.controller;
 
-import glacier.notification.model.NotificationDAO;
-import glacier.room.dbmanager.RoomManager;
+import glacier.landlord.dbmanager.LandlordManager;
+import glacier.room.model.Room;
 import glacier.user.model.Account;
+import glacier.user.model.Landlord;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,8 +24,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author KHANG
  */
-@WebServlet(name = "Disconnect", urlPatterns = {"/disconnect"})
-public class Disconnect extends HttpServlet {
+@WebServlet(name = "TenantViewLandlordRoomList", urlPatterns = {"/TenantViewLandlordRoomList"})
+public class TenantViewLandlordRoomList extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,41 +40,48 @@ public class Disconnect extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
             HttpSession ss = request.getSession();
             Account user = (Account) ss.getAttribute("LOGIN_USER");
 
             String role = (user == null) ? "" : user.getRole().trim();
-            
-            if ("landlord".equals(role)) {
-                String emailLandlord = user.getEmail().trim();
-                int roomID = Integer.parseInt(request.getParameter("id"));
-                    
-                String title = "Bạn đang rời khỏi phòng đang thuê?";
-                String content = "Chúng tôi nhận được yêu cầu hủy thuê nhà từ Chủ nhà của bạn. Nếu bạn đang chuyển đi, vui lòng bấm Xác nhận. Nếu đây là một nhầm lẫn, vui long bấm Hủy hoặc bỏ qua thông báo này.";
-
-                NotificationDAO mng = new NotificationDAO();
-                mng.landlordNotify(roomID, emailLandlord, title, content, "decide");
-
-                request.setAttribute("notify", "send message to tenant");
-                response.sendRedirect("roomlist/room?id=" + roomID);
-             } else if ("tenant".equals(role)) {
-                 
-                String action = request.getParameter("action").trim();
-                int roomID = Integer.parseInt(request.getParameter("roomID"));
-                int notiID = Integer.parseInt(request.getParameter("notiID"));
-
-//                System.out.println(action + " " + roomID + " " + notiID);
+            if ("tenant".equals(role) || "".equals(role)) {
                 
-                if ("accept".equals(action)) {
-                    // UPADTE status, emailTenant OF THE ROOM
-                    RoomManager mng = new RoomManager();
-                    mng.updateRoomAfterDisconnect(roomID, notiID);
-                    RequestDispatcher rd = request.getRequestDispatcher("/notifications");
-                    rd.forward(request, response);
+                String emailLandlord = request.getParameter("email");
+                
+                String indexPage = request.getParameter("index");
+                if (indexPage == null) {
+                    indexPage = "1";
                 }
+                LandlordManager mng = new LandlordManager();
+                int currentPage = Integer.parseInt(indexPage);
+                
+                // SEARCH ROOMS THAT OWNED BY A LANDLORD WHOSE EMAIL IS emailLandlord
+                List<Room> listResult = mng.listRoom(emailLandlord, currentPage);
+
+                // COUNT THE TOTAL OF ROOMS 
+                int totalMatched = mng.countMatched(emailLandlord);
+                int endPage = totalMatched / 16;
+                if (totalMatched % 16 != 0) {
+                    endPage++;
+                }
+
+                //GET LANDLORD INFO
+                UserManager manager = new UserManager();
+                Landlord l = manager.getLandlordInfo(emailLandlord);
+                
+                request.setAttribute("Landlord", l);
+                request.setAttribute("endPage", endPage);
+                request.setAttribute("currentPage", currentPage);
+                request.setAttribute("list", listResult);
+
+                RequestDispatcher rd = request.getRequestDispatcher("/show-landlord-room-list-as-tenant.jsp");
+                rd.forward(request, response);
             } else {
                 response.sendRedirect("login");
             }
+        } catch (Exception e) {
+            log("Error at Tenant View Landlord Room List: " + e.toString());
         }
     }
 

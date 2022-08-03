@@ -14,6 +14,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * @author Admin
@@ -57,12 +60,15 @@ public class GoogleCloudUtils {
         // String objectName = "your-object-name";
         // The string of contents you wish to upload
         // String contents = "Hello world!";
+        Map<String, String> newMetadata = new HashMap<>();
+        newMetadata.put("Cache-Control", "private, max-age=0, no-transform");
         Storage storage = StorageOptions.newBuilder().setProjectId(projectId).build().getService();
         BlobId blobId = BlobId.of(bucketName, objectName);
-        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType(contentType).build();
+        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType(contentType).setCacheControl("private, max-age=0, no-transform").build();
         //byte[] content = method(contents);
         storage.createFrom(blobInfo, new ByteArrayInputStream(content));                            // upload
         storage.createAcl(blobId, Acl.of(Acl.User.ofAllUsers(), Acl.Role.READER));                  //make object public readable
+
         System.out.println(
                 "Object "
                 + objectName
