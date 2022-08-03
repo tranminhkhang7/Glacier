@@ -69,6 +69,26 @@ public class LandlordManager {
         return ID;
     }
     
+    // This method returns ID of the room which contains the bill with billID
+    public int getRoomIDByBillID(int billID) { 
+        try {
+            String sql = "SELECT [roomID]\n"
+                    + "FROM [Bill]\n"
+                    + "WHERE [billID] = N'" + billID + "'";
+
+            Connection con = DBUtils.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return 0;
+    }
+    
     public boolean addRoom(String name, String description, String address, String detailAddress, String status, int price, int deposit, float avgRating, Date dateAdded, float area, String emailLandlord, List<Integer> listFeature) {
         boolean check=false;
         try {

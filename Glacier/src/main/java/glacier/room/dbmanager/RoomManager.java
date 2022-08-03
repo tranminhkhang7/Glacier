@@ -508,11 +508,11 @@ public class RoomManager {
             String sql = "UPDATE [Room]\n"
                     + "SET [status] = N'available', [emailTenant] = NULL\n"
                     + "WHERE [roomID] = " + roomID + "\n"
-                    + "GO\n"
                     + "UPDATE [Notification_LT]\n"
                     + "SET [content] = N'Chúng tôi nhận được yêu cầu hủy thuê nhà từ Chủ nhà của bạn. Nếu bạn đang chuyển đi, vui lòng bấm Xác nhận. Nếu đây là một nhầm lẫn, vui lòng bỏ qua thông báo này. Chúng tôi ghi nhận bạn đã xác nhận rời khỏi phòng thuê.',\n"
                     + "[type] = N'text'\n"
                     + "WHERE [notificationID] = " + notiID;
+            System.out.println(sql);
 
             Connection con = DBUtils.getConnection();
             PreparedStatement st = con.prepareStatement(sql);

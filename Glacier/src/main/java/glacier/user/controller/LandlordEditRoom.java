@@ -58,57 +58,62 @@ public class LandlordEditRoom extends HttpServlet {
                 int roomID = Integer.parseInt(request.getParameter("id"));
 
                 LandlordManager landlordMng = new LandlordManager();
+                // Load room information except for features
+                RoomDAO roomMng = new RoomDAO();
+                Room room = roomMng.getRoomById(roomID);
                 if (landlordMng.checkOwnership(emailLandlord, roomID)) { // is the owner
+                    if (room.getStatus().trim().equals("available")) { // the room is available
+                        if (request.getParameter("name") == null) { // not submitted yet
 
-                    if (request.getParameter("name") == null) { // not submitted yet
-                        // Load room information except for features
-                        RoomDAO roomMng = new RoomDAO();
-                        Room room = roomMng.getRoomById(roomID);
-                        request.setAttribute("room", room);
-                        
-                        // Split address to city and district (the whole address saved in dtb is these both combination
-                        String address = room.getAddress().trim();
-                        String[] parts = address.split(", ");
-                        String city = parts[0];
-                        String district = parts[1];
-                        request.setAttribute("city", city);
-                        request.setAttribute("district", district);
-                        
-                        // Load features of the room with id
-                        FeatureDAO featureMng = new FeatureDAO();
-                        List<FeatureDTO> listRoomFeature = featureMng.getFeature(roomID);
-                        request.setAttribute("listRoomFeature", listRoomFeature);
+                            request.setAttribute("room", room);
 
-                        RequestDispatcher rd = request.getRequestDispatcher("/editroom.jsp");
-                        rd.forward(request, response);
-                    } else { // submitted
-                        String name = request.getParameter("name");
-                        String description = request.getParameter("details");
-                        String city = request.getParameter("city");
-                        String district = request.getParameter("district");
-                        String address = district + ", " + city; // Combine district and city as addredd, and saved
-                        String detailAddress = request.getParameter("location");
-                        int price = Integer.parseInt(request.getParameter("price"));
-                        int deposit = Integer.parseInt(request.getParameter("deposit"));
-                        float area = Float.parseFloat(request.getParameter("area"));
+                            // Split address to city and district (the whole address saved in dtb is these both combination
+                            String address = room.getAddress().trim();
+                            String[] parts = address.split(", ");
+                            String city = parts[0];
+                            String district = parts[1];
+                            request.setAttribute("city", city);
+                            request.setAttribute("district", district);
 
-                        List<Integer> listFeature;
-                        listFeature = new ArrayList<>();
-                        for (int i = 1; i <= 50; i++) {
-                            String feature = (String) request.getParameter("room_features" + i);
-                            if (feature != null) {
-                                listFeature.add(i);
+                            // Load features of the room with id
+                            FeatureDAO featureMng = new FeatureDAO();
+                            List<FeatureDTO> listRoomFeature = featureMng.getFeature(roomID);
+                            request.setAttribute("listRoomFeature", listRoomFeature);
+
+                            RequestDispatcher rd = request.getRequestDispatcher("/editroom.jsp");
+                            rd.forward(request, response);
+                        } else { // submitted
+                            String name = request.getParameter("name");
+                            String description = request.getParameter("details");
+                            String city = request.getParameter("city");
+                            String district = request.getParameter("district");
+                            String address = district + ", " + city; // Combine district and city as addredd, and saved
+                            String detailAddress = request.getParameter("location");
+                            int price = Integer.parseInt(request.getParameter("price"));
+                            int deposit = Integer.parseInt(request.getParameter("deposit"));
+                            float area = Float.parseFloat(request.getParameter("area"));
+
+                            List<Integer> listFeature;
+                            listFeature = new ArrayList<>();
+                            for (int i = 1; i <= 50; i++) {
+                                String feature = (String) request.getParameter("room_features" + i);
+                                if (feature != null) {
+                                    listFeature.add(i);
+                                }
                             }
-                        }
-                        
-                        LandlordManager mng = new LandlordManager();
-                        mng.updateRoom(roomID, name, description, address, detailAddress, price, deposit, area, listFeature);
 
-                        ss.setAttribute("notify", "updateSuccess");
-                        
-                        response.sendRedirect("roomlist");
+                            LandlordManager mng = new LandlordManager();
+                            mng.updateRoom(roomID, name, description, address, detailAddress, price, deposit, area, listFeature);
+
+                            ss.setAttribute("notify", "updateSuccess");
+
+                            response.sendRedirect("roomlist");
+                        }
+                    } else { // the room is not available. this could be pending, verifying, or unavailable
+                        RequestDispatcher rd = request.getRequestDispatcher("/temporary-block-edit-room.jsp");
+                        rd.forward(request, response);
                     }
-                } else { // not the owner
+                } else { // the person who operate is not the owner
                     response.sendRedirect("roomlist");
                 }
             } else {

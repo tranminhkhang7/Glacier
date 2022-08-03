@@ -27,7 +27,6 @@
         <url-pattern>/roomsqueue</url-pattern>
         <url-pattern>/landlordnotify</url-pattern>
         <url-pattern>/accept</url-pattern>
-        <url-pattern>/disconnect</url-pattern>
         <url-pattern>/assign</url-pattern>
 <!--        <url-pattern>./roomlist/room</url-pattern>-->
     </filter-mapping>
@@ -35,6 +34,7 @@
         <filter-name>TenantLandlordFilter</filter-name>
         <url-pattern>/deposit</url-pattern>
         <url-pattern>/rooms</url-pattern>
+      
     </filter-mapping>
     <filter-mapping>
         <filter-name>AuthenticationFilter</filter-name>

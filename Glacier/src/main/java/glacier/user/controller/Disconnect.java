@@ -42,6 +42,7 @@ public class Disconnect extends HttpServlet {
             Account user = (Account) ss.getAttribute("LOGIN_USER");
 
             String role = (user == null) ? "" : user.getRole().trim();
+            
             if ("landlord".equals(role)) {
                 String emailLandlord = user.getEmail().trim();
                 int roomID = Integer.parseInt(request.getParameter("id"));
@@ -52,13 +53,16 @@ public class Disconnect extends HttpServlet {
                 NotificationDAO mng = new NotificationDAO();
                 mng.landlordNotify(roomID, emailLandlord, title, content, "decide");
 
-                request.setAttribute("notify", "notify success");
-                RequestDispatcher rd = request.getRequestDispatcher("/roomlist/room?id=" + roomID);
-                rd.forward(request, response);
+                request.setAttribute("notify", "send message to tenant");
+                response.sendRedirect("roomlist/room?id=" + roomID);
              } else if ("tenant".equals(role)) {
+                 
                 String action = request.getParameter("action").trim();
-                int roomID = Integer.parseInt(request.getParameter("roomId"));
-                int notiID = Integer.parseInt(request.getParameter("notiId"));
+                int roomID = Integer.parseInt(request.getParameter("roomID"));
+                int notiID = Integer.parseInt(request.getParameter("notiID"));
+
+//                System.out.println(action + " " + roomID + " " + notiID);
+                
                 if ("accept".equals(action)) {
                     // UPADTE status, emailTenant OF THE ROOM
                     RoomManager mng = new RoomManager();
