@@ -33,8 +33,37 @@
                 border-color: transparent !important;
             }
         </style>
+        
+        <style>
+            .notify{
+                z-index: 19;
+                background-color: rgb(235, 244, 251);
+                box-shadow: 0 .1rem 2rem rgba(0, 0, 0, .15);
+                left: 50%;
+                top: 10%;
+                padding: 15px;
+                border: 1px solid rgb(166, 206, 237);
+                border-radius: .3rem;
+                text-align: center;
+                position: fixed;
+
+                transform: translate(-50%,-50%);
+
+                display: block;
+
+            }
+        </style>
     </head>
     <body style="font-family: 'Varela Round', sans-serif;">
+        
+        <c:if test="${notify == 'paid success'}">
+            <div class="notify" id="notifyBox">
+                Xác nhận đã thanh toán thành công!
+                &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-close" onclick="closeNotify()"></i>
+            </div>
+            <c:remove var="notify" scope="session" />
+        </c:if>
+        
         <div class="page sub-page">
             <!--*********************************************************************************************************-->
             <!--************ HERO ***************************************************************************************-->
@@ -222,9 +251,27 @@
                                                                 </c:forEach>
                                                             </table>
                                                         </div>
-                                                        <div class="col-3 d-flex align-items-center justify-content-center" style="float: right">
-                                                            <button class="btn btn-primary btn-framed"  style="font-size: 16px;">Đã thanh toán</button>
-                                                        </div>
+
+
+
+
+                                                        <!--                                                        <div class="col-3 d-flex align-items-center justify-content-center" style="float: right">
+                                                                                                                    <button class="btn btn-primary btn-framed"  style="font-size: 16px;" onclick="openForm()">Đã thanh toán</button>
+                                                                                                                </div>-->
+                                                        <c:if test="${Bill.status eq 'unpaid'}">
+                                                            <form class="form form-submit" action="${pageContext.request.contextPath}/LandlordConfirmRentPayment" method="POST">
+                                                                <input name="id" type="hidden" value="${Bill.id}">
+
+                                                                <div class="col-3 d-flex align-items-center justify-content-center" style="float: right">
+                                                                    <button class="btn btn-primary btn-framed"  style="font-size: 16px;" onclick="openForm()">Đã thanh toán</button>
+                                                                </div>
+                                                            </form>
+                                                        </c:if>
+                                                        <c:if test="${Bill.status eq 'paid'}">
+                                                            <div class="col-3 d-flex align-items-center justify-content-center" style="float: right">
+                                                                <i class="fa fa-check-circle" style="color: green; font-size: 50px"></i>
+                                                            </div>
+                                                        </c:if>
                                                     </div>
                                                 </div>
                                             </div>

@@ -62,7 +62,7 @@ public class LandlordEditRoom extends HttpServlet {
                 RoomDAO roomMng = new RoomDAO();
                 Room room = roomMng.getRoomById(roomID);
                 if (landlordMng.checkOwnership(emailLandlord, roomID)) { // is the owner
-                    if (room.getStatus().trim().equals("available")) { // the room is available
+                    if (room.getStatus().trim().equals("available") || room.getStatus().trim().equals("verifying")) { // the room is available, or verifying
                         if (request.getParameter("name") == null) { // not submitted yet
 
                             request.setAttribute("room", room);
@@ -112,7 +112,7 @@ public class LandlordEditRoom extends HttpServlet {
 
                             response.sendRedirect("roomlist");
                         }
-                    } else { // the room is not available. this could be pending, verifying, or unavailable
+                    } else { // the room is not available. this could be pending, or unavailable
                         RequestDispatcher rd = request.getRequestDispatcher("/temporary-block-edit-room.jsp");
                         rd.forward(request, response);
 
