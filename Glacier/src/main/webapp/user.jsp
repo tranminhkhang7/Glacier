@@ -92,7 +92,7 @@
                             <h2>Tìm kiếm</h2>
                             <form class="sidebar-form form" action="SearchUserController" method="GET">
                                 <div class="form-group">
-                                    <label for="what" class="col-form-label">Email or user name</label>
+                                    <label for="what" class="col-form-label">Tìm kiếm bằng email hoặc tên người dùng</label>
                                     <input name="keyword" type="text" class="form-control" id="what" placeholder="Enter keyword and press enter">                                 
                                     <input type="hidden" name="role" value="<%=role%>"/>
                                     <input type="hidden" name="index" value="1"/>
@@ -135,7 +135,7 @@
                                         <td style="height:10px;padding:5px 10px"><%= p++%></td>
                                         <td style="height:10px;padding:5px 10px; text-align: left"><%= user.getEmail()%></td>
                                         <td style="height:10px;padding:5px 10px; text-align: left"><%= user.getName()%></td>
-                                        <td style="height:10px;padding:5px 10px; text-align: left"><%= user.getGender()%></td>
+                                        <td style="height:10px;padding:5px 10px; text-align: left"><%= "male".equals(user.getGender().trim())?"Nam":"Nữ"%></td>
                                         <td style="height:10px;padding:5px 10px; text-align: right"><%= user.getPhone()%></td>
                                         <td style="height:10px;padding:5px 10px; text-align: left"><%= "landlord".equals(user.getRole().trim()) ?"Người cho thuê":"Người thuê"%></td>
                                         <td style="height:10px;padding:5px 10px; text-align: left"><%= "active".equals(user.getStatus().trim())?"Hoạt động":"Đã vô hiệu hóa"%></td>
