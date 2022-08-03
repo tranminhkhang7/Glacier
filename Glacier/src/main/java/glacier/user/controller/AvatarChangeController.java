@@ -126,7 +126,7 @@ public class AvatarChangeController extends HttpServlet {
         String role = acc.getRole();
         role = role.substring(0, 1).toUpperCase() + role.substring(1);
         System.out.println(role);
-        String uploadFileName = email + "-avatar" + "." + fileName[1];
+        String uploadFileName = "Avatar/"+email + "-avatar" + "." + fileName[1];
         GoogleCloudUtils.uploadObjectFromMemory(
                 GOOGLE_CLOUD_PROJECT_ID,
                 GOOGLE_CLOUD_BUCKET_NAME,

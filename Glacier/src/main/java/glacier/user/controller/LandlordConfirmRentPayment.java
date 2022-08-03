@@ -7,6 +7,7 @@ package glacier.user.controller;
 
 import glacier.landlord.dbmanager.LandlordManager;
 import glacier.user.model.Account;
+import glacier.user.model.Landlord;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -45,13 +46,22 @@ public class LandlordConfirmRentPayment extends HttpServlet {
 //                String emailLandlord = user.getEmail().trim();
                 int billID = Integer.parseInt(request.getParameter("id"));
 
-                // UPDATE THE STATUS OF THE BILL
-                LandlordManager mng = new LandlordManager();
-                mng.confirmRentPayment(billID);
+                Landlord landlord = (Landlord) ss.getAttribute("USER_DETAIL");
+                String emailLandlord = landlord.getEmail();
 
-                request.setAttribute("notify", "notify success");
-                RequestDispatcher rd = request.getRequestDispatcher("/roomlist"); // Change this!!!
-                rd.forward(request, response);
+                LandlordManager mng = new LandlordManager();
+                int roomID = mng.getRoomIDByBillID(billID);
+                if (mng.checkOwnership(emailLandlord, roomID)) {
+                    // UPDATE THE STATUS OF THE BILL
+                    mng.confirmRentPayment(billID);
+                    // REDIRECT TO HOME PAGE WITH A MESSAGE
+                    request.setAttribute("notify", "notify success");
+                    response.sendRedirect("roomlist");
+                } else {
+                    response.sendRedirect("roomlist");
+                }
+            } else {
+                response.sendRedirect("login");
             }
         }
     }

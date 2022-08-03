@@ -70,7 +70,7 @@
                         <a href="roomsqueue" class="btn btn-primary text-caps btn-rounded">KHÁCH MỚI</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="btn btn-primary text-caps btn-rounded"><i class="fa fa-bell"></i></a>
+                        <a href="landlordnotification" class="btn btn-primary text-caps btn-rounded"><i class="fa fa-bell"></i></a>
                     </li>
                 </ul>
                 <!--Main navigation list-->

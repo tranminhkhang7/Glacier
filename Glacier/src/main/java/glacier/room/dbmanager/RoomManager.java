@@ -55,6 +55,7 @@ public class RoomManager {
             }
 
             sql += "WHERE R.[status] = N'available'\n"
+                    + "AND L.[status] = N'active'\n"
                     + "AND R.[price] >= " + minPrice + " AND R.[price] <= " + maxPrice + "\n";
 
             boolean isFirst = true;
@@ -92,6 +93,7 @@ public class RoomManager {
     // This method returns the list of rooms that matches the searchText, on page index
     public List<Room> search(String searchText, List<Integer> listFeature, int minPrice, int maxPrice, int index) { // searchText: the key words user typed; index: page number
         try {
+            
             for (int i = 0; i < searchText.length(); i++) {
                 if (searchText.charAt(i) == '\'') { // ki tu '
                     searchText = searchText.substring(0, i) + "'" + searchText.substring(i);
@@ -120,6 +122,7 @@ public class RoomManager {
             }
 
             sql += "WHERE R.[status] = N'available'\n"
+                    + "AND L.[status] = N'active'\n"
                     + "AND R.[price] >= " + minPrice + " AND R.[price] <= " + maxPrice + "\n";
 
             boolean isFirst = true;
@@ -140,7 +143,6 @@ public class RoomManager {
             if (!isFirst) {
                 sql += ")\n";
             }
-
             if (searchText != null && !"".equals(searchText)) {
                 sql += "ORDER BY RANK DESC \n";
             } else {
@@ -148,7 +150,7 @@ public class RoomManager {
             }
             sql += "OFFSET " + (index - 1) * 15 + " ROWS FETCH NEXT 15 ROWS ONLY";
 
-
+            
             Connection con = DBUtils.getConnection();
             PreparedStatement st = con.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -200,7 +202,8 @@ public class RoomManager {
                     String name = rs.getString("name").trim();
                     int price = rs.getInt("price");
                     String address = rs.getString("address").trim();
-                    String des = rs.getString("description").trim().substring(0, Math.min(rs.getString("description").length(), 101));
+                    String des = rs.getString("description").trim();
+                            //.substring(0, Math.min(rs.getString("description").length(), 101));
                     String landlordEmail = rs.getString("emailLandlord");
                     String qrImage = rs.getString("qr_image");
                     Date rentStartDate = rs.getDate("rentStartDate");
@@ -505,11 +508,11 @@ public class RoomManager {
             String sql = "UPDATE [Room]\n"
                     + "SET [status] = N'available', [emailTenant] = NULL\n"
                     + "WHERE [roomID] = " + roomID + "\n"
-                    + "GO\n"
                     + "UPDATE [Notification_LT]\n"
                     + "SET [content] = N'Chúng tôi nhận được yêu cầu hủy thuê nhà từ Chủ nhà của bạn. Nếu bạn đang chuyển đi, vui lòng bấm Xác nhận. Nếu đây là một nhầm lẫn, vui lòng bỏ qua thông báo này. Chúng tôi ghi nhận bạn đã xác nhận rời khỏi phòng thuê.',\n"
                     + "[type] = N'text'\n"
                     + "WHERE [notificationID] = " + notiID;
+            System.out.println(sql);
 
             Connection con = DBUtils.getConnection();
             PreparedStatement st = con.prepareStatement(sql);
@@ -601,7 +604,9 @@ public class RoomManager {
     }
 
     public static void main(String[] args) throws SQLException {
-//        RoomManager manager = new RoomManager();
+        RoomManager manager = new RoomManager();
+        int i = manager.countTenantRooms("khoabmse161751@fpt.edu.vn");
+        System.out.println(i);
 //        List<Integer> list = manager.getRoomsByAddress("Hoàn Kiếm, Hà Nội, Vietnam", 20);
 //        for (Integer integer : list) {
 //            System.out.println(integer);
@@ -694,4 +699,5 @@ public class RoomManager {
         return check;
 
     }
+
 }

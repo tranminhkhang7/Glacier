@@ -138,7 +138,25 @@ public class RoomDAO {
             return f;
         }
     }
-
+    
+    public int getImageCount(int roomID){
+       int count=0;
+       try{
+            String sql="  select count(*) from ImagesRoom where roomID=?";
+            Connection con = DBUtils.getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, roomID);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                count=rs.getInt(1);
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+       return count;
+    }
+    
     public static void main(String[] args) throws SQLException, Exception {
         RoomDAO dao = new RoomDAO();
         ArrayList<String> f = dao.getRoomFeature(10);

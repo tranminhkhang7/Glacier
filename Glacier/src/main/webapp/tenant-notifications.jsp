@@ -103,11 +103,7 @@
                                                     <p>
                                                         ${noti.content}
                                                     </p>
-
-<!--                                                    <button data-href="./accept?action=decline&roomId=${room.roomID}" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">
-        Hủy
-    </button>-->
-                                                    <button data-href="./disconnect?action=accept&roomId=${noti.roomID}&notiID=${noti.id}" class="btn btn-primary float-right" data-toggle="modal" data-target="#myModal">
+                                                    <button data-href="./disconnect?action=accept&roomID=${noti.roomID}&notiID=${noti.id}" class="btn btn-primary float-right" data-toggle="modal" data-target="#myModal">
                                                         Xác nhận
                                                     </button>
                                                 </div>

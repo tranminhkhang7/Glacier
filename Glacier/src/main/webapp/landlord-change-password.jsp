@@ -182,11 +182,9 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <nav class="nav flex-column side-nav">
-                                    <a class="nav-link icon" href="profile.jsp">
+                                    <a class="nav-link icon" href="landlord-profile.jsp">
                                         <i class="fa fa-user"></i>Thông tin cá nhận
                                     </a>
-                                    <!--                                    <a class="nav-link icon" href="my-ads.html">
-                                                                            <i class="fa fa-heart"></i>My Rooms Listing
                                     <a class="nav-link active icon" href="changepassword">
                                         <i class="fa fa-recycle"></i>Thay đổi mật khẩu
                                     </a>
