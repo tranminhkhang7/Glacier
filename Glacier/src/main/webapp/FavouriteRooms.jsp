@@ -190,7 +190,7 @@
                                     <a class="nav-link icon active " href="Favourite">
                                         <i class="fa fa-star"></i>Phòng yêu thích
                                     </a>
-                                    <a class="nav-link icon" href="changepassword">
+                                    <a class="nav-link icon" href="change-password.jsp">
                                         <i class="fa fa-recycle"></i>Thay đổi mật khẩu
                                     </a>
                                 </nav>

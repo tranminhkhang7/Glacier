@@ -185,6 +185,12 @@
                                     <a class="nav-link icon" href="landlord-profile.jsp">
                                         <i class="fa fa-user"></i>Thông tin cá nhận
                                     </a>
+                                    <a class="nav-link icon" href="rooms">
+                                        <i class="fa fa-heart"></i>Phòng của tôi
+                                    </a>
+                                    <a class="nav-link icon" href="IncomeReportController?room=all&time=all">
+                                        <i class="fa fa-bar-chart"></i>Thống kê
+                                    </a>
                                     <a class="nav-link active icon" href="changepassword">
                                         <i class="fa fa-recycle"></i>Thay đổi mật khẩu
                                     </a>
