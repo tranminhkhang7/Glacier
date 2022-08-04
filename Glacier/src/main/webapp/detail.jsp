@@ -199,7 +199,7 @@
                                     <!--end form-group-->
                                     <div class="form-group">
                                         <label for="phone" class="col-form-label required">Số điện thoại</label>
-                                        <input name="phone" type="tel" class="form-control" id="phone" placeholder="Phone number" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" required>
+                                        <input name="phone" type="tel" class="form-control" id="phone" placeholder="Số điện thoại" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" required>
                                         
                                     </div>
                                     <!--end form-group-->
@@ -212,7 +212,7 @@
                                     </div>
                                     <!--end form-group-->
                                     <div class="form-group">
-                                        <label for="Gender" class="col-form-label required">Gender</label>
+                                        <label for="Gender" class="col-form-label required">Giới tính</label>
                                         <div id="Gender"></div>
                                         <span style="padding-right: 20px;">Nam</span><input name="gender" value="male" type="radio" class="form-control" id="Male" checked>
                                         <span style="padding-right: 20px;">Nữ</span><input name="gender" value="female" type="radio" class="form-control" id="Female">

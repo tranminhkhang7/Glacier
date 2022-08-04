@@ -103,7 +103,7 @@
                                 </div>
                             </c:if>
                             <div class="col-md-12 my-5" style="text-align: center">
-                                <h1 style="color:#ff0000">ĐỂ XÁC NHẬN VUI LÒNG QUÉT MÃ QR CỦA NGƯỜI THUÊ</h1>
+                                <h1 style="color:#ff0000"><a class="btn btn-danger" href="${pageContext.request.contextPath}/testing/index.html">NHẤN VÀO ĐÂY ĐỂ QUÉT MÃ </a></h1>
                             </div>
                             <!--                            <div  id="container">
                                                             <a id="btn-scan-qr">

@@ -5,16 +5,17 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
         <!--    <link rel="stylesheet" href="styles.css" />-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.css" integrity="sha512-NtU/Act0MEcVPyqC153eyoq9L+UHkd0s22FjIaKByyA6KtZPrkm/O5c5xzaia4pyCfReCS634HyQ7tJwKNxC/g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr_packed.js"></script>
     </head>
 
     <body>
         <div id="container">
-            <h1>QR Code Scanner</h1>
-
-            <a id="btn-scan-qr">
-                <img width="100" src="https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/07/1499401426qr_icon.svg">
-                <a/>
+            <h1 style="text-align: center">Quét mã phòng thuê</h1>
+            <h2 style="text-align: center">Nhấn vào đây <i class="fa fa-long-arrow-down" aria-hidden="true"></i></h2>
+            <a style="cursor: pointer" id="btn-scan-qr">
+                <img style="display:block; margin-left: auto; margin-right: auto; margin-top: 100px" width="300" src="https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/07/1499401426qr_icon.svg">
+            </a>
 
                 <canvas hidden="" id="qr-canvas"></canvas>
 

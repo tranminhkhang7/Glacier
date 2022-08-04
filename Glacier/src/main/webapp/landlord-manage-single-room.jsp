@@ -180,12 +180,12 @@
             <button class="btn btn-secondary large icon float-left" style="font-size: 16px; margin: 10px 20px 0px 0px;"
                     onclick="closeBillForm()">Hủy</button>
         </div>
-               
+
         <div class="popup" id="requestForm">
             <h2>Thông báo cho người thuê</h2>
             <form class="form form-submit" action="${pageContext.request.contextPath}/landlordnotify" method="POST">
                 <input name="id" type="hidden" value="${id}">
-               
+
                 <div class="form-group">
                     <label for="title" class="col-form-label required">Tiêu đề</label>
                     <input name="title" type="text" class="form-control" id="title" placeholder="Tiêu đề thông báo" autocomplete="off" required>
@@ -271,14 +271,14 @@
                                         <h2>Thông tin người thuê</h2>
                                         <div class="box">
                                             <div class="author" style="margin-bottom: 10%;">
-                                                <div class="author-image">
-                                                    <div class="background-image">
-                                                        <img src="${pageContext.request.contextPath}/assets/img/author-01.jpg" alt="avatar">
-                                                    </div>
-                                                </div>
+
+
+                                                <img style="z-index:2000; border-radius: 50%; max-width: 100px; min-height: 100px" src="${tenant.profilePicture.trim()}" alt="" />
+
                                                 <!--end author-image-->
                                                 <div style="display: inline-block;" class="author-description">
                                                     <h3>${tenant.name}</h3>
+
                                                     <!--<div class="rating" data-rating="4"></div>-->
                                                     <a href="#" class="text-uppercase">Bắt đầu thuê từ ${rentStartDate}
                                                     </a>
@@ -302,10 +302,7 @@
                                                 <dd>${tenant.phone}</dd>
                                                 <dt>Email</dt>
                                                 <dd>${tenant.email}</dd>
-                                                <dt>Facebook</dt>
-                                                <dd>${tenant.facebookLink}</dd>
-                                                <dt>Instagram</dt>
-                                                <dd>${tenant.facebookLink}</dd>
+
                                             </dl>
                                             <!--end author-->
                                         </div>
@@ -353,7 +350,7 @@
                                         </c:if>
 
                                         <div style="display: inline-block; padding-left: 0;" class="col-md-3">
-                                            <a href="/Glacier/AllBills?id=${id}"><button class="btn btn-info btn-framed"> Xem tất cả hóa đơn</button></a>
+                                            <a href="/Glacier/AllBills?id=${id}"><button class="btn btn-danger btn-framed"> Xem tất cả hóa đơn</button></a>
                                         </div>
                                     </div>
 
@@ -361,13 +358,13 @@
                                     <div class="col-md-2">
                                         <div class="col-md-12">
                                             <div style="display: inline-block; right:10%; " class="col-md-3">
-                                                <button onclick="openBillForm()" class="btn btn-info btn-framed">Tạo hóa đơn</button>
+                                                <button onclick="openBillForm()" class="btn btn-danger btn-framed">Tạo hóa đơn</button>
                                             </div>
                                         </div>
                                         <br>
                                         <div class="col-md-12">
                                             <div style="display: inline-block; right:10%; " class="col-md-3">
-                                                <button onclick="openForm()" type="submit" class="btn btn-info btn-framed">Tạo thông báo</button>
+                                                <button onclick="openForm()" type="submit" class="btn btn-danger btn-framed">Tạo thông báo</button>
                                             </div>
                                         </div>
                                     </div>

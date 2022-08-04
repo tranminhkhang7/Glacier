@@ -8,6 +8,8 @@ package glacier.room.controller;
 import glacier.room.dbmanager.RoomManager;
 import glacier.bill.model.Bill;
 import glacier.bill.model.BillDetail;
+import glacier.room.model.Room;
+import glacier.user.model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -16,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -37,22 +40,30 @@ public class TenantBillingController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
+            HttpSession ss = request.getSession(false);
+            Account acc = (Account) ss.getAttribute("LOGIN_USER");
             String roomId = request.getParameter("id");
             RoomManager manager = new RoomManager();
+            Room room = manager.getTenantRentedRoom(Integer.parseInt(roomId));
+            if (acc.getEmail().equals(room.getEmailTenant().trim())) {
+                List<Bill> paidBillList = manager.getPaidBillList(Integer.parseInt(roomId), "paid");
+                List<Bill> unpaidBillList = manager.getPaidBillList(Integer.parseInt(roomId), "unpaid");
 
+                List<BillDetail> billDetail = manager.getBillsDetail(Integer.parseInt(roomId));
 
-            List<Bill> paidBillList = manager.getPaidBillList(Integer.parseInt(roomId), "paid");
-            List<Bill> unpaidBillList = manager.getPaidBillList(Integer.parseInt(roomId), "unpaid");
-            
-            List<BillDetail> billDetail = manager.getBillsDetail(Integer.parseInt(roomId));
-            
-            request.setAttribute("BILL_DETAILS", billDetail);
-            request.setAttribute("PAID_BILLS", paidBillList);
-            request.setAttribute("UNPAID_BILLS", unpaidBillList);
-            request.getRequestDispatcher("tenant-room-bill.jsp").forward(request, response);
+                request.setAttribute("BILL_DETAILS", billDetail);
+                request.setAttribute("PAID_BILLS", paidBillList);
+                request.setAttribute("UNPAID_BILLS", unpaidBillList);
+                request.getRequestDispatcher("tenant-room-bill.jsp").forward(request, response);
+                return;
+            } else {
+                response.sendRedirect("error.jsp");
+                return;
+            }
         } catch (Exception e) {
-            log("Error at TenantBillingController: "+e.toString());
+            log("Error at TenantBillingController: " + e.toString());
         }
+        response.sendRedirect("error.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
